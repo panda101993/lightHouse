@@ -1,0 +1,236 @@
+
+
+@media(max-width: 1024px){
+	ul.verify_c3 {
+    flex-wrap: wrap;
+}
+ul.verify_c3 li {
+    margin-top: 10px;
+}
+.tcl00 h3 {
+    font-size: 13px;
+}
+
+}
+
+@media(max-width: 768px){
+	.information-sec {
+    max-width: 64%;
+}
+.information {
+    max-width: 88%;
+}
+.brand {
+    width: 100%;
+    max-width: 37%;
+}
+}
+
+@media(max-width:992px){
+ .wrapper{
+  width:100%;
+} 
+}
+@media(max-width: 767px){
+	.basic span button.view-but {
+    padding: 7px 13px;
+    font-size: 14px;}
+ 
+ .basic h5 {
+    font-size: 17px;}
+ul.shop {
+    font-size: 15px;}
+  .information-sec {
+    max-width: 78%;
+}
+ul.mart{font-size: 15px;}
+
+.information {
+    max-width: 100%;}
+  .product-service h1 {
+    font-size: 18px;
+}
+.brand ul {
+    font-size: 15px;}
+ .brand {
+    width: 100%;
+    max-width: 63%;
+}
+.product-service {
+    border:none !important;
+    padding: 14px 0px;
+}
+.about-us h4 {
+    font-size: 17px;
+    font-weight: 400;
+    padding: 0px 0px;
+}
+.about-us p {
+    font-size: 14px;
+}
+.time h2 {
+    font-size: 17px;
+    padding: 0px;
+}
+ul.sunday {
+    font-size: 14px;
+   }
+   ul.timeing {
+    font-size: 13px;}
+ .product h1 {
+    font-size: 17px;}
+.category p {
+    margin: 0px;
+   font-size: 14px;}
+ .category h3 {
+ font-size: 14px;}
+
+ .category span {
+    font-size: 14px;}
+ .product {
+    border:none !important;
+    padding: 14px 12px;
+    margin-bottom:0px;
+}
+ .collapsed_c3 .panel-title>a, .panel-title>a:active {
+    font-size: 12px;
+} 
+.panel-heading a:before {
+    float: right;
+    transition: all 0.5s;
+    font-size: 16px; }
+  .panel-body._cliche_c3 {
+    font-size: 13px;
+    padding: 0px 15px;
+} 
+}
+  
+
+@media(max-width: 414px){
+	.view-website a {
+    font-size: 13px;
+    padding: 7px 13px;}
+    .basic h5 {
+    font-size: 16px;
+    padding-top: 17px;
+}
+ul.mart {
+    font-size: 13px;
+    margin-left: 37px;
+}
+ul.shop {
+    font-size: 13px;
+}
+.brand ul {
+    font-size: 12px;
+}
+.product-service h1 {
+    font-size: 14px;
+}
+input.form-control.bhaswati_c3 {
+    width: 100%;
+    min-width: 0;
+}
+.tab-content.manage_genral {
+    box-shadow: none;}
+   input.form-control._number {
+    width: 100%;
+    min-width: 0px;
+}
+select.form-control._range_s3 {
+    width: 100%;
+    min-width: 154px;
+}
+select.form-control.month_c3 {
+    width: 100%;
+    min-width: 95px;
+    margin-top: 14px;
+}
+.please_enter ul li.date {
+    border-right: 1px solid#ced4da;
+}
+.manage a.nav-link._settings {
+    font-size: 13px;
+    line-height: 22px;
+    color: #000;
+    font-weight: 400;
+    padding: 9px 6px;}
+  h3.info_c3 {
+    font-size: 15px;
+    line-height: 22px;
+    padding: 9px 0px;}
+  span.name {
+    font-size: 14px;
+}
+.name_c3 label {
+    margin: 8px 0px 0;
+}
+}
+
+@media(max-width: 360px){
+	.basic {
+    padding: 12px 12px;
+    margin-top: 16px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #d7d6d6;
+}
+.basic span button.view-but {
+    padding: 6px 7px;
+    font-size: 12px;
+}
+.basic h5 {
+    font-size: 13px;
+}
+ul.shop {
+    font-size: 12px;
+}
+
+ul.mart {
+    font-size: 12px;
+}
+.view-website a {
+    font-size: 11px;
+    padding: 6px 7px;
+}
+.product-service{
+	margin-top: 0px;
+}
+.product-service h1 {
+    font-size: 13px;
+}
+.brand {
+    width: 100%;
+    max-width: 72%;
+}
+.brand ul {
+    font-size: 11px;
+}
+ul.current_c3 button.use_my {
+    padding: 4px 10px;
+    font-size: 12px;
+}
+h3.info_c3 {
+    font-size: 12px;
+    line-height: 22px;
+    padding: 10px 4px;
+}
+h5.enter_cs3 {
+    font-size: 13px;
+    line-height: 22px;
+    
+}
+label.home_c3 {
+    font-size: 15px;
+    color: #000000;
+    font-weight: 400;
+    margin: 0px;
+    padding: 5px 0px;
+}
+.name_c3 label {
+    margin: 8px 0px 0;
+    font-size: 12px;
+}
+}
+
+	

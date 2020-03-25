@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,14 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
+
+/* @import "./assets/css/all.min.css"; */
+/* @import "./assets/css/animate.css"; */
+@import "./assets/css/animate.min.css";
+@import "./assets/css/bootstrap.min.css";
+/* @import "./assets/css/font-awesome.min.css"; */
+@import "./assets/css/responsive-style.css";
+/* @import "./assets/css/slick-theme.css"; */
+@import "./assets/css/slick.css";
+@import "./assets/css/style.css";
