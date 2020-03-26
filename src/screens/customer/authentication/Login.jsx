@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import { GlobalValidations } from '../../components/GlobalValidations';
-import { GlobalButtonLinks } from '../../components/GlobalButtonLinks';
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
+import { GlobalValidations } from '../../../components/GlobalValidations';
+import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 
 export default class Login extends Component {
     render() {
         return (
             <div>
-
                 {/* <section className="center-form"> */}
                 <body>
                     <Header />
-
                     <section>
                         <div class="container-fluid">
                             <div class="cover-laging">
@@ -66,7 +64,6 @@ export default class Login extends Component {
                                     btnClass="btn btn-theme"
                                     btntxt="LOGIN"
                                     />
-
                                     </Link> */}
                                     <div class="have-an">
                                         <p>Don't have an account ? <Link to="Signup">Sign up</Link></p>
@@ -74,7 +71,6 @@ export default class Login extends Component {
                                 </form>
                             </div>
                         </div>
-
                     </section>
 
                     <Footer />

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import { GlobalValidations } from '../../components/GlobalValidations';
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
+import { GlobalValidations } from '../../../components/GlobalValidations';
 import { Link } from 'react-router-dom';
 
-export default class Signup_User extends Component {
+export default class Signup extends Component {
     render() {
         return (
             <div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Login from './screens/authentication/Login'
-import  Signup_User from "./screens/authentication/Signup_User"
+import Login from './screens/customer/authentication/Login'
+import  Signup from "./screens/customer/authentication/Signup"
 import {
   BrowserRouter as Router,
   Route,
@@ -19,11 +19,9 @@ function App() {
     <Router history={history}>
       <Switch>
         <Route path="/" component={Login} />
-        {/* <Route path="/Signup" component={Signup_User} /> */}
+        <Route path="/Signup" component={Signup} />
       </Switch>
     </Router>
-
-
   );
 }
 
