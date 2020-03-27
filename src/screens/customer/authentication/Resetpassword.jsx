@@ -9,7 +9,6 @@ export default class ResetPassword extends Component {
     render() {
         return (
             <div>
-                {/* <section className="center-form"> */}
                 <body>
                     <Header />
                     <section>
