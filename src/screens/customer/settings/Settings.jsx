@@ -5,11 +5,10 @@ import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 
-export default class Mywishlist extends Component {
+export default class ForgotPassword extends Component {
     render() {
         return (
             <div>
-                {/* <section className="center-form"> */}
                 <body>
                     <Header />
                     <section>
@@ -18,18 +17,45 @@ export default class Mywishlist extends Component {
                <div class="col-lg-3 col-sm-12 mb-3">
                   <div class="manage">
                      <div class="nav flex-column nav-pills home_c3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link _settings" id="Manage-General-Info-tab" data-toggle="pill" href="#Manage-General-Info" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</a>
-                        <a class="nav-link _settings" id="Change-Password-tab" data-toggle="pill" href="#Change-Password" role="tab" aria-controls="v-pills-profile" aria-selected="false">Change Password</a>
-                        <a class="nav-link active _settings" id="My-Wishlist-tab" data-toggle="pill" href="#My-Wishlist" role="tab" aria-controls="v-pills-messages" aria-selected="false">My Wishlist</a>
-                        <a class="nav-link _settings" id="My-Saved-Coupons-tab" data-toggle="pill" href="#My-Saved-Coupons" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Saved Coupons</a>
+                        <a class="nav-link active _settings" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</a>
+                        <a class="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#Change-Password" role="tab" aria-controls="v-pills-profile" aria-selected="false">Change Password</a>
+                        <a class="nav-link  _settings" id="v-pills-messages-tab" data-toggle="pill" href="#My-Wishlist" role="tab" aria-controls="v-pills-messages" aria-selected="false">My Wishlist</a>
+                        <a class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#My-Saved-Coupons" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Saved Coupons</a>
                      </div>
                   </div>
                </div>
                <div class="col-lg-9 col-sm-12">
                   <div class="tab-content manage_genral" id="v-pills-tabContent">
-                     <div class="tab-pane fade" id="Manage-General-Info" role="tabpanel" aria-labelledby="Manage-General-Info-tab">
-                        <h3 class="info_c3">Please Provide Information For Personalised  Experience</h3>
-                        <div class="name_c301">
+                     <div class="tab-pane fadeshow active " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h3 class="info_c3">Manage General Info</h3>
+                        <div class="name_c3">
+                           <span class="name">
+                              <label>Name</label>
+                              <p><input type="text" class="form-control" placeholder="Sushree"/></p>
+                           </span>
+                           <span class="name">
+                              <label>Mobile Number</label>
+                              <ul class="select_s3">
+                                 <li>
+                                    <select class="form-control _exmple">
+                                       <option>+91</option>
+                                       <option>2</option>
+                                    </select>
+                                 </li>
+                                 <li><input type="text" class="form-control _number" placeholder="9650225013"/></li>
+                              </ul>
+                           </span>
+                           <span class="name">
+                              <label>Email <img src="images/about-icon.png"/><a href="#">(Verify)</a></label>
+                              <ul class="verify_c3">
+                                 <li><input type="text" class="form-control bhaswati_c3" placeholder="bhaswati@gmail.com"/></li>
+                                 <li class="verify_button_c3"><a href="#">Verify</a></li>
+                              </ul>
+                           </span>
+                           <span class="name">
+                              <label>Referral Code</label>
+                              <p><input type="text" class="form-control" placeholder="#$%^&*1234ert$$$$"/></p>
+                           </span>
                            <div class="age-range">
                               <span class="name">
                                  <label>Age Range</label>
@@ -52,9 +78,8 @@ export default class Mywishlist extends Component {
                               <div class="please_enter">
                                  <ul>
                                     <li class="date">Date</li>
-                                    <li class="no">
-                                       <i class="fa fa-sort-desc drop-btn" aria-hidden="true"></i>
-                                       <select class="form-control month_c3no">
+                                    <li>
+                                       <select class="form-control month_c3">
                                           <option>12</option>
                                           <option>13</option>
                                           <option>14</option>
@@ -66,9 +91,8 @@ export default class Mywishlist extends Component {
                               <div class="please_enter">
                                  <ul>
                                     <li class="date">Month</li>
-                                    <li class="no">
-                                       <i class="fa fa-sort-desc drop-btn" aria-hidden="true"></i>
-                                       <select class="form-control month_c3no">
+                                    <li>
+                                       <select class="form-control month_c3">
                                           <option>Jan</option>
                                           <option>Feb</option>
                                           <option>Mar</option>
@@ -83,9 +107,8 @@ export default class Mywishlist extends Component {
                               <div class="please_enter">
                                  <ul>
                                     <li class="date">Date</li>
-                                    <li class="no">
-                                       <i class="fa fa-sort-desc drop-btn" aria-hidden="true"></i>
-                                       <select class="form-control month_c3no">
+                                    <li>
+                                       <select class="form-control month_c3">
                                           <option>12</option>
                                           <option>13</option>
                                           <option>14</option>
@@ -97,9 +120,8 @@ export default class Mywishlist extends Component {
                               <div class="please_enter">
                                  <ul>
                                     <li class="date">Month</li>
-                                    <li class="no">
-                                       <i class="fa fa-sort-desc drop-btn" aria-hidden="true"></i>
-                                       <select class="form-control month_c3no">
+                                    <li>
+                                       <select class="form-control month_c3">
                                           <option>Jan</option>
                                           <option>Feb</option>
                                           <option>Mar</option>
@@ -111,35 +133,54 @@ export default class Mywishlist extends Component {
                            </div>
                            <span class="name">
                            <label>Occupation</label>
-                           <input type="text" class="form-control income-stp" placeholder="Occupation"/>
+                           <input type="text" class="form-control" placeholder="Occupation"/>
                            </span>
                            <span class="name">
                               <label>Income Range</label>
-                              <select class="form-control income-stp">
+                              <select class="form-control">
                                  <option>Les then 10.000</option>
                               </select>
                            </span>
                            <span class="name">
                               <label>Homeownership</label>
-                              <select class="form-control income-stp">
+                              <select class="form-control">
                                  <option>Rent</option>
                               </select>
                            </span>
                            <span class="name">
                               <label>Educational Level</label>
-                              <select class="form-control income-stp">
+                              <select class="form-control">
                                  <option>Master’s Degree or Above</option>
                               </select>
                            </span>
                            <div class="address">
+                              <h3>Address Details</h3>
+                              <span class="name">
+                              <label>Pin Code*</label>
+                              <input type="text" class="form-control" placeholder="110025"/>
+                              </span>
+                              <span class="name">
+                                 <label>State*</label>
+                                 <select class="form-control">
+                                    <option>UP</option>
+                                 </select>
+                              </span>
+                              <span class="name">
+                              <label>City*</label>
+                              <input type="text" class="form-control" placeholder="Noida"/>
+                              </span>
+                              <span class="name">
+                              <label>Address*</label>
+                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Virgo Aluminum, Block D, Okhla Industrial Estate Phase 1"></textarea>
+                              </span>
                               <ul class="button_cs">
-                                 <li class="cancel_c300"><button class="save">Skip</button></li>
-                                 <li><button class="save0">Submit</button></li>
+                                 <a href="62-dashboard-landing-screen.html">  <li class="cancel_c3"><button class="save">Cancel</button></li></a>
+                                <a href="62-dashboard-landing-screen.html"> <li><button class="save">Save</button></li></a>
                               </ul>
                            </div>
                         </div>
                      </div>
-                     <div class="tab-pane fade" id="Change-Password" role="tabpanel" aria-labelledby="Change-Password-tab">
+                   <div class="tab-pane fade" id="Change-Password" role="tabpanel" aria-labelledby="Change-Password-tab">
                         <h3 class="info_c3">Change Password</h3>
                         <div class="name_c301">
                            <form>
@@ -162,7 +203,7 @@ export default class Mywishlist extends Component {
                            </form>
                         </div>
                      </div>
-                     <div class="tab-pane fade show active " id="My-Wishlist" role="tabpanel" aria-labelledby="My-Wishlist-tab">
+                     <div class="tab-pane fade" id="My-Wishlist" role="tabpanel" aria-labelledby="My-Wishlist-tab">
                         <h3 class="info_c3">My Wishlist</h3>
                         <div class="name_c3">
                         </div>
@@ -240,7 +281,7 @@ export default class Mywishlist extends Component {
                               </div>
                               <div class="left-contant00">
                                  <h3>Retailers</h3>
-                                <h5>Product</h5> 
+                                 <h5>Product</h5> 
                               </div>
                               <div class="wish-slider">
                                  <div class="slider-item">
@@ -466,7 +507,7 @@ export default class Mywishlist extends Component {
                         <h3 class="info_c3">My Saved Coupons</h3>
                         <div class="name_c301">
                            <form class="search-box">
-                              <input type="text" class="form-control pass-word" placeholder="Search by Title, Product, Service, Mart Name, Shop Name etc." name="search"/>
+                              <input type="text" class="form-control pass-word" placeholder="Search by Coupan Name" name="search"/>
                               <i class="fa fa-search sear-btn"></i>
                            </form>
                         </div>
@@ -474,7 +515,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizza great deal.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -482,7 +523,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizz-expired.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -490,7 +531,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizza great deal.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -498,7 +539,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                   <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizza great deal.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -506,7 +547,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizz-expired.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -514,7 +555,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizza great deal.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -522,7 +563,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizza great deal.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -530,7 +571,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizz-expired.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -538,7 +579,7 @@ export default class Mywishlist extends Component {
                            <div class="col-lg-4 col-md-4 col-sm-12">
                               <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                                  <figure class="coupon-sec">
-                                    <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                                    <img src="images/pizza great deal.png"/>
                                  </figure>
                               </div>
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
@@ -552,13 +593,8 @@ export default class Mywishlist extends Component {
             </div>
          </div>
       </section>
-
                     <Footer />
-
                 </body>
-
-
-
             </div>
         )
     }

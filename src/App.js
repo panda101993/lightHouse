@@ -8,6 +8,7 @@ import ResetPassword from "./screens/customer/authentication/Resetpassword"
 import SignupOtp from "./screens/customer/authentication/SignupOtp"
 import  LoginRetailer from "./screens/Retailer/authentication/Login"
 import SignupRetailer from "./screens/Retailer/authentication/Signup"
+import Mywishlist from "./screens/customer/settings/Mywishlist"
 import {
   BrowserRouter as Router,
   Route,
