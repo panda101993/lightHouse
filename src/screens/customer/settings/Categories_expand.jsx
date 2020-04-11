@@ -374,20 +374,6 @@ export default class Categories_Expand extends Component {
                   <div class="slider-second">
                      <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
                   </div>
-               <div class="second-slidcont">
-                     <ul>
-                        <li>Title :</li>
-                        <li>Great Deal</li>
-                        <li>Coupon Code :</li>
-                        <li>C12345678op</li>
-                        <li>Discount % :</li>
-                        <li>45% </li>
-                        <li>Item Name :</li>
-                        <li>Item Name</li>
-                     </ul>
-                  </div> 
-                     <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
-                  </div>
                  <div class="second-slidcont">
                      <ul>
                         <li>Title :</li>
@@ -416,13 +402,13 @@ export default class Categories_Expand extends Component {
                         <li>Item Name :</li>
                         <li>Item Name</li>
                      </ul>
-                  </div> 
+                  </div>
                </div>
                <div class="cover-slidersection">
                   <div class="slider-second">
                      <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
                   </div>
-                  <div class="second-slidcont">
+                 <div class="second-slidcont">
                      <ul>
                         <li>Title :</li>
                         <li>Great Deal</li>
@@ -439,7 +425,24 @@ export default class Categories_Expand extends Component {
                   <div class="slider-second">
                      <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
                   </div>
-                  <div class="second-slidcont">
+                <div class="second-slidcont">
+                     <ul>
+                        <li>Title :</li>
+                        <li>Great Deal</li>
+                        <li>Coupon Code :</li>
+                        <li>C12345678op</li>
+                        <li>Discount % :</li>
+                        <li>45% </li>
+                        <li>Item Name :</li>
+                        <li>Item Name</li>
+                     </ul>
+                  </div> 
+               </div>
+               <div class="cover-slidersection">
+                  <div class="slider-second">
+                     <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
+                  </div>
+                 <div class="second-slidcont">
                      <ul>
                         <li>Title :</li>
                         <li>Great Deal</li>
