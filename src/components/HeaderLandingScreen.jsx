@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export default class Header2 extends Component {
+export default class HeaderLandingScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             modalStatus: false,
+           modalStatusLocation: false,
         }
     }
 
@@ -25,14 +26,18 @@ export default class Header2 extends Component {
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         </li>
                                         <li>
-                                            <a href="#" data-toggle="modal" data-target="#fill-loctnform" >Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <Link onClick={() => this.setState({ modalStatusLocation: !this.state.modalStatusLocation })}>Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></Link>
+
+                                        </li>
+
+                                            {/* <a href="#" data-toggle="modal" data-target="#fill-loctnform" >Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a> */}
                                             {/* <select class="custom-select" id="inputGroupSelect01" data-toggle="modal" data-target="#locationsetmodal">
                                                     <option selected>Choose location</option>
                                                     <option value="1">New Delhi</option>
                                                     <option value="2">Lucknow</option>
                                                     <option value="3">Noida</option>
                                                 </select> */}
-                                        </li>
+                                       
                                     </ul>
                                 </div>
                                 <div class="left-top">
@@ -90,7 +95,8 @@ export default class Header2 extends Component {
                                     </li>
 
                                     <li class="nav-item dropdown account-drop">
-                                        <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
+                                        <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                         onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
                                             {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
                                             {/* My Account */}
                                             Log Out
@@ -141,7 +147,55 @@ export default class Header2 extends Component {
                         </div>
                     </div>
                 </div> */}
-                {/* </body> */}
+                {/* </body> */}  
+                
+                <Modal isOpen={this.state.modalStatusLocation} toggle={this.toggle} style={{ top: "110px",left:"100px" }}>
+                                            <ModalBody>
+                                                {/* <div class="modal fade" id="fill-loctnform" tabindex="-1" role="dialog" aria-labelledby="fill-loctnform" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document"> */}
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <ul class="curent-loc">
+                                                                    <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
+                                                                    <li><button type="button" class="btn btn-location">Use my current location</button></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="location-form">
+                                                                    <h3>Enter Your Location Details</h3>
+                                                                    <form>
+                                                                        <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlInput1">Pin Code*</label>
+                                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" />
+                                                                        </div>
+                                                                        <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlSelect1">State*</label>
+                                                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                                                <option>UP</option>
+                                                                                <option>Delhi</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlSelect2">City*</label>
+                                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" />
+                                                                        </div>
+                                                                      <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlTextarea1">Address*</label>
+                                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                        </div>
+                                                                        <div class="dasmodal-save">
+                                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {/* </div>
+                                                </div> */}
+
+
+                                            </ModalBody>
+                                        </Modal>
             </div>
         )
     }

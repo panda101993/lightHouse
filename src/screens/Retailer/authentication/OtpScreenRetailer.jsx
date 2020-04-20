@@ -8,7 +8,7 @@ import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
-export default class OTPScreen extends Component {
+export default class OtpScreenRetailer extends Component {
    constructor(props) {
       super(props)
 

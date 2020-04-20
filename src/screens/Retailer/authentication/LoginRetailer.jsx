@@ -5,17 +5,17 @@ import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 
-export default class Login extends Component {
+export default class LoginRetailer extends Component {
     render() {
         return (
             <div>
-          
+                {/* <section className="center-form"> */}
                 <body>
                     <Header />
                     <section>
                         <div class="container-fluid">
                             <div class="cover-laging">
-                                <h1>LOGIN</h1>
+                            <h1>RETAILER LOGIN</h1>
                                 <form>
                                     {/* <div class="form-group">
                                     <label>Phone Number :</label>
@@ -23,11 +23,11 @@ export default class Login extends Component {
                                 </div> */}
                                     <GlobalValidations
                                         divClass=""
-                                        label="Phone Number :"
+                                        label="Email ID/ Phone Number :"
                                         labelClass=""
                                         inputType="text"
                                         inputId="exampleInputEmail1"
-                                        inputPlaceholder="Enter your phone number"
+                                        inputPlaceholder="Enter your email id or phone number"
                                         errorMessage=""
                                         textInputClassName="form-control"
                                     />
@@ -49,13 +49,13 @@ export default class Login extends Component {
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input" />
                                         <label class="form-check-label">Remember Me</label>
-                                        <label><Link to="OtpScreen_Retailer">Forgot Password ?</Link></label>
+                                        <label><Link to="OtpScreenRetailer">Forgot Password ?</Link></label>
                                     </div>
                                     <GlobalButtonLinks
-                                        linkLabel="Signup_User"
+                                        linkLabel="Setting_retailer"
                                         btnType="button"
                                         btnClass="btn btn-theme"
-                                        btntxt="LOGIN"
+                                        btntxt="Login"
                                     />
                                     {/* <Link to="">
                                     <button type="button" class="btn btn-theme">LOGIN</button> 
@@ -66,7 +66,7 @@ export default class Login extends Component {
                                     />
                                     </Link> */}
                                     <div class="have-an">
-                                        <p>Don't have an account ? <Link to="Signup">Sign up</Link></p>
+                                        <p>Don't have an account ? <Link to="SignupRetailer">Sign up</Link></p>
                                     </div>
                                 </form>
                             </div>

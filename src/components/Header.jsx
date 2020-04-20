@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { Link } from 'react-router-dom';
 export default class Header extends Component {
     render() {
         return (
@@ -28,18 +28,18 @@ export default class Header extends Component {
                                     <div class="left-top">
                                         <ul class="leftsideloctn">
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <Link class="nav-link" to="SignupRetailer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Retailer
-                           </a>
+                           </Link>
                                                 <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                     <a class="dropdown-item" href="14-login(retailer).html">Login</a>
                                                     <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
                                                 </div>
                                             </li>
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <Link class="nav-link " to="SignupCustomer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     End User
-                           </a>
+                           </Link>
                                                 <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                     <a class="dropdown-item" href="3-login.html">Login</a>
                                                     <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>

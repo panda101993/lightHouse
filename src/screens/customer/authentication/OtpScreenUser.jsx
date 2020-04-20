@@ -8,7 +8,8 @@ import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
-export default class OTPScreen extends Component {
+
+export default class OtpScreenUser extends Component {
    constructor(props) {
       super(props)
 
@@ -62,40 +63,14 @@ export default class OTPScreen extends Component {
       // this.state.otpStatus = this.validateOtp(value).status;
 
 
-      // handleOtpInput2=(e)=> {
-      //    const name = e.target.name;
-      //    const value = e.target.value;
-      //    this.setState({ [name]: value })
-      //       // () => { this.validateOtp(value) });
-      //    console.log("valueset==>", value)
-      //    this.state.otpErrorMessage = this.validateOtp(value).error;
-      //    this.state.otpStatus2 = this.validateOtp(value).status;
-      // }
-
-      //    handleOtpInput3=(e)=> {
-      //       const name = e.target.name;
-      //       const value = e.target.value;
-      //       this.setState({ [name]: value })
-
-      //          // () => { this.validateOtp(value) });
-      //       console.log("valueset==>", value)
-      //       this.state.otpErrorMessage = this.validateOtp(value).error;
-      //       this.state.otpStatus3 = this.validateOtp(value).status;
-      //    }
-
-      //       handleOtpInput4=(e)=> {
-      //          const name = e.target.name;
-      //          const value = e.target.value;
-      //          this.setState({ [name]: value })
-      //             // () => { this.validateOtp(value) });
-      //          console.log("valueset==>", value)
-      //          this.state.otpErrorMessage = this.validateOtp(value).error;
-      //          this.state.otpStatus4 = this.validateOtp(value).status;
-      //       }
-
       if (name == "otp") {
          this.state.otpErrorMessage = validateOtp(value).error;
          this.state.otpStatus = validateOtp(value).status;
+         // var len = Math.floor(Math.log10(value))+1;
+         // if(len === 1){
+         //    this.otp2.focus()
+         //    this.inputs.
+         // }
       }
       else if (name == "otp2") {
          this.state.otpErrorMessage = validateOtp(value).error;
@@ -110,6 +85,7 @@ export default class OTPScreen extends Component {
          this.state.otpStatus4 = validateOtp(value).status;
       }
    }
+
 
    //    switch(name){
    //       case "otp":
@@ -146,33 +122,25 @@ export default class OTPScreen extends Component {
    //       return { status: true, error: "" };
    //    }
    // }
-
-   // check()
-   // {
-   // var letters = document.joe.otp.value.length +1;
-   // if (letters <= 2)
-   // {document.joe.otp.focus()}
-   // else
-   // {document.joe.otp2.focus()}
-   // }
-
-   // container=() => document.getElementsByClassName("container")[0];
-   // container.onkeyup = function(e) {
-   //     var target = e.srcElement;
-   //     var maxLength = parseInt(target.attributes["maxlength"].value, 10);
-   //     var myLength = target.value.length;
-   //     if (myLength >= maxLength) {
-   //         var next = target;
-   //         while (next = next.nextElementSibling) {
-   //             if (next == null)
-   //                 break;
-   //             if (next.tagName.toLowerCase() == "input") {
-   //                 next.focus();
-   //                 break;
-   //             }
-   //         }
-   //     }
-   // }
+//  moveOnMax=()=>{
+//    var container = document.getElementsByClassName("container")[0];
+//    container.onkeyup = function(e) {
+//        var target = e.srcElement || e.target;
+//        var maxLength = parseInt(target.attributes["maxlength"].value, 10);
+//        var myLength = target.value.length;
+//        if (myLength >= maxLength) {
+//            var next = target;
+//            while (next = next.nextElementSibling) {
+//                if (next == null)
+//                    break;
+//                if (next.tagName.toLowerCase() === "input") {
+//                    next.focus();
+//                    break;
+//                }
+//            }
+//          }
+//       }
+//  }
 
    render() {
       return (
@@ -192,27 +160,27 @@ export default class OTPScreen extends Component {
                            <div class="form-group">
                               <div class="otp-box">
                                  <p>Enter 4 - digits code</p>
-
+                                 
                                  <ul>
                                     <li>
                                        <input class="form-control"
                                           name="otp"
-                                          type="texts"
+                                          type="text"
                                           maxLength={1}
                                           placeholder="0"
-                                          // value={this.state.otp}
+                                          id="otp"
                                           onChange={(event) => this.handleOtpInput(event)} />
 
                                     </li>
                                     <li>
 
-                                       {/* <input type="text" class="form-control" value="" /> */}
+                                      
                                        <input class="form-control"
                                           name="otp2"
                                           type="text"
                                           maxLength={1}
                                           placeholder="0"
-                                          // value={this.state.otp}
+                                          id="otp2"
                                           onChange={(event) => this.handleOtpInput(event)} />
                                     </li>
                                     <li>
@@ -222,6 +190,7 @@ export default class OTPScreen extends Component {
                                           type="text"
                                           maxLength={1}
                                           placeholder="0"
+                                          id="otp3"
                                           // value={this.state.otp}
                                           onChange={(event) => this.handleOtpInput(event)} />
                                     </li>
@@ -232,18 +201,20 @@ export default class OTPScreen extends Component {
                                           type="text"
                                           maxLength={1}
                                           placeholder="0"
+                                          id="otp4"
                                           // value={this.state.otp}
                                           onChange={(event) => this.handleOtpInput(event)} />
                                     </li>
                                     {/* < input value={this.state.otp} onChange={(value) => this.UserOtp(value)}/> */}
 
                                  </ul>
+
                                  <div>
                                     <label class="validation-hint">
                                        {this.state.otpErrorMessage}
                                     </label>
                                  </div>
-
+{/* </div> */}
 
                                  <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
                                     Resend
@@ -266,7 +237,9 @@ export default class OTPScreen extends Component {
 
                               </div>
                            </div>
-                           <Link to="Otp"><button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button></Link>
+                           {/* <Link to=""> */}
+                              <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
+                              {/* </Link> */}
                         </form>
                      </div>
                   </div>
@@ -287,6 +260,7 @@ export default class OTPScreen extends Component {
                </div>
 
             </body>
+
 
 
 

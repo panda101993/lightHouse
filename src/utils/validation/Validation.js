@@ -128,3 +128,19 @@ export function requirePassword(password) {
     return { status: false, error: "Password required." };
   }
 }
+
+/* To Handle OTP validation */
+
+export function validateOtp(value) {
+  
+    console.log("validate===>", value)
+    var otpRegex = /^\d{1}$/;
+    //   otp = otp.trim();
+    if (value == "" || value == undefined || value == null) {
+       return { status: false, error: "Please enter OTP." };
+    } else if (!otpRegex.test(value)) {
+       return { status: false, error: "*Please enter valid OTP." };
+    } else {
+       return { status: true, error: "" };
+    }
+ }

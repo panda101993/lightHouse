@@ -4,7 +4,7 @@ import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { Link } from 'react-router-dom';
 
-export default class Signup extends Component {
+export default class SignupCustomer extends Component {
     render() {
         return (
             <div>
@@ -21,7 +21,7 @@ export default class Signup extends Component {
                                     <div class="user-retailer">
                                         <ul>
                                             <li class="active"><a href="#">User</a></li>
-                                            <li><a href="29-signup-retailer.html">Retailer</a></li>
+                                            <li><Link  to="SignupRetailer">Retailer</Link></li>
                                         </ul>
                                     </div>
                                     {/* <div class="form-group">
@@ -99,9 +99,9 @@ export default class Signup extends Component {
                                         <input type="checkbox" class="form-check-input" />
                                         <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions">Terms and Conditions</a> </label>
                                     </div>
-                                    <a href="26-otpscreen.html"><button type="button" class="btn btn-theme" >SIGNUP</button> </a>
+                                    <Link to="LoginCustomer"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
                                     <div class="have-an">
-                                        <p>Already Have an account? <Link to="Login">Login</Link></p>
+                                        <p>Already Have an account? <Link to="LoginCustomer">Login</Link></p>
                                     </div>
                                 </form>
                             </div>
