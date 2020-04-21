@@ -44,6 +44,10 @@ import SettingEndUser from '../screens/settings/SettingEndUser';
 import WebsiteRetailer from '../screens/Retailer/WebsiteRetailer';
 import WebsiteMart from '../screens/Retailer/WebsiteMart';
 import AllRetailers from '../screens/Retailer/AllRetailers';
+import  subCategories  from '../screens/Retailer/subCategories';
+import AllCouponsRetailers from '../screens/Retailer/AllCouponsRetailers';
+import AllCouponsShare from '../screens/Retailer/AllCouponsShare';
+import CouponslistPopup from '../screens/Retailer/CouponslistPopup';
 
 export default class Navigation extends Component {
     render() {
@@ -79,6 +83,10 @@ export default class Navigation extends Component {
                  <Route path="/WebsiteMart" component ={WebsiteMart } /> 
                  <Route path="/AllRetailers" component ={AllRetailers } />
                     
+                  <Route path="/subCategories" component ={subCategories} />  
+                  <Route path="/AllCouponsRetailers" component={AllCouponsRetailers} />
+                  <Route path="/AllCouponsShare" component={AllCouponsShare} /> 
+                  <Route path="/CouponslistPopup" component={CouponslistPopup} />
 
                 </div>
             </Router>
