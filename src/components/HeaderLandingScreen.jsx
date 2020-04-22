@@ -43,22 +43,29 @@ export default class HeaderLandingScreen extends Component {
                                 <div class="left-top">
                                     <ul class="leftsideloctn">
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Retailer
-                           </a>
-                                            <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
+                                            <select class="nav-link"   id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {/* Retailer */} 
+                                                <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
+                                                    <option class="dropdown-item" value="1">Login</option>
+                                                    <option class="dropdown-item" value="2">Sign Up</option> 
+                                                    </div>
+                                              </select>
+                                            {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="14-login(retailer).html">Login</a>
                                                 <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
-                                            </div>
+                                            </div> */}
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                End User
-                           </a>
+                                            <select class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
+                                                    <option class="dropdown-item" value="1">Login</option>
+                                                    <option class="dropdown-item" value="2">Sign Up</option> 
+                                                    </div>
+                                            </select> 
+                                            {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="3-login.html">Login</a>
                                                 <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
-                                            </div>
+                                            </div> */}
                                         </li>
                                     </ul>
                                 </div>

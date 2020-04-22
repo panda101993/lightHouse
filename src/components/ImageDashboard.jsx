@@ -10,37 +10,18 @@ export default function ImageDashboard ( props )  {
 
     return ( 
            <> 
-          <body> 
-          {/* <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        <a href="64-all-retailers.html" > 
-                        <img src= {  require( "../../src/assets/images/image1.png") } />  
-                        </a>
-                     
-                     </div>
-                     <div class="tcl">
-                        <p> {ImageName}</p>
-                     </div>
-                     <div class="heart">
-                       
-                        <a data-toggle="modal" data-target="#coup-rmv-success" > 
-                       
-                     <img src = { { count } ? require( "../../src/assets/images/redheart.png" ) : 
-                      require( "../../src/assets/images/heart.png" ) }   onClick ={ () => setCount (true) }  /> </a> 
-                     </div>
-                  </div>
-               </div> */} 
+          <body>  
+                  
                <div class="slider-item">
                                     <div class="main-coverslider">
-                                       <div class="cover-images00">
+                                       {/* <div class="cover-images00"> */}
                                    <Link to="/AllRetailers" >       <img  
-                                          // src="images/image1.png"  
+                                          style={{width:"90%",height:"70%" }}
                                           src={require('../assets/images/image1.png')}
                                             data-toggle="modal" data-target="#wishlist" /> </Link>  
-                                       </div>
+                                       {/* </div> */}
                                        <div class="tcl00">
-                                          <p>TCL E-Mart</p>
+                                          <p> {ImageName} </p>
                                        </div>
                                        <div class="heart">
                                           <a data-toggle="modal" data-target="#coup-rmv-success" > 

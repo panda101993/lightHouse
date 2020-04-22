@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css'; 
-import ImageDashboard from "../../components/ImageDashboard"
+
+import CatogriesImage from './CatogriesImage';
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -45,25 +46,25 @@ export class DashboardImageScroll extends Component {
   itemClass="carousel-item-padding-40-px"
 >
    <div>
-       <ImageDashboard ImageName="TCL E-Mart" />
+       <CatogriesImage ImageName="Bounce Salon & Spa" />
    </div> 
    <div> 
-       <ImageDashboard ImageName="Hotel Treebo Mart" />
+       <CatogriesImage ImageName="Boddy Massage" />
    </div>
    <div> 
-       <ImageDashboard ImageName="Nebraska Furniture Mart" />
+       <CatogriesImage ImageName="Hair Cutting" />
    </div>
    <div> 
-       <ImageDashboard ImageName="SGBL Mega Mart" />
+       <CatogriesImage ImageName="Food Not Fine Dining" />
    </div>
    <div> 
-       <ImageDashboard ImageName="TCL E-Mart" />
+       <CatogriesImage ImageName="Bounce Salon & Spa" />
    </div>
    <div> 
-       <ImageDashboard ImageName="SGBL Mega Mart" />
+       <CatogriesImage ImageName="Hair Cutting" />
    </div>
    <div> 
-       <ImageDashboard ImageName="last" />
+       <CatogriesImage ImageName="last" />
    </div>
   
 

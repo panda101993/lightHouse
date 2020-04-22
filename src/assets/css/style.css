@@ -1839,13 +1839,14 @@ span.re_cs3 a {
 .tcl00 {
     /* margin-top: -25px !important; */
     background: #ffffff;
-    width: 100%;
-    text-align: left;
-    position: relative;
+    width: 90%;
+    text-align: center;
+    position: left;
     margin: 0 auto;
     border: 1px solid #dedbdb;
     height: 100%;
     min-height: 40px;
+    
 }
 
 .tcl00 h3 {

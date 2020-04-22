@@ -1,9 +1,8 @@
-
 import React, { Component } from 'react'
 
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css'; 
-import ImageDashboard from "../../components/ImageDashboard"
+import 'react-multi-carousel/lib/styles.css';   
+import CouponsImage from "../components/CouponsImage"
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -21,12 +20,12 @@ const responsive = {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-
-export class DashboardImageScroll extends Component { 
+export class CouponsScrollPupup extends Component {
     render() {
         return (
-            <div>
-               <Carousel
+            <div> 
+                  <div class="landing-slider">
+                   <Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
@@ -43,34 +42,44 @@ export class DashboardImageScroll extends Component {
   deviceType={this.props.deviceType}
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
->
-   <div>
-       <ImageDashboard ImageName="TCL E-Mart" />
-   </div> 
-   <div> 
-       <ImageDashboard ImageName="Hotel Treebo Mart" />
-   </div>
-   <div> 
-       <ImageDashboard ImageName="Nebraska Furniture Mart" />
-   </div>
-   <div> 
-       <ImageDashboard ImageName="SGBL Mega Mart" />
-   </div>
-   <div> 
-       <ImageDashboard ImageName="TCL E-Mart" />
-   </div>
-   <div> 
-       <ImageDashboard ImageName="SGBL Mega Mart" />
-   </div>
-   <div> 
-       <ImageDashboard ImageName="last" />
-   </div>
-  
-
-</Carousel> 
+>     <div>
+     <CouponsImage />
+    
+    </div>  
+    <div>
+     <CouponsImage />
+    
+    </div>        
+    <div>
+     <CouponsImage />
+    
+    </div>
+    <div>
+     <CouponsImage />
+    
+    </div>
+    <div>
+     <CouponsImage />
+    
+    </div>
+    <div>
+     <CouponsImage />
+    
+    </div>
+    <div>
+     <CouponsImage />
+    
+    </div>
+    <div>
+     <CouponsImage />
+    
+    </div>
+    </Carousel>  
+            
+</div> 
             </div>
         )
     }
 }
 
-export default DashboardImageScroll
+export default CouponsScrollPupup

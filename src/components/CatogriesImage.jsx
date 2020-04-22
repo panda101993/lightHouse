@@ -11,17 +11,37 @@ export default function CatogriesImage ( props )  {
     return ( 
            <> 
           <body> 
-        
+{/*         
                <div class="slider-item">
                                     <div class="main-coverslider">
-                                       <div class="cover-images00">
+                                   
                                    <Link to="/AllRetailers" >       <img  
-                                          // src="images/image1.png"  
-                                          src={require('../assets/images/image1.png')}
+                                       
+                                          style={{width:"90%",height:"70%" }}
+                                          src={require('../assets/images/image5.png')}
                                             data-toggle="modal" data-target="#wishlist" /> </Link>  
                                        </div>
                                        <div class="tcl00">
-                                          <p>TCL E-Mart</p>
+                                          <p>{ImageName }</p>
+                                       </div>
+                                       <div class="heart">
+                                          <a data-toggle="modal" data-target="#coup-rmv-success" > 
+                                          
+                                          <img src={require('../assets/images/redheart.png')} onClick={() =>setModal(!modalStatus)} /></a>
+                                        
+                                        </div>
+                                   
+                </div>    */} 
+                   <div class="slider-item">
+                                    <div class="main-coverslider">
+                                       {/* <div class="cover-images00"> */}
+                                   <Link to="/subCategories" >       <img  
+                                          style={{width:"90%",height:"70%" }}
+                                          src={require('../assets/images/image5.png')}
+                                            data-toggle="modal" data-target="#wishlist" /> </Link>  
+                                       {/* </div> */}
+                                       <div class="tcl00">
+                                          <p> {ImageName} </p>
                                        </div>
                                        <div class="heart">
                                           <a data-toggle="modal" data-target="#coup-rmv-success" > 
@@ -31,6 +51,8 @@ export default function CatogriesImage ( props )  {
                                         </div>
                                     </div>
                 </div>   
+
+
                 <Modal isOpen={modalStatus} 
                 // toggle={this.toggle}
                  style={{ top: "110px", left: "100px" }}>

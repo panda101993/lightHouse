@@ -54,8 +54,9 @@ export default class Navigation extends Component {
         return (
             <Router>
                 <div> 
-                   <Route exact path='/' component= {Create_webpage} />
-                    {/* <Route exact path="/" component= {SignupCustomer} /> */}
+                   {/* <Route exact path='/' component= {Create_webpage} /> */}
+                    {/* <Route exact path="/" component= {SignupCustomer} /> */} 
+                    <Route exact path="/" component= {CreateWebpageInitialSignupProcess} />
                     <Route path="/SignupCustomer" component= {SignupCustomer} />
                     <Route  path="/LandingScreen"  component={ LandingScreen } /> 
 
@@ -73,7 +74,7 @@ export default class Navigation extends Component {
 
                     <Route path='/settings' component= {Settings} />
                     <Route path="/Setting_retailer" component= {Setting_retailer} />
-                    <Route path="/CreateWebpageInitialSignupProcess" component= {CreateWebpageInitialSignupProcess} />
+                 
                     <Route path="/NotificationScreens" component={NotificationScreens} />
                     <Route path="/NotificationScreensRetailer" component={NotificationScreensRetailer} />
                    
