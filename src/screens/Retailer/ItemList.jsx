@@ -1,37 +1,38 @@
 import React, { Component } from 'react'
-import Footer from '../../components/Footer'
 import Header2 from '../../components/Header2'
+import Footer from '../../components/Footer' 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css'; 
-import CatogriesScroll from '../../components/CatogriesScroll';
-import CouponsScrollPupup from '../../components/CouponsScrollPupup';
+import CouponImageSetting from '../../components/CouponImageSetting';
+import CouponsImage from '../../components/CouponsImage';
 const responsive = {
-   desktop: {
-     breakpoint: { max: 3000, min: 1024 },
-     items: 7,
-     slidesToSlide: 1, // optional, default to 1.
-   },
-   tablet: {
-     breakpoint: { max: 1024, min: 464 },
-     items: 2,
-     slidesToSlide: 2, // optional, default to 1.
-   },
-   mobile: {
-     breakpoint: { max: 464, min: 0 },
-     items: 1,
-     slidesToSlide: 1, // optional, default to 1.
-   },
- }; 
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 7,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  }; 
 
 
-export class subCategories extends Component {
+export class ItemList extends Component {
     render() {
         return (
-            <div> <body>
+            <div>
                <Header2 /> 
                <div class="container-fluid">
-         <div class="slidertop">
-               <Carousel
+            <div class="slidertop"> 
+            <section class="center slider">
+            <Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
@@ -49,59 +50,56 @@ export class subCategories extends Component {
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
 >   
-              
-            {/* <section class="center slider"> */}
-               <div>
-                  <div class="slicent activa">
-                     Category Name
+<div>
+                     <div class="slicent activa">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-               <div>
-                  <div class="slicent">
-                     Category Name
+                  <div>
+                     <div class="slicent">
+                        Sub-Category Name
+                     </div>
                   </div>
-               </div>
-            {/* </section> */}
-        
-   </Carousel>  
-   </div>
-      </div> 
-      <section class="third">
+            </Carousel> 
+         </section>
+            </div>
+           </div>  
+           <section class="third">
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-3">
@@ -115,7 +113,7 @@ export class subCategories extends Component {
                               <div class="car">
                                  <div class="card-heade">
                                     <h2 class="mb-0 down-arrow">
-                                       <input type="checkbox" class="form-check-input car" id="exampleCheck1"/>
+                                       <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
                                        <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                           <span class="mart-mar-left">Mart Name </span> 
                                        </button>
@@ -128,27 +126,27 @@ export class subCategories extends Component {
                                     <div class="card-body">
                                        <div class="form-group form-check no-pad-left">
                                           <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                          </div>
-                                          <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                          </div>
-                                          <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                          </div>
-                                          <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                          </div>
-                                          <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                                              <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
                                           </div>
                                           <div class="form-group form-check">
                                              <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
+                                          </div>
+                                          <div class="form-group form-check">
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
+                                          </div>
+                                          <div class="form-group form-check">
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
+                                          </div>
+                                          <div class="form-group form-check">
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
+                                          </div>
+                                          <div class="form-group form-check">
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
                                              <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
                                           </div>
                                        </div>
@@ -164,7 +162,7 @@ export class subCategories extends Component {
                               <div class="car">
                                  <div class="card-heade" id="headingOne">
                                     <h2 class="mb-0 down-arrow">
-                                       <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
+                                       <input type="checkbox" class="form-check-input car" id="exampleCheck1"/>
                                        <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collapseOn" aria-expanded="false" aria-controls="collapseOne">
                                        <span class="mart-mar-left">Mart Name </span>
                                        </button>
@@ -177,7 +175,7 @@ export class subCategories extends Component {
                                     <div class="card-body">
                                        <div class="form-group form-check no-pad-left">
                                           <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
                                              <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
                                           </div>
                                        </div>
@@ -235,7 +233,7 @@ export class subCategories extends Component {
                                     <div class="card-body">
                                        <div class="form-group form-check no-pad-left">
                                           <div class="form-group form-check">
-                                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  />
+                                             <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                                              <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
                                           </div>
                                        </div>
@@ -294,7 +292,7 @@ export class subCategories extends Component {
                                        <div class="form-group form-check no-pad-left">
                                           <div class="form-group form-check">
                                              <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                             <label class="form-check-label" for="exampleCheck1" >Retailer Name</label>
+                                             <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
                                           </div>
                                        </div>
                                     </div>
@@ -335,29 +333,62 @@ export class subCategories extends Component {
                   </div>
                </div>
                <div class="col-md-9">
-                  <section class="second">
-                     <div class="top-slider">
-                       
-                        <CatogriesScroll />
-                     </div>
-                        <div class="left-contant">
-                           <h3>Coupons</h3>
+                  <div class="slid-margin">
+                     <div class="row mar-bottom">
+                        {/* <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
                         </div>
-                       
-                          
-                             <CouponsScrollPupup />
-                       
-                      
-                  </section>
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                     </div>
+                     <div class="row mar-bottom">
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                     </div>
+                     <div class="row mar-bottom">
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                        <div class="col-md-4">
+                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
+                        </div>
+                     </div>
+                  </div> */} 
+               
+                  {/* <CouponImageSetting />  */}  
+                  <CouponsImage />
+                  <CouponsImage />
+                  <CouponsImage />
+                  <CouponsImage />
+                  <CouponsImage />
+                  <CouponsImage />
                </div>
             </div>
+         </div> 
+         </div>
          </div>
       </section>
-                <Footer />
-                </body>
+    
+
+
+               <Footer />
             </div>
         )
     }
 }
 
-export default subCategories
+export default ItemList

@@ -48,6 +48,7 @@ import  subCategories  from '../screens/Retailer/subCategories';
 import AllCouponsRetailers from '../screens/Retailer/AllCouponsRetailers';
 import AllCouponsShare from '../screens/Retailer/AllCouponsShare';
 import CouponslistPopup from '../screens/Retailer/CouponslistPopup';
+import ItemList from '../screens/Retailer/ItemList';
 
 export default class Navigation extends Component {
     render() {
@@ -88,7 +89,8 @@ export default class Navigation extends Component {
                   <Route path="/AllCouponsRetailers" component={AllCouponsRetailers} />
                   <Route path="/AllCouponsShare" component={AllCouponsShare} /> 
                   <Route path="/CouponslistPopup" component={CouponslistPopup} />
-
+                 
+                 <Route path="/ItemList" component={ItemList} />
                 </div>
             </Router>
         )
