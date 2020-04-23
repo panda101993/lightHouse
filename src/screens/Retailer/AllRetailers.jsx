@@ -1,7 +1,28 @@
 import React, { Component } from 'react'
 import Header2 from '../../components/Header2'
 import Footer from '../../components/Footer'
-
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css'; 
+import DashboardImageScroll from '../dashboard/DashboardImageScroll';
+import CouponsScrollPupup from '../../components/CouponsScrollPupup';
+const responsive = {
+   desktop: {
+     breakpoint: { max: 3000, min: 1024 },
+     items: 7,
+     slidesToSlide: 1, // optional, default to 1.
+   },
+   tablet: {
+     breakpoint: { max: 1024, min: 464 },
+     items: 2,
+     slidesToSlide: 2, // optional, default to 1.
+   },
+   mobile: {
+     breakpoint: { max: 464, min: 0 },
+     items: 1,
+     slidesToSlide: 1, // optional, default to 1.
+   },
+ };
+ 
 export class AllRetailers extends Component {
     render() {
         return (
@@ -12,7 +33,25 @@ export class AllRetailers extends Component {
          <div class="container-fluid">
 
             <div class="slidertop">
-               <section class="center slider">
+               <section class="center slider"> 
+               <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+>   
                   <div>
                       <div class="slicent activa">
                    Mart Name
@@ -58,16 +97,18 @@ export class AllRetailers extends Component {
                         Mart Name
                         </div>
                   </div>
-                </section>
-  
+               
+               </Carousel> 
+               </section>
               </div>
 
 
-
+   
 
 
             
-         </div>
+         </div> 
+         
       </section>
 
       <div class="left-contant">
@@ -113,161 +154,16 @@ export class AllRetailers extends Component {
                   <div class="left-contant my-4">
                      <h3>Retailers</h3>
                   </div>
-                  <div class="top-slider index-top">
-                     <div class="slider-item">
-                        <div class="main-coverslider">
-                           <div class="cover-images">
-                              <a href="65-all-coupons -retailer.html"><img src="images/image1.png" /></a>
-                           </div>
-                           <div class="tcl">
-                              <p>TCL E-Mart</p>
-                           </div>
-                           <div class="heart">
-                              <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a> 
-                           </div>
-                        </div>
-                     </div>
-                     <div class="slider-item">
-                        <div class="main-coverslider">
-                           <div class="cover-images">
-                              <a href="65-all-coupons -retailer.html"><img src="images/image1.png" /></a>
-                           </div>
-                           <div class="tcl">
-                              <p>Hotel Treebo Mart</p>
-                           </div>
-                           <div class="heart">
-                              <a data-toggle="modal" data-target="#coup-wish-success"><img src="images/heart.png" /></a> 
-                           </div>
-                        </div>
-                     </div>
-                     <div class="slider-item">
-                        <div class="main-coverslider">
-                           <div class="cover-images">
-                              <a href="65-all-coupons -retailer.html"><img src="images/image1.png" /></a>
-                           </div>
-                           <div class="tcl">
-                              <p>Nebraska Furniture Mart</p>
-                           </div>
-                           <div class="heart">
-                              <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a> 
-                           </div>
-                        </div>
-                     </div>
-                     <div class="slider-item">
-                        <div class="main-coverslider">
-                           <div class="cover-images">
-                              <a href="65-all-coupons -retailer.html"><img src="images/image1.png" /></a>
-                           </div>
-                           <div class="tcl">
-                              <p>SGBL Mega Mart</p>
-                           </div>
-                           <div class="heart">
-                              <a data-toggle="modal" data-target="#coup-wish-success" ><img src="images/heart.png" /></a> 
-                           </div>
-                        </div>
-                     </div>
-                     <div class="slider-item">
-                        <div class="main-coverslider">
-                           <div class="cover-images">
-                              <a href="65-all-coupons -retailer.html"><img src="images/image1.png" /></a>
-                           </div>
-                           <div class="tcl">
-                              <p>TCL E-Mart</p>
-                           </div>
-                           <div class="heart">
-                              <a data-toggle="modal" data-target="#coup-wish-success" ><img src="images/heart.png" /></a>
-                           </div>
-                        </div>
-                     </div>
+                  <div class="top-slider index-top"> 
+                      <DashboardImageScroll />
+                   
                   </div>
                      <div class="left-contant">
                         <h3>Coupons</h3>
                      </div>
                      <div class="landing-slider">
                         <div class="cover-slidersection">
-                           <div class="slider-second">
-                              <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
-                           </div>
-                           {/* <!-- <div class="second-slidcont">
-                              <ul>
-                                 <li>Title :</li>
-                                 <li>Great Deal</li>
-                                 <li>Coupon Code :</li>
-                                 <li>C12345678op</li>
-                                 <li>Discount % :</li>
-                                 <li>45% </li>
-                                 <li>Item Name :</li>
-                                 <li>Item Name</li>
-                              </ul>
-                           </div> --> */}
-                        </div>
-                        <div class="cover-slidersection">
-                           <div class="slider-second">
-                              <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
-                           </div>
-                           {/* <!-- <div class="second-slidcont">
-                              <ul>
-                                 <li>Title :</li>
-                                 <li>Great Deal</li>
-                                 <li>Coupon Code :</li>
-                                 <li>C12345678op</li>
-                                 <li>Discount % :</li>
-                                 <li>45% </li>
-                                 <li>Item Name :</li>
-                                 <li>Item Name</li>
-                              </ul>
-                           </div> --> */}
-                        </div>
-                        <div class="cover-slidersection">
-                           <div class="slider-second">
-                              <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
-                           </div>
-                           {/* <!-- <div class="second-slidcont">
-                              <ul>
-                                 <li>Title :</li>
-                                 <li>Great Deal</li>
-                                 <li>Coupon Code :</li>
-                                 <li>C12345678op</li>
-                                 <li>Discount % :</li>
-                                 <li>45% </li>
-                                 <li>Item Name :</li>
-                                 <li>Item Name</li>
-                              </ul>
-                           </div> --> */}
-                        </div>
-                        <div class="cover-slidersection">
-                           <div class="slider-second">
-                              <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
-                           </div>
-                           {/* <!-- <div class="second-slidcont">
-                              <ul>
-                                 <li>Title :</li>
-                                 <li>Great Deal</li>
-                                 <li>Coupon Code :</li>
-                                 <li>C12345678op</li>
-                                 <li>Discount % :</li>
-                                 <li>45% </li>
-                                 <li>Item Name :</li>
-                                 <li>Item Name</li>
-                              </ul>
-                           </div> --> */}
-                        </div>
-                        <div class="cover-slidersection">
-                           <div class="slider-second">
-                              <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
-                           </div>
-                           {/* <!-- <div class="second-slidcont">
-                              <ul>
-                                 <li>Title :</li>
-                                 <li>Great Deal</li>
-                                 <li>Coupon Code :</li>
-                                 <li>C12345678op</li>
-                                 <li>Discount % :</li>
-                                 <li>45% </li>
-                                 <li>Item Name :</li>
-                                 <li>Item Name</li>
-                              </ul>
-                           </div> --> */}
+                         <CouponsScrollPupup />
                         </div>
                      </div>
                   

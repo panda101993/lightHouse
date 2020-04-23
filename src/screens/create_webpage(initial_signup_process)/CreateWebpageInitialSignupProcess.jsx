@@ -106,7 +106,10 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
                                 </div>
                                 <div class="text-center mt-5">
-                                    <p>Already have an account ?<a href="3-login.html">Login</a>
+                                    <p>Already have an account ? 
+                                        {/* <a href="3-login.html">  */} 
+                                        <Link to="/LoginCustomer" >Login</Link>
+                                      
                                     </p>
                                 </div>
                             </form>

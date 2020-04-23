@@ -45,10 +45,11 @@ export default class HeaderLandingScreen extends Component {
                                         <li class="nav-item dropdown">
                                             <select class="nav-link"   id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 {/* Retailer */} 
-                                                <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
+                                                {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown"> */}
+                                                    <option selected value="Retailers">Retailers </option>
                                                     <option class="dropdown-item" value="1">Login</option>
                                                     <option class="dropdown-item" value="2">Sign Up</option> 
-                                                    </div>
+                                                    {/* </div> */}
                                               </select>
                                             {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="14-login(retailer).html">Login</a>
@@ -56,11 +57,12 @@ export default class HeaderLandingScreen extends Component {
                                             </div> */}
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <select class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
-                                                    <option class="dropdown-item" value="1">Login</option>
+                                            <select value="UserEnd" class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown"> */}
+                                            <option selected value="Retailers">UserEnd </option>
+                                                    <option class="dropdown-item" value="1" >Login</option>
                                                     <option class="dropdown-item" value="2">Sign Up</option> 
-                                                    </div>
+                                                    {/* </div> */}
                                             </select> 
                                             {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="3-login.html">Login</a>
