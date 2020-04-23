@@ -86,8 +86,10 @@ export class SettingEndUser extends Component {
                <div class="col-lg-9 col-sm-12">
                   <div class="tab-content manage_genral" id="v-pills-tabContent">
                      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                     {/* <ManageInfoEndUser /> */} 
-                     <MyWishlistEndUser />
+                     {/* <ManageInfoEndUser />  */}
+                     {/* <MyWishlistEndUser /> */}
+                     {/* <ChangePasswordEndUser />  */}
+                     <MySavedCouponEndUser />
                      </div>
                     <div class="tab-pane fade" id="Change-Password" role="tabpanel" aria-labelledby="Change-Password-tab"> */}
                     <ChangePasswordEndUser /> 

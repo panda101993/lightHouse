@@ -1,16 +1,56 @@
 import React, { Component } from 'react'
 import Footer from '../../components/Footer'
 import Header2 from '../../components/Header2'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css'; 
+import CatogriesScroll from '../../components/CatogriesScroll';
+import CouponsScrollPupup from '../../components/CouponsScrollPupup';
+const responsive = {
+   desktop: {
+     breakpoint: { max: 3000, min: 1024 },
+     items: 7,
+     slidesToSlide: 1, // optional, default to 1.
+   },
+   tablet: {
+     breakpoint: { max: 1024, min: 464 },
+     items: 2,
+     slidesToSlide: 2, // optional, default to 1.
+   },
+   mobile: {
+     breakpoint: { max: 464, min: 0 },
+     items: 1,
+     slidesToSlide: 1, // optional, default to 1.
+   },
+ }; 
+
 
 export class subCategories extends Component {
     render() {
         return (
             <div> <body>
-               <Header2 />
-                
-                <div class="container-fluid">
+               <Header2 /> 
+               <div class="container-fluid">
          <div class="slidertop">
-            <section class="center slider">
+               <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+>   
+              
+            {/* <section class="center slider"> */}
                <div>
                   <div class="slicent activa">
                      Category Name
@@ -56,10 +96,11 @@ export class subCategories extends Component {
                      Category Name
                   </div>
                </div>
-            </section>
-         </div>
+            {/* </section> */}
+        
+   </Carousel>  
+   </div>
       </div> 
-
       <section class="third">
          <div class="container-fluid">
             <div class="row">
@@ -296,7 +337,7 @@ export class subCategories extends Component {
                <div class="col-md-9">
                   <section class="second">
                      <div class="top-slider">
-                        <div class="slider-item">
+                        {/* <div class="slider-item">
                            <div class="main-coverslider">
                               <div class="cover-images">
                                  <a href="70-Item%20type.html"><img src="images/image6.png" /></a>
@@ -360,98 +401,46 @@ export class subCategories extends Component {
                                  <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/heart.png" /></a>
                               </div>
                            </div>
-                        </div>
+                        </div> */} 
+                        <CatogriesScroll />
                      </div>
                         <div class="left-contant">
                            <h3>Coupons</h3>
                         </div>
-                        <div class="landing-slider">
-                           <div class="cover-slidersection">
+                        {/* <div class="landing-slider">  */}
+                           {/* <div class="cover-slidersection">
                               <div class="slider-second">
                                  <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
                               </div>
-                              {/* <!-- <div class="second-slidcont">
-                                 <ul>
-                                    <li>Title :</li>
-                                    <li>Great Deal</li>
-                                    <li>Coupon Code :</li>
-                                    <li>C12345678op</li>
-                                    <li>Discount % :</li>
-                                    <li>45% </li>
-                                    <li>Item Name :</li>
-                                    <li>Item Name</li>
-                                 </ul>
-                              </div> --> */}
+                           
                            </div>
                            <div class="cover-slidersection">
                               <div class="slider-second">
                                  <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
                               </div>
-                              {/* <!-- <div class="second-slidcont">
-                                 <ul>
-                                    <li>Title :</li>
-                                    <li>Great Deal</li>
-                                    <li>Coupon Code :</li>
-                                    <li>C12345678op</li>
-                                    <li>Discount % :</li>
-                                    <li>45% </li>
-                                    <li>Item Name :</li>
-                                    <li>Item Name</li>
-                                 </ul>
-                              </div> --> */}
+                             
                            </div>
                            <div class="cover-slidersection">
                               <div class="slider-second">
                                  <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
                               </div>
-                              {/* <!-- <div class="second-slidcont">
-                                 <ul>
-                                    <li>Title :</li>
-                                    <li>Great Deal</li>
-                                    <li>Coupon Code :</li>
-                                    <li>C12345678op</li>
-                                    <li>Discount % :</li>
-                                    <li>45% </li>
-                                    <li>Item Name :</li>
-                                    <li>Item Name</li>
-                                 </ul>
-                              </div> --> */}
+                             
                            </div>
                            <div class="cover-slidersection">
                               <div class="slider-second">
                                  <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
                               </div>
-                              {/* <!-- <div class="second-slidcont">
-                                 <ul>
-                                    <li>Title :</li>
-                                    <li>Great Deal</li>
-                                    <li>Coupon Code :</li>
-                                    <li>C12345678op</li>
-                                    <li>Discount % :</li>
-                                    <li>45% </li>
-                                    <li>Item Name :</li>
-                                    <li>Item Name</li>
-                                 </ul>
-                              </div> --> */}
+                             
                            </div>
                            <div class="cover-slidersection">
                               <div class="slider-second">
                                  <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png" /></a>
                               </div>
-                              {/* <!-- <div class="second-slidcont">
-                                 <ul>
-                                    <li>Title :</li>
-                                    <li>Great Deal</li>
-                                    <li>Coupon Code :</li>
-                                    <li>C12345678op</li>
-                                    <li>Discount % :</li>
-                                    <li>45% </li>
-                                    <li>Item Name :</li>
-                                    <li>Item Name</li>
-                                 </ul>
-                              </div> --> */}
-                           </div>
-                        </div>
+                             
+                           </div> */} 
+                             <CouponsScrollPupup />
+                        {/* </div>   */}
+                      
                   </section>
                </div>
             </div>

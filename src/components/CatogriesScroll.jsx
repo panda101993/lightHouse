@@ -23,7 +23,7 @@ const responsive = {
     },
   };
 
-export class DashboardImageScroll extends Component { 
+export class CatogriesScroll  extends Component { 
     render() {
         return (
             <div>
@@ -74,4 +74,4 @@ export class DashboardImageScroll extends Component {
     }
 }
 
-export default DashboardImageScroll
+export default CatogriesScroll

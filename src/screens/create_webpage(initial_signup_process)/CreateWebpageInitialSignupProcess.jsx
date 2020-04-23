@@ -39,8 +39,8 @@ export default class CreateWebpageInitialSignupProcess extends Component {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-
-                        alert('Submit Successfully');
+                //    function  goTo() { <Link to="/SignupCustomer" /> }
+                         alert('Submit Successfully');
                         this.setState({modalStatus:false}) 
                     } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
                 } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -110,7 +110,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                         {/* <a href="3-login.html">  */} 
                                         <Link to="/LoginCustomer" >Login</Link>
                                       
-                                    </p>
+.                                    </p>
                                 </div>
                             </form>
                         </div>

@@ -61,10 +61,10 @@ export class CouponImageSetting extends Component {
                      </div>
                   </div>
                   <div class="modal-body ny">
-                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success">Delete</button>
-                     <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success">Don't Show Again</button>
-                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal"  data-toggle="modal" data-target="#coup-rmv-success">Call Shop</button>
-                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal">Navigate to Shop</button>
+                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}  >Delete</button>
+                     <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Don't Show Again</button>
+                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal"  data-toggle="modal" data-target="#coup-rmv-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Call Shop</button>
+                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Navigate to Shop</button>
                   </div>
                </div>
             </div>

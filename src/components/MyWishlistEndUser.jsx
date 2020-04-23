@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
 import WishlistImageComponent from './WishlistImageComponent';
 import DashboardImageScroll from '../screens/dashboard/DashboardImageScroll';
+import CatogriesScroll from './CatogriesScroll';
 
 export class MyWishlistEndUser extends Component {  
    constructor(props) {
@@ -35,76 +36,8 @@ export class MyWishlistEndUser extends Component {
                                
                               </div>
                               <div class="wish-slider">
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/retailer1.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Retailer Name</p>
-                                          <p>TCL E-Mart</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/retailer2.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Retailer Name</p>
-                                          <p>Hotel Treebo Mart</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/retailer3.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Retailer Name</p>
-                                          <p>Nebraska Furniture Mart</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/retailer4.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Retailer Name</p>
-                                          <p>SGBL Mega Mart</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image5.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Retailer Name</p>
-                                          <p>Nebraska Furniture Mart</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
+                               <CatogriesScroll />
+                              
                               </div>
                               <div class="left-contant00">
                                  <h3>Categories</h3>
