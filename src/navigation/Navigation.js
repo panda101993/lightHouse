@@ -49,15 +49,22 @@ import AllCouponsRetailers from '../screens/Retailer/AllCouponsRetailers';
 import AllCouponsShare from '../screens/Retailer/AllCouponsShare';
 import CouponslistPopup from '../screens/Retailer/CouponslistPopup';
 import ItemList from '../screens/Retailer/ItemList';
+ 
+import How_It_Works from "../screens/How_It_Works";
+import About from '../screens/About';
+import TermsCondition from '../screens/TermsCondition';
+import Policy from '../screens/PrivacyPolicy';
+import Contact_us from '../screens/Contact_us';
+import FAQs from '../screens/FAQs';
 
 export default class Navigation extends Component {
     render() {
         return (
             <Router>
                 <div> 
-                   <Route exact path='/' component= {Create_webpage} />
+                   {/* <Route exact path='/' component= {Create_webpage} /> */}
                     {/* <Route exact path="/" component= {SignupCustomer} /> */} 
-                    {/* <Route exact path="/" component= {CreateWebpageInitialSignupProcess} /> */}
+                    <Route exact path="/" component= {CreateWebpageInitialSignupProcess} />
                     <Route path="/SignupCustomer" component= {SignupCustomer} />
                     <Route  path="/LandingScreen"  component={ LandingScreen } /> 
 
@@ -90,7 +97,15 @@ export default class Navigation extends Component {
                   <Route path="/AllCouponsShare" component={AllCouponsShare} /> 
                   <Route path="/CouponslistPopup" component={CouponslistPopup} />
                  
-                 <Route path="/ItemList" component={ItemList} />
+                 <Route path="/ItemList" component={ItemList} /> 
+
+                 <Route path='/How_It_Works' component ={How_It_Works}/>
+                    <Route path='/About' component= {About}/>
+                    <Route path='/TermsCondition' component={TermsCondition}/>
+                    <Route path='/Policy' component= {Policy}/>
+                    <Route path='/Contact_us' component= {Contact_us}/>
+                    <Route path='/FAQs' component= {FAQs}/>
+
                 </div>
             </Router>
         )

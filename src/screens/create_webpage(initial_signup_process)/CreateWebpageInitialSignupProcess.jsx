@@ -249,9 +249,10 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                 </div>
                                             </div>
                                             <div class="modalsumit">
-                                                {/* <a href="25-signup-user.html"> */}
+                                                {/* <a href="25-signup-user.html"> */} 
+                                                <Link to="SignupRetailer" >
                                                 <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
-                                                {/* </a> */}
+                                                {/* </a> */} </Link>
                                             </div>
                                         </form>
                                     </div>

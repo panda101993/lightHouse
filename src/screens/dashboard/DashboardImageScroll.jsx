@@ -62,21 +62,21 @@ export class DashboardImageScroll extends Component {
    <div> 
        {/* <img src={require("../../assets/images/image1.png")} /> */}
        <ImageDashboard 
-     // ImageName="TCL E-Mart" 
+      ImageName="TCL E-Mart" 
  //    ImageA={this.state.Image1}
-      ImageA={ImageIcon.Image1}
+     // ImageA={ImageIcon.Image1}
          />
 
    </div> 
    <div> 
-       {/* <ImageDashboard ImageName="Hotel Treebo Mart" /> */} 
-       <ImageDashboard 
+       <ImageDashboard ImageName="Hotel Treebo Mart" /> 
+       {/* <ImageDashboard 
      //  ImageName="TCL E-Mart" 
    //  ImageA={this.state.Image1}
     //   ImageA={ImageName.Image1}
-         />
+         /> */}
    </div>
-   {/* <div> 
+   <div> 
        <ImageDashboard ImageName="Nebraska Furniture Mart" />
    </div>
    <div> 
@@ -90,7 +90,7 @@ export class DashboardImageScroll extends Component {
    </div>
    <div> 
        <ImageDashboard ImageName="last" />
-   </div> */}
+   </div>
   
 
 </Carousel> 

@@ -18,8 +18,8 @@ export default function ImageDashboard ( props )  {
                                        {/* <div class="cover-images00"> */}
                                    <Link to="/AllRetailers" >       <img  
                                           style={{width:"90%",height:"70%" }} 
-                                          src={ImageIcon.Image1} 
-                                          // src={require('../assets/images/image1.png')} 
+                                        //  src={ImageIcon.Image1} 
+                                          src={require('../assets/images/image1.png')} 
                                        // src={ImageA}
                                             data-toggle="modal" data-target="#wishlist" /> </Link>  
                                        {/* </div> */}
