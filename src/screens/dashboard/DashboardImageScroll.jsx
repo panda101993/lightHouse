@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css'; 
 import ImageDashboard from "../../components/ImageDashboard";
-import ImageIcon from '../../assets/ImageIcon';
-console.log("hellloooooo",ImageIcon)
+//import ImageIcon from '../../assets/ImageIcon';
+//console.log("hellloooooo",ImageIcon)
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -34,7 +34,7 @@ export class DashboardImageScroll extends Component {
     }
     componentDidMount() {
         this.setState({ 
-            Image1:ImageIcon.Image1
+       //     Image1:ImageIcon.Image1
         })
     }
     render() {

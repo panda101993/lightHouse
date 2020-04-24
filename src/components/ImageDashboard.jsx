@@ -1,8 +1,8 @@
 import React , { useState }from 'react' 
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
-//import ImageName from '../assets/ImageIcon';
-import ImageIcon from '../assets/ImageIcon';
+import ImageId from '../assets/ImageId';
+//import ImageIcon from '../assets/ImageIcon';
 export default function ImageDashboard ( props )  {  
     const [count ,setCount] = useState(false)
     const [modalStatus,setModal] =useState(false)
@@ -18,7 +18,7 @@ export default function ImageDashboard ( props )  {
                                        {/* <div class="cover-images00"> */}
                                    <Link to="/AllRetailers" >       <img  
                                           style={{width:"90%",height:"70%" }} 
-                                        //  src={ImageIcon.Image1} 
+                                       //   src={ImageId.image1} 
                                           src={require('../assets/images/image1.png')} 
                                        // src={ImageA}
                                             data-toggle="modal" data-target="#wishlist" /> </Link>  
