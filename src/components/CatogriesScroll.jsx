@@ -26,7 +26,8 @@ const responsive = {
 export class CatogriesScroll  extends Component { 
     render() {
         return (
-            <div>
+            <div> 
+                  {/* <div class="landing-slider"> */}
                <Carousel
   swipeable={true}
   draggable={false}
@@ -68,8 +69,8 @@ export class CatogriesScroll  extends Component {
    </div>
   
 
-</Carousel> 
-            </div>
+</Carousel> </div>
+            // </div>
         )
     }
 }
