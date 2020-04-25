@@ -56,6 +56,7 @@ import TermsCondition from '../screens/TermsCondition';
 import Policy from '../screens/PrivacyPolicy';
 import Contact_us from '../screens/Contact_us';
 import FAQs from '../screens/FAQs';
+import Coupon_template from '../screens/Retailer/Coupon_Template/Coupon_template';
 
 export default class Navigation extends Component {
     render() {
@@ -105,6 +106,8 @@ export default class Navigation extends Component {
                     <Route path='/Policy' component= {Policy}/>
                     <Route path='/Contact_us' component= {Contact_us}/>
                     <Route path='/FAQs' component= {FAQs}/>
+                  
+                  <Route path='/Coupon_template' component={Coupon_template} />
 
                 </div>
             </Router>
