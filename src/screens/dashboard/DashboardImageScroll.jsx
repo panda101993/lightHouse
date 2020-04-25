@@ -23,7 +23,12 @@ const responsive = {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-// const Image1="../../assets/images/image1.png";
+const Imageid={
+  Image1:require("../../assets/images/image1.png"),
+  Image2:require('../../assets/images/image2.png'),
+  heartImage:require('../../assets//images/heart.png'),
+  RedHeart:require('../../assets/images/redheart.png')
+}
 export class DashboardImageScroll extends Component {  
     constructor(props) {
       super(props)
@@ -60,36 +65,56 @@ export class DashboardImageScroll extends Component {
   itemClass="carousel-item-padding-40-px"
 >
    <div> 
-       {/* <img src={require("../../assets/images/image1.png")} /> */}
+      
        <ImageDashboard 
       ImageName="TCL E-Mart" 
- //    ImageA={this.state.Image1}
-     // ImageA={ImageIcon.Image1}
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
          />
 
    </div> 
    <div> 
-       <ImageDashboard ImageName="Hotel Treebo Mart" /> 
-       {/* <ImageDashboard 
-     //  ImageName="TCL E-Mart" 
-   //  ImageA={this.state.Image1}
-    //   ImageA={ImageName.Image1}
-         /> */}
+   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+
+      ImageA={Imageid.Image1}
+         />
+   </div>
+   <div>   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+
+      ImageA={Imageid.Image1}
+         />
    </div>
    <div> 
-       <ImageDashboard ImageName="Nebraska Furniture Mart" />
+   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+
+      ImageA={Imageid.Image1}
+         />
    </div>
    <div> 
-       <ImageDashboard ImageName="SGBL Mega Mart" />
+   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+
+      ImageA={Imageid.Image1}
+         />
+     
    </div>
    <div> 
-       <ImageDashboard ImageName="TCL E-Mart" />
+   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+
+      ImageA={Imageid.Image1}
+         />
    </div>
    <div> 
-       <ImageDashboard ImageName="SGBL Mega Mart" />
-   </div>
-   <div> 
-       <ImageDashboard ImageName="last" />
+   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+
+      ImageA={Imageid.Image1}
+         />
    </div>
   
 

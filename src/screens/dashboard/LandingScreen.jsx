@@ -31,6 +31,20 @@ const responsive = {
     slidesToSlide: 1, // optional, default to 1.
   },
 };
+const Imageid={
+   Image1:require("../../assets/images/image1.png"),
+   Image5:require('../../assets/images/image5.png'),
+   heartImage:require('../../assets//images/heart.png'),
+   RedHeart:require('../../assets/images/redheart.png'),
+   Image9:require("../../assets/images/image9.png"),
+    Image10:require("../../assets/images/image10.png"),
+    Image11:require("../../assets/images/image11.png"),
+    Image12:require("../../assets/images/image12.png"),
+   // Image13:require("../../assets/images/image13.png")
+         
+          
+ }
+
 
 class componentName extends Component {
   render() {
@@ -42,13 +56,187 @@ class componentName extends Component {
       <section class="second">  
       <LandingTopicName HeaderName ="Marts" /> 
       <div class="container-fluid"> 
-       <DashboardImageScroll /> 
+       {/* <DashboardImageScroll />  */} 
+       <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+>
+   <div> 
+      
+       <ImageDashboard 
+      ImageName="TCL E-Mart1" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+
+   </div> 
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="TCL E-Mart2" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div>  
+       <ImageDashboard 
+      ImageName="TCL E-Mart3" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="TCL E-Mart4" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="TCL E-Mart5" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+     
+   </div>
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="TCL E-Mart6" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div> 
+    
+       <ImageDashboard 
+      ImageName="TCL E-Mart7" 
+      LinkId="/AllRetailers"
+      ImageA={Imageid.Image1} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+  
+
+</Carousel> 
+
+
        </div>
         <LandingTopicName HeaderName ="Categories" /> 
         
         <div class="container-fluid"> 
         <h5 class="product-herd">Products</h5> 
-        <CatogriesScroll />
+         {/* <CatogriesScroll /> */}  
+         <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+>
+   <div> 
+      
+       <ImageDashboard 
+      ImageName="Bounce Salon & Spa" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+
+   </div> 
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="Boddy Massage" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div>  
+       <ImageDashboard 
+      ImageName="Hair Cutting" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="TCL E-Mart" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="Boddy Massage" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+     
+   </div>
+   <div> 
+   
+   <ImageDashboard 
+      ImageName="Hair Cutting" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+   <div> 
+    
+       <ImageDashboard 
+      ImageName="TCL E-Mart" 
+      LinkId="/subCategories"
+      ImageA={Imageid.Image5} 
+      heartImage={Imageid.RedHeart}
+         />
+   </div>
+  
+
+</Carousel> 
+
+
        </div>  
       
        <div class="container-fluid"> 
@@ -71,89 +259,72 @@ class componentName extends Component {
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
 >   
-<div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        {/* <img src="images/image9.png"> */}
-                        <img src={require("../../assets/images/image9.png")} />
-                     </div>
-                     <div class="tcl">
-                        <p>Watches</p>
-                     </div>
-                     <div class="heart">
-                        <a data-toggle="modal" data-target="#coup-rmv-success" >
-                          {/* <img src="images/heart.png">  */}
-                          <img src={require("../../assets/images/heart.png")} />
-                          </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        {/* <img src="images/image10.png"> */}
-                        <img src={require("../../assets/images/image10.png")} />
-                     </div>
-                     <div class="tcl">
-                        <p>Ornaments</p>
-                     </div>
-                     <div class="heart">
-                        <a data-toggle="modal" data-target="#coup-rmv-success" >
-                            {/* <img src="images/heart.png">  */}
-                          <img src={require("../../assets/images/heart.png")} />
-                          </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        {/* <img src="images/image11.png"> */}
-                        <img src={require("../../assets/images/image11.png")} />
-                     </div>
-                     <div class="tcl">
-                        <p>Dresses</p>
-                     </div>
-                     <div class="heart">
-                        <a data-toggle="modal" data-target="#coup-rmv-success" >
-                          {/* <img src="images/heart.png">  */}
-                          <img src={require("../../assets/images/heart.png")} />
-                          </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        {/* <img src="images/image12.png"> */}
-                        <img src={require("../../assets/images/image12.png")} />
-                     </div>
-                     <div class="tcl">
-                        <p>Furniture</p>
-                     </div>
-                     <div class="heart">
-                        <a data-toggle="modal" data-target="#coup-rmv-success" >
-                        <img src={require("../../assets/images/heart.png")} /> </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        {/* <img src="images/image9.png"> */}
-                        <img src={require("../../assets/images/image9.png")} />
-                     </div>
-                     <div class="tcl">
-                        <p>Watches</p>
-                     </div>
-                     <div class="heart">
-                        <a data-toggle="modal" data-target="#coup-rmv-success" > 
-                        {/* <img src="images/heart.png">  */} 
-                        <img src={require("../../assets/images/heart.png")} />
-                        </a>
-                     </div>
-                  </div>
-               </div>
+
+      <div>
+      <ImageDashboard 
+     ImageName="Watches" 
+   //  LinkId="/subCategories"
+     ImageA={Imageid.Image9} 
+     heartImage={Imageid.RedHeart}
+        />
+
+  </div> 
+  <div> 
+  
+  <ImageDashboard 
+     ImageName="Ornaments" 
+    // LinkId="/subCategories"
+     ImageA={Imageid.Image10} 
+     heartImage={Imageid.RedHeart}
+        />
+  </div>
+  <div>  
+      <ImageDashboard 
+     ImageName="Dresses" 
+    // LinkId="/subCategories"
+     ImageA={Imageid.Image11} 
+     heartImage={Imageid.RedHeart}
+        />
+  </div>
+  <div> 
+  
+  <ImageDashboard 
+     ImageName="Furniture" 
+  //   LinkId="/subCategories"
+     ImageA={Imageid.Image10} 
+     heartImage={Imageid.RedHeart}
+        />
+  </div>
+  <div> 
+  
+  <ImageDashboard 
+     ImageName="Boddy Massage" 
+  //   LinkId="/subCategories"
+     ImageA={Imageid.Image9} 
+     heartImage={Imageid.RedHeart}
+        />
+    
+  </div>
+  <div> 
+  
+  <ImageDashboard 
+     ImageName="Hair Cutting" 
+  //   LinkId="/subCategories"
+     ImageA={Imageid.Image10} 
+     heartImage={Imageid.RedHeart}
+        />
+  </div>
+  <div> 
+   
+      <ImageDashboard 
+     ImageName="TCL E-Mart" 
+  //   LinkId="/subCategories"
+     ImageA={Imageid.Image9} 
+     heartImage={Imageid.RedHeart}
+        />
+  </div>
+
+
 
  </Carousel>
        
@@ -161,7 +332,33 @@ class componentName extends Component {
        </div> 
 
          <LandingTopicName HeaderName ="Coupons" /> 
-         <CouponsScrollPupup />
+         {/* <CouponsScrollPupup /> */} 
+         <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+> 
+<CouponsImage />
+<CouponsImage />
+<CouponsImage />
+<CouponsImage />
+<CouponsImage />
+<CouponsImage />
+ </Carousel>
+
          
         </section>
         <Footer />

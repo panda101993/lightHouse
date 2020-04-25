@@ -1,12 +1,12 @@
 import React , { useState }from 'react' 
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
-import ImageId from '../assets/ImageId';
+
 //import ImageIcon from '../assets/ImageIcon';
 export default function ImageDashboard ( props )  {  
     const [count ,setCount] = useState(false)
     const [modalStatus,setModal] =useState(false)
-     const { ImageName,ImageA} = props 
+     const { ImageName,ImageA ,LinkId, heartImage} = props 
     console.log( "hello imageAbc ",props) 
   // console.log("hello AbcData",ImageA.src)
     return ( 
@@ -16,11 +16,13 @@ export default function ImageDashboard ( props )  {
                <div class="slider-item">
                                     <div class="main-coverslider">
                                        {/* <div class="cover-images00"> */}
-                                   <Link to="/AllRetailers" >       <img  
+                                   {/* <Link to="/AllRetailers" >    */} 
+                                   <Link to={LinkId} >
+                                       <img  
                                           style={{width:"90%",height:"70%" }} 
                                        //   src={ImageId.image1} 
-                                          src={require('../assets/images/image1.png')} 
-                                       // src={ImageA}
+                                         // src={require('../assets/images/image1.png')} 
+                                        src={ImageA}
                                             data-toggle="modal" data-target="#wishlist" /> </Link>  
                                        {/* </div> */}
                                        <div class="tcl00">
@@ -29,7 +31,10 @@ export default function ImageDashboard ( props )  {
                                        <div class="heart">
                                           <a data-toggle="modal" data-target="#coup-rmv-success" > 
                                           
-                                          <img src={require('../assets/images/redheart.png')} onClick={() =>setModal(!modalStatus)} /></a>
+                                          <img  
+                                          //src={require('../assets/images/redheart.png')}  
+                                          src={heartImage}
+                                          onClick={() =>setModal(!modalStatus)} /></a>
                                         
                                         </div>
                                     </div>
