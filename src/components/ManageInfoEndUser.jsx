@@ -37,8 +37,9 @@ export class ManageInfoEndUser extends Component {
                   </ul>
                </span>
                <span class="name">
-                  <label>Email <img src="images/about-icon.png" />
-
+                  <label>Email 
+                     {/* <img src="images/about-icon.png" /> */}
+                    <img src={require("../assets/images/about-icon.png")} />
 
                      <a href="#">(Verify)</a> 
                    
