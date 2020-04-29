@@ -19,7 +19,7 @@ export default function ImageDashboard ( props )  {
                                    {/* <Link to="/AllRetailers" >    */} 
                                    <Link to={LinkId} >
                                        <img  
-                                          style={{width:"90%",height:"70%" }} 
+                                          style={{width:"100%",height:"100%" }} 
                                        //   src={ImageId.image1} 
                                          // src={require('../assets/images/image1.png')} 
                                         src={ImageA}

@@ -1,6 +1,29 @@
 import React, { Component } from 'react'
 import Header2 from '../../components/Header2'
 import Footer from '../../components/Footer'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';   
+import  CouponsImage from '../../components/CouponsImage'
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 7,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+}; 
+
+
 
 export class AllCouponsRetailers extends Component {
     render() {
@@ -13,7 +36,7 @@ export class AllCouponsRetailers extends Component {
 
             <div class="slidertop">
                <section class="center slider">
-                  <div>
+                  {/* <div>
                       <div class="slicent activa">
                    Retailer Name
                   </div>
@@ -57,7 +80,77 @@ export class AllCouponsRetailers extends Component {
                       <div class="slicent">
                           Retailer Name
                         </div>
+                    </div> */} 
+  <Carousel
+                    swipeable={true}
+                    draggable={false}
+                    showDots={false}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                    autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                    autoPlaySpeed={5000000}
+                    keyBoardControl={true}
+                    customTransition="all .5"
+                    transitionDuration={500}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    deviceType={this.props.deviceType}
+                    dotListClass="custom-dot-list-style"
+                    itemClass="carousel-item-padding-40-px"
+                  >
+                    <div>
+                      <div class="slicent activa">
+                      Retailer Name
                   </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                      Retailer Name
+                        </div>
+                    </div>
+
+                  </Carousel>
+
+
+
+
+
                 </section>
   
               </div>
@@ -116,7 +209,7 @@ export class AllCouponsRetailers extends Component {
                 <div class="slid-margin">
   
                   <div class="row mar-bottom">
-                      <div class="col-md-3">
+                      {/* <div class="col-md-3">
                       <img src="images/pizza great deal.png"
                        class="pizza-deal" data-dismiss="modal" data-toggle="modal" data-target="#great-deal"/>
                       </div>
@@ -128,13 +221,17 @@ export class AllCouponsRetailers extends Component {
                       </div>
                       <div class="col-md-3">
                       <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div>
+                      </div> */} 
+                        <CouponsImage />
+                      <CouponsImage />
+                      <CouponsImage />
+                      <CouponsImage />
                   </div>
   
                  
   
                   <div class="row mar-bottom">
-                      <div class="col-md-3">
+                      {/* <div class="col-md-3">
                       <img src="images/pizza great deal.png" class="pizza-deal"/>
                       </div>
                       <div class="col-md-3">
@@ -145,7 +242,11 @@ export class AllCouponsRetailers extends Component {
                       </div>
                       <div class="col-md-3">
                       <img src="images/pizza great deal.png" class="pizza-deal" />
-                      </div>
+                      </div> */}
+                        <CouponsImage />
+                      <CouponsImage />
+                      <CouponsImage />
+                      <CouponsImage />
                   </div>
   
                 </div>
