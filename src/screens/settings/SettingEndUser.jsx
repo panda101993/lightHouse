@@ -7,10 +7,12 @@ import MySavedCouponEndUser from '../../components/MySavedCouponEndUser'
 
 import MyWishlistEndUser from '../../components/MyWishlistEndUser'
 import { Switch, Route, Link } from "react-router-dom"
+import ManageInfostep2 from '../../components/ManageInfostep2'
 
 const ManageGeneralInfoUser = () => 
 <div>
-    <ManageInfoEndUser />
+    <ManageInfoEndUser /> 
+    {/* <ManageInfostep2  /> */}
 </div>;
 
 const ChangePasswordUser = () => 
