@@ -808,9 +808,12 @@ export default class Setting_retailer extends Component {
                         <div class="container-fluid">
                             <div class="coupn-setting my-5">
                                 <ul>
-                                    <li><a href="101-coupon-template.html">Create Coupon</a></li>
+                                    <li> 
+                                        {/* <a href="101-coupon-template.html"> */}  
+                                        <Link to="/Coupon_template" > Create Coupon</Link> </li>
+                                           
                                     <li ><Link to="/MyCoupanHistory" >Manage Coupons</Link></li>
-                                    <li><Link to={`${path}/Preview`}>Single Use Coupon</Link></li>
+                                    <li><Link to='/ManageOnetime'>Single Use Coupon</Link></li>
                                     <li><Link to={`${path}/ManageGeneralInfo`} class="active" href="77-settings-retailer.html">Settings</Link></li>
                                 </ul>
                             </div>

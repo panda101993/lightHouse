@@ -1,19 +1,35 @@
 import React, { Component } from 'react'
-
+import { Switch, Route, Link } from "react-router-dom";
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
+import Header2 from '../../../components/Header2';
 export class ManageOnetime extends Component {
     render() {
         return (
-            <div>
+            <div> 
+                  <body>
+            <Header2 />
                  <section>
-         <section>
+         <section> 
             <div class="container-fluid">
                <div class="coupn-setting my-5">
-                  <ul>
+                  {/* <ul>
                   <li><a href="101-coupon-template.html">Create Coupon</a></li>
                   <li ><a href="my-coupons-history.html">Manage Coupons</a></li>
                   <li><a class="active" href="109-Manage-one-time%20coupon.html">Single Use Coupon</a></li>
                   <li><a href="77-settings-retailer.html">Settings</a></li>
-                  </ul>
+                  </ul> */} 
+                             <ul>
+                                    <li>
+                                       {/* <a href="101-coupon-template.html">Create Coupon</a>  */}
+                                        <Link to="/Coupon_template" >Create Coupon</Link>
+                                        </li>
+                                    
+                                    <li ><Link to="/MyCoupanHistory" >Manage Coupons</Link></li>
+                                       
+                                    <li><Link to='/ManageOnetime'  class="active"   >Single Use Coupon</Link></li>
+                                    <li><Link to="/Setting_retailer">Settings</Link></li>
+                                </ul>
                </div>
             </div>
          </section>
@@ -57,7 +73,9 @@ export class ManageOnetime extends Component {
                </form>
             </div>
          </div>
-      </section>
+      </section>  
+      <Footer /> 
+      </body>
             </div>
         )
     }

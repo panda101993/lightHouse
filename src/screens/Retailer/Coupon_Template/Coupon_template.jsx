@@ -3,7 +3,8 @@ import Footer from '../../../components/Footer'
 import Header from '../../../components/Header'
 import Carousel from  'react-multi-carousel'
 import ImageDashboard from '../../../components/ImageDashboard'
-
+import { Switch, Route, Link } from "react-router-dom";
+import Header2 from '../../../components/Header2'
 const responsive = {
    desktop: {
      breakpoint: { max: 3000, min: 1024 },
@@ -34,17 +35,24 @@ export default class Coupon_template extends Component {
         return (
             <div>
    <body>
-       <Header/>
+     <Header2 />
       
       <section>
          <div class="container-fluid">
            <div class="coupn-setting my-5">
-             <ul>
+             {/* <ul>
                <li><a class="active" href="101-coupon-template.html">Create Coupon</a></li>
                <li ><a href="my-coupons-history.html">Manage Coupons</a></li>
                <li><a href="109-Manage-one-time%20coupon.html">Single Use Coupon</a></li>
                <li><a href="77-settings-retailer.html">Settings</a></li>
-             </ul>
+             </ul> */}
+              <ul>
+                                    <li>
+                                      <Link to="/Coupon_template" class="active" > Create Coupon</Link> </li>
+                                    <li> <Link to='/MyCoupanHistory' > Manage Coupons </Link></li>
+                                    <li><Link to='/ManageOnetime'>Single Use Coupon</Link></li>
+                                    <li><Link to="/Setting_retailer">Settings</Link></li>
+                                </ul>
            </div>
          </div>
        </section> 
@@ -69,7 +77,7 @@ export default class Coupon_template extends Component {
   dotListClass="slider-item"
   itemClass="carousel-item-padding-40-px"
 >
-   <div> 
+  
       
       
    <div>  
@@ -117,47 +125,10 @@ export default class Coupon_template extends Component {
       // heartImage={Imageid.RedHeart}
          />
    </div>
-  </div>
+  
 
 </Carousel> 
-            {/* <div class="top-slider">
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                       <a href="102-add-coupon.html"><img src="images/Template-1.png"/></a> 
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        <a href="102-add-coupon.html"><img src={require("../../../assets/images/Template-1.png")}/></a> 
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        <a href="102-add-coupon.html"><img src={require("../../../assets/images/Template-1.png")}/></a> 
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        <a href="102-add-coupon.html"><img src={require("../../../assets/images/Template-1.png")}/></a> 
-                     </div>
-                  </div>
-               </div>
-               <div class="slider-item">
-                  <div class="main-coverslider">
-                     <div class="cover-images">
-                        <a href="102-add-coupon.html"><img src={require("../../../assets/images/Template-1.png")}/></a> 
-                     </div>
-                  </div>
-               </div>
-            </div> */}
-         </div>
+        </div>   
       </section>
       <Footer/>
      
