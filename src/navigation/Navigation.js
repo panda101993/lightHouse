@@ -24,7 +24,7 @@ import SignupRetailer from '../screens/Retailer/authentication/SignupRetailer';
 import SignupOtpRetailer from '../screens/Retailer/authentication/SignupOtp';
 import Setting_retailer from '../screens/Retailer/settings/Setting_retailer';
 import OtpScreenRetailer from '../screens/Retailer/authentication/OtpScreenRetailer';
-import Create_webpage from '../screens/Retailer/dashboard/Create_webpage';
+
 
 
 import CreateWebpageInitialSignupProcess from '../screens/create_webpage(initial_signup_process)/CreateWebpageInitialSignupProcess';
@@ -57,13 +57,15 @@ import Policy from '../screens/PrivacyPolicy';
 import Contact_us from '../screens/Contact_us';
 import FAQs from '../screens/FAQs';
 import Coupon_template from '../screens/Retailer/Coupon_Template/Coupon_template';
+import MyCoupanHistory from '../screens/myCoupanHistory/MyCoupanHistory';
+import ManageOnetime from '../screens/Retailer/Manage_Coupons/ManageOnetime';
 
 export default class Navigation extends Component {
     render() {
         return (
             <Router>
                 <div> 
-                   {/* <Route exact path='/' component= {Create_webpage} /> */}
+                
                     {/* <Route exact path="/" component= {SignupCustomer} /> */} 
                     <Route exact path="/" component= {CreateWebpageInitialSignupProcess} />
                     <Route path="/SignupCustomer" component= {SignupCustomer} />
@@ -108,6 +110,8 @@ export default class Navigation extends Component {
                     <Route path='/FAQs' component= {FAQs}/>
                   
                   <Route path='/Coupon_template' component={Coupon_template} />
+                  <Route path='/MyCoupanHistory' component={MyCoupanHistory} />  
+                  <Route path='/ManageOnetime' component={ManageOnetime} />
 
                 </div>
             </Router>
