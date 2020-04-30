@@ -38,22 +38,38 @@ export default class Header2 extends Component {
                                 <div class="left-top">
                                     <ul class="leftsideloctn">
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {/* <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Retailer
                            </a>
                                             <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="14-login(retailer).html">Login</a>
                                                 <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
-                                            </div>
+                                            </div> */} 
+                                             <select class="nav-link"   id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {/* Retailer */} 
+                                                {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown"> */}
+                                                    <option selected value="Retailers">Retailers </option>
+                                                    <option class="dropdown-item" value="1">Login</option>
+                                                    <option class="dropdown-item" value="2">Sign Up</option> 
+                                                    {/* </div> */}
+                                              </select>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {/* <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 End User
                            </a>
                                             <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="3-login.html">Login</a>
                                                 <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
-                                            </div>
+                                            </div> */} 
+                                            <select value="UserEnd" class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown"> */}
+                                            <option selected value="Retailers">UserEnd </option>
+                                                    <option class="dropdown-item" value="1" >Login</option>
+                                                    <option class="dropdown-item" value="2">Sign Up</option> 
+                                                    {/* </div> */}
+                                            </select> 
+
                                         </li>
                                     </ul>
                                 </div>
