@@ -241,7 +241,8 @@ export default class LoginCustomer extends Component {
                                     /> */}
                                     {/* </Link> */}
                                     <div class="have-an">
-                                        <p>Don't have an account ? <Link to="Signup">Sign up</Link></p>
+                                        {/* <p>Don't have an account ? <Link to="Signup">Sign up</Link></p> */}
+                                        <p>Don't have an account ? <Link to="SignupCustomer">Sign up</Link></p>
                                     </div>
                                 </form>
                             </div>

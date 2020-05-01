@@ -40,8 +40,7 @@ const Imageid={
     Image10:require("../../assets/images/image10.png"),
     Image11:require("../../assets/images/image11.png"),
     Image12:require("../../assets/images/image12.png"),
-   // Image13:require("../../assets/images/image13.png")
-         
+   
           
  }
 

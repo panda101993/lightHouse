@@ -90,7 +90,7 @@ export default class Navigation extends Component {
                     <Route path="/NotificationScreensRetailer" component={NotificationScreensRetailer} />
                    
                     <Route path='/ForgotPassword' component= {ForgotPassword} />  
-
+                     <Route path='/ForgotPasswordOtp' component ={ForgotPasswordOtp} />
                     <Route  path="/WebsiteRetailer" component ={WebsiteRetailer} /> 
                  <Route path="/WebsiteMart" component ={WebsiteMart } /> 
                  <Route path="/AllRetailers" component ={AllRetailers } />
@@ -112,7 +112,7 @@ export default class Navigation extends Component {
                   <Route path='/Coupon_template' component={Coupon_template} />
                   <Route path='/MyCoupanHistory' component={MyCoupanHistory} />  
                   <Route path='/ManageOnetime' component={ManageOnetime} />
-
+                <Route path='/ResetPassword' component={ResetPassword} />
                 </div>
             </Router>
         )

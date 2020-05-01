@@ -125,7 +125,7 @@ export default class ForgotPassword extends Component {
                         {this.state.error}
                      </div>
                   </div>
-                  <Link to ="ForgotpasswordOtp"><button type="button" class="btn btn-theme"> SUBMIT</button></Link> 
+                  <Link to ="/ForgotPasswordOtp"><button type="button" class="btn btn-theme"> SUBMIT</button></Link> 
                </form>
             </div>
          </div>

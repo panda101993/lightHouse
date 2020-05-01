@@ -36,51 +36,7 @@ export class AllCouponsRetailers extends Component {
 
             <div class="slidertop">
                <section class="center slider">
-                  {/* <div>
-                      <div class="slicent activa">
-                   Retailer Name
-                  </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                  </div>
-                  <div>
-                      <div class="slicent">
-                          Retailer Name
-                        </div>
-                    </div> */} 
+                 
   <Carousel
                     swipeable={true}
                     draggable={false}
