@@ -13,12 +13,7 @@ export class ManageOnetime extends Component {
          <section> 
             <div class="container-fluid">
                <div class="coupn-setting my-5">
-                  {/* <ul>
-                  <li><a href="101-coupon-template.html">Create Coupon</a></li>
-                  <li ><a href="my-coupons-history.html">Manage Coupons</a></li>
-                  <li><a class="active" href="109-Manage-one-time%20coupon.html">Single Use Coupon</a></li>
-                  <li><a href="77-settings-retailer.html">Settings</a></li>
-                  </ul> */} 
+             
                              <ul>
                                     <li>
                                        {/* <a href="101-coupon-template.html">Create Coupon</a>  */}
@@ -36,10 +31,7 @@ export class ManageOnetime extends Component {
          <div class="container border-box">
             <div class="name_c3">
                <form>
-                  {/* <!-- <div class="form-group chang-sec">
-                     <label for="exampleInputEmail1" class="old-pass">Retailer Id :</label>
-                     <input type="email" class="form-control pass-word" aria-describedby="emailHelp" placeholder="123456789900">
-                  </div> --> */}
+               
                   <div class="form-group chang-sec">
                      <label for="exampleInputPassword1" class="old-pass">Coupon Code :</label>
                      <input type="password" class="form-control" placeholder="Coupon Code" />

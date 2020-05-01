@@ -40,12 +40,7 @@ export default class Coupon_template extends Component {
       <section>
          <div class="container-fluid">
            <div class="coupn-setting my-5">
-             {/* <ul>
-               <li><a class="active" href="101-coupon-template.html">Create Coupon</a></li>
-               <li ><a href="my-coupons-history.html">Manage Coupons</a></li>
-               <li><a href="109-Manage-one-time%20coupon.html">Single Use Coupon</a></li>
-               <li><a href="77-settings-retailer.html">Settings</a></li>
-             </ul> */}
+            
               <ul>
                                     <li>
                                       <Link to="/Coupon_template" class="active" > Create Coupon</Link> </li>

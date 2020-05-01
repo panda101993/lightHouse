@@ -809,7 +809,7 @@ export default class Setting_retailer extends Component {
                             <div class="coupn-setting my-5">
                                 <ul>
                                     <li> 
-                                        {/* <a href="101-coupon-template.html"> */}  
+                                    
                                         <Link to="/Coupon_template" > Create Coupon</Link> </li>
                                            
                                     <li ><Link to="/MyCoupanHistory" >Manage Coupons</Link></li>
