@@ -299,16 +299,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 </div>
 
 
-                                {/* <div class="">
-                                    <label>Are you want to sure logout?</label>
-                                    <div class="btn-cover">
-                                        <Link to="/Login" ><button onClick={() => this.setState({ modalStatus: false })} >Yes</button></Link>
-                                    </div>
-
-                                    <div class="">
-                                        <Link to="/" ><button onClick={() => this.setState({ modalStatus: false })}>No</button></Link>
-                                    </div>
-                                </div> */}
+                            
                             </form>
                         </ModalBody>
                     </Modal>
@@ -328,37 +319,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
 
 
-                    {/* <div class="modal fade" id="otpmodal-2" tabindex="-1" role="dialog" aria-labelledby="otpmodal-2" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="web-pagemodal">
-                                        <h5 class="text-center mt-3">OTP verification</h5>
-                                        <form>
-                                            <div class="register-cont">
-                                                <p class="my-3">Please enter the 4 digits OTP sent on your registered phone number.</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="otp-box">
-                                                    <p class="my-3">Enter 4 - digits code</p>
-                                                    <ul>
-                                                        <li><input type="text" class="form-control" value="" /></li>
-                                                        <li><input type="text" class="form-control" value="" /></li>
-                                                        <li><input type="text" class="form-control" value="" /></li>
-                                                        <li><input type="text" class="form-control" value="" /></li>
-                                                    </ul>
-                                                    <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal">Resend</a>
-                                                </div>
-                                            </div>
-                                            <div class="modalsumit">
-                                                <a href="25-signup-user.html"><button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2">SUBMIT</button></a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
+                 
                     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content coup-code">
@@ -372,58 +333,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                             </div>
                         </div>
                     </div>
-                    {/* <div class="modal fade" id="otpmodal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header locationsethead">
-                                    <h5>OTP resent successfully.</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <button class="btn setloc-btn" type="submit" data-dismiss="modal">OK</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-                    {/* <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/slick.min.js"></script>
-      <script src="js/custom.js"></script>
-      <script src="js/app.js"></script>
-      <script>
-         $('.top-slider').slick({
-         dots: false,
-         infinite: true,
-         speed: 300,
-         slidesToShow: 4,
-         slidesToScroll: 4,
-         responsive: [
-         {
-         breakpoint: 1024,
-         settings: {
-         slidesToShow: 3,
-         slidesToScroll: 3,
-         infinite: true,
-         dots: true
-         }
-         },
-         {
-         breakpoint: 600,
-         settings: {
-         slidesToShow: 2,
-         slidesToScroll: 2
-         }
-         },
-         {
-         breakpoint: 480,
-         settings: {
-         slidesToShow: 1,
-         slidesToScroll: 1
-         }
-         }
-         
-         ]
-         });
-      </script> */}
+                  
 
                 </body>
             </div>

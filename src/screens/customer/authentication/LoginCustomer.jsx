@@ -167,8 +167,8 @@ export default class LoginCustomer extends Component {
     submitHandler = () => {
         if (this.state.mobilenoStatus) {
            if (this.state.passwordStatus){
-                    alert('Submit Successfully');
-               
+                  //  alert('Submit Successfully');
+                    window.location.href = "LandingScreen";
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
      }
@@ -231,9 +231,9 @@ export default class LoginCustomer extends Component {
                                         btntxt="LOGIN"
                                     /> */}
                                     {/* <Link to=""> */} 
-                                    <Link to="/LandingScreen" >
+                                    {/* <Link to="/LandingScreen" > */}
                                     <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme">LOGIN</button>  
-                                    </Link>
+                                    {/* </Link> */}
                                     {/* <GlobalButtons
                                     tnType="button"
                                     btnClass="btn btn-theme"
