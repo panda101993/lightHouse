@@ -62,32 +62,47 @@ export default class ForgotPassword extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         error:''
+         error:'',
+         mobilenoStatus:''
       }
    }
 
    handleinput=(e)=>{
        var value=e.target.value;
-       this.validateMobileno(value)  
+    //   this.validateMobileno(value)  
+
+       this.state.mobilenoErrorMessage = this.validateMobileno(value).error;
+       this.state.mobilenoStatus = this.validateMobileno(value).status;
 
    }
 
    validateMobileno(value) {
       var numberRegex = /^[1-9][0-9]{9,12}$/;
       if (value == "" || value == undefined || value == null) {
-         //  return { status: false, error: "Please enter mobileNo." }
-         this.setState({error:"Please enter mobileNo."})
+           return { status: false, error: "Please enter mobileNo." }
+        // this.setState({error:"Please enter mobileNo."})
 
       }
       else if (!numberRegex.test(value)) {
-         //  return { status: false, error: "Please enter valid mobileNo." }
-         this.setState({error:"Please enter valid mobileNo."})
+         return { status: false, error: "Please enter valid mobileNo." }
+       //  this.setState({error:"Please enter valid mobileNo."})
       }
       else {
-         //  return { status: true, error: '', height: 0 }
-         this.setState({error:""})
+           return { status: true, error: '', height: 0 }
+         //this.setState({error:""})
       }
-  }
+  }  
+
+  
+  submitHandler = () => {
+   if (this.state.mobilenoStatus) {
+     
+           //  alert('Submit Successfully');
+               window.location.href = "/ForgotPasswordOtp";
+     
+   } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
+}
+
 
     render() {
         return (
@@ -123,10 +138,13 @@ export default class ForgotPassword extends Component {
 
                      </div>
                      <div>
-                        {this.state.error}
+                        {this.state.mobilenoErrorMessage}
                      </div>
                   </div>
-                  <Link to ="/ForgotPasswordOtp"><button type="button" class="btn btn-theme"> SUBMIT</button></Link> 
+                  {/* <Link to ="/ForgotPasswordOtp">  */}
+                  <button type="button" 
+                  class="btn btn-theme"  onClick={() => this.submitHandler()} > SUBMIT</button> 
+                  {/* </Link>  */}
                </form>
             </div>
          </div>
