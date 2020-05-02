@@ -58,11 +58,13 @@ import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 
+
 export default class ForgotPassword extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         error:''
+         error:'',
+        
       }
    }
 

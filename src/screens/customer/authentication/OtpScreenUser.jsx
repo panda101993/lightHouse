@@ -237,9 +237,9 @@ export default class OtpScreenUser extends Component {
 
                               </div>
                            </div>
-                           {/* <Link to=""> */}
+                           <Link to="/Setting_enduser">
                               <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
-                              {/* </Link> */}
+                              </Link>
                         </form>
                      </div>
                   </div>

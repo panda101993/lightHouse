@@ -99,7 +99,7 @@ export default class SignupCustomer extends Component {
                                         <input type="checkbox" class="form-check-input" />
                                         <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions">Terms and Conditions</a> </label>
                                     </div>
-                                    <Link to="LoginCustomer"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
+                                    <Link to="/OtpScreenUser"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
                                     <div class="have-an">
                                         <p>Already Have an account? <Link to="LoginCustomer">Login</Link></p>
                                     </div>

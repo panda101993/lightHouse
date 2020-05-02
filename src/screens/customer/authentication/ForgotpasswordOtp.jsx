@@ -4,8 +4,17 @@ import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
-
-export default class ForgotPasswordOtp extends Component {
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+export default class ForgotPasswordOtp extends Component { 
+   constructor(props) {
+     super(props)
+   
+     this.state = {
+      modalStatus: false,
+      modalStatusResend: false
+     }
+   }
+   
     render() {
         return (
             <div>
@@ -29,7 +38,10 @@ export default class ForgotPasswordOtp extends Component {
                            <li><input type="text" class="form-control" value=""/></li>
                            <li><input type="text" class="form-control" value=""/></li>
                         </ul>
-                        <a href="#" data-toggle="modal" data-target="#otpmodal">Resend</a>
+                        {/* <a href="#" data-toggle="modal" data-target="#otpmodal">Resend</a> */} 
+                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
+                                                        Resend
+                                                     </p></Link>
                      </div>
                   </div>
                   {/* <a href="22-reset-password.html"><button type="button" class="btn btn-theme" >SUBMIT</button></a> */} 
@@ -37,7 +49,19 @@ export default class ForgotPasswordOtp extends Component {
                </form>
             </div>
          </div>
-      </section>
+      </section>    <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
+                        <ModalBody>
+                            <form>
+                                <div class="modal-header locationsethead">
+                                    <h5>OTP resent successfully.</h5>
+                                </div>
+                                <div style={{ textAlign: "center" }} >
+                                    <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend })} >OK</button>
+                                </div>
+                            </form>
+                        </ModalBody>
+                    </Modal>
+
 
                     <Footer />
 
