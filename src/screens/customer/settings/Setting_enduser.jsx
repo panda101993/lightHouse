@@ -33,6 +33,14 @@ const MysavedCoupon = () =>
 
 
 class componentName extends Component { 
+   constructor(props) {
+     super(props)
+   
+     this.state = {
+        UnActiveClass:"nav-link _settings"
+     }
+   }
+   
    
   render()  
   {  const { path } = this.props.match;
@@ -46,7 +54,10 @@ class componentName extends Component {
                   <div class="manage">
                      <div class="nav flex-column nav-pills home_c3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                      <Link to={`${path}`} class="nav-link active _settings" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</Link>
-                     <Link to={`${path}/ChangePasswordUser`}     class="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#Change-Password" role="tab" aria-controls="v-pills-profile" aria-selected="false">Change Password </Link>
+                     <Link to={`${path}/ChangePasswordUser`}   
+                       class="nav-link _settings" 
+                   //   class="nav-link active _settings"
+                      id="v-pills-profile-tab" data-toggle="pill" href="#Change-Password" role="tab" aria-controls="v-pills-profile" aria-selected="false">Change Password </Link>
                      <Link to={`${path}/MyWishListUser`}  class="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#My-Wishlist" role="tab" aria-controls="v-pills-messages" aria-selected="false">My Wishlist </Link>
                      <Link to={`${path}/MysavedCoupon`}    class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#My-Saved-Coupons" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Saved Coupons </Link>
                      </div>

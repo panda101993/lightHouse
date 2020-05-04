@@ -76,49 +76,87 @@ export default class Coupon_template extends Component {
       
       
    <div>  
-       <ImageDashboard 
+       {/* <ImageDashboard 
       // ImageName="TCL E-Mart" 
      // LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       // heartImage={Imageid.RedHeart}
-         />
+         /> */}   
+           <div class="main-coverslider">  
+           <div class="cover-images"> 
+          
+         <img  
+          style={{width:"100%",height:"100%" }} 
+          src={Imageid.Image1} 
+          
+          /> 
+          </div> 
+          </div>
    </div>
    <div> 
    
-   <ImageDashboard 
+   {/* <ImageDashboard 
       // ImageName="TCL E-Mart" 
       //LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       // heartImage={Imageid.RedHeart}
-         />
+         /> */} 
+     <div class="main-coverslider">  
+           <div class="cover-images">
+         <img  
+          style={{width:"100%",height:"100%" }} 
+          src={Imageid.Image1} /> 
+          </div> 
+          </div>
+
    </div>
    <div> 
-   
+{/*    
    <ImageDashboard 
       // ImageName="TCL E-Mart" 
      // LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       // heartImage={Imageid.RedHeart}
-         />
-     
+         /> */}
+         <div class="main-coverslider">  
+           <div class="cover-images">
+         <img  
+          style={{width:"100%",height:"100%" }} 
+          src={Imageid.Image1} /> 
+          </div> 
+          </div>
    </div>
    <div> 
    
-   <ImageDashboard 
+   {/* <ImageDashboard 
       // ImageName="TCL E-Mart" 
       //LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       // heartImage={Imageid.RedHeart}
-         />
+         /> */} 
+          <div class="main-coverslider">  
+           <div class="cover-images">
+         <img  
+          style={{width:"100%",height:"100%" }} 
+          src={Imageid.Image1} /> 
+          </div> 
+          </div>
    </div>
    <div> 
-    
+{/*     
        <ImageDashboard 
       // ImageName="TCL E-Mart" 
       //LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       // heartImage={Imageid.RedHeart}
-         />
+         /> */} 
+          <div class="main-coverslider">  
+           <div class="cover-images">
+         <img  
+          style={{width:"100%",height:"100%" }} 
+          src={Imageid.Image1} /> 
+          </div> 
+          </div>
    </div>
   
 

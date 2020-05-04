@@ -144,8 +144,9 @@ export default class LoginRetailer extends Component {
 
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label">Remember Me</label>
-                                        <label><Link to="OtpScreenRetailer">Forgot Password ?</Link></label>
+                                        <label class="form-check-label">Remember Me</label> 
+                                        
+                                        <label><Link to="/ForgotpasswordRetailer">Forgot Password ?</Link></label>
                                     </div>
                                     {/* <GlobalButtonLinks
                                         linkLabel="Setting_retailer"

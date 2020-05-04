@@ -16,7 +16,9 @@ import ResetPassword from '../screens/customer/authentication/Resetpassword';
 import SignupOtp from '../screens/customer/authentication/SignupOtp';
 import OTPScreen from '../screens/customer/authentication/Otp';
 import Mywishlist from '../screens/customer/settings/Mywishlist';
-import ForgotpasswordRetailer from '../screens/Retailer/authentication/ForgotpasswordOtpRetailer'; 
+//import ForgotpasswordRetailer from '../screens/Retailer/authentication/ForgotpasswordOtpRetailer'; 
+import ForgotpasswordRetailer from "../screens/Retailer/authentication/ForgotpasswordRetailer" ;
+
 import Setting_enduser from '../screens/customer/settings/Setting_enduser';
 
 //Retailer screen
@@ -90,7 +92,10 @@ export default class Navigation extends Component {
                  
                     <Route path="/NotificationScreens" component={NotificationScreens} />
                     <Route path="/NotificationScreensRetailer" component={NotificationScreensRetailer} />
-                   
+                     
+                    <Route path="/ForgotpasswordRetailer" component={ForgotpasswordRetailer} />
+
+
                     <Route path='/ForgotPassword' component= {ForgotPassword} />  
                      <Route path='/ForgotPasswordOtp' component ={ForgotPasswordOtp} />
                     <Route  path="/WebsiteRetailer" component ={WebsiteRetailer} /> 

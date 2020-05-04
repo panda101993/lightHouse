@@ -69,8 +69,9 @@ export default class ForgotPassword extends Component {
 
    handleinput=(e)=>{
        var value=e.target.value;
+       const name = e.target.name;
     //   this.validateMobileno(value)  
-
+    this.setState({ [name]: value })
        this.state.mobilenoErrorMessage = this.validateMobileno(value).error;
        this.state.mobilenoStatus = this.validateMobileno(value).status;
 
@@ -131,7 +132,8 @@ export default class ForgotPassword extends Component {
                         <div class="code-no">
                            <input 
                            type="text" 
-                           class="form-control"
+                           class="form-control" 
+                           name="mobileNo"
                            onChange={(e)=>this.handleinput(e)}
                            />
                         </div>
