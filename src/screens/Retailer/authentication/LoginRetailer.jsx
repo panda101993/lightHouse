@@ -72,7 +72,7 @@ export default class LoginRetailer extends Component {
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
      }
     
-   
+     
 
     render() {
         return (

@@ -44,8 +44,7 @@ export default class OtpScreenRetailer extends Component {
          if (this.state.otpStatus2) {
             if (this.state.otpStatus3) {
                if (this.state.otpStatus4) {
-
-                  alert('Submit Successfully');
+                window.location.href='ResetpasswordRetailer'
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
          } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -58,40 +57,7 @@ export default class OtpScreenRetailer extends Component {
       this.setState({ [name]: value })
       //    () => { this.validateOtp(value) });
       console.log("valueset==>", value)
-      // this.state.otpErrorMessage = this.validateOtp(value).error;
-      // this.state.otpStatus = this.validateOtp(value).status;
-
-
-      // handleOtpInput2=(e)=> {
-      //    const name = e.target.name;
-      //    const value = e.target.value;
-      //    this.setState({ [name]: value })
-      //       // () => { this.validateOtp(value) });
-      //    console.log("valueset==>", value)
-      //    this.state.otpErrorMessage = this.validateOtp(value).error;
-      //    this.state.otpStatus2 = this.validateOtp(value).status;
-      // }
-
-      //    handleOtpInput3=(e)=> {
-      //       const name = e.target.name;
-      //       const value = e.target.value;
-      //       this.setState({ [name]: value })
-
-      //          // () => { this.validateOtp(value) });
-      //       console.log("valueset==>", value)
-      //       this.state.otpErrorMessage = this.validateOtp(value).error;
-      //       this.state.otpStatus3 = this.validateOtp(value).status;
-      //    }
-
-      //       handleOtpInput4=(e)=> {
-      //          const name = e.target.name;
-      //          const value = e.target.value;
-      //          this.setState({ [name]: value })
-      //             // () => { this.validateOtp(value) });
-      //          console.log("valueset==>", value)
-      //          this.state.otpErrorMessage = this.validateOtp(value).error;
-      //          this.state.otpStatus4 = this.validateOtp(value).status;
-      //       }
+     
 
       if (name == "otp") {
          this.state.otpErrorMessage = validateOtp(value).error;
@@ -266,7 +232,7 @@ export default class OtpScreenRetailer extends Component {
 
                               </div>
                            </div>
-                           <Link to="Otp"><button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button></Link>
+                          <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
                         </form>
                      </div>
                   </div>

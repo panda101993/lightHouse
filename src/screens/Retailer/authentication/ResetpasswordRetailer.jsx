@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import Header from '../../../components/Header';
-import Footer from '../../../components/Footer';
-import { GlobalValidations } from '../../../components/GlobalValidations';
-import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
+import Header from '../../../components/Header'
+import Footer from '../../../components/Footer'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-export default class ResetPassword extends Component { 
+class componentName extends Component { 
     constructor(props) {
         super(props)
       
@@ -122,7 +120,7 @@ export default class ResetPassword extends Component {
                                     <h5>OTP resent successfully.</h5>
                                 </div>
                                 <div style={{ textAlign: "center" }} >
-                                <Link to='/LoginCustomer' >  <button class="btn setloc-btn" type="submit"  >OK</button> </Link>    
+                                <Link to='/LoginRetailer' >  <button class="btn setloc-btn" type="submit"  >OK</button> </Link>    
                                 </div>
                             </form>
                         </ModalBody>
@@ -133,3 +131,5 @@ export default class ResetPassword extends Component {
     )
   }
 }
+
+export default componentName

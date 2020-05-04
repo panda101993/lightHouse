@@ -25,6 +25,7 @@ import SignupRetailer from '../screens/Retailer/authentication/SignupRetailer';
 import SignupOtpRetailer from '../screens/Retailer/authentication/SignupOtp';
 import Setting_retailer from '../screens/Retailer/settings/Setting_retailer';
 import OtpScreenRetailer from '../screens/Retailer/authentication/OtpScreenRetailer';
+import ResetpasswordRetailer from '../screens/Retailer/authentication/ResetpasswordRetailer';
 
 
 
@@ -36,12 +37,12 @@ import NotificationScreensRetailer from '../screens/notificationScreensRetailer/
 import { createBrowserHistory } from 'history';
 
 //settings routes
-import Settings from '../screens/settings/Settings';
-import PasswordUpdate from '../screens/settings/PasswordUpdateForm';
-import ProfileUpdate from '../screens/settings/ProfileUpdateForm';
+// import Settings from '../screens/settings/Settings';
+// import PasswordUpdate from '../screens/settings/PasswordUpdateForm';
+// import ProfileUpdate from '../screens/settings/ProfileUpdateForm';
 
 import LandingScreen from '../screens/dashboard/LandingScreen'
-import SettingEndUser from '../screens/settings/SettingEndUser';
+// import SettingEndUser from '../screens/settings/SettingEndUser';
 import WebsiteRetailer from '../screens/Retailer/WebsiteRetailer';
 import WebsiteMart from '../screens/Retailer/WebsiteMart';
 import AllRetailers from '../screens/Retailer/AllRetailers';
@@ -82,9 +83,9 @@ export default class Navigation extends Component {
                     <Route path='/OtpScreenRetailer' component= {OtpScreenRetailer} />
                     
                     {/* settings EndUser */}
-                   <Route path="/SettingEndUser"  component ={SettingEndUser } />
+                   {/* <Route path="/SettingEndUser"  component ={SettingEndUser } /> */}
                 <Route path='/Setting_enduser' component={Setting_enduser} />
-                    <Route path='/settings' component= {Settings} />
+                    {/* <Route path='/settings' component= {Settings} /> */}
                     <Route path="/Setting_retailer" component= {Setting_retailer} />
                  
                     <Route path="/NotificationScreens" component={NotificationScreens} />
@@ -113,7 +114,8 @@ export default class Navigation extends Component {
                   <Route path='/Coupon_template' component={Coupon_template} />
                   <Route path='/MyCoupanHistory' component={MyCoupanHistory} />  
                   <Route path='/ManageOnetime' component={ManageOnetime} />
-                <Route path='/ResetPassword' component={ResetPassword} />
+                <Route path='/ResetPassword' component={ResetPassword} /> 
+                <Route path="/ResetpasswordRetailer" component={ResetpasswordRetailer} />
                 </div>
             </Router>
         )
@@ -149,18 +151,3 @@ export default class Navigation extends Component {
 //   );
 // }
 
-export const SettingsRoutes = [
-    {
-        layout: '/settings',
-        path: '/change-password',
-        name: 'Change Passowrd',
-        Component: PasswordUpdate,
-
-    },
-    {
-        layout: '/settings',
-        path: '/update-profile',
-        name: 'Update Profile',
-        Component: ProfileUpdate,
-    }
-]
