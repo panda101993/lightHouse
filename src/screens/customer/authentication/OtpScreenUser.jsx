@@ -46,7 +46,9 @@ export default class OtpScreenUser extends Component {
             if (this.state.otpStatus3) {
                if (this.state.otpStatus4) {
 
-                  alert('Submit Successfully');
+               //   alert('Submit Successfully');
+                   window.location.href='/Setting_enduser'
+
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
          } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -237,9 +239,9 @@ export default class OtpScreenUser extends Component {
 
                               </div>
                            </div>
-                           <Link to="/Setting_enduser">
+                           {/* <Link to="/Setting_enduser"> */}
                               <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
-                              </Link>
+                              {/* </Link> */}
                         </form>
                      </div>
                   </div>

@@ -3,14 +3,128 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
-import { Link } from 'react-router-dom';
-export default class SignupOtpRetailer extends Component {
+import { Link } from 'react-router-dom'; 
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { validateOtp } from '../../../utils/validation/Validation';
+
+
+
+export default class SignupOtpRetailer extends Component {  
+   constructor(props) {
+      super(props)
+
+      this.state = {
+         otp: "",
+         otpErrorMessage: "",
+         otpStatus: false,
+
+         otp2: "",
+         otpErrorMessage2: "",
+         otpStatus2: false,
+
+         otp3: "",
+         otpErrorMessage3: "",
+         otpStatus3: false,
+
+         otp4: "",
+         otpErrorMessage4: "",
+         otpStatus4: false,
+
+
+         modalStatus: false,
+         // error:"",
+         // status:""
+
+      }
+
+   }
+
+
+   submitHandler = () => {
+      if (this.state.otpStatus) {
+         if (this.state.otpStatus2) {
+            if (this.state.otpStatus3) {
+               if (this.state.otpStatus4) {
+
+               //   alert('Submit Successfully'); 
+               window.location.href='Setting_retailer'
+
+               } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
+            } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
+         } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
+      } else { this.setState({ otpStatus: false, otpErrorMessage: "*Please enter OTP" }) }
+   }
+
+   handleOtpInput = (e) => {
+      const name = e.target.name;
+      const value = e.target.value;
+      this.setState({ [name]: value })
+      //    () => { this.validateOtp(value) });
+      console.log("valueset==>", value)
+      // this.state.otpErrorMessage = this.validateOtp(value).error;
+      // this.state.otpStatus = this.validateOtp(value).status;
+
+
+      // handleOtpInput2=(e)=> {
+      //    const name = e.target.name;
+      //    const value = e.target.value;
+      //    this.setState({ [name]: value })
+      //       // () => { this.validateOtp(value) });
+      //    console.log("valueset==>", value)
+      //    this.state.otpErrorMessage = this.validateOtp(value).error;
+      //    this.state.otpStatus2 = this.validateOtp(value).status;
+      // }
+
+      //    handleOtpInput3=(e)=> {
+      //       const name = e.target.name;
+      //       const value = e.target.value;
+      //       this.setState({ [name]: value })
+
+      //          // () => { this.validateOtp(value) });
+      //       console.log("valueset==>", value)
+      //       this.state.otpErrorMessage = this.validateOtp(value).error;
+      //       this.state.otpStatus3 = this.validateOtp(value).status;
+      //    }
+
+      //       handleOtpInput4=(e)=> {
+      //          const name = e.target.name;
+      //          const value = e.target.value;
+      //          this.setState({ [name]: value })
+      //             // () => { this.validateOtp(value) });
+      //          console.log("valueset==>", value)
+      //          this.state.otpErrorMessage = this.validateOtp(value).error;
+      //          this.state.otpStatus4 = this.validateOtp(value).status;
+      //       }
+
+      if (name == "otp") {
+         this.state.otpErrorMessage = validateOtp(value).error;
+         this.state.otpStatus = validateOtp(value).status;
+      }
+      else if (name == "otp2") {
+         this.state.otpErrorMessage = validateOtp(value).error;
+         this.state.otpStatus2 = validateOtp(value).status;
+      }
+      else if (name == "otp3") {
+         this.state.otpErrorMessage = validateOtp(value).error;
+         this.state.otpStatus3 = validateOtp(value).status;
+      }
+      else if (name == "otp4") {
+         this.state.otpErrorMessage = validateOtp(value).error;
+         this.state.otpStatus4 = validateOtp(value).status;
+      }
+   }
+
+ 
+
+   
+
+
     render() {
         return (
            <div>
               <body>
                  <Header />
-                 <section>
+                 {/* <section>
          <div class="container-fluid">
             <div class="cover-otp">
                <h1>OTP verification</h1>
@@ -34,7 +148,99 @@ export default class SignupOtpRetailer extends Component {
                </form>
             </div>
          </div>
-      </section>
+      </section> */}  
+
+<section>
+                  <div class="container-fluid">
+                     <div class="cover-otp">
+                        <h1>OTP verification</h1>
+                        {/* <form onSubmit={this.submitLoginForm}> */}
+                        <form>
+                           <div class="register-cont">
+                              <p>Please enter the 4 digits OTP sent on your registered phone number.</p>
+                           </div>
+                           <div class="form-group">
+                              <div class="otp-box">
+                                 <p>Enter 4 - digits code</p>
+
+                                 <ul>
+                                    <li>
+                                       <input class="form-control"
+                                          name="otp"
+                                          type="texts"
+                                          maxLength={1}
+                                          placeholder="0"
+                                          // value={this.state.otp}
+                                          onChange={(event) => this.handleOtpInput(event)} />
+
+                                    </li>
+                                    <li>
+
+                                       {/* <input type="text" class="form-control" value="" /> */}
+                                       <input class="form-control"
+                                          name="otp2"
+                                          type="text"
+                                          maxLength={1}
+                                          placeholder="0"
+                                          // value={this.state.otp}
+                                          onChange={(event) => this.handleOtpInput(event)} />
+                                    </li>
+                                    <li>
+                                       {/* <input type="text" class="form-control" value="" /> */}
+                                       <input class="form-control"
+                                          name="otp3"
+                                          type="text"
+                                          maxLength={1}
+                                          placeholder="0"
+                                          // value={this.state.otp}
+                                          onChange={(event) => this.handleOtpInput(event)} />
+                                    </li>
+                                    <li>
+                                       {/* <input type="text" class="form-control" value="" /> */}
+                                       <input class="form-control"
+                                          name="otp4"
+                                          type="text"
+                                          maxLength={1}
+                                          placeholder="0"
+                                          // value={this.state.otp}
+                                          onChange={(event) => this.handleOtpInput(event)} />
+                                    </li>
+                                    {/* < input value={this.state.otp} onChange={(value) => this.UserOtp(value)}/> */}
+
+                                 </ul>
+                                 <div>
+                                    <label class="validation-hint">
+                                       {this.state.otpErrorMessage}
+                                    </label>
+                                 </div>
+
+
+                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
+                                    Resend
+                                 </p></Link>
+
+
+                                 <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "190px", }}>
+                                    <ModalBody>
+                                       <div class="modal-header locationsethead">
+                                          <h5>OTP resent successfully.</h5>
+                                       </div>
+                                       <div style={{ textAlign: "center" }}>
+                                          <button class="btn setloc-btn" onClick={() => this.setState({ modalStatus: false })} >OK</button>
+                                       </div>
+
+
+                                    </ModalBody>
+                                 </Modal>
+
+
+                              </div>
+                           </div>
+                           <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
+                        </form>
+                     </div>
+                  </div>
+               </section>
 
                  <Footer />
 
