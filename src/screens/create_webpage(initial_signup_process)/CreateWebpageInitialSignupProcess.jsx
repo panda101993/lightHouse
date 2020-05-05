@@ -7,6 +7,7 @@ import { Link, Switch } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { validateOtp,validateMobileNo } from '../../utils/validation/Validation';
+import Header from '../../components/Header';
 
 export default class CreateWebpageInitialSignupProcess extends Component {
     constructor(props) {
@@ -105,7 +106,8 @@ export default class CreateWebpageInitialSignupProcess extends Component {
         return (
             <div>
                 <body>
-                    <Header2 />
+                    {/* <Header2 /> */} 
+                    <Header />
                     <section class="bg-form">
                         <div class="cover-forgot bg-whiteform">
                             <h1>Join Us:</h1>

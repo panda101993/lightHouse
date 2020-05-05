@@ -22,7 +22,9 @@ export class CreateCouponform extends Component {
     
       this.state = {
         modalStatus: false,
-        modalStatusImage:false
+        modalStatusSucess:false,
+        modalStatusLink:false
+
       }
     }
     
@@ -267,17 +269,7 @@ export class CreateCouponform extends Component {
       <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
                   <ModalBody>
                 
-                 {/* <div class="modal-content">
-               <div class="modal-header locationsethead">
-                  <h5>Are you sure you want to remove this
-                     from wishlist ?
-                  </h5>
-               </div>
-               <div class="modal-body ny">
-                  <button type="button" class="btn setloc-" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>No</button>
-                  <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Yes</button>
-               </div>
-            </div> */} 
+               
              <div class="modal-content offer">
                <div class="modal-body bumoffer">
                   <div class="mainoffer">
@@ -293,14 +285,52 @@ export class CreateCouponform extends Component {
                   </div>
                   <div class="modal-body ny">
                      {/* <a href="101-coupon-template.html">  */}
-                     <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#"   onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Cancel</button> 
+                <Link to='/Coupon_template'  >   <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#"   onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Cancel</button>  </Link>  
                      {/* </a> */}
-                     <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#coup-success"  onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Save</button>
-                     <button type="button" class="btn btn-modal" data-dismiss="modal"  data-toggle="modal" data-target="#prev"  onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Submit</button>
+                     <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#coup-success"  onClick={() => this.setState({ modalStatus: !this.state.modalStatus ,modalStatusSucess:!this.state.modalStatusSucess })} >Save</button>
+                     <button type="button" class="btn btn-modal" data-dismiss="modal"  data-toggle="modal" data-target="#prev" 
+                      onClick={() => this.setState({ modalStatus: !this.state.modalStatus ,modalStatusLink:!this.state.modalStatusLink})} >Submit</button>
                   </div>
                </div>
             </div>
            
+                  </ModalBody>
+               </Modal>   
+              
+               <Modal isOpen={this.state.modalStatusSucess} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
+                  <ModalBody>
+                 
+               <div class="modal-header locationsethead">
+                  <h5>Your Coupon has been saved successfully!</h5>
+               </div>
+               <div class="modal-body ok">
+                 {/* <a href="my-coupons-history.html"> */} 
+                  <Link to='/MyCoupanHistory' >
+                     <button type="button" class="btn setloc-btn">OK</button> 
+                     </Link>  
+                    {/* </a>  */}
+               </div>
+                 </ModalBody>
+               </Modal>  
+
+               <Modal isOpen={this.state.modalStatusLink} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
+                  <ModalBody>
+                  <div class="modal-header locationsethead adminis">
+                  <h5>Thanks for  submiting the coupon. Administrator will
+                     verify and will update you soon !
+                  </h5>
+               </div>
+               <div class="coupon-url">
+                  <h6>Here is your link of the coupon :-<a href="https://couponhu78.com">https://couponhu78.com</a></h6>
+               </div>
+               <div class="modal-body ok">
+                 {/* <a href="101-coupon-template.html"> */} 
+                 <Link to='/Coupon_template' >
+                     <button class="btn setloc-btn" type="submit" data-toggle="modal" data-target="#">OK</button> 
+                     </Link>
+                     {/* </a>  */}
+               </div>
+ 
                   </ModalBody>
                </Modal>  
                 <Footer /> 

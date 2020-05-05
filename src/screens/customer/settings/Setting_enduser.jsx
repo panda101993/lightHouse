@@ -53,7 +53,7 @@ class componentName extends Component {
                <div class="col-lg-3 col-sm-12 mb-3">
                   <div class="manage">
                      <div class="nav flex-column nav-pills home_c3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                     <NavLink to={`${path}/`} className="nav-link  _settings" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</NavLink>
+                     <NavLink to={`${path}/`} className="nav-link _settings" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</NavLink>
                      <NavLink to={`${path}/ChangePasswordUser`}  className="nav-link _settings"  id="v-pills-profile-tab" data-toggle="pill" href="#Change-Password" role="tab" aria-controls="v-pills-profile" aria-selected="false">Change Password </NavLink>
                      <NavLink to={`${path}/MyWishListUser`}  className="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#My-Wishlist" role="tab" aria-controls="v-pills-messages" aria-selected="false">My Wishlist </NavLink>
                      <NavLink to={`${path}/MysavedCoupon`}    className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#My-Saved-Coupons" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Saved Coupons </NavLink>
