@@ -44,7 +44,7 @@ export class ChangePasswordEndUser extends Component {
                <div class="modal-header locationsethead">
                   <h5>Your password has been changed successfully.</h5>
                </div>
-               <div class="modal-body">
+               <div style={{ textAlign: "center" }}>
                   <button class="btn setloc-btn" type="submit" data-dismiss="modal"   onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}   >OK</button>
                </div>
             </div>

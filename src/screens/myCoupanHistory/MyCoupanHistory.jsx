@@ -9,7 +9,7 @@ import PublishedCoupansRetailer from "../../components/PublishedCoupansRetailer"
 import RejectedCoupansRetailer from "../../components/RejectedCouponsRetailer";
 import WithdrawnCoupansRetailer from "../../components/WithdrawnCouponsRetailer";
 import ExpiredCoupansRetailer from "../../components/ExpiredCouponsRetailer";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link  ,NavLink} from "react-router-dom";
 
 
 const SavedCoupons = () => 
@@ -85,27 +85,27 @@ export default class MyCoupanHistory extends Component {
                                 <div class="main-copnatbs">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <Link to={`${path}`} class="nav-link active" id="Saved-tab" data-toggle="tab"  role="tab" aria-controls="Saved" aria-selected="true">Saved Coupons</Link>
+                                            <NavLink to={`${path}/`} className="nav-link active" id="Saved-tab" data-toggle="tab"  role="tab" aria-controls="Saved" aria-selected="true">Saved Coupons</NavLink>
                                         </li>
                                         <li class="nav-item">
-                                            <Link to={`${path}/SubmittedCoupons`} class="nav-link " id="Submitted-tab" data-toggle="tab"  role="tab" aria-controls="Submitted" aria-selected="false">Submitted Coupons</Link>
+                                            <NavLink to={`${path}/SubmittedCoupons`} className="nav-link " id="Submitted-tab" data-toggle="tab"  role="tab" aria-controls="Submitted" aria-selected="false">Submitted Coupons</NavLink>
                                         </li>
                                         <li class="nav-item">
-                                            <Link to={`${path}/PublishedCoupons`} class="nav-link" id="Published-tab" data-toggle="tab"  role="tab" aria-controls="Published" aria-selected="false">Published Coupons</Link>
+                                            <NavLink to={`${path}/PublishedCoupons`} className="nav-link" id="Published-tab" data-toggle="tab"  role="tab" aria-controls="Published" aria-selected="false">Published Coupons</NavLink>
                                         </li>
                                         <li class="nav-item">
-                                            <Link to={`${path}/RejectedCoupons`} class="nav-link" id="Rejected-tab" data-toggle="tab"  role="tab" aria-controls="Rejected" aria-selected="false">Rejected Coupons</Link>
+                                            <NavLink to={`${path}/RejectedCoupons`} className="nav-link" id="Rejected-tab" data-toggle="tab"  role="tab" aria-controls="Rejected" aria-selected="false">Rejected Coupons</NavLink>
                                         </li>
                                         <li class="nav-item">
-                                            <Link to={`${path}/WithdrawnCoupons`} class="nav-link" id="Withdrawn-tab" data-toggle="tab"  role="tab" aria-controls="Withdrawn" aria-selected="false">Withdrawn Coupons</Link>
+                                            <NavLink to={`${path}/WithdrawnCoupons`} className="nav-link" id="Withdrawn-tab" data-toggle="tab"  role="tab" aria-controls="Withdrawn" aria-selected="false">Withdrawn Coupons</NavLink>
                                         </li>
                                         <li class="nav-item">
-                                            <Link to={`${path}/ExpiredCoupons`} class="nav-link" id="Expired-tab" data-toggle="tab" role="tab" aria-controls="Expired" aria-selected="false">Expired Coupons</Link>
+                                            <NavLink to={`${path}/ExpiredCoupons`} className="nav-link" id="Expired-tab" data-toggle="tab" role="tab" aria-controls="Expired" aria-selected="false">Expired Coupons</NavLink>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
                                     <Switch>
-                                            <Route path={`${path}`} exact component={SavedCoupons} />
+                                            <Route path={`${path}/`} exact component={SavedCoupons} />
                                             <Route path={`${path}/SavedCoupons`} exact component={SavedCoupons} />
                                             <Route path={`${path}/SubmittedCoupons`}  exact component={SubmittedCoupons} />
                                             <Route path={`${path}/PublishedCoupons`}  exact component={PublishedCoupons} />

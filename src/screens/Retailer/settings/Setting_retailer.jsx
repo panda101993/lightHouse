@@ -738,7 +738,7 @@ import RechargeHistoryRetailer from "../../../components/RechargeHistoryRetailer
 import CoupanViewHistoryRetailer from "../../../components/CoupanViewHistoryRetailer";
 import PreviewWebpageRetailer from "../../../components/PreviewWebpageRetailer";
 // import SidebarRetailer from "../../../components/SidebarRetailer";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, NavLink  ,Link} from "react-router-dom";
 
 
 
@@ -826,15 +826,15 @@ export default class Setting_retailer extends Component {
                                 <div class="col-lg-3 col-sm-12 mb-3">
                                     <div class="manage">
                                         <div class="nav flex-column nav-pills home_c3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <Link to={`${path}`} class="nav-link active _settings" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</Link>
-                                            <Link to={`${path}/MyReferralCode`} class="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-referral" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Referral Code</Link>
-                                            <Link to={`${path}/ChangePassword`} class="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-password" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</Link>
-                                            <Link to={`${path}/ManageWebpage`} class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" role="tab" aria-controls="v-pills-settings" aria-selected="false">Manage Webpage</Link>
-                                            <Link to={`${path}/MyCredits`} class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-credits" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Credits</Link>
-                                            <Link to={`${path}/MyCreditHistory`} class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-earned" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Credit History</Link>
-                                            <Link to={`${path}/Recharge`} class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-recharge" role="tab" aria-controls="v-pills-settings" aria-selected="false">Recharge</Link>
-                                            <Link to={`${path}/MyRechargeHistory`} class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Recharge  History</Link>
-                                            <Link to={`${path}/CouponViewHistory`} class="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-coupon" role="tab" aria-controls="v-pills-settings" aria-selected="false">Coupon View History</Link>
+                                            <NavLink to={`${path}/`} className="nav-link _settings" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</NavLink>
+                                            <NavLink to={`${path}/MyReferralCode`} className="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-referral" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Referral Code</NavLink>
+                                            <NavLink to={`${path}/ChangePassword`} className="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-password" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</NavLink>
+                                            <NavLink to={`${path}/ManageWebpage`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" role="tab" aria-controls="v-pills-settings" aria-selected="false">Manage Webpage</NavLink>
+                                            <NavLink to={`${path}/MyCredits`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-credits" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Credits</NavLink>
+                                            <NavLink to={`${path}/MyCreditHistory`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-earned" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Credit History</NavLink>
+                                            <NavLink to={`${path}/Recharge`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-recharge" role="tab" aria-controls="v-pills-settings" aria-selected="false">Recharge</NavLink>
+                                            <NavLink to={`${path}/MyRechargeHistory`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-settings" aria-selected="false">My Recharge  History</NavLink>
+                                            <NavLink to={`${path}/CouponViewHistory`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-coupon" role="tab" aria-controls="v-pills-settings" aria-selected="false">Coupon View History</NavLink>
                                         </div>
                                     </div>
                                 </div>
@@ -845,17 +845,17 @@ export default class Setting_retailer extends Component {
                                 <div class="col-lg-9 col-sm-12">
                                     <div class="tab-content manage_genral" id="v-pills-tabContent">
                                         <Switch>
-                                            <Route path={`${path}`} exact component={ManageGeneralInfo} />
-                                            <Route path={`${path}/ManageGeneralInfo`} exact component={ManageGeneralInfo} />
-                                            <Route path={`${path}/MyReferralCode`} component={MyReferralCode} />
-                                            <Route path={`${path}/ChangePassword`} component={ChangePassword} />
-                                            <Route path={`${path}/ManageWebpage`} component={ManageWebpage} />
-                                            <Route path={`${path}/MyCredits`} component={MyCredits} />
-                                            <Route path={`${path}/MyCreditHistory`} component={MyCreditHistory} />
-                                            <Route path={`${path}/Recharge`} component={Recharge} />
-                                            <Route path={`${path}/MyRechargeHistory`} component={MyRechargeHistory} />
-                                            <Route path={`${path}/CouponViewHistory`} component={CouponViewHistory} />
-                                            <Route path={`${path}/Preview`} exact component={Preview} />
+                                            <Route exact={true} path={`${path}/`}  component={ManageGeneralInfo} />
+                                            <Route  exact={true} path={`${path}/ManageGeneralInfo`} exact component={ManageGeneralInfo} />
+                                            <Route  exact={true} path={`${path}/MyReferralCode`} component={MyReferralCode} />
+                                            <Route  exact={true} path={`${path}/ChangePassword`} component={ChangePassword} />
+                                            <Route  exact={true} path={`${path}/ManageWebpage`} component={ManageWebpage} />
+                                            <Route   exact={true} path={`${path}/MyCredits`} component={MyCredits} />
+                                            <Route exact={true} path={`${path}/MyCreditHistory`} component={MyCreditHistory} />
+                                            <Route  exact={true} path={`${path}/Recharge`} component={Recharge} />
+                                            <Route  exact={true} path={`${path}/MyRechargeHistory`} component={MyRechargeHistory} />
+                                            <Route  exact={true} path={`${path}/CouponViewHistory`} component={CouponViewHistory} />
+                                            <Route  exact={true} path={`${path}/Preview`} exact component={Preview} />
 
 
                                         </Switch>

@@ -28,7 +28,7 @@ export class CouponsImage extends Component {
                            <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
                   <ModalBody>
                 
-                 <div class="modal-content">
+                 {/* <div class="modal-content">
                <div class="modal-header locationsethead">
                   <h5>Are you sure you want to remove this
                      from wishlist ?
@@ -39,7 +39,8 @@ export class CouponsImage extends Component {
                   <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Yes</button>
                </div>
             </div>
-           
+            */} 
+            
                   </ModalBody>
                </Modal>  
                

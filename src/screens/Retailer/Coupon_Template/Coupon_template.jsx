@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Footer from '../../../components/Footer'
 import Header from '../../../components/Header'
-import Carousel from  'react-multi-carousel'
+import Carousel from  'react-multi-carousel' 
+import 'react-multi-carousel/lib/styles.css'; 
 import ImageDashboard from '../../../components/ImageDashboard'
 import { Switch, Route, Link } from "react-router-dom";
 import Header2 from '../../../components/Header2'
@@ -64,7 +65,7 @@ export default class Coupon_template extends Component {
            </div>
          </div>
        </section> 
-      {/* <section class="second">
+       <section class="second">
          <div class="container-fluid border-with-radius img-slic">
             <h3 class="info_c3 chnge-pass coup-temp">Please select the coupon template for the creation of the coupon : </h3>
             <Carousel
@@ -93,11 +94,18 @@ export default class Coupon_template extends Component {
            <div class="main-coverslider">  
            <div class="cover-images"> 
           
+         {/* <img  
+          style={{width:"100%",height:"100%" }} 
+          src={Imageid.Image1} 
+          
+          />  */} 
+            <Link to='/CreateCouponform'>
          <img  
           style={{width:"100%",height:"100%" }} 
           src={Imageid.Image1} 
           
-          /> 
+          />  
+          </Link>
           </div> 
           </div>
    </div>
@@ -106,9 +114,13 @@ export default class Coupon_template extends Component {
    
      <div class="main-coverslider">  
            <div class="cover-images">
+           <Link to='/CreateCouponform'>
          <img  
           style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} /> 
+          src={Imageid.Image1} 
+          
+          />  
+          </Link>
           </div> 
           </div>
 
@@ -117,9 +129,13 @@ export default class Coupon_template extends Component {
 
          <div class="main-coverslider">  
            <div class="cover-images">
+           <Link to='/CreateCouponform'>
          <img  
           style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} /> 
+          src={Imageid.Image1} 
+          
+          />  
+          </Link>
           </div> 
           </div>
    </div>
@@ -127,9 +143,13 @@ export default class Coupon_template extends Component {
   
           <div class="main-coverslider">  
            <div class="cover-images">
+           <Link to='/CreateCouponform'>
          <img  
           style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} /> 
+          src={Imageid.Image1} 
+          
+          />  
+          </Link>
           </div> 
           </div>
    </div>
@@ -137,9 +157,13 @@ export default class Coupon_template extends Component {
 
           <div class="main-coverslider">  
            <div class="cover-images">
+           <Link to='/CreateCouponform'>
          <img  
           style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} /> 
+          src={Imageid.Image1} 
+          
+          />  
+          </Link>
           </div> 
           </div>
    </div>
@@ -147,14 +171,14 @@ export default class Coupon_template extends Component {
 
 </Carousel> 
         </div>   
-      </section> */} 
-              <Switch>
+      </section> 
+              {/* <Switch>
                 <Route path={`${path}`} exact component={Coupontemplete} />
                 <Route path={`${path}/Coupon_template`} exact component={Coupontemplete} />
                 <Route path={`${path}/CreateCoupon`} component={CreateCoupon1} />
 
 
-              </Switch>
+              </Switch> */}
 
       <Footer/>
                                   
