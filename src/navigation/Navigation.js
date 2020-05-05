@@ -63,6 +63,7 @@ import FAQs from '../screens/FAQs';
 import Coupon_template from '../screens/Retailer/Coupon_Template/Coupon_template';
 import MyCoupanHistory from '../screens/myCoupanHistory/MyCoupanHistory';
 import ManageOnetime from '../screens/Retailer/Manage_Coupons/ManageOnetime';
+import CreateCouponform from '../screens/Retailer/Coupon_Template/CreateCouponform';
 
 export default class Navigation extends Component {
     render() {
@@ -116,7 +117,10 @@ export default class Navigation extends Component {
                     <Route path='/Contact_us' component= {Contact_us}/>
                     <Route path='/FAQs' component= {FAQs}/>
                   
-                  <Route path='/Coupon_template' component={Coupon_template} />
+                  <Route path='/Coupon_template' component={Coupon_template} /> 
+                  <Route path='/CreateCouponform' component={CreateCouponform} />  
+
+
                   <Route path='/MyCoupanHistory' component={MyCoupanHistory} />  
                   <Route path='/ManageOnetime' component={ManageOnetime} />
                 <Route path='/ResetPassword' component={ResetPassword} /> 

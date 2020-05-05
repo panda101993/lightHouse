@@ -5,6 +5,8 @@ import Carousel from  'react-multi-carousel'
 import ImageDashboard from '../../../components/ImageDashboard'
 import { Switch, Route, Link } from "react-router-dom";
 import Header2 from '../../../components/Header2'
+import CreateCoupon from '../../../components/CreateCoupon'
+import CoupontempleteImage from '../../../components/CoupontempleteImage'
 const responsive = {
    desktop: {
      breakpoint: { max: 3000, min: 1024 },
@@ -26,12 +28,23 @@ const responsive = {
 const Imageid={
    Image1:require("../../../assets/images/Template-1.png"),
  }
+ 
+ 
+const CreateCoupon1 = () => 
+<div>
+    <CreateCoupon />
+</div>; 
+const Coupontemplete =() =>
+<div>
+<CoupontempleteImage />
+</div>;
 
 export default class Coupon_template extends Component {
 
    
 
-    render() {
+    render() { 
+      const { path } = this.props.match;
         return (
             <div>
    <body>
@@ -51,7 +64,7 @@ export default class Coupon_template extends Component {
            </div>
          </div>
        </section> 
-      <section class="second">
+      {/* <section class="second">
          <div class="container-fluid border-with-radius img-slic">
             <h3 class="info_c3 chnge-pass coup-temp">Please select the coupon template for the creation of the coupon : </h3>
             <Carousel
@@ -76,12 +89,7 @@ export default class Coupon_template extends Component {
       
       
    <div>  
-       {/* <ImageDashboard 
-      // ImageName="TCL E-Mart" 
-     // LinkId="/AllRetailers"
-      ImageA={Imageid.Image1} 
-      // heartImage={Imageid.RedHeart}
-         /> */}   
+        
            <div class="main-coverslider">  
            <div class="cover-images"> 
           
@@ -95,12 +103,7 @@ export default class Coupon_template extends Component {
    </div>
    <div> 
    
-   {/* <ImageDashboard 
-      // ImageName="TCL E-Mart" 
-      //LinkId="/AllRetailers"
-      ImageA={Imageid.Image1} 
-      // heartImage={Imageid.RedHeart}
-         /> */} 
+   
      <div class="main-coverslider">  
            <div class="cover-images">
          <img  
@@ -111,13 +114,7 @@ export default class Coupon_template extends Component {
 
    </div>
    <div> 
-{/*    
-   <ImageDashboard 
-      // ImageName="TCL E-Mart" 
-     // LinkId="/AllRetailers"
-      ImageA={Imageid.Image1} 
-      // heartImage={Imageid.RedHeart}
-         /> */}
+
          <div class="main-coverslider">  
            <div class="cover-images">
          <img  
@@ -127,13 +124,7 @@ export default class Coupon_template extends Component {
           </div>
    </div>
    <div> 
-   
-   {/* <ImageDashboard 
-      // ImageName="TCL E-Mart" 
-      //LinkId="/AllRetailers"
-      ImageA={Imageid.Image1} 
-      // heartImage={Imageid.RedHeart}
-         /> */} 
+  
           <div class="main-coverslider">  
            <div class="cover-images">
          <img  
@@ -143,13 +134,7 @@ export default class Coupon_template extends Component {
           </div>
    </div>
    <div> 
-{/*     
-       <ImageDashboard 
-      // ImageName="TCL E-Mart" 
-      //LinkId="/AllRetailers"
-      ImageA={Imageid.Image1} 
-      // heartImage={Imageid.RedHeart}
-         /> */} 
+
           <div class="main-coverslider">  
            <div class="cover-images">
          <img  
@@ -162,76 +147,17 @@ export default class Coupon_template extends Component {
 
 </Carousel> 
         </div>   
-      </section>
-      <Footer/>
-     
-      <div class="modal fade" id="locationsetmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header locationsethead">
-                  <h5>Please Set Your Location!</h5>
-               </div>
-               <div class="modal-body">
-                  <button class="btn setloc-btn" type="submit" data-dismiss="modal">OK</button>
-               </div>
-            </div>
-         </div>
-         </div>
-         <div class="modal fade" id="fill-loctnform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <ul class="curent-loc">
-                     <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
-                     <li><button type="button" class="btn btn-location">Use my current location</button></li>
-                  </ul>
-               </div>
-               <div class="modal-body">
-                  <div class="location-form">
-                     <h3>Enetr Your Location Details</h3>
-                     <form>
-                        <div class="form-group dash-form">
-                           <label for="exampleFormControlInput1">Pin Code*</label>
-                           <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""/>
-                        </div>
-                        <div class="form-group dash-form">
-                           <label for="exampleFormControlSelect1">State*</label>
-                           <select class="form-control" id="exampleFormControlSelect1">
-                              <option>UP</option>
-                              <option>Delhi</option>
-                           </select>
-                        </div>
-                        <div class="form-group dash-form">
-                           <label for="exampleFormControlSelect2">City*</label>
-                           <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""/>
-                        </div>
-                        <div class="form-group dash-form">
-                           <label for="exampleFormControlTextarea1">Address*</label>
-                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div class="dasmodal-save">
-                           <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-         </div> 
+      </section> */} 
+              <Switch>
+                <Route path={`${path}`} exact component={Coupontemplete} />
+                <Route path={`${path}/Coupon_template`} exact component={Coupontemplete} />
+                <Route path={`${path}/CreateCoupon`} component={CreateCoupon1} />
 
-         <div class="modal fade" id="logout" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-               <div class="modal-content coup-code">
-                  <div class="modal-header locationsethead adminis">
-                     <h5>Are you sure you want to Logout?</h5>
-                  </div>
-                  <div class="modal-body ok n-yes">
-                    <button class="btn setloc-btn" type="submit" data-dismiss="modal">No</button>
-                     <a href="3-login.html"><button type="button" class="btn setloc-btn" type="submit">Yes</button></a>
-                  </div>
-               </div>
-            </div>
-         </div>
+
+              </Switch>
+
+      <Footer/>
+                                  
      
    </body>
             </div>
