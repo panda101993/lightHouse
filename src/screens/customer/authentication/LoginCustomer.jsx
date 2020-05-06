@@ -203,7 +203,10 @@ export default class LoginCustomer extends Component {
                                         onChange={(event) => this.handleFormInput(event)}                  
                                     />
 
-                                    
+                                    {/* <div class="form-group">
+                                    <label>Password:</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                                </div> */}
                                     <GlobalValidations
                                         divClass=""
                                         label="Password:"
@@ -231,7 +234,11 @@ export default class LoginCustomer extends Component {
                                     {/* <Link to="/LandingScreen" > */}
                                     <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme">LOGIN</button>  
                                     {/* </Link> */}
-                                   
+                                    {/* <GlobalButtons
+                                    tnType="button"
+                                    btnClass="btn btn-theme"
+                                    btntxt="LOGIN"
+                                    /> */}
                                     {/* </Link> */}
                                     <div class="have-an">
                                         {/* <p>Don't have an account ? <Link to="Signup">Sign up</Link></p> */}
