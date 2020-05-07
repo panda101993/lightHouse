@@ -272,7 +272,7 @@ class componentName extends Component {
   
   <ImageDashboard 
      ImageName="Ornaments" 
-    // LinkId="/subCategories"
+   
      ImageA={Imageid.Image10} 
      heartImage={Imageid.RedHeart}
         />
@@ -280,7 +280,7 @@ class componentName extends Component {
   <div>  
       <ImageDashboard 
      ImageName="Dresses" 
-    // LinkId="/subCategories"
+   
      ImageA={Imageid.Image11} 
      heartImage={Imageid.RedHeart}
         />
@@ -289,7 +289,7 @@ class componentName extends Component {
   
   <ImageDashboard 
      ImageName="Furniture" 
-  //   LinkId="/subCategories"
+ 
      ImageA={Imageid.Image10} 
      heartImage={Imageid.RedHeart}
         />
@@ -323,7 +323,15 @@ class componentName extends Component {
         />
   </div>
 
-
+  <div> 
+  
+  <ImageDashboard 
+     ImageName="Furniture" 
+ 
+     ImageA={Imageid.Image10} 
+     heartImage={Imageid.RedHeart}
+        />
+  </div>
 
  </Carousel>
        
