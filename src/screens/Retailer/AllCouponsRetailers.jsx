@@ -165,8 +165,19 @@ export class AllCouponsRetailers extends Component {
                 <div class="slid-margin">
   
                   <div class="row mar-bottom">
-                     
-                    
+                      {/* <div class="col-md-3">
+                      <img src="images/pizza great deal.png"
+                       class="pizza-deal" data-dismiss="modal" data-toggle="modal" data-target="#great-deal"/>
+                      </div>
+                      <div class="col-md-3">
+                      <img src="images/pizza great deal.png" class="pizza-deal"/>
+                      </div>
+                      <div class="col-md-3">
+                      <img src="images/pizza great deal.png" class="pizza-deal"/>
+                      </div>
+                      <div class="col-md-3">
+                      <img src="images/pizza great deal.png" class="pizza-deal"/>
+                      </div> */} 
                         <CouponsImage />
                       <CouponsImage />
                       <CouponsImage />
