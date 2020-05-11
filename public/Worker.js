@@ -1,4 +1,4 @@
-var CACHE_NAME = 'lighthouse-progressive-web-application-20013649-react';
+var CACHE_NAME = 'lighthouse-cache';
 var urlsToCache = [
   '/',
  // '/completed'
@@ -33,7 +33,7 @@ self.addEventListener('fetch', event => {
 
 // Update a service worker
 self.addEventListener('activate', event => {
-  var cacheWhitelist = ['pwa-task-manager'];
+  var cacheWhitelist = ['lighthouse-cache'];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(

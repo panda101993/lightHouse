@@ -18,4 +18,4 @@ ReactDOM.render(<Provider store={Store}>
 // Learn more about service workers: https://bit.ly/CRA-PWA
 
 //serviceWorker.register(); 
-serviceWorker.unregister();
+serviceWorker.register();

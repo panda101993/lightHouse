@@ -12,10 +12,10 @@ import CreateWebpageInitialSignupProcess from './screens/create_webpage(initial_
 function App() {
   return (
     <div >
-   {/* <Navigation/>  */}
-    <Router>
+   <Navigation/> 
+    {/* <Router>
       <Route exact path="/" component={CreateWebpageInitialSignupProcess}></Route>
-    </Router>
+    </Router> */}
     </div>
   );
 }
