@@ -8,6 +8,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import Header2 from '../../../components/Header2'
 import CreateCoupon from '../../../components/CreateCoupon'
 import CoupontempleteImage from '../../../components/CoupontempleteImage'
+import Header3 from '../../../components/Header3';
 const responsive = {
    desktop: {
      breakpoint: { max: 3000, min: 1024 },
@@ -49,8 +50,8 @@ export default class Coupon_template extends Component {
         return (
             <div>
    <body>
-     <Header2 />
-      
+     {/* <Header2 /> */}
+      <Header3 />
       <section>
          <div class="container-fluid">
            <div class="coupn-setting my-5">

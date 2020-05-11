@@ -1,6 +1,18 @@
-import React from 'react'
+import React , { useState }from 'react' 
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';  
+import { Link } from 'react-router-dom';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-function Header3(props) {
+function Header3(props) {   
+
+    // const [modalStatus,setModal] =useState(false)
+    const [modalStatus,setModal] = useState(false)
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownOpen1, setDropdownOpen1] = useState(false);
+
+    const toggle = () => setDropdownOpen(prevState => !prevState);
+    const toggle1 = () => setDropdownOpen1(prevState => !prevState);
+
     return (
         <div>
         {/* <body> */}
@@ -34,14 +46,29 @@ function Header3(props) {
                                         <a class="dropdown-item" href="14-login(retailer).html">Login</a>
                                         <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
                                     </div> */} 
-                                     <select class="nav-link"   id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     {/* <select class="nav-link"   id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
                                         {/* Retailer */} 
                                         {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown"> */}
-                                            <option selected value="Retailers">Retailers </option>
+                                            {/* <option selected value="Retailers">Retailers </option>
                                             <option class="dropdown-item" value="1">Login</option>
-                                            <option class="dropdown-item" value="2">Sign Up</option> 
+                                            <option class="dropdown-item" value="2">Sign Up</option>  */}
                                             {/* </div> */}
-                                      </select>
+                                      {/* </select> */}   
+                                      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+      <DropdownToggle caret>
+        Retailer
+        </DropdownToggle>
+      <DropdownMenu>
+        {/* <DropdownItem header>Header</DropdownItem>
+        <DropdownItem>Some Action</DropdownItem>
+        <DropdownItem disabled>Action (disabled)</DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem>Foo Action</DropdownItem> */}
+        <DropdownItem>Login</DropdownItem>
+        <DropdownItem>Signup</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+
                                 </li>
                                 <li class="nav-item dropdown">
                                     {/* <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,14 +78,27 @@ function Header3(props) {
                                         <a class="dropdown-item" href="3-login.html">Login</a>
                                         <a class="dropdown-item" href="25-signup-user.html">Sign Up</a>
                                     </div> */} 
-                                    <select value="UserEnd" class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {/* <select value="UserEnd" class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
                                     {/* <div class="dropdown-menu log-menu" aria-labelledby="navbarDropdown"> */}
-                                    <option selected value="Retailers">UserEnd </option>
+                                    {/* <option selected value="Retailers">UserEnd </option>
                                             <option class="dropdown-item" value="1" >Login</option>
-                                            <option class="dropdown-item" value="2">Sign Up</option> 
+                                            <option class="dropdown-item" value="2">Sign Up</option>  */}
                                             {/* </div> */}
-                                    </select> 
-
+                                    {/* </select>  */}
+                                    <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
+      <DropdownToggle caret>
+        Enduser
+        </DropdownToggle>
+      <DropdownMenu>
+        {/* <DropdownItem header>Header</DropdownItem>
+        <DropdownItem>Some Action</DropdownItem>
+        <DropdownItem disabled>Action (disabled)</DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem>Foo Action</DropdownItem> */}
+        <DropdownItem>Login</DropdownItem>
+        <DropdownItem>Signup</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
                                 </li>
                             </ul>
                         </div>
@@ -95,7 +135,7 @@ function Header3(props) {
                             </li>
 
                             <li class="nav-item dropdown account-drop">
-                                <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
+                                <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus) }>
                                     {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
                                     {/* My Account */}
                                     Log Out
@@ -116,7 +156,7 @@ function Header3(props) {
                 </nav>
             </div>
         </header>
-        <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "190px", }}>
+        <Modal isOpen={modalStatus}style={{ top: "190px", }}>
             <ModalBody>
                 <form>
                     <div class="modal-header locationsethead">
@@ -126,8 +166,8 @@ function Header3(props) {
                         <button class="btn setloc-btn" onClick={() => this.setState({ modalStatus: false })} >OK</button>
                     </div> */}
                     <div class="modal-body ok n-yes">
-                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatus: false })}>No</button>
-                        <Link to="SignupCustomer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatus: false })}>Yes</button></Link>
+                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus) }>No</button>
+                        <Link to="SignupCustomer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => setModal(!modalStatus) }>Yes</button></Link>
                     </div>
                 </form>
             </ModalBody>
