@@ -107,7 +107,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
             <div>
                 <body>
                     {/* <Header2 /> */} 
-                    <Header />
+                    <Header /> 
                     <section class="bg-form">
                         <div class="cover-forgot bg-whiteform">
                             <h1>Join Us:</h1>
