@@ -3,7 +3,6 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { Link } from 'react-router-dom';
-import Header4 from '../../../components/Header4';
 
 export default class SignupCustomer extends Component {
     render() {
@@ -12,8 +11,8 @@ export default class SignupCustomer extends Component {
 
                 {/* <section className="center-form"> */}
                 <body>
-                    {/* <Header /> */}
-                <Header4 /> 
+                    <Header />
+
                     <section>
                         <div class="container-fluid">
                             <div class="cover-laging">
