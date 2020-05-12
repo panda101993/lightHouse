@@ -9,9 +9,11 @@ function Header4(props) {
     const [modalStatus, setModal] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
+    const [dropdownOpen2, setDropdownOpen2] = useState(false); 
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
+    const toggle2 = () => setDropdownOpen2(prevState => !prevState);
 
     return (
         <div>
@@ -59,11 +61,7 @@ function Header4(props) {
                                                 Retailer
         </DropdownToggle>
                                             <DropdownMenu>
-                                                {/* <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem> */}
+                                              
                                                 <DropdownItem>Login</DropdownItem>
                                                 <DropdownItem>Signup</DropdownItem>
                                             </DropdownMenu>
@@ -88,13 +86,9 @@ function Header4(props) {
                                         <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
                                             <DropdownToggle caret>
                                                 Enduser
-        </DropdownToggle>
+                                            </DropdownToggle>
                                             <DropdownMenu>
-                                                {/* <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem> */}
+                                          
                                                 <DropdownItem>Login</DropdownItem>
                                                 <DropdownItem>Signup</DropdownItem>
                                             </DropdownMenu>
@@ -145,7 +139,7 @@ function Header4(props) {
                                     <a class="dropdown-item" href="#">MY</a>
                                     <a class="dropdown-item" href="#">My Account</a>
                                 </div> */}
-                                    <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
+                                    <Dropdown isOpen={dropdownOpen2} toggle={toggle2} >
                                         <DropdownToggle caret>
                                            My Account
                                         </DropdownToggle>

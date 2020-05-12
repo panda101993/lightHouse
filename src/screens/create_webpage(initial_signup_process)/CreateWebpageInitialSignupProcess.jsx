@@ -104,7 +104,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
     render() {
         return (
-            <div>
+            <div> 
                 <body>
                     {/* <Header2 /> */} 
                     <Header /> 
