@@ -147,17 +147,13 @@ function Header(props) {
                                             {/* </div> */}
                                       {/* </select> */}   
                                       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-      <DropdownToggle caret>
+      <DropdownToggle   className="nav-item dropdown"     caret>
         Retailer
         </DropdownToggle>
-      <DropdownMenu>
-        {/* <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem> */}
-        <DropdownItem>Login</DropdownItem>
-        <DropdownItem>Signup</DropdownItem>
+      <DropdownMenu className="dropdown-menu log-menu">
+        
+        <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
+        <DropdownItem  tag={Link} to="/" >Signup</DropdownItem>
       </DropdownMenu>
     </Dropdown>
 
@@ -181,14 +177,10 @@ function Header(props) {
       <DropdownToggle caret>
         Enduser
         </DropdownToggle>
-      <DropdownMenu>
-        {/* <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem> */}
-        <DropdownItem>Login</DropdownItem>
-        <DropdownItem>Signup</DropdownItem>
+      <DropdownMenu className="dropdown-menu log-menu" >
+    
+        <DropdownItem tag={Link} to="/LoginCustomer">Login</DropdownItem>
+        <DropdownItem tag={Link} to="/SignupCustomer">Signup</DropdownItem>
       </DropdownMenu>
     </Dropdown>
                                 </li>
@@ -205,16 +197,9 @@ function Header(props) {
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    {/* <div class="collapse navbar-collapse" id="navbarSupportedContent"> */}
+                    {/* <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto custom-nav">
-                            {/* <li class="serch-sec">
-                                <input class="form-control"
-                                    type="search"
-                                    placeholder="Search by Title, Product/Service name etc"
-                                    aria-label="Search"
-                                />
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </li> */}
+                           
                             <li class="serch-sec">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
@@ -228,15 +213,11 @@ function Header(props) {
 
                             <li class="nav-item dropdown account-drop">
                                 <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus) }>
-                                    {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
-                                    {/* My Account */}
+                                  
                                     Log Out
-                                    {/* </a> */}
+                                  
                                 </a>
-                                {/* <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">MY</a>
-                                    <a class="dropdown-item" href="#">My Account</a>
-                                </div> */}
+                               
                             </li>
                             <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                             <li class="prfile">
@@ -244,7 +225,7 @@ function Header(props) {
                                 <p>Kamal</p>
                             </li>
                         </ul>
-                    {/* </div> */}
+                    </div> */}
                 </nav>
             </div>
         </header>
