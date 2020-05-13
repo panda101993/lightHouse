@@ -7,6 +7,7 @@ import DashboardImageScroll from '../dashboard/DashboardImageScroll';
 import CouponsScrollPupup from '../../components/CouponsScrollPupup'; 
 import ImageDashboard from "../../components/ImageDashboard"
 import CouponsImage from  "../../components/CouponsImage"
+import Header4 from '../../components/Header4';
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -62,7 +63,8 @@ export class AllRetailers extends Component {
     return (
       <div>
         <body>
-          <Header2 />
+          {/* <Header2 /> */} 
+          <Header4 />
           <section class="second">
             <div class="container-fluid">
 

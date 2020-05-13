@@ -4,6 +4,7 @@ import Footer from '../../components/Footer'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';   
 import  CouponsImage from '../../components/CouponsImage'
+import Header4 from '../../components/Header4';
 
 const responsive = {
   desktop: {
@@ -30,7 +31,8 @@ export class AllCouponsRetailers extends Component {
         return (
             <div> 
                 <body> 
-                <Header2 /> 
+                {/* <Header2 />  */} 
+                <Header4 />
                 <section class="second">
          <div class="container-fluid">
 
