@@ -50,8 +50,8 @@ export default class Coupon_template extends Component {
         return (
             <div>
    <body>
-     {/* <Header2 /> */}
-      <Header3 />
+     <Header2 />
+      {/* <Header3 /> */}
       <section>
          <div class="container-fluid">
            <div class="coupn-setting my-5">

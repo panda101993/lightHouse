@@ -14,6 +14,7 @@ import CouponsScrollPupup from '../../components/CouponsScrollPupup'
 import CatogriesScroll from '../../components/CatogriesScroll' 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css'; 
+import Header4 from '../../components/Header4'
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -51,7 +52,8 @@ class componentName extends Component {
 
       <>   
       <body>  
-    <HeaderLandingScreen />
+    {/* <HeaderLandingScreen /> */}
+    <Header4 />
       <section class="second">  
       <LandingTopicName HeaderName ="Marts" /> 
       <div class="container-fluid"> 
