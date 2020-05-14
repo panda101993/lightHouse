@@ -9,7 +9,7 @@ function Header4(props) {
     const [modalStatus, setModal] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
-    const [dropdownOpen2, setDropdownOpen2] = useState(false); 
+    const [dropdownOpen2, setDropdownOpen2] = useState(false);
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
@@ -57,15 +57,16 @@ function Header4(props) {
                                         {/* </div> */}
                                         {/* </select> */}
                                         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                                            <DropdownToggle caret>
+                                            <DropdownToggle className="nav-item dropdown" caret>
                                                 Retailer
-        </DropdownToggle>
-                                            <DropdownMenu>
-                                              
-                                                <DropdownItem>Login</DropdownItem>
-                                                <DropdownItem>Signup</DropdownItem>
+                                         </DropdownToggle>
+                                            <DropdownMenu className="dropdown-menu log-menu">
+
+                                                <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
+                                                <DropdownItem tag={Link} to="/" >Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
+
 
                                     </li>
                                     <li class="nav-item dropdown">
@@ -83,7 +84,7 @@ function Header4(props) {
                                             <option class="dropdown-item" value="2">Sign Up</option>  */}
                                         {/* </div> */}
                                         {/* </select>  */}
-                                        <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
+                                        {/* <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
                                             <DropdownToggle caret>
                                                 Enduser
                                             </DropdownToggle>
@@ -91,6 +92,16 @@ function Header4(props) {
                                           
                                                 <DropdownItem>Login</DropdownItem>
                                                 <DropdownItem>Signup</DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown> */}
+                                        <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
+                                            <DropdownToggle caret>
+                                                Enduser
+                                        </DropdownToggle>
+                                            <DropdownMenu className="dropdown-menu log-menu" >
+
+                                                <DropdownItem tag={Link} to="/LoginCustomer">Login</DropdownItem>
+                                                <DropdownItem tag={Link} to="/SignupCustomer">Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
                                     </li>
@@ -141,12 +152,12 @@ function Header4(props) {
                                 </div> */}
                                     <Dropdown isOpen={dropdownOpen2} toggle={toggle2} >
                                         <DropdownToggle caret>
-                                           My Account
+                                            My Account
                                         </DropdownToggle>
                                         <DropdownMenu>
-                                            <DropdownItem>My Profile</DropdownItem>
-                                            <DropdownItem>My WishList </DropdownItem>
-                                            <DropdownItem>My Saved Coupons </DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser" >My Profile</DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser/MyWishListUser" >My WishList </DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser/MysavedCoupon">My Saved Coupons </DropdownItem>
                                             <DropdownItem>LogOut</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>

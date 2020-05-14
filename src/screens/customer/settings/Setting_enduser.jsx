@@ -7,6 +7,7 @@ import ManageInfoEndUser from '../../../components/ManageInfoEndUser';
 import ChangePasswordEndUser from '../../../components/ChangePasswordEndUser';
 import MyWishlistEndUser from '../../../components/MyWishlistEndUser';
 import MySavedCouponEndUser from '../../../components/MySavedCouponEndUser';
+import Header4 from '../../../components/Header4';
  
 const ManageGeneralInfoUser = () => 
 <div>
@@ -46,7 +47,8 @@ class componentName extends Component {
   {  const { path } = this.props.match;
     return (
       <div> <body> 
-           <Header2 /> 
+           {/* <Header2 />  */}
+           <Header4 />
            <section>
          <div class="container-fluid">
             <div class="row save-coupon">

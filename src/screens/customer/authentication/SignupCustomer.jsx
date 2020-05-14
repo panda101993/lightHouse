@@ -18,12 +18,12 @@ export default class SignupCustomer extends Component {
                             <div class="cover-laging">
                                 <h1>SIGN UP</h1>
                                 <form>
-                                    <div class="user-retailer">
+                                    {/* <div class="user-retailer">
                                         <ul>
                                             <li class="active"><a href="#">User</a></li>
                                             <li><Link  to="SignupRetailer">Retailer</Link></li>
                                         </ul>
-                                    </div>
+                                    </div> */}
                                     {/* <div class="form-group">
                                         <label>Name*</label>
                                         <input type="text" class="form-control shpnm" placeholder="Name" />
