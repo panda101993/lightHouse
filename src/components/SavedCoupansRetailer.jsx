@@ -56,7 +56,7 @@ export default class SavedCoupansRetailer extends Component {
                       <img src={require("../assets/images/coupon-1.png")} alt="" />
                   </div>
                   <div class="preview-section pre-center">
-                      <a href="103-add-coupon.html"><button class="btn btn-three active">Edit</button></a>
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
                   </div>
               </li>
               <li>
@@ -64,39 +64,42 @@ export default class SavedCoupansRetailer extends Component {
                       <img src={require("../assets/images/coupon-1.png")} alt="" />
                   </div>
                   <div class="preview-section pre-center">
-                      <a href="103-add-coupon.html"><button class="btn btn-three active">Edit</button></a>
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
                   </div>
-              </li>
-              <li>
+              </li>   <li>
                   <div class="coupon-cover">
                       <img src={require("../assets/images/coupon-1.png")} alt="" />
                   </div>
                   <div class="preview-section pre-center">
-                      <a href="103-add-coupon.html"><button class="btn btn-three active">Edit</button></a>
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
                   </div>
-              </li>
-              <li>
+              </li>   <li>
                   <div class="coupon-cover">
                       <img src={require("../assets/images/coupon-1.png")} alt="" />
                   </div>
                   <div class="preview-section pre-center">
-                      <a href="103-add-coupon.html"><button class="btn btn-three active">Edit</button></a>
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
                   </div>
-              </li>
-              <li>
+              </li>   <li>
                   <div class="coupon-cover">
                       <img src={require("../assets/images/coupon-1.png")} alt="" />
                   </div>
                   <div class="preview-section pre-center">
-                      <a href="103-add-coupon.html"><button class="btn btn-three active">Edit</button></a>
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
                   </div>
-              </li>
-              <li>
+              </li>   <li>
                   <div class="coupon-cover">
                       <img src={require("../assets/images/coupon-1.png")} alt="" />
                   </div>
                   <div class="preview-section pre-center">
-                      <a href="103-add-coupon.html"><button class="btn btn-three active">Edit</button></a>
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
+                  </div>
+              </li>   <li>
+                  <div class="coupon-cover">
+                      <img src={require("../assets/images/coupon-1.png")} alt="" />
+                  </div>
+                  <div class="preview-section pre-center">
+                    <Link to="/CreateCouponform" > <button class="btn btn-three active">Edit</button></Link>
                   </div>
               </li>
           </ul>

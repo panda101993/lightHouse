@@ -484,7 +484,7 @@ export class subCategories extends Component {
                              deviceType={this.props.deviceType}
                              dotListClass="custom-dot-list-style"
                              itemClass="carousel-item-padding-40-px"
-                           >   <CouponsImage />
+                           >   
                             <CouponsImage />
                             <CouponsImage />
                             <CouponsImage />
@@ -492,8 +492,7 @@ export class subCategories extends Component {
                             <CouponsImage />
                             <CouponsImage />
                             <CouponsImage />
-                            <CouponsImage />
-
+                         
                             
                               </Carousel>
                          </div>

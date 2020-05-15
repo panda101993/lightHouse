@@ -739,12 +739,15 @@ import CoupanViewHistoryRetailer from "../../../components/CoupanViewHistoryReta
 import PreviewWebpageRetailer from "../../../components/PreviewWebpageRetailer";
 // import SidebarRetailer from "../../../components/SidebarRetailer";
 import { Switch, Route, NavLink  ,Link} from "react-router-dom";
-
+import Step2_retailer from '../../../components/Step2_retailer';
+import Step2_paymentScreen from '../../../components/Step2_paymentScreen'
 
 
 const ManageGeneralInfo = () => 
 <div>
-    <ManageInfoRetailer />
+    <ManageInfoRetailer /> 
+    {/* <Step2_retailer /> */} 
+      {/* <Step2_paymentScreen /> */}
 </div>;
 
 

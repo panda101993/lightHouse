@@ -266,7 +266,7 @@ export class CreateCouponform extends Component {
             </div>
          </div>
       </section>
-      <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
+      <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "190px", }}>
                   <ModalBody>
                 
                
