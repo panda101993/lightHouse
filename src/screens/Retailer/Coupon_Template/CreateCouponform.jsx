@@ -316,7 +316,7 @@ export class CreateCouponform extends Component {
                  </ModalBody>
                </Modal>  
 
-               <Modal isOpen={this.state.modalStatusLink} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
+               <Modal isOpen={this.state.modalStatusLink} toggle={this.toggle}   style={{ top: "190px", }} >
                   <ModalBody>
                   <div class="modal-header locationsethead adminis">
                   <h5>Thanks for  submiting the coupon. Administrator will

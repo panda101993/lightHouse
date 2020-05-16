@@ -9,13 +9,12 @@ import MyWishlistEndUser from '../../../components/MyWishlistEndUser';
 import MySavedCouponEndUser from '../../../components/MySavedCouponEndUser';
 import Header4 from '../../../components/Header4';
 import ManageInfostep2 from '../../../components/ManageInfostep2';
-import ManageInfostep3 from '../../../components/ManageInfostep3';
 
 const ManageGeneralInfoUser = () => 
 <div>
-    <ManageInfoEndUser /> 
-    {/* <ManageInfostep2  /> */} 
-    {/* <ManageInfostep3 /> */}
+    {/* <ManageInfoEndUser />  */}
+    <ManageInfostep2  /> 
+  
 </div>;
 
 const ChangePasswordUser = () => 

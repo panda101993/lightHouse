@@ -115,10 +115,11 @@ function Header4(props) {
                         <a class="navbar-brand" href="index.html">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
                         </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse show" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto custom-nav">
                                 {/* <li class="serch-sec">
                                 <input class="form-control"
