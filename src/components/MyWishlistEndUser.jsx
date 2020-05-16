@@ -566,7 +566,10 @@ export class MyWishlistEndUser extends Component {
                               </div>
                            </div>
                         </section>  
-                        <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
+                        <Modal isOpen={this.state.modalStatus} toggle={this.toggle} 
+                       // style={{ top: "110px", left: "100px" }}
+                       style={{ top: "190px", }}
+                        >
                   <ModalBody>
                   <div class="modal-content">
                <div class="modal-header locationsethead">

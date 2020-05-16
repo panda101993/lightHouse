@@ -1,7 +1,11 @@
 var CACHE_NAME = 'lighthouse-cache';
 var urlsToCache = [
   '/',
- // '/completed'
+  '/LandingScreen',
+ '/manifest.json',
+ '/index.html',
+ 
+ 
 ];
 
 // Install a service worker

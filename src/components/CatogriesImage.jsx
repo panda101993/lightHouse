@@ -55,7 +55,9 @@ export default function CatogriesImage ( props )  {
 
                 <Modal isOpen={modalStatus} 
                 // toggle={this.toggle}
-                 style={{ top: "110px", left: "100px" }}>
+              //   style={{ top: "110px", left: "100px" }}
+              style={{ top: "190px", }}
+                 >
                   <ModalBody>
                   <div class="modal-content">
                <div class="modal-header locationsethead">
