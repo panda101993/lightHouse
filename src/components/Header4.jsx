@@ -6,7 +6,8 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 function Header4(props) {
 
     // const [modalStatus,setModal] =useState(false)
-    const [modalStatus, setModal] = useState(false)
+    const [modalStatus, setModal] = useState(false) 
+    const [modalStatusView, setModalView] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
     const [dropdownOpen2, setDropdownOpen2] = useState(false);
@@ -109,14 +110,15 @@ function Header4(props) {
                             </div>
                         </nav>
                     </div>
-                </div>
+                </div> 
+                {modalStatusView  ? 
                 <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand" href="index.html">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
-                        aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+                        aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation"  onClick={() => setModalView(!modalStatusView)}>
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse show" id="navbarSupportedContent">
@@ -172,7 +174,69 @@ function Header4(props) {
                             </ul>
                         </div>
                     </nav>
-                </div>
+                </div> :  <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" href="index.html">
+                            <img class="logo" src={require("../assets/images/Logo.png")} />
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"  onClick={() => setModalView(!modalStatusView)}>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto custom-nav">
+                                {/* <li class="serch-sec">
+                                <input class="form-control"
+                                    type="search"
+                                    placeholder="Search by Title, Product/Service name etc"
+                                    aria-label="Search"
+                                />
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </li> */}
+                                <li class="serch-sec">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-seach" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown account-drop">
+                                    {/* <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus) }> */}
+                                    {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
+                                    {/* My Account */}
+                                    {/* Log Out */}
+                                    {/* </a> */}
+                                    {/* </a> */}
+                                    {/* <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">MY</a>
+                                    <a class="dropdown-item" href="#">My Account</a>
+                                </div> */}
+                                    <Dropdown isOpen={dropdownOpen2} toggle={toggle2} >
+                                        <DropdownToggle caret>
+                                            My Account
+                                        </DropdownToggle>
+                                        <DropdownMenu>
+                                            <DropdownItem tag={Link} to="/Setting_enduser" >My Profile</DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser/MyWishListUser" >My WishList </DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser/MysavedCoupon">My Saved Coupons </DropdownItem>
+                                            <DropdownItem  onClick={() => setModal(!modalStatus)} >LogOut</DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+
+                                </li>
+                                <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                <li class="prfile">
+                                    <img src={require("../assets/images/new-profile.png")} />
+                                    <p>Kamal</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div> }
             </header>
             <Modal isOpen={modalStatus} style={{ top: "190px", }}>
                 <ModalBody>

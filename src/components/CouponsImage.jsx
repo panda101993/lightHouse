@@ -22,7 +22,7 @@ export class CouponsImage extends Component {
                                     <img src={require("../assets/images/pizza great deal.png")} onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })} />
                                  </figure>
                               </div>
-                              {/* <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup"   onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Delete</button> */}
+                              {/* <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup"   ={() => this.setState({ modalStatus: !this.state.modalStatus })}>Delete</button> */}
                            {/* </div>   */}
 
                            <Modal isOpen={this.state.modalStatus} toggle={this.toggle}  style={{ top: "190px", }}>

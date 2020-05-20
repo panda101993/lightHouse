@@ -35,7 +35,8 @@ export class CouponImageSetting extends Component {
                   </h5>
                </div>
                <div class="modal-body ny">
-                  <button type="button" class="btn setloc-" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>No</button>
+                  <button type="button" class="btn setloc-" type="submit" data-dismiss="modal" 
+                   onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>No</button>
                   <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Yes</button>
                </div>
             </div>
@@ -43,7 +44,7 @@ export class CouponImageSetting extends Component {
                   </ModalBody>
                </Modal>  
                
-               <Modal isOpen={this.state.modalStatusImage} toggle={this.toggle} style={{ top: "110px", left: "100px" }}>
+               <Modal isOpen={this.state.modalStatusImage} toggle={this.toggle} style={{ top: "190px", }}>
                   <ModalBody>
                   <div class="modal-content offer">
                <div class="modal-body bumoffer">

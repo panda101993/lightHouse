@@ -109,7 +109,7 @@ export default class Setting_retailer extends Component {
                                 <div class="col-lg-3 col-sm-12 mb-3">
                                     <div class="manage">
                                         <div class="nav flex-column nav-pills home_c3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <NavLink to={`${path}/`} className="nav-link _settings" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage General Info</NavLink>
+                                            <NavLink to={`${path}/`} className="nav-link _settings" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false">Manage General Info</NavLink>
                                             <NavLink to={`${path}/MyReferralCode`} className="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-referral" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Referral Code</NavLink>
                                             <NavLink to={`${path}/ChangePassword`} className="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-password" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</NavLink>
                                             <NavLink to={`${path}/ManageWebpage`} className="nav-link _settings" id="v-pills-settings-tab" data-toggle="pill" role="tab" aria-controls="v-pills-settings" aria-selected="false">Manage Webpage</NavLink>
