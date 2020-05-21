@@ -43,8 +43,8 @@ const ChangePassword = () =>
 
 const ManageWebpage = () => 
 <div>
-    {/* <CreateWebpage /> */} 
-    <PreviewWebpageRetailer />
+    <CreateWebpage /> 
+    {/* <PreviewWebpageRetailer /> */}
 </div>
 
 const MyCredits = () => 

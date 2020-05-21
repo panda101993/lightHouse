@@ -75,7 +75,7 @@ export default class SignupRetailer extends Component {
                                     />
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions">Terms and Conditions</a> </label>
+                                        <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions"> <Link to="/TermsCondition" > Terms and Conditions</Link></a> </label>
                                     </div>
                                     <Link to="SignupOtp"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
                                     <div class="have-an">
