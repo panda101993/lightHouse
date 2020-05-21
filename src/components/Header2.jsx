@@ -121,7 +121,7 @@ function Header2(props) {
                                 />
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </li> */}
-                                <li class="serch-sec">
+                                {/* <li class="serch-sec">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
                                         <div class="input-group-append">
@@ -130,7 +130,7 @@ function Header2(props) {
                                             </button>
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
 
                                 <li class="nav-item dropdown account-drop">
                                     <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
