@@ -113,14 +113,14 @@ function Header2(props) {
                         </button>
                         <div class="collapse navbar-collapse show" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto custom-nav">
-                                {/* <li class="serch-sec">
+                                <li class="serch-sec">
                                 <input class="form-control"
                                     type="search"
                                     placeholder="Search by Title, Product/Service name etc"
                                     aria-label="Search"
                                 />
                                 <i class="fa fa-search" aria-hidden="true"></i>
-                            </li> */}
+                            </li>
                                 {/* <li class="serch-sec">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />

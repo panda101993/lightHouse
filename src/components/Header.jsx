@@ -104,6 +104,8 @@ function Header(props) {
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
+    
+    const [modalStatusLocation,setModal1] = useState(false)
 
     return (
         <div>
@@ -118,7 +120,13 @@ function Header(props) {
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 </li>
                                 <li>
-                                    <a href="#" data-toggle="modal" data-target="#fill-loctnform" >Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    {/* <a href="#" data-toggle="modal" data-target="#fill-loctnform" >   */} 
+                                    <Link onClick={ () => setModal1(!modalStatusLocation)  } >
+                                    Choose location 
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>   </Link>  
+                                    
+                                    
+                                    {/* </a> */}
                                     {/* <select class="custom-select" id="inputGroupSelect01" data-toggle="modal" data-target="#locationsetmodal">
                                             <option selected>Choose location</option>
                                             <option value="1">New Delhi</option>
@@ -259,7 +267,54 @@ function Header(props) {
                 </div>
             </div>
         </div> */}
-        {/* </body> */}
+        {/* </body> */} 
+        <Modal isOpen={modalStatusLocation}  style={{ top: "90px", }}>
+                                            <ModalBody>
+                                                {/* <div class="modal fade" id="fill-loctnform" tabindex="-1" role="dialog" aria-labelledby="fill-loctnform" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document"> */}
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <ul class="curent-loc">
+                                                                    <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
+                                                                    <li><button type="button" class="btn btn-location">Use my current location</button></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="location-form">
+                                                                    <h3>Enter Your Location Details</h3>
+                                                                    <form>
+                                                                        <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlInput1">Pin Code*</label>
+                                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" />
+                                                                        </div>
+                                                                        <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlSelect1">State*</label>
+                                                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                                                <option>UP</option>
+                                                                                <option>Delhi</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlSelect2">City*</label>
+                                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" />
+                                                                        </div>
+                                                                      <div class="form-group dash-form">
+                                                                            <label for="exampleFormControlTextarea1">Address*</label>
+                                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                        </div>
+                                                                        <div class="dasmodal-save">
+                                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {/* </div>
+                                                </div> */}
+
+
+                                            </ModalBody>
+                                        </Modal>
     </div>
     )
 }

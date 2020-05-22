@@ -158,7 +158,7 @@ export default class HeaderLandingScreen extends Component {
                 </div> */}
                 {/* </body> */}  
                 
-                <Modal isOpen={this.state.modalStatusLocation} toggle={this.toggle} style={{ top: "110px",left:"100px" }}>
+                <Modal isOpen={this.state.modalStatusLocation} toggle={this.toggle} style={{ top: "190px", }}>
                                             <ModalBody>
                                                 {/* <div class="modal fade" id="fill-loctnform" tabindex="-1" role="dialog" aria-labelledby="fill-loctnform" aria-hidden="true">
                                                     <div class="modal-dialog" role="document"> */}
