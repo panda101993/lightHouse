@@ -163,7 +163,7 @@ export class WebsiteMart extends Component {
        
        <ImageDashboard 
       ImageName="Bounce Salon & Spa" 
-      LinkId="/subCategories"
+      LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -173,7 +173,8 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="Boddy Massage" 
-      LinkId="/subCategories"
+      // LinkId="/subCategories"
+      LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -181,7 +182,8 @@ export class WebsiteMart extends Component {
    <div>  
        <ImageDashboard 
       ImageName="Hair Cutting" 
-      LinkId="/subCategories"
+      // LinkId="/subCategories" 
+      LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -190,7 +192,8 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart" 
-      LinkId="/subCategories"
+      // LinkId="/subCategories" 
+      LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -199,7 +202,8 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="Boddy Massage" 
-      LinkId="/subCategories"
+      // LinkId="/subCategories" 
+      LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -209,8 +213,9 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="Hair Cutting" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image5} 
+      // LinkId="/subCategories"
+      LinkId= "/WebsiteRetailer"
+       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
    </div>
@@ -218,7 +223,8 @@ export class WebsiteMart extends Component {
     
        <ImageDashboard 
       ImageName="TCL E-Mart" 
-      LinkId="/subCategories"
+      // LinkId="/subCategories" 
+      LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />

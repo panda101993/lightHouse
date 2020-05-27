@@ -1,9 +1,10 @@
 var CACHE_NAME = 'lighthouse-cache';
 var urlsToCache = [
+  '/index.html',
   '/',
   '/LandingScreen',
  '/manifest.json',
- '/index.html',
+ 
  
  
 ];

@@ -7,7 +7,8 @@ import DashboardImageScroll from '../dashboard/DashboardImageScroll';
 import CouponsScrollPupup from '../../components/CouponsScrollPupup'; 
 import ImageDashboard from "../../components/ImageDashboard"
 import CouponsImage from  "../../components/CouponsImage"
-import Header4 from '../../components/Header4';
+import Header4 from '../../components/Header4'; 
+import { Link } from 'react-router-dom'
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -149,7 +150,7 @@ export class AllRetailers extends Component {
 
           <div class="left-contant">
             <div class="marname">
-              <h2 class="mn"><a href="61-Website-(Mart-Page%20)%20.html">Mart Name</a></h2>
+              <h2 class="mn">  <Link to="/WebsiteMart"> Mart Name </Link></h2>
 
             </div>
           </div>

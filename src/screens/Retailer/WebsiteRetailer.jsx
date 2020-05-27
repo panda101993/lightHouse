@@ -22,7 +22,7 @@ export default class WebsiteRetailer extends Component {
                      <h6>V-MART</h6>
                      <p>OKhala Phase 1,D-115, New Delhi shop Number,12352525</p>
                   </div>
-                  <div> <Link to ="/AllRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
+                  <div> <Link to ="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
                </div>
             </div>
             <div class="about-us">

@@ -5,6 +5,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';   
 import  CouponsImage from '../../components/CouponsImage'
 import Header4 from '../../components/Header4';
+import { Link } from 'react-router-dom';
 
 const responsive = {
   desktop: {
@@ -123,7 +124,7 @@ export class AllCouponsRetailers extends Component {
 
       <div class="left-contant">
         <div class="marname">
-           <h2 class="mn"><a href="60-Website(Retailer)%20.html">Retailer Name</a></h2>
+           <h2 class="mn"><Link to="/WebsiteRetailer">Retailer Name</Link></h2>
           
         </div>
         </div>

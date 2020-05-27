@@ -52,8 +52,8 @@ class componentName extends Component {
 
       <>   
       <body>  
-    <HeaderLandingScreen />
-    {/* <Header4 /> */}
+    {/* <HeaderLandingScreen /> */}
+    <Header4 />
       <section class="second">  
       <LandingTopicName HeaderName ="Marts" /> 
       <div class="container-fluid"> 
@@ -332,8 +332,8 @@ class componentName extends Component {
 
        </div> 
 
-         <LandingTopicName HeaderName ="Coupons" /> 
-         {/* <CouponsScrollPupup /> */} 
+         {/* <LandingTopicName HeaderName ="Coupons" /> 
+       
          <Carousel
   swipeable={true}
   draggable={false}
@@ -358,7 +358,7 @@ class componentName extends Component {
 <CouponsImage />
 <CouponsImage />
 <CouponsImage />
- </Carousel>
+ </Carousel> */}
 
          
         </section>

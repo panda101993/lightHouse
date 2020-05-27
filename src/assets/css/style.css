@@ -3991,7 +3991,12 @@ span.colr-change {
     }
 }
 
-@media(max-width: 767px) {
+@media(max-width: 767px) { 
+    .serch-sec {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 10px;
+    }
     section.serch-box {
         padding: 10px 0px;
     }
@@ -4353,4 +4358,12 @@ label.validation-hint {
     align-items: center;
     justify-content: space-between;
     position: relative;
+}
+@media(max-width: 767px) { 
+    .serch-sec {
+        width: 100% !important;
+        margin: auto !important;
+        margin-bottom: 10px !important;
+    }
+
 }

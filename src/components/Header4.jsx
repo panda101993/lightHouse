@@ -160,7 +160,7 @@ function Header4(props) {
                                         <DropdownMenu>
                                             <DropdownItem tag={Link} to="/Setting_enduser" >My Profile</DropdownItem>
                                             <DropdownItem tag={Link} to="/Setting_enduser/MyWishListUser" >My WishList </DropdownItem>
-                                            <DropdownItem tag={Link} to="/Setting_enduser/MysavedCoupon">My Saved Coupons </DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser/MysavedCoupon">My Favourite Coupons </DropdownItem>
                                             <DropdownItem  onClick={() => setModal(!modalStatus)} >LogOut</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
@@ -222,7 +222,7 @@ function Header4(props) {
                                         <DropdownMenu>
                                             <DropdownItem tag={Link} to="/Setting_enduser" >My Profile</DropdownItem>
                                             <DropdownItem tag={Link} to="/Setting_enduser/MyWishListUser" >My WishList </DropdownItem>
-                                            <DropdownItem tag={Link} to="/Setting_enduser/MysavedCoupon">My Saved Coupons </DropdownItem>
+                                            <DropdownItem tag={Link} to="/Setting_enduser/MysavedCoupon">My Favourite Coupons </DropdownItem>
                                             <DropdownItem  onClick={() => setModal(!modalStatus)} >LogOut</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>

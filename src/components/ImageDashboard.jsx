@@ -25,9 +25,10 @@ export default function ImageDashboard ( props )  {
                                         src={ImageA}
                                             data-toggle="modal" data-target="#wishlist" /> </Link>  
                                        {/* </div> */}
-                                       <div class="tcl00">
+                                  <Link to="/WebsiteMart"> 
+                                  <div class="tcl00">
                                           <p> {ImageName} </p>
-                                       </div>
+                                       </div> </Link>    
                                        <div class="heart">
                                           <a data-toggle="modal" data-target="#coup-rmv-success" > 
                                           

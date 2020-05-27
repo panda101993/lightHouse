@@ -395,7 +395,7 @@ export class subCategories extends Component {
       
        <ImageDashboard 
       ImageName="Bounce Salon & Spa" 
-      LinkId="/subCategories"
+      LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -405,7 +405,7 @@ export class subCategories extends Component {
    
    <ImageDashboard 
       ImageName="Boddy Massage" 
-      LinkId="/subCategories"
+     LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -413,7 +413,7 @@ export class subCategories extends Component {
    <div>  
        <ImageDashboard
       ImageName="Hair Cutting" 
-      LinkId="/subCategories"
+     LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -422,7 +422,7 @@ export class subCategories extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart" 
-      LinkId="/subCategories"
+     LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -431,7 +431,7 @@ export class subCategories extends Component {
    
    <ImageDashboard 
       ImageName="Boddy Massage" 
-      LinkId="/subCategories"
+     LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -441,7 +441,7 @@ export class subCategories extends Component {
    
    <ImageDashboard 
       ImageName="Hair Cutting" 
-      LinkId="/subCategories"
+     LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -450,7 +450,7 @@ export class subCategories extends Component {
     
        <ImageDashboard 
       ImageName="TCL E-Mart" 
-      LinkId="/subCategories"
+     LinkId="/ItemList"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
