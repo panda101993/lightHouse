@@ -87,11 +87,11 @@ export class MySavedCouponEndUser extends Component {
                               <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
                            </div> */}
                            <CouponImageSetting />
+                           {/* <CouponImageSetting />
                            <CouponImageSetting />
                            <CouponImageSetting />
                            <CouponImageSetting />
-                           <CouponImageSetting />
-                           <CouponImageSetting />
+                           <CouponImageSetting /> */}
                            
                         </div>
                         

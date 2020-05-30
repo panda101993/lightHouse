@@ -1,4 +1,5 @@
-const siteUrl = "http://localhost:3000"; //Staging 
+// const siteUrl = "http://localhost:3000"; //Staging 
+export const siteUrl = "http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1"; //local
 
 
 export default function apiRequest(variables, method, apiMethod, token, id) {
@@ -6,14 +7,14 @@ export default function apiRequest(variables, method, apiMethod, token, id) {
         method: "GET",
         headers: {
             'Content-Type': "application/json",
-            'Authorization': token ? token : ''
+            'token': token ? token : ''
         }
     } :
         {
             method: apiMethod,
             headers: {
                 'Content-Type': "application/json",
-                'Authorization': token ? token : ''
+                'token': token ? token : ''
             },
             body: JSON.stringify(variables)         
         }
