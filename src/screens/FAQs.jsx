@@ -42,8 +42,8 @@ export default class FAQs extends Component {
                         <a class="nav-link _settings" id="v-pills-faq2-tab" data-toggle="pill" href="#v-pills-faq2" role="tab" aria-controls="v-pills-faq2" aria-selected="false">Location Settings</a>
                          <a class="nav-link _settings" id="v-pills-faq3-tab" data-toggle="pill" href="#v-pills-faq3" role="tab" aria-controls="v-pills-faq3" aria-selected="false">Settings</a> */}
                                            <NavLink to={`${path}/`} className="nav-link _settings" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false">Loging</NavLink>
-                                            <NavLink to={`${path}/MyReferralCode`} className="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-referral" role="tab" aria-controls="v-pills-profile" aria-selected="false">Location settings</NavLink>
-                                            <NavLink to={`${path}/ChangePassword`} className="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-password" role="tab" aria-controls="v-pills-messages" aria-selected="false">Settings</NavLink>
+                                            <NavLink to={`${path}/LocationSettings`} className="nav-link _settings" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-referral" role="tab" aria-controls="v-pills-profile" aria-selected="false">Location settings</NavLink>
+                                            <NavLink to={`${path}/Settings`} className="nav-link _settings" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-password" role="tab" aria-controls="v-pills-messages" aria-selected="false">Settings</NavLink>
                      </div>
                   </div>
                </div>
