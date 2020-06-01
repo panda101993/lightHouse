@@ -57,6 +57,7 @@ import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
+import Apirequest from '../../../api/Apirequest'
 
 export default class ForgotPassword extends Component {
    constructor(props) {
@@ -66,6 +67,21 @@ export default class ForgotPassword extends Component {
          mobilenoStatus:''
       }
    }
+
+   // getpassword = () => {
+
+   // Apirequest(credential, "/user/forgotPassword", "POST")
+   //      .then((resp) => {
+   //          console.log('respresp',resp);
+   //      })
+
+   //      .catch(err => {
+   //       console.log("respresp---", err)
+   //   }
+   //   )
+   //    }
+
+     
 
    handleinput=(e)=>{
        var value=e.target.value;
@@ -99,7 +115,33 @@ export default class ForgotPassword extends Component {
    if (this.state.mobilenoStatus) {
      
            //  alert('Submit Successfully');
-               window.location.href = "/ForgotPasswordOtp";
+               // window.location.href = "/ForgotPasswordOtp";
+               Apirequest(this.state.value, "/user/forgotPassword", "POST")
+               .then((resp) => {
+                  //  console.log('respresp',resp);
+                  switch(resp.status){
+                     case 200: {
+                        if(resp.data.responseCode==200)
+                        {
+                        // dispatch({ type: LOGIN_ACTION, payload: credential })
+                        // navigationFunction()
+                        this.props.history.push("/ForgotPasswordOtp")
+                        }
+                        else if(resp.data.responseCode==500)
+                        {
+                           alert("Internal Server error")
+                        }
+                     }
+                     break;
+                     default:
+                        console.log(resp.data.error)
+                  }
+               })
+       
+               .catch(err => {
+                console.log("respresp---", err)
+            }
+            )
      
    } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
 }

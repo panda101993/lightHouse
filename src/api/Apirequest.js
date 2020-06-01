@@ -1,5 +1,6 @@
-const siteUrl = "http://localhost:3000"; //Staging 
-
+// const siteUrl = "http://localhost:3000"; //Staging 
+// export const siteUrl = "http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1";
+export const siteUrl = "http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1";
 
 export default function apiRequest(variables, method, apiMethod, token, id) {
     var init = apiMethod == "GET" ? {

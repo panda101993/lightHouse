@@ -13,6 +13,7 @@ export const GlobalValidations = props => {
             className={props.textInputClassName}
             onChange={props.onChange}
             name={props.name}
+            value={props.realValue}
         />
         <InlineError message={props.errorMessage} />
         

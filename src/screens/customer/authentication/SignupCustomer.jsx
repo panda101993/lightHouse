@@ -3,8 +3,65 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { Link } from 'react-router-dom';
+import { signupAction } from "../../../redux/action/AuthAction"
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 
-export default class SignupCustomer extends Component {
+export class SignupCustomer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            fname: "",
+            password: "",
+            email:"",
+            // cfpassword:"",
+            mobileNumber: "",
+
+            fielderr: ""
+        }
+    }
+
+    submithandler = () => {
+        if (this.state.fname == "" || this.state.password == "" || this.state.mobileNumber == "") {
+            this.setState({ fielderr: "Please enter all fields" })
+        }
+        else {
+            this.setState({ fielderr: "" })
+            var requestData = {
+                "firstName": this.state.fname,
+                "mobileNumber": this.state.mobileNumber,
+                "email": this.state.email,
+                "password": this.state.password,
+                "TeamName": this.state.teamName,
+            }
+            this.props.action.signupAction(requestData, this.props.history.push("/OtpScreenUser"))
+            //  window.location.href = "/OtpScreenUser";
+
+        }
+    }
+
+    changehandler = (e, type) => {
+        switch (type) {
+            case "fullname":
+                { this.setState({ fname: e.target.value }) }
+                break
+            case "password":
+                { this.setState({ password: e.target.value }) }
+                break
+            case "mobileNumber":
+                { this.setState({ mobileNumber: e.target.value }) }
+                break
+            case "email":
+                { this.setState({ email: e.target.value })  }
+                break
+            default:
+                {
+                    console.log("ghfhgfh")
+                }
+        }
+
+    }
     render() {
         return (
             <div>
@@ -37,6 +94,21 @@ export default class SignupCustomer extends Component {
                                         inputPlaceholder="Name"
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
+                                        realValue={this.state.fname}
+                                        onChange={(e) => this.changehandler(e, "fullname")}
+                                    />
+
+                                    <GlobalValidations
+                                        divClass="form-group"
+                                        label="Email*"
+                                        labelClass=""
+                                        inputType="text"
+                                        inputId=""
+                                        inputPlaceholder="email"
+                                        errorMessage=""
+                                        textInputClassName="form-control shpnm"
+                                        realValue={this.state.email}
+                                        onChange={(e) => this.changehandler(e, "email")}
                                     />
                                     <div class="form-group">
                                         <label>Phone Number*</label>
@@ -55,6 +127,8 @@ export default class SignupCustomer extends Component {
                                                 divClass="code-no"
                                                 inputType="text"
                                                 textInputClassName="form-control"
+                                                realValue={this.state.mobileNumber}
+                                                onChange={(e) => this.changehandler(e, "mobileNumber")}
                                             />
 
                                         </div>
@@ -80,6 +154,8 @@ export default class SignupCustomer extends Component {
                                         inputPlaceholder="Password"
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
+                                        realValue={this.state.password}
+                                        onChange={(e) => this.changehandler(e, "password")}
                                     />
                                     {/* <div class="form-group">
                                         <label>Confirm Password</label>
@@ -95,11 +171,16 @@ export default class SignupCustomer extends Component {
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
                                     />
+                                    {this.state.fielderr}
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input" />
                                         <label class="form-check-label agree">I agree to  <Link to="/TermsCondition" > Terms and Conditions</Link> </label>
+
                                     </div>
-                                    <Link to="/OtpScreenUser"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
+
+                                    {/* <Link to="/OtpScreenUser"> */}
+                                    <button type="button" class="btn btn-theme" onClick={() => this.submithandler()}>SIGNUP</button>
+                                    {/* </Link> */}
                                     <div class="have-an">
                                         <p>Already Have an account? <Link to="LoginCustomer">Login</Link></p>
                                     </div>
@@ -117,3 +198,17 @@ export default class SignupCustomer extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    console.log("First state", state)
+    return {
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ signupAction }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupCustomer);
