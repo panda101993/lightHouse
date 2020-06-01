@@ -8,7 +8,7 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
 
     Apirequest(credential, "/user/login", "POST")
         .then((resp) => {
-            console.log('respresp',resp);
+            // console.log('respresp',resp);
             dispatch({ type: LOGIN_ACTION, payload: credential })
             // navigationFunction()
             switch (resp.status) {
@@ -50,16 +50,28 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
 
     Apirequest(credential, "/user/signUp", "POST")
         .then((resp) => {
-            // switch (resp.status) {
-            //     case (200): {
-            //         dispatch({ type: SIGNUP_ACTION, payload: resp.data })
-            //         navigationFunction()
-            //     }
-            //         break
-            //     default: {
-            //         alert("Something went wrong!")
-            //     }
-            // }
+            dispatch({ type: SIGNUP_ACTION, payload: credential })
+
+            switch (resp.status) {
+                
+                case (200): {
+                    // console.log("responseCode",resp.data.responseCode)
+                    if(resp.data.responseCode==200)
+                    {
+                        dispatch({ type: SIGNUP_ACTION, payload: credential })
+                    navigationFunction()
+                    }
+                    else if(resp.data.responseCode==404)
+                    {
+                        // console.log("Invalid credentials")
+                        alert("This Email/Mobile number already exists")
+                    }
+                }
+                    break
+                default: {
+                    alert(resp.data.error)
+                }
+            }
             console.log("respppp-->",resp)
         }
         )
