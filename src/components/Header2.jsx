@@ -146,7 +146,7 @@ function Header2(props) {
                                 </li>
                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                                 <li class="prfile">
-                                    <img src={require("../assets/images/new-profile.png")} />
+                                    {/* <img src={require("../assets/images/new-profile.png")} /> */}
                                     <p>Kamal</p>
                                 </li>
                             </ul>

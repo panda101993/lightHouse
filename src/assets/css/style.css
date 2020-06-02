@@ -1114,13 +1114,13 @@ ul.mart {
     outline: none;
 }
 
-.basic span {
+/* .basic span { */
     /* float: right; */
     /* transform: translateY(-50%); */
     /* top: 50%; */
     /* position: absolute; */
     /* right: 15px; */
-}
+/* } */
 
 ul.shop li {
     margin: 5px 0px;
@@ -2342,8 +2342,8 @@ ul.tcd.abc {
     margin-bottom: 22px;
 }
 
-img.bb {
-}
+/* img.bb {
+} */
 
 ul.select {
     list-style: none;
@@ -2663,7 +2663,7 @@ label.credit-poin {
     margin-bottom: 0px;
 }
 
-.serch-notificatn.credit-poinmain {}
+/* .serch-notificatn.credit-poinmain {} */
 
 .coupn-setting ul li:after {
     content: '';
@@ -3814,9 +3814,9 @@ span.colr-change {
     .info-mail {
         max-width: 31%;
     }
-    .preview-section {
+    /* .preview-section {
         /* padding: 10px 5px; */
-    }
+    /* } */ 
     .preview-section button.btn.btn-three {
         max-width: 85px;
     }
