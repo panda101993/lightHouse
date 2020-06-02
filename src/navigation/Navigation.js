@@ -65,6 +65,7 @@ import MyCoupanHistory from '../screens/myCoupanHistory/MyCoupanHistory';
 import ManageOnetime from '../screens/Retailer/Manage_Coupons/ManageOnetime';
 import CreateCouponform from '../screens/Retailer/Coupon_Template/CreateCouponform';
 
+
 export default class Navigation extends Component {
     render() {
         return (
@@ -125,6 +126,7 @@ export default class Navigation extends Component {
                   <Route path='/ManageOnetime' component={ManageOnetime} />
                 <Route path='/ResetPassword' component={ResetPassword} /> 
                 <Route path="/ResetpasswordRetailer" component={ResetpasswordRetailer} />
+                
                 </div>
             </Router>
         )

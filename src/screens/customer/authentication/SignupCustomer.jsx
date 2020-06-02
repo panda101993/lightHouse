@@ -7,6 +7,7 @@ import { signupAction } from "../../../redux/action/AuthAction"
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
+
 export class SignupCustomer extends Component {
     constructor(props) {
         super(props);
@@ -35,6 +36,7 @@ export class SignupCustomer extends Component {
                 "password": this.state.password,
                 "TeamName": this.state.teamName,
             }
+            
             this.props.action.signupAction(requestData,()=> this.props.history.push("/OtpScreenUser"))
             //  window.location.href = "/OtpScreenUser";
 

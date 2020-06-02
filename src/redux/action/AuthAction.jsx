@@ -38,10 +38,10 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
         }
         )
 }
-export const logoutAction = (credential,navigationFunction) => dispatch => {
-                    dispatch({ type: "Logout", payload:false })
-                    navigationFunction()
-}
+// export const logoutAction = (credential,navigationFunction) => dispatch => {
+//                     dispatch({ type: "Logout", payload:false })
+//                     navigationFunction()
+// }
 
 
 
@@ -78,87 +78,87 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
 
 }
 
-export const completeSignupAction = (profileDetail, navigationFunction) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>completeSignupProfile', profileDetail);
+// export const completeSignupAction = (profileDetail, navigationFunction) => dispatch => {
+//     console.log('SHOW_BIG_MARKER=>completeSignupProfile', profileDetail);
 
-    Apirequest(profileDetail, "CompleteYourProfile", "POST")
-        .then((resp) =>{
-            console.log("signupResponse", resp)
-            switch (resp.status) {
-                case (200): {
-                    dispatch({ type: SIGNUP_ACTION,})
-                    navigationFunction()
-                }
-                    break
-                default: {
-                    alert("Something went wrong!")
-                }
-            }
-        }
-        )
-    // dispatch({ type: SIGNUP_ACTION, payload: profileDetail })
-}
+//     Apirequest(profileDetail, "CompleteYourProfile", "POST")
+//         .then((resp) =>{
+//             console.log("signupResponse", resp)
+//             switch (resp.status) {
+//                 case (200): {
+//                     dispatch({ type: SIGNUP_ACTION,})
+//                     navigationFunction()
+//                 }
+//                     break
+//                 default: {
+//                     alert("Something went wrong!")
+//                 }
+//             }
+//         }
+//         )
+//     // dispatch({ type: SIGNUP_ACTION, payload: profileDetail })
+// }
 
 
-export const forgotPasswordAction = (profileDetail, navigationFunction) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>forgotPasswordAction', profileDetail);
+// export const forgotPasswordAction = (profileDetail, navigationFunction) => dispatch => {
+//     console.log('SHOW_BIG_MARKER=>forgotPasswordAction', profileDetail);
 
-    Apirequest(profileDetail, "forgot", "GET")
-        .then((resp) =>
-            console.log("signupResponse", resp))
-        //     switch (resp.data.Code) {
-        //         case ("200"): {
-        //             dispatch({ type: SIGNUP_ACTION, payload: credential })
-                    navigationFunction()
-        //         }
-        //             break
-        //         default: {
-        //             alert("Something went wrong!")
-        //         }
-        //     }
-        // }
+//     Apirequest(profileDetail, "forgot", "GET")
+//         .then((resp) =>
+//             console.log("signupResponse", resp))
+//         //     switch (resp.data.Code) {
+//         //         case ("200"): {
+//         //             dispatch({ type: SIGNUP_ACTION, payload: credential })
+//                     navigationFunction()
+//         //         }
+//         //             break
+//         //         default: {
+//         //             alert("Something went wrong!")
+//         //         }
+//         //     }
+//         // }
 
-    dispatch({ type: SIGNUP_ACTION, payload: profileDetail })
-}
+//     dispatch({ type: SIGNUP_ACTION, payload: profileDetail })
+// }
 
-export const forgotOTPAction = (profileDetail, navigationFunction) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>forgotOTPAction', profileDetail);
+// export const forgotOTPAction = (profileDetail, navigationFunction) => dispatch => {
+//     console.log('SHOW_BIG_MARKER=>forgotOTPAction', profileDetail);
 
-    Apirequest(profileDetail, "forgot", "GET")
-        .then((resp) =>
-            console.log("signupResponse", resp))
-        //     switch (resp.data.Code) {
-        //         case ("200"): {
-        //             dispatch({ type: SIGNUP_ACTION, payload: credential })
-                    navigationFunction()
-        //         }
-        //             break
-        //         default: {
-        //             alert("Something went wrong!")
-        //         }
-        //     }
-        // }
+//     Apirequest(profileDetail, "forgot", "GET")
+//         .then((resp) =>
+//             console.log("signupResponse", resp))
+//         //     switch (resp.data.Code) {
+//         //         case ("200"): {
+//         //             dispatch({ type: SIGNUP_ACTION, payload: credential })
+//                     navigationFunction()
+//         //         }
+//         //             break
+//         //         default: {
+//         //             alert("Something went wrong!")
+//         //         }
+//         //     }
+//         // }
 
-    dispatch({ type: SIGNUP_ACTION, payload: profileDetail })
-}
+//     dispatch({ type: SIGNUP_ACTION, payload: profileDetail })
+// }
 
-export const ResetPasswordAction = (resetDetail, navigationFunction) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>ResetPasswordAction', resetDetail);
+// export const ResetPasswordAction = (resetDetail, navigationFunction) => dispatch => {
+//     console.log('SHOW_BIG_MARKER=>ResetPasswordAction', resetDetail);
 
-    Apirequest(resetDetail, "forgot", "GET")
-        .then((resp) =>
-            console.log("signupResponse", resp))
-        //     switch (resp.data.Code) {
-        //         case ("200"): {
-        //             dispatch({ type: SIGNUP_ACTION, payload: credential })
-                    navigationFunction()
-        //         }
-        //             break
-        //         default: {
-        //             alert("Something went wrong!")
-        //         }
-        //     }
-        // }
+//     Apirequest(resetDetail, "forgot", "GET")
+//         .then((resp) =>
+//             console.log("signupResponse", resp))
+//         //     switch (resp.data.Code) {
+//         //         case ("200"): {
+//         //             dispatch({ type: SIGNUP_ACTION, payload: credential })
+//                     navigationFunction()
+//         //         }
+//         //             break
+//         //         default: {
+//         //             alert("Something went wrong!")
+//         //         }
+//         //     }
+//         // }
 
-    dispatch({ type: SIGNUP_ACTION, payload: resetDetail })
-}
+//     dispatch({ type: SIGNUP_ACTION, payload: resetDetail })
+// }
