@@ -5,19 +5,22 @@ import Apirequest from "../../api/Apirequest";
 
 export const loginAction = (credential,navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
+    console.log('navigationFunction=>', navigationFunction);
 
     Apirequest(credential, "/user/login", "POST")
         .then((resp) => {
-            // console.log('respresp',resp);
-            dispatch({ type: LOGIN_ACTION, payload: credential })
+            console.log('respresp===>',resp);
+            dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
             // navigationFunction()
-            switch (resp.status) {
+            switch (resp.status) 
+            {
+                
                 
                 case (200): {
                     // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
-                    dispatch({ type: LOGIN_ACTION, payload: credential })
+                    dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
                     navigationFunction()
                     }
                     else if(resp.data.responseCode==402)

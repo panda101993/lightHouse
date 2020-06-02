@@ -16,6 +16,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Header4 from '../../components/Header4'
 import apiRequest from '../../api/Apirequest'
+import {loginAction} from "../../redux/action/AuthAction";
+import { connect } from "react-redux";
+
 const responsive = {
    desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -52,17 +55,22 @@ class componentName extends Component {
       super(props)
    
       this.state = {
+         allData: []
           
       }
-      console.log('kkkkkk')
+    
    }
 
    getmartsbyUserList = () =>{
       try {
-         apiRequest({lat:"",long:""},'/user/getMartsByUser','POST')
+         console.log('hhhh',this.props.applicationData)
+         apiRequest({lat:"28.5358",long:"77.2764"},'/user/getMartsByUser','POST',this.props.applicationData.token)
          .then((resp)=>{
-         console.log('response', resp);
-      })
+         console.log('response', resp.data.result[0].details);
+         this.setState({
+            allData: resp.data.result[0].details
+         });
+      });
          
       } catch (error) {
          console.log('response===', error);
@@ -71,11 +79,57 @@ class componentName extends Component {
    }
 
    async componentDidMount() {
+
    this.getmartsbyUserList();
+   
    }
+
+   martData(){
+      if(this.state.allData.length > 0)
+      return this.state.allData.map((xyz, index)=>{
+         const {martId,martImage,martName} = xyz
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+            <ImageDashboard          
+               ImageName={martName}
+               LinkId="/AllRetailers"
+               ImageA={martImage}
+               // heartImage={Imageid.RedHeart}
+            />
+             
+         </div>
+         )
+      })
+   }
+
+   categoryData(){
+      if(this.state.allData.length > 0)
+      return this.state.allData.map((xyz, index)=>{
+         const {categoryId, categoryImage,categoryName} = xyz
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+
+            <ImageDashboard
+               ImageName={categoryName}
+               LinkId="/subCategories"
+               ImageA={categoryImage}
+               // heartImage={Imageid.RedHeart}
+            />
+
+         </div>
+         )
+      })
+   }
+   
+  
+
    
    render() {
       return (
+
+         
 
          <>
             <body>
@@ -103,71 +157,10 @@ class componentName extends Component {
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
                      >
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart1"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-
+                        <div>                          
+                            {this.martData()}
                         </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart2"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-                           <ImageDashboard
-                              ImageName="TCL E-Mart3"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart4"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart5"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart6"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart7"
-                              LinkId="/AllRetailers"
-                              ImageA={Imageid.Image1}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-
+                 
 
                      </Carousel>
 
@@ -197,70 +190,9 @@ class componentName extends Component {
                         itemClass="carousel-item-padding-40-px"
                      >
                         <div>
-
-                           <ImageDashboard
-                              ImageName="Bounce Salon & Spa"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-
+                           {this.categoryData()}
                         </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image5}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-
+                        
 
                      </Carousel>
 
@@ -359,34 +291,6 @@ class componentName extends Component {
 
                   </div>
 
-                  {/* <LandingTopicName HeaderName ="Coupons" /> 
-       
-         <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
-> 
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
- </Carousel> */}
-
 
                </section>
                <Footer />
@@ -396,5 +300,15 @@ class componentName extends Component {
       )
    }
 }
+const mapStateToProps = state => {
+   console.log("state-------", state)
+   return {
+      applicationData: state.AuthReducer.userData
+        
+   }
+         
+}
 
-export default componentName
+
+// export default componentName
+export default connect(mapStateToProps,{loginAction})(componentName);
