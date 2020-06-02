@@ -217,7 +217,7 @@ function Header2(props) {
                     </div> */}
                         <div class="modal-body ok n-yes">
                             <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)}>No</button>
-                            <Link to="SignupCustomer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => setModal(!modalStatus)}>Yes</button></Link>
+                            <Link to="SignupRetailer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => setModal(!modalStatus)}>Yes</button></Link>
                         </div>
                     </form>
                 </ModalBody>

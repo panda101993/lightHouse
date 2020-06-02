@@ -91,13 +91,18 @@ import Footer from '../../../components/Footer'
 import { GlobalValidations } from '../../../components/GlobalValidations'
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks'
 import { Link } from 'react-router-dom';
+// import Api from '../../services/webservices'
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
+import {loginAction} from "../../../redux/action/AuthAction";
 
-export default class LoginCustomer extends Component {
+
+export class LoginCustomer extends Component {
     constructor(props) {
         super(props);
         this.state = {
             
-            mobileno: "",
+            email: "",
             mobilenoStatus: false,
             mobilenoErrorMessage: "",
 
@@ -128,7 +133,7 @@ export default class LoginCustomer extends Component {
         const value = e.target.value;
         this.setState({ [name]: value })
 
-        if (name == "mobileno") {
+        if (name == "email") {
             this.state.mobilenoErrorMessage = this.validateMobileno(value).error;
         this.state.mobilenoStatus = this.validateMobileno(value).status;
          }
@@ -142,12 +147,12 @@ export default class LoginCustomer extends Component {
     validateMobileno(value) {
         var numberRegex = /^[1-9][0-9]{9,12}$/;
         if (value == "" || value == undefined || value == null) {
-            return { status: false, error: "Please enter mobileNo." }
+            return { status: false, error: "Please enter email." }
 
-        }
-        else if (!numberRegex.test(value)) {
-            return { status: false, error: "Please enter valid mobileNo." }
-        }
+         }
+        // else if (!numberRegex.test(value)) {
+        //     return { status: false, error: "Please enter valid mobileNo." }
+        // }
         else {
             return { status: true, error: '', height: 0 }
         }
@@ -168,10 +173,17 @@ export default class LoginCustomer extends Component {
         if (this.state.mobilenoStatus) {
            if (this.state.passwordStatus){
                   //  alert('Submit Successfully');
-                    window.location.href = "LandingScreen";
+                //   this._login()
+                    // window.location.href = "/LandingScreen";
+                    var requestData = {
+                        "email": this.state.email,
+                        "password": this.state.password
+                    }
+                    this.props.action.loginAction(requestData,()=>this.props.history.push("/LandingScreen"))
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
      }
+     
     
   
 
@@ -190,7 +202,7 @@ export default class LoginCustomer extends Component {
                                     <label>Phone Number :</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your phone number" />
                                 </div> */}
-                                    <GlobalValidations
+                                    {/* <GlobalValidations
                                         divClass=""
                                         label="Phone Number :"
                                         labelClass=""
@@ -200,6 +212,18 @@ export default class LoginCustomer extends Component {
                                         errorMessage={this.state.mobilenoErrorMessage}
                                         textInputClassName="form-control"
                                         name="mobileno"
+                                        onChange={(event) => this.handleFormInput(event)}                  
+                                    /> */}
+                                    <GlobalValidations
+                                        divClass=""
+                                        label="Email ID/ Phone Number :"
+                                        labelClass=""
+                                        inputType="text"
+                                        inputId="exampleInputEmail1"
+                                        inputPlaceholder="Enter your email id or phone number"
+                                        errorMessage={this.state.mobilenoErrorMessage}
+                                        textInputClassName="form-control"
+                                        name="email"
                                         onChange={(event) => this.handleFormInput(event)}                  
                                     />
 
@@ -259,3 +283,17 @@ export default class LoginCustomer extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    console.log("First state", state)
+    return {
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ loginAction }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginCustomer);

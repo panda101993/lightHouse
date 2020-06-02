@@ -119,7 +119,7 @@ export default class ResetPassword extends Component {
                         <ModalBody>
                             <form>
                                 <div class="modal-header locationsethead">
-                                    <h5>OTP resent successfully.</h5>
+                                    <h5>Password Reset successfully.</h5>
                                 </div>
                                 <div style={{ textAlign: "center" }} >
                                 <Link to='/LoginCustomer' >  <button class="btn setloc-btn" type="submit"  >OK</button> </Link>    
