@@ -61,7 +61,7 @@ export class WebsiteMart extends Component {
                 <body> 
                     <Header2 />
                     <section>
-         {/* <div class="bg"> */}
+         <div class="bg">
            
                <Carousel
   swipeable={true}
@@ -96,31 +96,11 @@ export class WebsiteMart extends Component {
                <div> 
                <img src={require("../../assets/images/Layer-41.png")} />
                </div>
-              {/* <div class="carousel-item">
-                
-                  <img src={require("../../assets/images/Layer-41.png")} />
-                 </div>
-                 <div class="carousel-item">
+             
+            </Carousel>       
                
-                  <img src={require("../../assets/images/Layer-41.png")} />
-                 </div>
-                 <div class="carousel-item">
-                
-                  <img src={require("../../assets/images/Layer-41.png")} />
-                 </div>
-                 <div class="carousel-item">
-                
-                  <img src={require("../../assets/images/Layer-41.png")} />
-                 </div> */}
-</Carousel>       
-               
-               {/* <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                 <span class="carousel-control-prev-icon"></span>
-               </a>
-               <a class="carousel-control-next" href="#demo" data-slide="next">
-                 <span class="carousel-control-next-icon"></span>
-               </a> */}
-             {/* </div>  */}
+              
+             </div> 
         
          <div class="container">
             <div class="basic mt-3 ">
@@ -163,7 +143,7 @@ export class WebsiteMart extends Component {
        
        <ImageDashboard 
       ImageName="Bounce Salon & Spa" 
-      LinkId= "/WebsiteRetailer"
+      // LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -173,8 +153,8 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="Boddy Massage" 
-      // LinkId="/subCategories"
-      LinkId= "/WebsiteRetailer"
+    
+      // LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -182,8 +162,8 @@ export class WebsiteMart extends Component {
    <div>  
        <ImageDashboard 
       ImageName="Hair Cutting" 
-      // LinkId="/subCategories" 
-      LinkId= "/WebsiteRetailer"
+     
+      // LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -193,7 +173,7 @@ export class WebsiteMart extends Component {
    <ImageDashboard 
       ImageName="TCL E-Mart" 
       // LinkId="/subCategories" 
-      LinkId= "/WebsiteRetailer"
+      // LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -202,8 +182,8 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="Boddy Massage" 
-      // LinkId="/subCategories" 
-      LinkId= "/WebsiteRetailer"
+    
+      // LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -213,8 +193,8 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="Hair Cutting" 
-      // LinkId="/subCategories"
-      LinkId= "/WebsiteRetailer"
+      
+      // LinkId= "/WebsiteRetailer"
        ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -223,8 +203,8 @@ export class WebsiteMart extends Component {
     
        <ImageDashboard 
       ImageName="TCL E-Mart" 
-      // LinkId="/subCategories" 
-      LinkId= "/WebsiteRetailer"
+    
+      // LinkId= "/WebsiteRetailer"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -233,73 +213,7 @@ export class WebsiteMart extends Component {
 
 </Carousel> 
 
-                              {/* <div class="wish-slider">
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image5.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Bounce Salon & Spa</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/heart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider active">
-                                       <div class="cover-images00">
-                                          <img src="images/image6.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Boddy Massage</p>
-                                       </div>
-                                       <div class="heart">
-                                         <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/heart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image7.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Hair Cutting</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/heart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div> */} 
-                                 {/* <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image8.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Food Not Fine Dining</p>
-                                       </div>
-                                       <div class="heart">
-                                         <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/heart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image5.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                         <p>Bounce Salon & Spa</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/heart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div> */}
+                            
                               <div class="cover-bodyspa">
                                  <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
@@ -307,7 +221,7 @@ export class WebsiteMart extends Component {
                                  {/* <img src="images/bodyspa.png" />  */} 
                                  <img src={require("../../assets/images/bodyspa.png")} />
                                  <div class="inner-spa">
-                                    <h6>Body Massage Shop</h6> 
+                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6> 
                                  <ul>
                                     <li>Shop Number :</li>
                                     <li>S1234567890</li>
@@ -325,7 +239,8 @@ export class WebsiteMart extends Component {
                                  {/* <img src="images/bodyspa.png"/>  */} 
                                  <img src={require("../../assets/images/bodyspa.png")} />
                                  <div class="inner-spa">
-                                    <h6>Body Massage Shop</h6> 
+                                    {/* <h6>Body Massage Shop</h6>  */}
+                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
                                  <ul>
                                     <li>Shop Number :</li>
                                     <li>S1234567890</li>
@@ -364,7 +279,8 @@ export class WebsiteMart extends Component {
                                  {/* <img src="images/bodyspa.png" />  */} 
                                  <img src={require("../../assets/images/bodyspa.png")} />
                                  <div class="inner-spa">
-                                    <h6>Body Massage Shop</h6> 
+                                    {/* <h6>Body Massage Shop</h6>  */}
+                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
                                  <ul>
                                     <li>Shop Number :</li>
                                     <li>S1234567890</li>
@@ -382,7 +298,8 @@ export class WebsiteMart extends Component {
                                  {/* <img src="images/bodyspa.png" />  */} 
                                  <img src={require("../../assets/images/bodyspa.png")} />
                                  <div class="inner-spa">
-                                    <h6>Body Massage Shop</h6> 
+                                    {/* <h6>Body Massage Shop</h6>  */} 
+                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
                                  <ul>
                                     <li>Shop Number :</li>
                                     <li>S1234567890</li>
@@ -400,7 +317,8 @@ export class WebsiteMart extends Component {
                                  {/* <img src="images/bodyspa.png" />  */} 
                                  <img src={require("../../assets/images/bodyspa.png")} />
                                  <div class="inner-spa">
-                                    <h6>Body Massage Shop</h6> 
+                                    {/* <h6>Body Massage Shop</h6>  */} 
+                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
                                  <ul>
                                     <li>Shop Number :</li>
                                     <li>S1234567890</li>

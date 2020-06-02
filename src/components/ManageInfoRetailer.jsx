@@ -192,7 +192,7 @@ export default class ManageInfoRetailer extends Component {
                         </span>
                         <span class="name">
                             <label>Shop Phone Number to be Displayed on Coupons *</label>
-                            <div class="cover-phoneno no-minht">
+                            <div class="cover-phoneno no-minht" style={{position:"relative"}}>
                                 <div class="code">
                                     <select class="form-control">
                                         <option selected>+91</option>
@@ -200,7 +200,7 @@ export default class ManageInfoRetailer extends Component {
                                         <option>+92</option>
                                     </select>
                                 </div>
-                                <div class="code-no pos-rel">
+                                <div class="code-no pos-rel" >
                                     <input
                                     name="mobileno1"
                                     type="text" 
@@ -213,13 +213,13 @@ export default class ManageInfoRetailer extends Component {
                                         onClick={()=>this.submitmobilenoHandler1()}
                                         >verify</button>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             <div>
-                                            <label style={{color:"red"}}>
-                                                {this.state.mobilenoErrorMessage1}
-                                            </label>
-                                        </div>
+                                <label style={{color:"red"}}>
+                                    {this.state.mobilenoErrorMessage1}
+                                </label>
+                            </div>
                         </span>
                         <span class="name">
                             <label> Email id for Managing Coupons and Getting Communications From LH</label>

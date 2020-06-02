@@ -87,7 +87,7 @@ export default class Navigation extends Component {
                     
                     {/* settings EndUser */}
                    {/* <Route path="/SettingEndUser"  component ={SettingEndUser } /> */}
-                <Route path='/Setting_enduser' component={Setting_enduser} />
+                     <Route path='/Setting_enduser' component={Setting_enduser} />
                     {/* <Route path='/settings' component= {Settings} /> */}
                     <Route path="/Setting_retailer" component= {Setting_retailer} />
                  
