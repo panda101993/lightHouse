@@ -163,7 +163,7 @@ export class AllCouponsRetailers extends Component {
               </div>
 
 
-              <div class="col-md-9">
+              <div class="col-md-9 mt-4">
 
                 <div class="slid-margin">
   

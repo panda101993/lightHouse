@@ -4,10 +4,11 @@ import Footer from '../../../components/Footer'
 import { GlobalValidations } from '../../../components/GlobalValidations'
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks'
 import { Link } from 'react-router-dom';
-// import Api from '../../services/webservices'
+import Api from '../../services/webservices'
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import {loginAction} from "../../../redux/action/AuthAction";
+import Apirequest from "../../../api/Apirequest"
 
 
 export class LoginCustomer extends Component {
@@ -92,6 +93,8 @@ export class LoginCustomer extends Component {
                         "email": this.state.email,
                         "password": this.state.password
                     }
+                   
+                   
                     this.props.action.loginAction(requestData,()=>this.props.history.push("/LandingScreen"))
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }

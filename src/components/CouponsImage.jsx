@@ -44,8 +44,8 @@ export class CouponsImage extends Component {
                   </ModalBody>
                </Modal>  
                
-               <Modal isOpen={this.state.modalStatusImage} toggle={this.toggle} style={{ top: "190px", }}>
-                  <ModalBody>
+               <Modal class="modalviewcoupon" isOpen={this.state.modalStatusImage} toggle={this.toggle} style={{ top: "190px", }}>
+                  <ModalBody class="modalviewcoupon" >
                  
                   <div class="mainoffer">
                      {/* <img src="images/burger.png" class="bur-img">  */}

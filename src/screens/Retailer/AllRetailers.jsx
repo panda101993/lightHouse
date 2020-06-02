@@ -186,7 +186,7 @@ export class AllRetailers extends Component {
                 </div>
 
 
-                <div class="col-md-9 border-b7">
+                <div class="col-md-9 border-b7 mt-4">
                   <section class="second">
                     <div class="left-contant my-4">
                       <h3>Retailers</h3>

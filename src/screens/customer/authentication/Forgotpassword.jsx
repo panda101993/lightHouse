@@ -64,6 +64,7 @@ export default class ForgotPassword extends Component {
       super(props);
       this.state = {
          error:'',
+         mobileNumber:"",
          mobilenoStatus:''
       }
    }
@@ -84,6 +85,7 @@ export default class ForgotPassword extends Component {
      
 
    handleinput=(e)=>{
+       this.setState({mobileNumber: e.target.value})
        var value=e.target.value;
        const name = e.target.name;
     //   this.validateMobileno(value)  
@@ -113,18 +115,19 @@ export default class ForgotPassword extends Component {
   
   submitHandler = () => {
    if (this.state.mobilenoStatus) {
-     
+               var credentials={
+                  "mobileNumber": this.state.mobileNumber,
+                  "email":""
+               }
            //  alert('Submit Successfully');
                // window.location.href = "/ForgotPasswordOtp";
-               Apirequest(this.state.value, "/user/forgotPassword", "POST")
+               Apirequest(credentials, "/user/forgotPassword", "POST")
                .then((resp) => {
-                  //  console.log('respresp',resp);
+                   console.log('respresp',resp);
                   switch(resp.status){
                      case 200: {
                         if(resp.data.responseCode==200)
                         {
-                        // dispatch({ type: LOGIN_ACTION, payload: credential })
-                        // navigationFunction()
                         this.props.history.push("/ForgotPasswordOtp")
                         }
                         else if(resp.data.responseCode==500)
@@ -145,6 +148,7 @@ export default class ForgotPassword extends Component {
      
    } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
 }
+
 
 
     render() {
