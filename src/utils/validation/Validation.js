@@ -5,7 +5,7 @@ export function validateName(name) {
   if (name == "" || name == undefined || name == null) {
     return { status: false, error: "*Please enter your name." };
   } else if (!nameRegex.test(name)) {
-    return { status: false, error: "*Please enter atleast 2 characters." };
+    return { status: false, error: "*Please enter alphabets only." };
   } else if (name.length < 2) {
     return { status: false, error: "*Please enter atleast 2 characters." };
   } else {
@@ -49,13 +49,34 @@ export function validatePassword(password) {
   if (password == "" || password == undefined || password == null) {
     return { status: false, error: "*Please enter the password." };
   } else if (!passwordRegex.test(password)) {
-    return { status: false, error: "*Please enter valid password" };
+    return { status: false, error: "*Password must contain an uppercase, a lowercase, a special case character and a digit and it must be 8digit" };
   }
   // else if (password.length < 8) {
   //     return { status: false, error: "Password must contain atleast 8 character."}
   // }
   else {
     return { status: true, error: "" };
+  }
+}
+
+export function validateCFPassword(cfpassword,password) {
+  // var passwordRegex = /^ (?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+  // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+  cfpassword = cfpassword.trim();
+
+  // if (password == "" || password == undefined || password == null) {
+  //   return { status: false, error: "*Please enter the password." };
+  // } else if (!passwordRegex.test(password)) {
+  //   return { status: false, error: "*Password must contain an uppercase, a lowercase, a special case character and a digit and it must be 8digit" };
+  // }
+  if(cfpassword===password){
+    return { status: true, error: "" };
+  }
+  // else if (password.length < 8) {
+  //     return { status: false, error: "Password must contain atleast 8 character."}
+  // }
+  else {
+    return { status: false, error: "*Enter matching password" };
   }
 }
 
