@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';  
 import ImageDashboard from '../../components/ImageDashboard';
+import apiRequest from '../../api/Apirequest';
+
 
 const responsive = {
    desktop: {
@@ -55,6 +57,149 @@ const responsive = {
  }
 
 export class WebsiteMart extends Component {
+   constructor(props) {
+      super(props)
+   
+      this.state = {
+         allData: []  
+      }
+   }
+
+   getShopByMartList = (Id) => {
+      try {     
+         console.log('martt----',Id);        
+         apiRequest({martId:Id},'/user/getShopByMart','POST')
+         .then((resp) =>{
+            console.log('response=>',resp);
+            console.log('response===>',resp.data.userData);
+            this.setState({
+               allData: resp.data.userData
+            });
+         });
+         
+      } catch (error) {
+         console.log('erroresponse==>',error)
+         
+      }
+
+   }
+
+   async componentDidMount() { 
+      console.log('martt',window.location.pathname);
+      let splitUrl = window.location.pathname.split('/')
+      console.log('martt',splitUrl);
+      console.log('martt',splitUrl[2]);
+     this.getShopByMartList(splitUrl[2]);
+   }
+
+   shopData(){
+      if(this.state.allData.length > 0)
+      return this.state.allData.map((xyz, index)=>{
+         const {shopName,shopNumber,floorNumber,email,martId,pinCode,otpTime,parkingAvailability,martName} = xyz
+         // console.log('abcd==',martId.images[0])
+         console.log('abcd==>>',xyz)
+         return(
+        
+               // <div class="col-lg-4 col-md-4 col-sm-12">
+               //                   <div class="body-spa">
+               //                   <img src={martId.images[0]} />
+               //                   <div class="inner-spa">
+               //                      <h6> <Link to="/WebsiteRetailer">{shopName}</Link>
+               //                      </h6> 
+               //                   <ul>
+               //                      <li>Shop Number :</li>
+               //                      <li>{shopNumber}</li>
+               //                      <li>Floor Number:</li>
+               //                      <li>{floorNumber}</li>
+               //                      <li>Contact Number : </li>
+               //                      <li>{otpTime}</li>
+                                    
+               //                   </ul>
+                                 
+               //                   </div>                                
+               //                   </div>
+                               
+               //                  </div> 
+
+               <div class="container">
+            <div class="basic mt-3 ">
+               <div class="d-flex justify-content-between align-items-center">
+                  <div class="john-json">
+                     <h6>{martName}</h6>
+                     <p class="mb-3">{martId.address}</p>
+                     <label>Parking Availability :</label>
+                     <span>{martId.parkingAvailability}</span>
+                  </div>
+                  <div> <Link to ="/AllRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
+               </div>
+            </div>
+            <div class="left-contant00">
+                                 <h3>Categories</h3>
+                              </div> 
+                              
+         
+         
+
+                            
+                              <div class="cover-bodyspa">
+                                 <div class="row">
+                                  <div class="col-lg-4 col-md-4 col-sm-12">
+                                 <div class="body-spa">
+                                 <img src={martId.images[0]} />
+                                  <div class="inner-spa">
+                                     <h6> <Link to="/WebsiteRetailer">{shopName}</Link>
+                                     </h6> 
+                                 <ul>
+                                    <li>Shop Number :</li>
+                                    <li>{shopNumber}</li>
+                                    <li>Floor Number:</li>
+                                    <li>{floorNumber}</li>
+                                    <li>Contact Number : </li>
+                                    <li>{otpTime}</li>
+                                    
+                                  </ul>
+                                 
+                                 </div>                                
+                                 </div>
+                               
+                                </div> 
+                             </div>
+                              <div class="row mt-4">
+                              <div class="col-lg-4 col-md-4 col-sm-12">
+                                 <div class="body-spa">
+                                 <img src={martId.images[0]} />
+                                  <div class="inner-spa">
+                                     <h6> <Link to="/WebsiteRetailer">{shopName}</Link>
+                                     </h6> 
+                                 <ul>
+                                    <li>Shop Number :</li>
+                                    <li>{shopNumber}</li>
+                                    <li>Floor Number:</li>
+                                    <li>{floorNumber}</li>
+                                    <li>Contact Number : </li>
+                                    <li>{otpTime}</li>
+                                    
+                                  </ul>
+                                 
+                                 </div>                                
+                                 </div>
+                               
+                                </div> 
+                             </div>
+                              </div>
+                             
+
+
+
+         </div>
+               
+
+               
+                               
+         )
+      })
+   }
+   
     render() {
         return (
             <div> 
@@ -102,8 +247,9 @@ export class WebsiteMart extends Component {
               
              </div> 
         
-         <div class="container">
-            <div class="basic mt-3 ">
+         {/* <div class="container"> */}
+            <div>
+            {/* <div class="basic mt-3 ">
                <div class="d-flex justify-content-between align-items-center">
                   <div class="john-json">
                      <h6>V-MART</h6>
@@ -111,21 +257,20 @@ export class WebsiteMart extends Component {
                      <label>Parking Availability :</label>
                      <span>Yes</span>
                   </div>
-                  {/* <div> <a href="64-all-retailers.html"><button class="btn btn-theme">View Coupons</button></a></div> */}
                   <div> <Link to ="/AllRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
                </div>
             </div>
             <div class="left-contant00">
                                  <h3>Categories</h3>
-                              </div> 
+                              </div>  */}
                               
-         {/* <CatogriesScroll /> */}  
-         <Carousel
+         
+         {/* <Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
   responsive={responsive1}
-  ssr={true} // means to render carousel on server-side.
+  ssr={true} 
   infinite={true}
   autoPlay={this.props.deviceType !== "mobile" ? true : false}
   autoPlaySpeed={5000000}
@@ -143,7 +288,7 @@ export class WebsiteMart extends Component {
        
        <ImageDashboard 
       ImageName="Bounce Salon & Spa" 
-      // LinkId= "/WebsiteRetailer"
+      
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -154,7 +299,7 @@ export class WebsiteMart extends Component {
    <ImageDashboard 
       ImageName="Boddy Massage" 
     
-      // LinkId= "/WebsiteRetailer"
+      
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -163,7 +308,7 @@ export class WebsiteMart extends Component {
        <ImageDashboard 
       ImageName="Hair Cutting" 
      
-      // LinkId= "/WebsiteRetailer"
+      
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -172,8 +317,7 @@ export class WebsiteMart extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart" 
-      // LinkId="/subCategories" 
-      // LinkId= "/WebsiteRetailer"
+      
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -183,7 +327,7 @@ export class WebsiteMart extends Component {
    <ImageDashboard 
       ImageName="Boddy Massage" 
     
-      // LinkId= "/WebsiteRetailer"
+      
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -194,7 +338,7 @@ export class WebsiteMart extends Component {
    <ImageDashboard 
       ImageName="Hair Cutting" 
       
-      // LinkId= "/WebsiteRetailer"
+      
        ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -204,139 +348,27 @@ export class WebsiteMart extends Component {
        <ImageDashboard 
       ImageName="TCL E-Mart" 
     
-      // LinkId= "/WebsiteRetailer"
+      
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
-   </div>
+   </div> */}
   
 
-</Carousel> 
+{/* </Carousel>  */}
 
-                            
+{/*                             
                               <div class="cover-bodyspa">
                                  <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                 <div class="body-spa">
-                                 {/* <img src="images/bodyspa.png" />  */} 
-                                 <img src={require("../../assets/images/bodyspa.png")} />
-                                 <div class="inner-spa">
-                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6> 
-                                 <ul>
-                                    <li>Shop Number :</li>
-                                    <li>S1234567890</li>
-                                    <li>Floor Number:</li>
-                                    <li>2nd Floor</li>
-                                    <li>Contact Number : </li>
-                                    <li>+91-7896543454</li>
-                                 </ul>
-                                 </div>
-                                 
-                                 </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                 <div class="body-spa">
-                                 {/* <img src="images/bodyspa.png"/>  */} 
-                                 <img src={require("../../assets/images/bodyspa.png")} />
-                                 <div class="inner-spa">
-                                    {/* <h6>Body Massage Shop</h6>  */}
-                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
-                                 <ul>
-                                    <li>Shop Number :</li>
-                                    <li>S1234567890</li>
-                                    <li>Floor Number:</li>
-                                    <li>2nd Floor</li>
-                                    <li>Contact Number : </li>
-                                    <li>+91-7896543454</li>
-                                 </ul>
-                                 </div>
-                                 
-                                 </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                 <div class="body-spa">
-                                 {/* <img src="images/bodyspa.png" />  */} 
-                                 <img src={require("../../assets/images/bodyspa.png")} />
-                                 <div class="inner-spa">
-                                    <h6>Body Massage Shop</h6> 
-                                 <ul>
-                                    <li>Shop Number :</li>
-                                    <li>S1234567890</li>
-                                    <li>Floor Number:</li>
-                                    <li>2nd Floor</li>
-                                    <li>Contact Number : </li>
-                                    <li>+91-7896543454</li>
-                                 </ul>
-                                 </div>
-                                 
-                                 </div>
-                                </div>
-
+                                {this.shopData()}
                              </div>
                               <div class="row mt-4">
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                 <div class="body-spa">
-                                 {/* <img src="images/bodyspa.png" />  */} 
-                                 <img src={require("../../assets/images/bodyspa.png")} />
-                                 <div class="inner-spa">
-                                    {/* <h6>Body Massage Shop</h6>  */}
-                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
-                                 <ul>
-                                    <li>Shop Number :</li>
-                                    <li>S1234567890</li>
-                                    <li>Floor Number:</li>
-                                    <li>2nd Floor</li>
-                                    <li>Contact Number : </li>
-                                    <li>+91-7896543454</li>
-                                 </ul>
-                                 </div>
-                                 
-                                 </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                 <div class="body-spa">
-                                 {/* <img src="images/bodyspa.png" />  */} 
-                                 <img src={require("../../assets/images/bodyspa.png")} />
-                                 <div class="inner-spa">
-                                    {/* <h6>Body Massage Shop</h6>  */} 
-                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
-                                 <ul>
-                                    <li>Shop Number :</li>
-                                    <li>S1234567890</li>
-                                    <li>Floor Number:</li>
-                                    <li>2nd Floor</li>
-                                    <li>Contact Number : </li>
-                                    <li>+91-7896543454</li>
-                                 </ul>
-                                 </div>
-                                 
-                                 </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                 <div class="body-spa">
-                                 {/* <img src="images/bodyspa.png" />  */} 
-                                 <img src={require("../../assets/images/bodyspa.png")} />
-                                 <div class="inner-spa">
-                                    {/* <h6>Body Massage Shop</h6>  */} 
-                                    <h6> <Link to="/WebsiteRetailer">Body Massage Shop</Link></h6>
-                                 <ul>
-                                    <li>Shop Number :</li>
-                                    <li>S1234567890</li>
-                                    <li>Floor Number:</li>
-                                    <li>2nd Floor</li>
-                                    <li>Contact Number : </li>
-                                    <li>+91-7896543454</li>
-                                 </ul>
-                                 </div>
-                                 
-                                 </div>
-                                </div>
-                                
+                                {this.shopData()}
                              </div>
-                              </div>
+                              </div> */}
                              
 
-
+                              {this.shopData()}
 
          </div>
                
@@ -349,5 +381,6 @@ export class WebsiteMart extends Component {
         )
     }
 }
+
 
 export default WebsiteMart

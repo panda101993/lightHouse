@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Apirequest from '../api/Apirequest'
+import apiRequest from '../api/Apirequest';
+import {loginAction} from "../redux/action/AuthAction";
+import { connect } from "react-redux";
+import ToasterFunction from '../components/ToasterFunc';
 
 import {
    EmailShareButton,
@@ -43,7 +46,7 @@ import {
 
 
 
-export class CouponImageSetting extends Component {
+class CouponImageSetting extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -56,14 +59,38 @@ export class CouponImageSetting extends Component {
 
       }
    }
+   
    getCoupounList = () => {
       try {
-         Apirequest({ userId: "5ed225b7d338d32b5fa19b7e", search: this.state.search, pageNumber: this.state.pageNumber, limit: this.state.limit }, '/user/myCoupons', 'POST', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBkMjEyZDhhYWE0NzM4NTU1OWE1MSIsImlhdCI6MTU5MTAwMzI4NiwiZXhwIjoxNTkxMDg5Njg2fQ.dg-DMJJ-vT7fSDQStyRj9zkLvACZfNxs2Az_-LJYo-k")
+         
+         console.log('hhhh==>',this.props.applicationData)
+         apiRequest({ userId: this.props.applicationData.userId, search: this.state.search, pageNumber: this.state.pageNumber, limit: this.state.limit }, '/user/myCoupons', 'POST', this.props.applicationData.token)
             .then((resp) => {
-               console.log('response', resp);
+               console.log('responseMycoupan', resp);
+               switch (resp.status) {
+                  case (200):
+                      {
+                      
+                        if (resp.data.responseCode == 404) {
+                          ToasterFunction("info", "Data not found, internal server error");
+      
+                      }
+                      else if (resp.data.responseCode == 500) {
+                          ToasterFunction("error", "Internal Server Error");
+      
+                      }
+                  }
+                  case (900): {
+                      if (resp.status == 900) {
+                          ToasterFunction("error", "Please check your internet connection")
+                      }
+                  }
+              }
+
             })
       } catch (error) {
          console.log('errorresponse', error);
+         ToasterFunction("error", "Network error, please contact the administrator");
       }
    }
    async componentDidMount() {
@@ -72,7 +99,7 @@ export class CouponImageSetting extends Component {
 
    deleteCoupans = () => {
       try {
-         Apirequest({ couponId: "" }, '/user/deleteCoupon', 'POST', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBkMjEyZDhhYWE0NzM4NTU1OWE1MSIsImlhdCI6MTU5MTAwMzI4NiwiZXhwIjoxNTkxMDg5Njg2fQ.dg-DMJJ-vT7fSDQStyRj9zkLvACZfNxs2Az_-LJYo-k")
+         apiRequest({ couponId: "" }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('respresp', resp);
                this.setState({ modalStatusImage: !this.state.modalStatusImage })
@@ -86,7 +113,7 @@ export class CouponImageSetting extends Component {
 
    deleteCoupans1 = () => {
       try {
-         Apirequest({ couponId: "" }, '/user/deleteCoupon', 'POST', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBkMjEyZDhhYWE0NzM4NTU1OWE1MSIsImlhdCI6MTU5MTAwMzI4NiwiZXhwIjoxNTkxMDg5Njg2fQ.dg-DMJJ-vT7fSDQStyRj9zkLvACZfNxs2Az_-LJYo-k")
+         apiRequest({ couponId: "" }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('respresp', resp);
                this.setState({ modalStatus: !this.state.modalStatus })
@@ -99,7 +126,21 @@ export class CouponImageSetting extends Component {
    }
    hideCoupans = () => {
       try {
-         Apirequest({ couponId: "" }, '/user/hideCoupon', 'POST', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzBkMjEyZDhhYWE0NzM4NTU1OWE1MSIsImlhdCI6MTU5MTAwMzI4NiwiZXhwIjoxNTkxMDg5Njg2fQ.dg-DMJJ-vT7fSDQStyRj9zkLvACZfNxs2Az_-LJYo-k")
+         apiRequest({ couponId: "" }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
+            .then((resp) => {
+               console.log('response', resp);
+               this.setState({ modalStatusImage: !this.state.modalStatusImage })
+            })
+      } catch (error) {
+         console.log('errorresponse', error)
+         this.setState({ modalStatusImage: !this.state.modalStatusImage })
+
+      }
+   }
+
+   addToFavourite = () => {
+      try {
+         apiRequest({ couponId: "" }, 'user/saveMyCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('response', resp);
                this.setState({ modalStatusImage: !this.state.modalStatusImage })
@@ -267,8 +308,8 @@ export class CouponImageSetting extends Component {
                            </div>
                         </div>
                         <div class="modal-body ny">
-                           <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.deleteCoupans()}  >Delete</button>
-                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.hideCoupans()} >Don't Show Again</button>
+                           {/* <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.deleteCoupans()}  >Delete</button> */}
+                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.addToFavourite()} >Add to Favourite</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-rmv-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Call Shop</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Navigate to Shop</button>
                         </div>
@@ -285,5 +326,17 @@ export class CouponImageSetting extends Component {
    }
 }
 
+const mapStateToProps = state => {
+  if(state.AuthReducer.isLoggedIn === true){
+     
+  }
+   console.log("hhhh====>>", state)
+   
+   return{
+      applicationData: state.AuthReducer.userData
+   }
+}
 
-export default CouponImageSetting
+
+// export default CouponImageSetting
+export default connect(mapStateToProps,{loginAction})(CouponImageSetting);

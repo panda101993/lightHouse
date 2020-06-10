@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import {loginAction} from "../../../redux/action/AuthAction";
 import Apirequest from "../../../api/Apirequest"
-import {validatePassword} from "../../../utils/validation/Validation"
 
 
 export class LoginCustomer extends Component {
@@ -53,8 +52,8 @@ export class LoginCustomer extends Component {
         this.state.mobilenoStatus = this.validateMobileno(value).status;
          }
          else if (name == "password") {
-            this.state.passwordErrorMessage = validatePassword(value).error;
-            this.state.passwordStatus = validatePassword(value).status;
+            this.state.passwordErrorMessage = this.validatePassword(value).error;
+            this.state.passwordStatus = this.validatePassword(value).status;
          }
         }
 
@@ -72,17 +71,17 @@ export class LoginCustomer extends Component {
             return { status: true, error: '', height: 0 }
         }
     }
-    //   validatePassword(value) {
-    //     if (value == "" || value == undefined || value == null) {
-    //         return { status: false, error: "Please enter valid password." }
-    //     }
-    //     else if (value.length < 6) {
-    //         return { status: false, error: "Password must contain 6 or more characters." };
-    //     }
-    //     else {
-    //         return { status: true, error: '', height: 0 }
-    //     }
-    // }
+      validatePassword(value) {
+        if (value == "" || value == undefined || value == null) {
+            return { status: false, error: "Please enter valid password." }
+        }
+        else if (value.length < 6) {
+            return { status: false, error: "Password must contain 6 or more characters." };
+        }
+        else {
+            return { status: true, error: '', height: 0 }
+        }
+    }
 
     submitHandler = () => {
         if (this.state.mobilenoStatus) {

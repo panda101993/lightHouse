@@ -14,84 +14,9 @@ export class MySavedCouponEndUser extends Component {
                            </form>
                         </div>
                         <div class="row sale-coupon">
-                           {/* <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizza great deal.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizz-expired.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizza great deal.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizza great deal.png"  />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizz-expired.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizza great deal.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizza great deal.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizz-expired.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div>
-                           <div class="col-lg-4 col-md-4 col-sm-12">
-                              <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-                                 <figure class="coupon-sec">
-                                    <img src="images/pizza great deal.png" />
-                                 </figure>
-                              </div>
-                              <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup">Delete</button>
-                           </div> */}
+                          
                            <CouponImageSetting />
-                           {/* <CouponImageSetting />
-                           <CouponImageSetting />
-                           <CouponImageSetting />
-                           <CouponImageSetting />
-                           <CouponImageSetting /> */}
+                           
                            
                         </div>
                         
