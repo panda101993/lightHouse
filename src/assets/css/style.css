@@ -4380,5 +4380,23 @@ label.validation-hint {
         margin: auto !important;
         margin-bottom: 10px !important;
     }
+    ul.coupion-choice li {
+        width: 100%;
+        padding-bottom: 0px;
+        max-width: 181px;
+    }   
+    .main-end select.form-control.first-el, .main-end .frm-end {
+        min-width: 100%!important;
+    }
+    .main-end .sub-recharge.pad {
+        min-width: 100%;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .cover-clander-btn.mt-5 .copn-btnsec {
+        margin: 4px 0px;
+    }
 
 }
