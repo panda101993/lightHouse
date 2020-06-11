@@ -53,8 +53,8 @@ export class LoginCustomer extends Component {
         this.state.mobilenoStatus = this.validateMobileno(value).status;
          }
          else if (name == "password") {
-            this.state.passwordErrorMessage = validatePassword(value).error;
-            this.state.passwordStatus = validatePassword(value).status;
+            this.state.passwordErrorMessage = this.validatePassword(value).error;
+            this.state.passwordStatus = this.validatePassword(value).status;
          }
         }
 
@@ -62,7 +62,7 @@ export class LoginCustomer extends Component {
     validateMobileno(value) {
         var numberRegex = /^[1-9][0-9]{9,12}$/;
         if (value == "" || value == undefined || value == null) {
-            return { status: false, error: "Please enter email." }
+            return { status: false, error: "Please enter email/Mobile no.." }
 
          }
         // else if (!numberRegex.test(value)) {
@@ -72,17 +72,17 @@ export class LoginCustomer extends Component {
             return { status: true, error: '', height: 0 }
         }
     }
-    //   validatePassword(value) {
-    //     if (value == "" || value == undefined || value == null) {
-    //         return { status: false, error: "Please enter valid password." }
-    //     }
-    //     else if (value.length < 6) {
-    //         return { status: false, error: "Password must contain 6 or more characters." };
-    //     }
-    //     else {
-    //         return { status: true, error: '', height: 0 }
-    //     }
-    // }
+      validatePassword(value) {
+        if (value == "" || value == undefined || value == null) {
+            return { status: false, error: "Please enter valid password." }
+        }
+        else if (value.length < 8) {
+            return { status: false, error: "Password must contain 8 or more characters." };
+        }
+        else {
+            return { status: true, error: '', height: 0 }
+        }
+    }
 
     submitHandler = () => {
         if (this.state.mobilenoStatus) {

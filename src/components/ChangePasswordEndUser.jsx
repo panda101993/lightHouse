@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Apirequest from "../api/Apirequest"
 import {loginAction} from "../redux/action/ActionTypes";
 import { connect } from "react-redux";
+import { validatePassword, validateCFPassword } from '../utils/validation/Validation';
 
 
 export class ChangePasswordEndUser extends Component { 
@@ -19,8 +20,12 @@ export class ChangePasswordEndUser extends Component {
          token:"",
 
          oldpassStatus:false,
+
          newpassStatus:false,
-         cnfpassStatus:false
+         newpassErrormsg:"",
+
+         cnfpassStatus:false,
+         cnfpassErrormsg:""
        
       }
    }
@@ -35,15 +40,38 @@ export class ChangePasswordEndUser extends Component {
       else  if(type=="newpass"){
          this.setState({
             newpass: e.target.value,
-            newpassStatus: true
-         })
+         },
+         ()=>{this.handleValidation("newpass")}
+            // newpassStatus: validatePassword(this.state.newpass).status,
+            // newpassErrormsg: validatePassword(this.state.newpass).error
+         )
       }
       else if(type=="cnfpass"){
          this.setState({
             cnfpass: e.target.value,
-            cnfpassStatus: true
-         })
+         },
+         ()=>{this.handleValidation("cnfpass")}
+         )
       
+   }
+}
+
+handleValidation(key) {
+   console.log('key-value', key);
+   switch (key) {
+       // case ("email"):
+       //     var data = validateEmail(this.state.email)
+       //     this.setState({ emailErrorMessage: data.error, emailErrorStatus: data.status }, () => console.log("errore", this.state))
+       //     break
+       case ("newpass"):
+           var data = validatePassword(this.state.newpass)
+           console.log("this is data of pass", data)
+           this.setState({ newpassErrormsg: data.error, newpassStatus: data.status }, () => console.log("errore", this.state))
+           break
+       case ("cnfpass"):
+           var data = validateCFPassword(this.state.cnfpass,this.state.newpass)
+           this.setState({ cnfpassErrormsg: data.error, cnfpassStatus: data.status }, () => console.log("errore", this.state))
+           break
    }
 }
 
@@ -119,12 +147,14 @@ request=()=>{
                                  <input type="password" class="form-control pass-word" placeholder="XXXXXXXXXXXXXXX"
                                  onChange={(e)=>this.handleInput(e,"newpass")}
                                  />
+                                <lable class="" style={{color:"red", fontSize:12}}>{this.state.newpassErrormsg}</lable> 
                               </div>
                               <div class="form-group chang-sec">
                                  <label for="exampleInputPassword1" class="old-pass">Confirm Password*</label>
                                  <input type="password" class="form-control pass-words" placeholder="XXXXXXXXXXXXXXX" 
                                  onChange={(e)=>this.handleInput(e,"cnfpass")}
                                  />
+                                 <lable class="" style={{color:"red", fontSize:12}}>{this.state.cnfpassErrormsg}</lable> 
                               </div>
                               <ul class="button_cs">
                                  <li class="cancel_c300"><button class="save">Cancel</button></li>
