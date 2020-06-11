@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import {loginAction} from "../../../redux/action/AuthAction";
 import Apirequest from "../../../api/Apirequest"
-import {validatePassword} from "../../../utils/validation/Validation"
 
 
 export class LoginCustomer extends Component {
@@ -76,8 +75,13 @@ export class LoginCustomer extends Component {
         if (value == "" || value == undefined || value == null) {
             return { status: false, error: "Please enter valid password." }
         }
+<<<<<<< HEAD
         else if (value.length < 8) {
             return { status: false, error: "Password must contain 8 or more characters." };
+=======
+        else if (value.length < 6) {
+            return { status: false, error: "Password must contain 6 or more characters." };
+>>>>>>> 4aafb32c80202b310ace4784419ab527a721a51a
         }
         else {
             return { status: true, error: '', height: 0 }

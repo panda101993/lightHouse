@@ -30,6 +30,7 @@ export class ChangePasswordEndUser extends Component {
       }
    }
 
+
    handleInput=(e,type)=>{
       if(type=="oldpass"){
          this.setState({
@@ -138,9 +139,7 @@ request=()=>{
                            <form>
                               <div class="form-group chang-sec">
                                  <label for="exampleInputEmail1" class="old-pass">Old Password*</label>
-                                 <input type="email" class="form-control pass-word" aria-describedby="emailHelp" placeholder="XXXXXXuuXXXXXXXXX"
-                                 onChange={(e)=>this.handleInput(e,"oldpass")}
-                                 />
+                                 <input type="email" class="form-control pass-word" aria-describedby="emailHelp" placeholder="XXXXXXXXXXXXXXX"/>
                               </div>
                               <div class="form-group chang-sec">
                                  <label for="exampleInputPassword1" class="old-pass">New Password*</label>
@@ -155,10 +154,17 @@ request=()=>{
                                  onChange={(e)=>this.handleInput(e,"cnfpass")}
                                  />
                                  <lable class="" style={{color:"red", fontSize:12}}>{this.state.cnfpassErrormsg}</lable> 
+
+                                 <input type="password" class="form-control pass-word" placeholder="XXXXXXXXXXXXXXX"/>
+                              </div>
+                              <div class="form-group chang-sec">
+                                 <label for="exampleInputPassword1" class="old-pass">Confirm Password*</label>
+                                 <input type="password" class="form-control pass-words" placeholder="XXXXXXXXXXXXXXX" />
+
                               </div>
                               <ul class="button_cs">
                                  <li class="cancel_c300"><button class="save">Cancel</button></li>
-                                 <li><button type="button" class="save0"data-toggle="modal" data-target="#otpmodal"  onClick={() =>this.request() } >Save</button></li>
+                                 <li><button type="button" class="save0"data-toggle="modal" data-target="#otpmodal"  onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Save</button></li>
                               </ul>
                            </form>
                         </div>
@@ -179,12 +185,4 @@ request=()=>{
     }
 }
 
-const mapStateToProps = state => {
-   console.log("change state", state)
-   return {
-      applicatonkey: state.AuthReducer.userData
-      
-   }
-}
-export default connect(mapStateToProps)(ChangePasswordEndUser);
-
+export default ChangePasswordEndUser

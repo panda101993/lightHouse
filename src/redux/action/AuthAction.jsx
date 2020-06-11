@@ -10,7 +10,8 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
     Apirequest(credential, "/user/login", "POST")
         .then((resp) => {
             console.log('respresp===>',resp);
-            dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
+            dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
+            
             // navigationFunction()
             switch (resp.status) 
             {
@@ -80,6 +81,8 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
         )
 
 }
+
+
 
 // export const completeSignupAction = (profileDetail, navigationFunction) => dispatch => {
 //     console.log('SHOW_BIG_MARKER=>completeSignupProfile', profileDetail);

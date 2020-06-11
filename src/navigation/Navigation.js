@@ -44,6 +44,7 @@ import { createBrowserHistory } from 'history';
 // import ProfileUpdate from '../screens/settings/ProfileUpdateForm';
 
 import LandingScreen from '../screens/dashboard/LandingScreen'
+import LandingScreenGuestUser from '../screens/dashboard/LandingScreenGuestUser';
 // import SettingEndUser from '../screens/settings/SettingEndUser';
 import WebsiteRetailer from '../screens/Retailer/WebsiteRetailer';
 import WebsiteMart from '../screens/Retailer/WebsiteMart';
@@ -73,7 +74,8 @@ export default class Navigation extends Component {
                 <div> 
                 
                     {/* <Route exact path="/" component= {SignupCustomer} /> */} 
-                    <Route exact path="/" component= {CreateWebpageInitialSignupProcess} />
+                    <Route exact path="/" component= {LandingScreenGuestUser} />
+                    <Route exact path="/CreateWebpageInitialSignupProcess" component= {CreateWebpageInitialSignupProcess} />
                     <Route path="/SignupCustomer" component= {SignupCustomer} />
                     <Route  path="/LandingScreen"  component={ LandingScreen } /> 
 

@@ -11,7 +11,8 @@ export const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn:true,
-                userData:action.payload
+                userData:action.payload,
+                
 
             }
         break

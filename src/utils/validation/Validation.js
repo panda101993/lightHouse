@@ -5,7 +5,7 @@ export function validateName(name) {
   if (name == "" || name == undefined || name == null) {
     return { status: false, error: "*Please enter your name." };
   } else if (!nameRegex.test(name)) {
-    return { status: false, error: "*Please enter alphabets only." };
+    return { status: false, error: "*Please enter atleast 2 characters." };
   } else if (name.length < 2) {
     return { status: false, error: "*Please enter atleast 2 characters." };
   } else {
@@ -49,41 +49,21 @@ export function validatePassword(password) {
   if (password == "" || password == undefined || password == null) {
     return { status: false, error: "*Please enter the password." };
   } else if (!passwordRegex.test(password)) {
-    return { status: false, error: "*Password must contain an uppercase, a lowercase, a special case character and a digit and it must be 8digit" };
+    return { status: false, error: "*Please enter valid password" };
   }
   // else if (password.length < 8) {
   //     return { status: false, error: "Password must contain atleast 8 character."}
   // }
   else {
     return { status: true, error: "" };
-  }
-}
-
-export function validateCFPassword(cfpassword,password) {
-  // var passwordRegex = /^ (?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-  // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-  cfpassword = cfpassword.trim();
-
-  // if (password == "" || password == undefined || password == null) {
-  //   return { status: false, error: "*Please enter the password." };
-  // } else if (!passwordRegex.test(password)) {
-  //   return { status: false, error: "*Password must contain an uppercase, a lowercase, a special case character and a digit and it must be 8digit" };
-  // }
-  if(cfpassword===password){
-    return { status: true, error: "" };
-  }
-  // else if (password.length < 8) {
-  //     return { status: false, error: "Password must contain atleast 8 character."}
-  // }
-  else {
-    return { status: false, error: "*Enter matching password" };
   }
 }
 
 /* To validate Mobile No. */
 
 export function validateMobileNo(mobileNo) {
-  var numberRegex = /^[1-9][0-9]{9,12}$/;
+  // var numberRegex = /^[1-9][0-9]{9,12}$/;
+  var numberRegex= /^[6-9]\d{9}$/;
   mobileNo = mobileNo.trim();
   if (mobileNo == "" || mobileNo == undefined || mobileNo == null) {
     return { status: false, error: "*Please enter Mobile Number." };
@@ -165,3 +145,79 @@ export function validateOtp(value) {
        return { status: true, error: "" };
     }
  }
+
+ export function validatePinCode(value) {
+  console.log("validate===>", value)
+  let pinCodeRegex = /^[1-9][0-9]{5}$/;
+  // email = email.trim();
+  if (value == "" || value == undefined || value == null) {
+      return { status: false, error: "Please enter Pin code." };
+  }
+  else if (!pinCodeRegex.test(value)) {
+      return { status: false, error: "Please enter valid Pin code." };
+  }
+  else {
+      return { status: true, error: '', height: 0 };
+  }
+}
+
+
+export function validateProvince(value) {
+  console.log("validateProvince===>", value)
+  // let pinCodeRegex = /^[1-9][0-9]{5}$/;
+  // email = email.trim();
+  if (value == "" || value == undefined || value == null) {
+      return { status: false, error: "Please select State" };
+  }
+  // else if (!pinCodeRegex.test(value)) {
+  //     return { status: false, error: "Please enter valid Pin code." };
+  // }
+  else {
+      return { status: true, error: '', height: 0 };
+  }
+}
+
+export function validateCity(value) {
+  console.log("validateCity===>", value)
+  // let pinCodeRegex = /^[1-9][0-9]{5}$/;
+  // email = email.trim();
+  if (value == "" || value == undefined || value == null) {
+      return { status: false, error: "Please select City" };
+  }
+  // else if (!pinCodeRegex.test(value)) {
+  //     return { status: false, error: "Please enter valid Pin code." };
+  // }
+  else {
+      return { status: true, error: '', height: 0 };
+  }
+}
+
+export function validateAddress(value) {
+  console.log("validateAddress===>", value)
+  // let pinCodeRegex = /^[1-9][0-9]{5}$/;
+  // email = email.trim();
+  if (value == "" || value == undefined || value == null) {
+      return { status: false, error: "Please enter address" };
+  }
+  // else if (!pinCodeRegex.test(value)) {
+  //     return { status: false, error: "Please enter valid Pin code." };
+  // }
+  else {
+      return { status: true, error: '', height: 0 };
+  }
+}
+
+export function validateDialCode(value) {
+  console.log("validateDialCode===>", value)
+  // let pinCodeRegex = /^[1-9][0-9]{5}$/;
+  // email = email.trim();
+  if (value == "" || value == undefined || value == null) {
+      return { status: false, error: "Please select Dial Code" };
+  }
+  // else if (!pinCodeRegex.test(value)) {
+  //     return { status: false, error: "Please enter valid Pin code." };
+  // }
+  else {
+      return { status: true, error: '', height: 0 };
+  }
+}

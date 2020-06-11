@@ -13,8 +13,8 @@ import CouponsScrollPupup from '../../components/CouponsScrollPupup'
 import CatogriesScroll from '../../components/CatogriesScroll'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import Header4 from '../../components/Header4'
-import apiRequest from '../../api/Apirequest'
+import Header from '../../components/Header'
+import apiRequest from '../../api/Apirequest';
 import {loginAction} from "../../redux/action/AuthAction";
 import { connect } from "react-redux";
 import Cookies from 'universal-cookie';
@@ -64,15 +64,15 @@ class componentName extends Component {
 
    getmartsbyUserList = () =>{
       try {
-         const cookies = new Cookies();
-         console.log(cookies.get('latitude'));
-         const latitude = cookies.get('latitude')
- 
-         console.log(cookies.get('longitude'));
-         const longitude = cookies.get('longitude')
+        const cookies = new Cookies();
+        console.log(cookies.get('latitude'));
+        const latitude = cookies.get('latitude')
 
-         console.log('hhhh=>',this.props.applicationData)
-         apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
+        console.log(cookies.get('longitude'));
+        const longitude = cookies.get('longitude')
+
+        //  console.log('hhhh=>',this.props.applicationData)
+         apiRequest({lat:latitude, long:longitude},'/user/getMartsByUser','POST')
          .then((resp)=>{
          console.log('response', resp);
          switch (resp.status) {
@@ -98,9 +98,7 @@ class componentName extends Component {
                 }
             }
         }
-         // this.setState({
-         //    allData: resp.data.result[0].details
-         // });
+        
       });
          
       } catch (error) {
@@ -143,7 +141,7 @@ class componentName extends Component {
       //   console.log('category',categoryImage);
          return(
             <div>
-               <h5 class="product-herd">{productServiceType}</h5>
+<h5 class="product-herd">{productServiceType}</h5>
             <ImageDashboard
                ImageName={categoryName}
                LinkId="/subCategories"
@@ -167,7 +165,7 @@ class componentName extends Component {
          <>
             <body>
                {/* <HeaderLandingScreen /> */}
-               <Header4 />
+               <Header/>
                <section class="second">
                   <LandingTopicName HeaderName="Marts" />
                   <div class="container-fluid">
@@ -202,7 +200,7 @@ class componentName extends Component {
                   <LandingTopicName HeaderName="Categories" />
 
                   <div class="container-fluid">
-                     
+                  
                      {/* <CatogriesScroll /> */}
                      <Carousel
                         swipeable={true}
