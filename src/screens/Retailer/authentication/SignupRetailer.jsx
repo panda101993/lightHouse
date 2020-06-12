@@ -3,8 +3,39 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { Link } from 'react-router-dom';
+import Apirequest from "../../../api/Apirequest"
+import Cookies from "universal-cookie"
 
 export default class SignupRetailer extends Component {
+
+
+    componentDidMount(){
+        const cookies = new Cookies();
+console.log(cookies.get('latitude'));
+const latitude = cookies.get('latitude')
+
+console.log(cookies.get('longitude'));
+const longitude = cookies.get('longitude')
+// const latitude=58.574
+// const longitude=78.1991
+console.log(latitude,longitude)
+var credentials={
+    "lat":latitude,
+    "long":longitude
+}
+
+Apirequest({"lat":latitude, "long":longitude},"/user/getMartsByRetailer","POST")
+.then((resp)=>{
+    console.log("getmartsbyret",resp)
+})
+
+.catch(err => {
+    console.log("changeresp---", err)
+}
+)
+    }
+
+
     render() {
         return (
             <div>

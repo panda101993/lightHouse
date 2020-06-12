@@ -4,7 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Apirequest from "../api/Apirequest"
 import {loginAction} from "../redux/action/ActionTypes";
 import { connect } from "react-redux";
-import { validatePassword, validateCFPassword } from '../utils/validation/Validation';
+import {validatePassword, validateCFPassword} from '../utils/validation/Validation'
 
 
 export class ChangePasswordEndUser extends Component { 
@@ -22,14 +22,13 @@ export class ChangePasswordEndUser extends Component {
          oldpassStatus:false,
 
          newpassStatus:false,
-         newpassErrormsg:"",
+         newPassErrorMsg:null,
 
          cnfpassStatus:false,
-         cnfpassErrormsg:""
+         cnfPassErrorMsg:null
        
       }
    }
-
 
    handleInput=(e,type)=>{
       if(type=="oldpass"){
@@ -41,18 +40,17 @@ export class ChangePasswordEndUser extends Component {
       else  if(type=="newpass"){
          this.setState({
             newpass: e.target.value,
-         },
-         ()=>{this.handleValidation("newpass")}
-            // newpassStatus: validatePassword(this.state.newpass).status,
-            // newpassErrormsg: validatePassword(this.state.newpass).error
-         )
+             },
+             ()=>this.handleValidation("newpass")
+             )
       }
       else if(type=="cnfpass"){
          this.setState({
             cnfpass: e.target.value,
-         },
-         ()=>{this.handleValidation("cnfpass")}
-         )
+               },
+               ()=>this.handleValidation("cnfpass")
+
+               )
       
    }
 }
@@ -60,19 +58,16 @@ export class ChangePasswordEndUser extends Component {
 handleValidation(key) {
    console.log('key-value', key);
    switch (key) {
-       // case ("email"):
-       //     var data = validateEmail(this.state.email)
-       //     this.setState({ emailErrorMessage: data.error, emailErrorStatus: data.status }, () => console.log("errore", this.state))
-       //     break
+
        case ("newpass"):
            var data = validatePassword(this.state.newpass)
            console.log("this is data of pass", data)
-           this.setState({ newpassErrormsg: data.error, newpassStatus: data.status }, () => console.log("errore", this.state))
+           this.setState({ newPassErrorMsg: data.error, newpassStatus: data.status }, () => console.log("errore", this.state))
            break
-       case ("cnfpass"):
-           var data = validateCFPassword(this.state.cnfpass,this.state.newpass)
-           this.setState({ cnfpassErrormsg: data.error, cnfpassStatus: data.status }, () => console.log("errore", this.state))
-           break
+           case ("cnfpass"):
+               var data = validateCFPassword(this.state.cnfpass,this.state.newpass)
+               console.log("this is data of pass", data)
+               this.setState({ cnfPassErrorMsg: data.error, cnfpassStatus: data.status }, () => console.log("errore", this.state))
    }
 }
 
@@ -139,32 +134,28 @@ request=()=>{
                            <form>
                               <div class="form-group chang-sec">
                                  <label for="exampleInputEmail1" class="old-pass">Old Password*</label>
-                                 <input type="email" class="form-control pass-word" aria-describedby="emailHelp" placeholder="XXXXXXXXXXXXXXX"/>
+                                 <input type="email" class="form-control pass-word" aria-describedby="emailHelp" placeholder="XXXXXXuuXXXXXXXXX"
+                                 onChange={(e)=>this.handleInput(e,"oldpass")}
+                                 />
+                                 
                               </div>
                               <div class="form-group chang-sec">
                                  <label for="exampleInputPassword1" class="old-pass">New Password*</label>
                                  <input type="password" class="form-control pass-word" placeholder="XXXXXXXXXXXXXXX"
                                  onChange={(e)=>this.handleInput(e,"newpass")}
                                  />
-                                <lable class="" style={{color:"red", fontSize:12}}>{this.state.newpassErrormsg}</lable> 
+                                 {this.state.newPassErrorMsg}
                               </div>
                               <div class="form-group chang-sec">
                                  <label for="exampleInputPassword1" class="old-pass">Confirm Password*</label>
                                  <input type="password" class="form-control pass-words" placeholder="XXXXXXXXXXXXXXX" 
                                  onChange={(e)=>this.handleInput(e,"cnfpass")}
                                  />
-                                 <lable class="" style={{color:"red", fontSize:12}}>{this.state.cnfpassErrormsg}</lable> 
-
-                                 <input type="password" class="form-control pass-word" placeholder="XXXXXXXXXXXXXXX"/>
-                              </div>
-                              <div class="form-group chang-sec">
-                                 <label for="exampleInputPassword1" class="old-pass">Confirm Password*</label>
-                                 <input type="password" class="form-control pass-words" placeholder="XXXXXXXXXXXXXXX" />
-
+                                 {this.state.cnfPassErrorMsg}
                               </div>
                               <ul class="button_cs">
                                  <li class="cancel_c300"><button class="save">Cancel</button></li>
-                                 <li><button type="button" class="save0"data-toggle="modal" data-target="#otpmodal"  onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Save</button></li>
+                                 <li><button type="button" class="save0"data-toggle="modal" data-target="#otpmodal"  onClick={() =>this.request() } >Save</button></li>
                               </ul>
                            </form>
                         </div>
@@ -185,4 +176,12 @@ request=()=>{
     }
 }
 
-export default ChangePasswordEndUser
+const mapStateToProps = state => {
+   console.log("change state", state)
+   return {
+      applicatonkey: state.AuthReducer.userData
+      
+   }
+}
+export default connect(mapStateToProps)(ChangePasswordEndUser);
+

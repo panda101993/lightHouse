@@ -123,12 +123,17 @@ export default class ForgotPassword extends Component {
                // window.location.href = "/ForgotPasswordOtp";
                Apirequest(credentials, "/user/forgotPassword", "POST")
                .then((resp) => {
-                   console.log('respresp',resp);
+                   console.log('respresp',resp.data.result);
+                   
                   switch(resp.status){
                      case 200: {
                         if(resp.data.responseCode==200)
                         {
-                        this.props.history.push("/ForgotPasswordOtp")
+                        this.props.history.push(`/ForgotPasswordOtp/${this.state.mobileNumber}`)
+                        }
+                        else if(resp.data.responseCode==404)
+                        {
+                           alert("Provided email/mobile number is not registered")
                         }
                         else if(resp.data.responseCode==500)
                         {
@@ -137,7 +142,7 @@ export default class ForgotPassword extends Component {
                      }
                      break;
                      default:
-                        console.log(resp.data.error)
+                        console.log("default err",resp.data.error)
                   }
                })
        
