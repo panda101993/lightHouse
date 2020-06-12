@@ -61,7 +61,7 @@ export class LoginCustomer extends Component {
     validateMobileno(value) {
         var numberRegex = /^[1-9][0-9]{9,12}$/;
         if (value == "" || value == undefined || value == null) {
-            return { status: false, error: "Please enter email." }
+            return { status: false, error: "Please enter email/Mobile no.." }
 
          }
         // else if (!numberRegex.test(value)) {
@@ -75,8 +75,13 @@ export class LoginCustomer extends Component {
         if (value == "" || value == undefined || value == null) {
             return { status: false, error: "Please enter valid password." }
         }
+<<<<<<< HEAD
+        else if (value.length < 8) {
+            return { status: false, error: "Password must contain 8 or more characters." };
+=======
         else if (value.length < 6) {
             return { status: false, error: "Password must contain 6 or more characters." };
+>>>>>>> 4aafb32c80202b310ace4784419ab527a721a51a
         }
         else {
             return { status: true, error: '', height: 0 }
