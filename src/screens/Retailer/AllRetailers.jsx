@@ -9,6 +9,8 @@ import ImageDashboard from "../../components/ImageDashboard"
 import CouponsImage from  "../../components/CouponsImage"
 import Header4 from '../../components/Header4'; 
 import { Link } from 'react-router-dom'
+import apiRequest from '../../api/Apirequest';
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -60,9 +62,44 @@ const Imageid = {
 }
 
 export class AllRetailers extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       allCoupon:[]
+    }
+  }
+
+  getAllCoupansOfMart=(Id)=>{
+    try {
+      // console.log('martt----',Id);
+       apiRequest({martId:Id},'/user/getAllCouponOfMart','POST')
+       .then((resp)=>{
+          console.log("responseCoupan",resp)
+          this.setState({
+            allCoupon: resp.data.couponData
+         });
+       })
+    } catch (error) {
+       console.log("responseError",error)
+       
+    }
+
+ }
+
+async componentDidMount() { 
+  console.log('martt',window.location.pathname);
+  let splitUrl = window.location.pathname.split('/')
+  console.log('martt',splitUrl);
+  console.log('martt',splitUrl[2]);
+ this.getAllCoupansOfMart(splitUrl[2]);
+}
+
+  
   render() {
     return (
       <div>
+        {this.state.allCoupon.map((allCoupon, index) =>(
         <body>
           {/* <Header2 /> */} 
           <Header4 />
@@ -91,10 +128,35 @@ export class AllRetailers extends Component {
                   >
                     <div>
                       <div class="slicent activa">
-                        Mart Name
+                        {allCoupon.martName}
                   </div>
                     </div>
+                    {/* <div>
+                      <div class="slicent">
+                      {martName}
+                        </div>
+                    </div>
                     <div>
+                      <div class="slicent">
+                        {martName}
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                        {martName}
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                        {martName}
+                        </div>
+                    </div>
+                    <div>
+                      <div class="slicent">
+                        {martName}
+                        </div>
+                    </div> */}
+                    {/* <div>
                       <div class="slicent">
                         Mart Name
                         </div>
@@ -108,32 +170,7 @@ export class AllRetailers extends Component {
                       <div class="slicent">
                         Mart Name
                         </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
+                    </div> */}
 
                   </Carousel>
                 </section>
@@ -150,7 +187,7 @@ export class AllRetailers extends Component {
 
           <div class="left-contant">
             <div class="marname">
-              <h2 class="mn">  <Link to="/WebsiteMart"> Mart Name </Link></h2>
+              <h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>
 
             </div>
           </div>
@@ -214,15 +251,21 @@ export class AllRetailers extends Component {
                         <div>
 
                           <ImageDashboard
-                            ImageName="TCL E-Mart1"
+                            ImageName={allCoupon.shopName}
                             LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
+                            ImageA={allCoupon.image}
                             heartImage={Imageid.RedHeart}
+                            MartId={allCoupon.martId}
+                            CategoryName={allCoupon.categoryName}
+                            SubCategoryName={allCoupon.subCategoryName}
+                            ItemType={allCoupon.itemType}
+                            ItemName={allCoupon.itemName}
+                            BrandName={allCoupon.brandName}
                           />
 
                         </div>
-                        <div>
-
+                        {/* <div>
+ 
                          
                         <ImageDashboard
                             ImageName="TCL E-Mart1"
@@ -280,7 +323,7 @@ export class AllRetailers extends Component {
                             ImageA={Imageid.Image1}
                             heartImage={Imageid.RedHeart}
                           />
-                        </div>
+                        </div> */}
 
 
                       </Carousel>
@@ -310,12 +353,20 @@ export class AllRetailers extends Component {
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
 > 
+<CouponsImage 
+ImageSrc={allCoupon.image}
+Title={allCoupon.title}
+CouponCode={allCoupon.couponCode}
+Discount={allCoupon.discount}
+ItemName={allCoupon.itemName}
+ExpiryDate={allCoupon.ExpiryDate}
+
+/>
+{/* <CouponsImage />
 <CouponsImage />
 <CouponsImage />
 <CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
+<CouponsImage /> */}
  </Carousel>
 
                       </div>
@@ -329,7 +380,7 @@ export class AllRetailers extends Component {
 
           <Footer />
         </body>
-
+) )}
       </div>
     )
   }

@@ -56,7 +56,7 @@ class componentName extends Component {
       super(props)
    
       this.state = {
-         allData: []
+         allData: [],
           
       }
     
@@ -153,6 +153,8 @@ class componentName extends Component {
          )
       })
    }
+
+ 
    
   
 
@@ -229,8 +231,8 @@ class componentName extends Component {
 
 
                   </div>
-
-                  {/* <div class="container-fluid">
+                  {/* <LandingTopicName HeaderName="Coupans" />
+                   <div class="container-fluid">
                      <h5 class="product-herd">Services</h5>
                      <Carousel
                         swipeable={true}
@@ -320,7 +322,7 @@ class componentName extends Component {
                      </Carousel>
 
 
-                  </div> */}
+                  </div>  */}
 
 
                </section>

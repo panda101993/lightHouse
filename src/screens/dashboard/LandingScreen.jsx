@@ -125,7 +125,7 @@ class componentName extends Component {
             <div>
             <ImageDashboard          
                ImageName={martName}
-               LinkId="/AllRetailers"
+               LinkId={`/AllRetailers/${martId}`}
                ImageA={martImage}
                heartImage={Imageid.RedHeart}
                MartId={martId}

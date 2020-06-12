@@ -4,10 +4,49 @@ import Footer from "../../components/Footer"
 import ViewCouponRetailer from "../../components/ViewCouponRetailer"
 import Header2 from '../../components/Header2'
 import { Link } from 'react-router-dom'
+import apiRequest from '../../api/Apirequest';
+
 export default class WebsiteRetailer extends Component {
+   constructor(props) {
+      super(props)
+   
+      this.state = {
+         allData: [] 
+      }
+   }
+   getShopByMartList = (Id) => {
+      try {     
+         console.log('martt----',Id);        
+         apiRequest({martId:Id},'/user/getShopByMart','POST')
+         .then((resp) =>{
+            console.log('response=>',resp);
+            console.log('response===>',resp.data.userData);
+            this.setState({
+               allData: resp.data.userData
+            });
+         });
+         
+      } catch (error) {
+         console.log('erroresponse==>',error)
+         
+      }
+
+   }
+   async componentDidMount() { 
+      console.log('martt',window.location.pathname);
+      let splitUrl = window.location.pathname.split('/')
+      console.log('martt',splitUrl);
+      console.log('martt',splitUrl[2]);
+     this.getShopByMartList(splitUrl[2]);
+     
+   }
+   
     render() {
         return (
             <div>
+               {this.state.allData.map((allData,index)=>(
+
+               
             <body> 
            <Header2 /> 
            <section>
@@ -18,9 +57,11 @@ export default class WebsiteRetailer extends Component {
         <div class="basic mt-3 ">
                <div class="d-flex justify-content-between align-items-center">
                   <div class="john-json">
-                     <h5>JOHN & JOHNSON</h5>
-                     <h6>V-MART</h6>
-                     <p>OKhala Phase 1,D-115, New Delhi shop Number,12352525</p>
+                  <h5>Shop Name : {allData.shopName}</h5>
+                     <h6>Shop Number : {allData.shopNumber}</h6>
+                     <h6>Floor Number : {allData.floorNumber}</h6>
+                     <h6>Mart Name : {allData.martId.martName}</h6>
+               <h6>Mart Address : {allData.martId.address} {allData.martId.city}</h6>
                   </div>
                   <div> <Link to ="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
                </div>
@@ -73,13 +114,13 @@ export default class WebsiteRetailer extends Component {
                <h1>Product Service Details</h1>
                <div class="accordion frequently" id="accordionExample">
                   <div class="card">
-                     <div class="card-header" id="headingOne">
+                     {/* <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                            Category 1 </button>
                         </h2>
-                     </div>
-                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                     </div> */}
+                     <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
                            <div class="sub-catgy">
                               <h6>Sub Category 1</h6>
@@ -214,6 +255,7 @@ export default class WebsiteRetailer extends Component {
            </section>
             <Footer /> 
             </body>
+            ))}
             </div>
         )
     }
