@@ -4,8 +4,11 @@ import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
+import {loginActionRetailer} from "../../../redux/action/AuthAction"
  
-export default class LoginRetailer extends Component {   
+export class LoginRetailer extends Component {   
     constructor(props) {
         super(props);
         this.state = {
@@ -41,12 +44,12 @@ export default class LoginRetailer extends Component {
     validateMobileno(value) {
         var numberRegex = /^[1-9][0-9]{9,12}$/;
         if (value == "" || value == undefined || value == null) {
-            return { status: false, error: "Please enter mobileNo." }
+            return { status: false, error: "Please enter email/mobileNo." }
 
         }
-        else if (!numberRegex.test(value)) {
-            return { status: false, error: "Please enter valid mobileNo." }
-        }
+        // else if (!numberRegex.test(value)) {
+        //     return { status: false, error: "Please enter valid mobileNo." }
+        // }
         else {
             return { status: true, error: '', height: 0 }
         }
@@ -67,9 +70,16 @@ export default class LoginRetailer extends Component {
         if (this.state.mobilenoStatus) {
            if (this.state.passwordStatus){
                   //  alert('Submit Successfully');
-                    window.location.href = "Setting_retailer";
+                    // window.location.href = "Setting_retailer";
+                    var requestData = {
+                        "email": this.state.mobileno,
+                        "password": this.state.password
+                    }
+                   
+                   
+                    this.props.action.loginActionRetailer(requestData,()=>this.props.history.push("/Setting_retailer"))
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
-        } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
+        } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter email/mobileno" }) }
      }
     
      
@@ -181,3 +191,17 @@ export default class LoginRetailer extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    console.log("First state", state)
+    return {
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ loginActionRetailer }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRetailer);
