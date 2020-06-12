@@ -154,7 +154,7 @@ export default class LoginRetailer extends Component {
                                         btnClass="btn btn-theme"
                                         btntxt="Login"
                                     /> */} 
-                       <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme">LOGIN</button>  
+                       <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme">Login</button>  
                                     {/* <Link to="">
                                     <button type="button" class="btn btn-theme">LOGIN</button> 
                                     <GlobalButtons
