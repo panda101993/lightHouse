@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
    export default function CouponsImage(props) {
    const [modalStatus, setModal] = useState(false)   
    const [modalStatusImage, setModal1] = useState(false)
-   const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,} = props
+   const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc} = props
    console.log("props==", props)
       return (
          <div>
@@ -25,7 +25,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
                   <label style={{fontSize:14}}>{Discount}</label>
                   <br/>
                   <label style={{fontSize:14}}>Item Name  :</label>
-                  <label style={{fontSize:14}}>{ItemName}</label>
+                  <label style={{fontSize:14}}> {ItemName}</label>
                   <br/>
                   <label style={{fontSize:14}}>Expiry Date:</label>
                   <label style={{fontSize:14}}>{ExpiryDate}</label> 

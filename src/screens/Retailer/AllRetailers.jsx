@@ -10,6 +10,10 @@ import CouponsImage from  "../../components/CouponsImage"
 import Header4 from '../../components/Header4'; 
 import { Link } from 'react-router-dom'
 import apiRequest from '../../api/Apirequest';
+import {myCouponData} from '../../redux/action/CouponCodeAction'
+import {bindActionCreators} from 'redux';
+import { connect } from "react-redux";
+
 
 const responsive = {
   desktop: {
@@ -66,20 +70,32 @@ export class AllRetailers extends Component {
     super(props)
   
     this.state = {
-       allCoupon:[]
+
+      allCoupon:[] 
     }
   }
 
   getAllCoupansOfMart=(Id)=>{
     try {
-      // console.log('martt----',Id);
-       apiRequest({martId:Id},'/user/getAllCouponOfMart','POST')
-       .then((resp)=>{
-          console.log("responseCoupan",resp)
-          this.setState({
-            allCoupon: resp.data.couponData
+      
+      
+      console.log('martt----',Id);
+      //  apiRequest({martId:Id},'/user/getAllCouponOfMart','POST')
+      this.props.action.myCouponData({martId:Id})
+      
+      //  .then((resp)=>{
+      //     console.log("responseCoupan",resp)
+        //   this.setState({
+        //     allCoupon: resp.data.couponData
+        //  });
+      //  })
+      
+    if(this.props.allCouponData !== undefined){
+      this.setState({
+            allCoupon: this.props.allCouponData
          });
-       })
+    }
+    console.log("allCouponData++++",this.state.allCoupon)
     } catch (error) {
        console.log("responseError",error)
        
@@ -97,6 +113,7 @@ async componentDidMount() {
 
   
   render() {
+
     return (
       <div>
         {this.state.allCoupon.map((allCoupon, index) =>(
@@ -265,7 +282,7 @@ async componentDidMount() {
 
                         </div>
                         {/* <div>
- 
+
                          
                         <ImageDashboard
                             ImageName="TCL E-Mart1"
@@ -386,4 +403,22 @@ ExpiryDate={allCoupon.ExpiryDate}
   }
 }
 
-export default AllRetailers
+// export default AllRetailers
+
+const mapStateToProps = state => {
+  console.log("First state", state.CouponCodeReducer.userData)
+  //if(state.CouponCodeReducer.userData !== undefined){
+    return {
+       allCouponData: state.CouponCodeReducer.userData
+    }
+  //}
+  
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      action: bindActionCreators({ myCouponData }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllRetailers);

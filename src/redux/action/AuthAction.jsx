@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, SIGNUP_ACTION } from './ActionTypes';
+import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 
 

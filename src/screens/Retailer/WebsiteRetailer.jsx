@@ -38,13 +38,12 @@ export default class WebsiteRetailer extends Component {
       console.log('martt',splitUrl);
       console.log('martt',splitUrl[2]);
      this.getShopByMartList(splitUrl[2]);
-     
    }
    
     render() {
         return (
             <div>
-               {this.state.allData.map((allData,index)=>(
+               
 
                
             <body> 
@@ -52,7 +51,8 @@ export default class WebsiteRetailer extends Component {
            <section>
          <div class="bg"> 
          <img src={require("../../assets/images/Layer-40.png")} />
-        </div>  
+        </div> 
+        {this.state.allData.map((allData,index)=>( 
         <div class="container">
         <div class="basic mt-3 ">
                <div class="d-flex justify-content-between align-items-center">
@@ -250,12 +250,12 @@ export default class WebsiteRetailer extends Component {
 
 
          </div>
-            
+         ))} 
                     
            </section>
             <Footer /> 
             </body>
-            ))}
+            
             </div>
         )
     }
