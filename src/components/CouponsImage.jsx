@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
    export default function CouponsImage(props) {
    const [modalStatus, setModal] = useState(false)   
    const [modalStatusImage, setModal1] = useState(false)
-   const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc} = props
+   const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,} = props
    console.log("props==", props)
       return (
          <div>

@@ -38,6 +38,7 @@ export default class WebsiteRetailer extends Component {
       console.log('martt',splitUrl);
       console.log('martt',splitUrl[2]);
      this.getShopByMartList(splitUrl[2]);
+     
    }
    
     render() {
