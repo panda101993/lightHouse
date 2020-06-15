@@ -5,8 +5,7 @@ import { Link, Switch } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 import Apirequest from '../api/Apirequest';
-
-
+import { connect } from "react-redux";
 export default class ManageInfoRetailer extends Component {
     submit=()=>{
         this.setState({ modalStatus: !this.state.modalStatus })
@@ -20,14 +19,15 @@ export default class ManageInfoRetailer extends Component {
            email: this.state.email,
            GSTIN:this.state.GSTIN,
            registeredBusinessName:this.state.registeredBusinessName, 
-           registeredBusinessPhoneNumber: this.state.registeredBusinessPhoneNumber,
+           registeredBussinessAddress: this.state.registeredBussinessAddress,
            addressProof: this.state.addressProof,
            pinCode: this.state.pinCode,
            city: this.state.city,
            state: this.state.state,
-           address: this.state.address
+           address: this.state.address,
+        //    token:this.state.token,
         }  
-        Apirequest(requestData,"/retailer/changePassword" ,"POST")
+        Apirequest(requestData,"/retailer/business" ,"POST",this.props.applicationkey.token)
       .then((resp)=> {
          console.log("abcd==>",resp);
 
@@ -47,36 +47,37 @@ export default class ManageInfoRetailer extends Component {
                 email: '',
                 GSTIN:'',
                 registeredBusinessName:'', 
-                registeredBusinessPhoneNumber: '',
+                registeredBusinessAddress: '',
                 addressProof: '',
                 pinCode: '',
                 city: '',
                 state: '',
                 address: '',
+                // token:'',
 
-            otp: "",
-            otpErrorMessage: "",
-            otpStatus: false,
+                otp: "",
+                otpErrorMessage: "",
+                otpStatus: false,
 
-            otp2: "",
-            otpErrorMessage2: "",
-            otpStatus2: false,
+                otp2: "",
+                otpErrorMessage2: "",
+                otpStatus2: false,
 
-            otp3: "",
-            otpErrorMessage3: "",
-            otpStatus3: false,
+                otp3: "",
+                otpErrorMessage3: "",
+                otpStatus3: false,
 
-            otp4: "",
-            otpErrorMessage4: "",
-            otpStatus4: false,
+                otp4: "",
+                otpErrorMessage4: "",
+                otpStatus4: false,
 
-            mobileno: "",
-            mobilenoErrorMessage: "",
-            mobilenoStatus: false,
+                mobileno: "",
+                mobilenoErrorMessage: "",
+                mobilenoStatus: false,
 
-            mobileno1: "",
-            mobilenoErrorMessage1: "",
-            mobilenoStatus1: false,
+                mobileno1: "",
+                mobilenoErrorMessage1: "",
+                mobilenoStatus1: false,
 
 
 
@@ -356,7 +357,8 @@ export default class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-                                 <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
+                                 <li>  <button class="save" onClick={()=> this.submit()} >Save  </button> </li> 
+                                 <Link to="/Coupon_template" > </Link>
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
@@ -470,4 +472,11 @@ export default class ManageInfoRetailer extends Component {
         )
     }
 }
+// const mapSateToProps = state => {
+//     console.log("change state",state)
+//     return{
+//        applicationkey : state.AuthReducer.userData 
+//     }   
+// }
+// export default connect(mapSateToProps)(ManageInfoRetailer);
 
