@@ -1,4 +1,4 @@
-import { LOGIN_ACTION ,SIGNUP_ACTION} from '../action/ActionTypes';
+import { LOGIN_ACTION ,SIGNUP_ACTION ,} from '../action/ActionTypes';
 
 
 const initialState = {
@@ -13,7 +13,6 @@ export const AuthReducer = (state = initialState, action) => {
                 isLoggedIn:true,
                 userData:action.payload,
                 
-
             }
         break
         case("Logout"):{
@@ -36,6 +35,7 @@ export const AuthReducer = (state = initialState, action) => {
             }
             }
         }
+
         default: return { ...state }
     }
 }

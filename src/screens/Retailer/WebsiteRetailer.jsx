@@ -1,128 +1,205 @@
 import React, { Component } from 'react'
-import Header from "../../components/Header" 
-import Footer from "../../components/Footer" 
+import Header from "../../components/Header"
+import Footer from "../../components/Footer"
 import ViewCouponRetailer from "../../components/ViewCouponRetailer"
 import Header2 from '../../components/Header2'
 import { Link } from 'react-router-dom'
 import apiRequest from '../../api/Apirequest';
+import { myCouponData } from '../../redux/action/CouponCodeAction'
+import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
 
-export default class WebsiteRetailer extends Component {
+export class WebsiteRetailer extends Component {
    constructor(props) {
       super(props)
-   
+
       this.state = {
-         allData: [] 
+         allData: [],
+         allCoupon: []
+
       }
    }
    getShopByMartList = (Id) => {
-      try {     
-         console.log('martt----',Id);        
-         apiRequest({martId:Id},'/user/getShopByMart','POST')
-         .then((resp) =>{
-            console.log('response=>',resp);
-            console.log('response===>',resp.data.userData);
-            this.setState({
-               allData: resp.data.userData
+      try {
+         console.log('martt----', Id);
+         apiRequest({ martId: Id }, '/user/getShopByMart', 'POST')
+            .then((resp) => {
+               console.log('response=>', resp);
+               console.log('response===>', resp.data.userData);
+               this.setState({
+                  allData: resp.data.userData
+               });
             });
-         });
-         
+
       } catch (error) {
-         console.log('erroresponse==>',error)
-         
+         console.log('erroresponse==>', error)
+
       }
 
    }
-   async componentDidMount() { 
-      console.log('martt',window.location.pathname);
+   async componentDidMount() {
+      console.log('martt', window.location.pathname);
       let splitUrl = window.location.pathname.split('/')
-      console.log('martt',splitUrl);
-      console.log('martt',splitUrl[2]);
-     this.getShopByMartList(splitUrl[2]);
-     
+      console.log('martt', splitUrl);
+      console.log('martt', splitUrl[2]);
+      this.getShopByMartList(splitUrl[2]);
    }
-   
-    render() {
-        return (
-            <div>
-               {this.state.allData.map((allData,index)=>(
 
-               
-            <body> 
-           <Header2 /> 
-           <section>
-         <div class="bg"> 
-         <img src={require("../../assets/images/Layer-40.png")} />
-        </div>  
-        <div class="container">
-        <div class="basic mt-3 ">
-               <div class="d-flex justify-content-between align-items-center">
-                  <div class="john-json">
-                  <h5>Shop Name : {allData.shopName}</h5>
-                     <h6>Shop Number : {allData.shopNumber}</h6>
-                     <h6>Floor Number : {allData.floorNumber}</h6>
-                     <h6>Mart Name : {allData.martId.martName}</h6>
-               <h6>Mart Address : {allData.martId.address} {allData.martId.city}</h6>
+   shopDetails() {
+      return this.state.allData.map((allData, index) => {
+         return (
+            <div>
+               <div class="basic mt-3 ">
+                  <div class="d-flex justify-content-between align-items-center">
+                     <div class="john-json">
+                        <h5>Shop Name : {allData.shopName}</h5>
+                        <h6>Shop Number : {allData.shopNumber}</h6>
+                        <h6>Floor Number : {allData.floorNumber}</h6>
+                        <h6>Mart Name : {allData.martId.martName}</h6>
+                        <h6>Mart Address : {allData.martId.address} {allData.martId.city}</h6>
+                     </div>
+                     <div> <Link to="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
                   </div>
-                  <div> <Link to ="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
                </div>
             </div>
-            <div class="about-us">
-               <h4>About Us ( Limit 500 words )</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
-                    Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
-                     tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                      Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget. 
-                      </p>
-              <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                   Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. 
-                   Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-               </p>
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. 
-                  Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.
-                   Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, 
-                   nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-               </p>
-                <span><a href="#">Read More</a></span> 
-            </div>
-            <div class="time">
-               <h2>Shop Timings  </h2>
-               <div class="shop-timing">
-                  <ul class="sunday">
-                     <li>Sunday</li>
-                     <li>Monday</li>
-                     <li>Tuesday</li>
-                     <li>Wednesday</li>
-                     <li>Thursday</li>
-                     <li>Friday</li>
-                     <li>Saturday</li>
-                  </ul>
-                  <ul class="timeing">
-                     <li>9:30 AM - 5 PM</li>
-                     <li>9:30 AM - 5 PM</li>
-                     <li>9:30 AM - 5 PM</li>
-                     <li>9:30 AM - 5 PM</li>
-                     <li>9:30 AM - 5 PM</li>
-                     <li>9:30 AM - 5 PM</li>
-                     <li><a href="#">Close</a></li>
-                  </ul>
-               </div>
-            </div> 
-            <div class="product">
-               <h1>Product Service Details</h1>
-               <div class="accordion frequently" id="accordionExample">
+         )
+      })
+   }
+
+   catagoryData() {
+      if (this.props.allCouponData !== undefined) {
+         return this.props.allCouponData.map((allCoupon, index) => {
+            return (
+               <div>
+
+                  <div class="card-header" id="headingOne">
+                     <h2 class="mb-0">
+                        {allCoupon.categoryName}
+                     </h2>
+                  </div>
                   <div class="card">
-                     {/* <div class="card-header" id="headingOne">
+                     <div class="card-header chl-head" id="headingsub1">
+                        <h2 class="mb-0">
+                           {allCoupon.subCategoryName}
+                        </h2>
+                     </div>
+                     {/* <div id="collapsesub1" class="collapse" aria-labelledby="headingsub1" data-parent="#accordionExample1"> */}
+                        <div class="card-body">
+                           <div class="sub-catgy">
+                              <ul>
+                                 <li>{allCoupon.itemType} </li>
+                                 <li>{allCoupon.brandName}</li>
+                                 <li>{allCoupon.itemName}</li>
+                                 <li>Rs.123.00</li>
+                              </ul>
+                              <ul>
+                                 <li>Cloth</li>
+                                 <li>Nike</li>
+                                 <li>T-shirt</li>
+                                 <li>Rs.123.00</li>
+                              </ul>
+                              <ul>
+                                 <li>Cloth</li>
+                                 <li>Nike</li>
+                                 <li>T-shirt</li>
+                                 <li>Rs.123.00</li>
+                              </ul>
+                           </div>
+                        </div>
+                     {/* </div> */}
+                  </div>
+               </div>
+            )
+         })
+      }
+   }
+
+   productServiceType() {
+      if (this.props.allCouponData !== undefined) {
+         return this.props.allCouponData.map((allCoupon, index) => {
+            return (
+               <div>
+                  <h1>{allCoupon.productServiceType}</h1>
+               </div>
+            )
+         })
+      }
+
+   }
+
+   render() {
+      return (
+         <div>
+
+
+
+            <body>
+               <Header2 />
+               <section>
+                  <div class="bg">
+                     <img src={require("../../assets/images/Layer-40.png")} />
+                  </div>
+                  <div class="container">
+                     {this.shopDetails()}
+                     <div class="about-us">
+                        <h4>About Us ( Limit 500 words )</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
+                        Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
+                        tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                        Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+                      </p>
+                        <p>
+                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                           Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
+                           Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
+                           ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+               </p>
+                        <p>
+                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
+                           Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.
+                           Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+                           nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+               </p>
+                        <span><a href="#">Read More</a></span>
+                     </div>
+                     <div class="time">
+                        <h2>Shop Timings  </h2>
+                        <div class="shop-timing">
+                           <ul class="sunday">
+                              <li>Sunday</li>
+                              <li>Monday</li>
+                              <li>Tuesday</li>
+                              <li>Wednesday</li>
+                              <li>Thursday</li>
+                              <li>Friday</li>
+                              <li>Saturday</li>
+                           </ul>
+                           <ul class="timeing">
+                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li>
+                              <li><a href="#">Close</a></li>
+                           </ul>
+                        </div>
+                     </div>
+                     <div class="product">
+                        {this.productServiceType()}
+                        {/* <h1>Product Service Details</h1> */}
+                        <div class="accordion frequently" id="accordionExample">
+                           {this.catagoryData()}
+                           {/* <div class="card">
+                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                            Category 1 </button>
                         </h2>
-                     </div> */}
+                     </div>
                      <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body">
-                           <div class="sub-catgy">
+                        <div class="card-body"> */}
+                           {/* <div class="sub-catgy">
                               <h6>Sub Category 1</h6>
                               <ul>
                                  <li>Cloth</li>
@@ -141,9 +218,9 @@ export default class WebsiteRetailer extends Component {
                                  <li>Nike</li>
                                  <li>T-shirt</li>
                                  <li>Rs.123.00</li>
-                              </ul>
-                              <div class="accordion frequently" id="accordionExample1">
-                                 <div class="card">
+                              </ul> */}
+                           {/* <div class="accordion frequently" id="accordionExample1"> */}
+                           {/* <div class="card">
                                     <div class="card-header chl-head" id="headingsub1">
                                        <h2 class="mb-0">
                                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsesub1" aria-expanded="false" aria-controls="collapsesub1">
@@ -174,8 +251,8 @@ export default class WebsiteRetailer extends Component {
                                           </div>
                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="card">
+                                 </div> */}
+                           {/* <div class="card">
                                     <div class="card-header chl-head" id="heading2">
                                        <h2 class="mb-0">
                                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsesub2" aria-expanded="false" aria-controls="collapseOne">
@@ -207,12 +284,12 @@ export default class WebsiteRetailer extends Component {
                                        </div>
                                     </div>
                                  </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="card">
+                              </div> */}
+                           {/* </div> */}
+                           {/* </div>
+                     </div> */}
+                           {/* </div> */}
+                           {/* <div class="card">
                      <div class="card-header" id="heading2">
                         <h2 class="mb-0">
                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseOne">
@@ -244,21 +321,33 @@ export default class WebsiteRetailer extends Component {
                            </div>
                         </div>
                      </div>
-                  </div>
-               </div>
-            </div>
+                  </div> */}
+                        </div>
+                     </div>
 
+
+                  </div>
+
+               </section>
+               <Footer />
+            </body>
 
          </div>
-            
-                    
-           </section>
-            <Footer /> 
-            </body>
-            ))}
-            </div>
-        )
-    }
+      )
+   }
 }
 
+const mapStateToProps = state => {
+   console.log("state===", state)
+   return {
+      allCouponData: state.CouponCodeReducer.userData
+   }
+}
 
+const mapDispatchToProps = dispatch => {
+   return {
+      action: bindActionCreators({ myCouponData }, dispatch)
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WebsiteRetailer);

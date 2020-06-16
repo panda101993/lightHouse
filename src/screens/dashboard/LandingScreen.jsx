@@ -117,7 +117,7 @@ class componentName extends Component {
    }
 
    martData(){
-      if(this.state.allData.length > 0)
+      // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
          const {martId,martImage,martName} = xyz
       //   console.log('category',categoryImage);
@@ -126,6 +126,7 @@ class componentName extends Component {
             <ImageDashboard          
                ImageName={martName}
                LinkId={`/AllRetailers/${martId}`}
+               // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
                ImageA={martImage}
                heartImage={Imageid.RedHeart}
                MartId={martId}
@@ -137,7 +138,7 @@ class componentName extends Component {
    }
 
    categoryData(){
-      if(this.state.allData.length > 0)
+      // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
          const {categoryId, categoryImage,categoryName,productServiceType} = xyz
       //   console.log('category',categoryImage);
@@ -334,13 +335,14 @@ class componentName extends Component {
    }
 }
 const mapStateToProps = state => {
-   console.log("state-------", state)
+   console.log("stateLogin-------", state)
    return {
       applicationData: state.AuthReducer.userData
         
    }
          
 }
+
 
 
 // export default componentName
