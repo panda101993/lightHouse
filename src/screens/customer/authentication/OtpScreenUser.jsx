@@ -6,7 +6,6 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Apirequest from "../../../api/Apirequest";
 
 
 
@@ -31,8 +30,6 @@ export default class OtpScreenUser extends Component {
          otpErrorMessage4: "",
          otpStatus4: false,
 
-         temp : this.props.location.pathname.split("/"),
-
 
          modalStatus: false,
          // error:"",
@@ -48,37 +45,9 @@ export default class OtpScreenUser extends Component {
          if (this.state.otpStatus2) {
             if (this.state.otpStatus3) {
                if (this.state.otpStatus4) {
-               
-                  console.log("summmmotp-->",this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4)
-                  var credentials = {
-                     "mobileNumber": this.state.temp[2],
-                     "otp": this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4
-                  }
-                  Apirequest(credentials, "/user/otpVerify", "POST")
-                     .then((resp) => {
-                        // console.log("resenddddd",resp)
-                        // console.log("otpppp", resp.data.result)
-                        switch (resp.status) {
-                           case 200: {
-                              if (resp.data.responseCode == 200) {
-                                 // alert("Otp has been sent to your registered mobile number")
-                                 window.location.href = '/Setting_enduser'
-                              }
-                              else if (resp.data.responseCode == 404) {
-                                 alert("This user does not exist.")
-                              }
-                              else if (resp.data.responseCode == 500) {
-                                 alert("Internal Server error")
-                              }
-                           }
-                              break;
-                           default:
-                              console.log("default err", resp.data.error)
-                        }
-                     })
 
-                  //   alert('Submit Successfully');
-                  
+               //   alert('Submit Successfully');
+                   window.location.href='/Setting_enduser'
 
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -87,7 +56,6 @@ export default class OtpScreenUser extends Component {
    }
 
    handleOtpInput = (e) => {
-      console.log("dataaaaa--->", this.props)
       const name = e.target.name;
       const value = e.target.value;
       this.setState({ [name]: value })
@@ -156,61 +124,25 @@ export default class OtpScreenUser extends Component {
    //       return { status: true, error: "" };
    //    }
    // }
-   //  moveOnMax=()=>{
-   //    var container = document.getElementsByClassName("container")[0];
-   //    container.onkeyup = function(e) {
-   //        var target = e.srcElement || e.target;
-   //        var maxLength = parseInt(target.attributes["maxlength"].value, 10);
-   //        var myLength = target.value.length;
-   //        if (myLength >= maxLength) {
-   //            var next = target;
-   //            while (next = next.nextElementSibling) {
-   //                if (next == null)
-   //                    break;
-   //                if (next.tagName.toLowerCase() === "input") {
-   //                    next.focus();
-   //                    break;
-   //                }
-   //            }
-   //          }
-   //       }
-   //  }
-
-   resendHandler = () => {
-      // this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-      // var temp= this.props.location.pathname;
-      console.log("----->",this.state.temp[2])
-      // var Array = this.state.temp.split("/")
-      var credentials={
-          "mobileNumber": this.state.temp[2]
-      }
-      // console.log(temp.split("/"))
-      // console.log(this.state.temp[2])
-      Apirequest(credentials,"/user/resendOTP","POST")
-      .then((resp)=>{
-          // console.log("resenddddd",resp)
-          console.log("otpppp",resp.data.result)
-          switch(resp.status){
-              case 200: {
-                 if(resp.data.responseCode==200)
-                 {
-                    alert("Otp has been sent to your registered mobile number")
-                 }
-                 else if(resp.data.responseCode==404)
-                 {
-                    alert("Provided email/mobile number is not registered")
-                 }
-                 else if(resp.data.responseCode==500)
-                 {
-                    alert("Internal Server error")
-                 }
-              }
-              break;
-              default:
-                 console.log("default err",resp.data.error)
-           }
-      })
-  }
+//  moveOnMax=()=>{
+//    var container = document.getElementsByClassName("container")[0];
+//    container.onkeyup = function(e) {
+//        var target = e.srcElement || e.target;
+//        var maxLength = parseInt(target.attributes["maxlength"].value, 10);
+//        var myLength = target.value.length;
+//        if (myLength >= maxLength) {
+//            var next = target;
+//            while (next = next.nextElementSibling) {
+//                if (next == null)
+//                    break;
+//                if (next.tagName.toLowerCase() === "input") {
+//                    next.focus();
+//                    break;
+//                }
+//            }
+//          }
+//       }
+//  }
 
    render() {
       return (
@@ -230,7 +162,7 @@ export default class OtpScreenUser extends Component {
                            <div class="form-group">
                               <div class="otp-box">
                                  <p>Enter 4 - digits code</p>
-
+                                 
                                  <ul>
                                     <li>
                                        <input class="form-control"
@@ -244,7 +176,7 @@ export default class OtpScreenUser extends Component {
                                     </li>
                                     <li>
 
-
+                                      
                                        <input class="form-control"
                                           name="otp2"
                                           type="text"
@@ -284,9 +216,9 @@ export default class OtpScreenUser extends Component {
                                        {this.state.otpErrorMessage}
                                     </label>
                                  </div>
-                                 {/* </div> */}
+{/* </div> */}
 
-                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={()=>this.resendHandler()}>
+                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
                                     Resend
                                  </p></Link>
 
@@ -308,8 +240,8 @@ export default class OtpScreenUser extends Component {
                               </div>
                            </div>
                            {/* <Link to="/Setting_enduser"> */}
-                           <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
-                           {/* </Link> */}
+                              <button type="button" onClick={() => this.submitHandler()} class="btn btn-theme" >SUBMIT</button>
+                              {/* </Link> */}
                         </form>
                      </div>
                   </div>

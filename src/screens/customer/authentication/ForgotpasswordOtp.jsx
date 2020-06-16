@@ -32,11 +32,10 @@ export default class ForgotPasswordOtp extends Component {
             otpErrorMessage4: "",
             otpStatus4: false,
 
-            // mobileno: props.mob,
+            mobileno: "",
             mobilenoErrorMessage: "",
             mobilenoStatus: false,
 
-            temp: this.props.location.pathname.split("/")
 
 
             //   modalStatus: false,
@@ -46,7 +45,6 @@ export default class ForgotPasswordOtp extends Component {
     }
 
     handleOtpInput = (e) => {
-        
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value })
@@ -73,37 +71,9 @@ export default class ForgotPasswordOtp extends Component {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-                        // console.log("pppppp--",this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4)
-                        console.log("mobilenumber",this.state.temp[2])
-                        var credentials = {
-                            "mobileNumber": this.state.temp[2],
-                            "otp": this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4
-                         }
-                         Apirequest(credentials, "/user/otpVerify", "POST")
-                         .then((resp) => {
-                            // console.log("resenddddd",resp)
-                            // console.log("otpppp", resp.data)
-                            switch (resp.status) {
-                               case 200: {
-                                  if (resp.data.responseCode == 200) {
-                                     // alert("Otp has been sent to your registered mobile number")
-                                     window.location.href = '/Resetpassword'
-                                    
-                                  }
-                                  else if (resp.data.responseCode == 404) {
-                                     alert("This user does not exist.")
-                                  }
-                                  else if (resp.data.responseCode == 500) {
-                                     alert("Internal Server error")
-                                  }
-                               }
-                                  break;
-                               default:
-                                  console.log("default err", resp.data.error)
-                            }
-                         })
+
                         // alert('Submit Successfully');
-                        // window.location.href = "/Resetpassword"
+                        window.location.href = "/Resetpassword"
                         //    this.setState({ modalStatus: false })
 
 
@@ -114,41 +84,32 @@ export default class ForgotPasswordOtp extends Component {
         } else { this.setState({ otpStatus: false, otpErrorMessage: "*Please enter OTP" }) }
     }
 
-    resendHandler = () => {
-        // this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-        // var temp= this.props.location.pathname;
-        // console.log("----->",this.state.temp[2])
-        // var Array = this.state.temp.split("/")
-        var credentials={
-            "mobileNumber": this.state.temp[2]
-        }
-        // console.log(temp.split("/"))
-        // console.log(this.state.temp[2])
-        Apirequest(credentials,"/user/resendOTP","POST")
-        .then((resp)=>{
-            // console.log("resenddddd",resp)
-            console.log("otpppp",resp.data.result)
-            switch(resp.status){
-                case 200: {
-                   if(resp.data.responseCode==200)
-                   {
-                      alert("Otp has been sent to your registered mobile number")
-                   }
-                   else if(resp.data.responseCode==404)
-                   {
-                      alert("Provided email/mobile number is not registered")
-                   }
-                   else if(resp.data.responseCode==500)
-                   {
-                      alert("Internal Server error")
-                   }
-                }
-                break;
-                default:
-                   console.log("default err",resp.data.error)
-             }
-        })
-    }
+    // resendHandler = () => {
+    //     this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
+    //     Apirequest(credentials, "/user/forgotresendOTP", "POST")
+    //         .then((resp) => {
+    //             console.log('respresp', resp);
+    //             //   switch(resp.status){
+    //             //      case 200: {
+    //             //         if(resp.data.responseCode==200)
+    //             //         {
+    //             //         this.props.history.push("/ForgotPasswordOtp")
+    //             //         }
+    //             //         else if(resp.data.responseCode==500)
+    //             //         {
+    //             //            alert("Internal Server error")
+    //             //         }
+    //             //      }
+    //             //      break;
+    //             //      default:
+    //             //         console.log(resp.data.error)
+    //             //   }
+    //         })
+    //         .catch(err => {
+    //             console.log("respresp---", err)
+    //         }
+    //         )
+    // }
 
     render() {
         return (

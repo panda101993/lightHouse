@@ -333,15 +333,15 @@ class componentName extends Component {
       )
    }
 }
-const mapStateToProps = state => {
-   console.log("state-------", state)
-   return {
-      applicationData: state.AuthReducer.userData
+// const mapStateToProps = state => {
+//    console.log("state-------", state)
+//    return {
+//       applicationData: state.AuthReducer.userData
         
-   }
+//    }
          
-}
+// }
 
 
-// export default componentName
-export default connect(mapStateToProps,{loginAction})(componentName);
+export default componentName
+// export default connect(mapStateToProps,{loginAction})(componentName);

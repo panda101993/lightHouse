@@ -200,6 +200,8 @@ export class SignupRetailer extends Component {
         }
     
 
+
+
     render() {
         return (
             <div>

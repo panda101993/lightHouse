@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, SIGNUP_ACTION } from './ActionTypes';
+import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 
 
@@ -83,6 +83,7 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
 }
 
 
+<<<<<<< HEAD
 export const loginActionRetailer = (credential,navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
     console.log('navigationFunction=>', navigationFunction);
@@ -161,6 +162,8 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
 
 }
 
+=======
+>>>>>>> a40f30cb2e14e2e254c72791e40f10c4c27449d6
 
 // export const completeSignupAction = (profileDetail, navigationFunction) => dispatch => {
 //     console.log('SHOW_BIG_MARKER=>completeSignupProfile', profileDetail);

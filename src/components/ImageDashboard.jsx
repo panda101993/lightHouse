@@ -6,7 +6,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 export default function ImageDashboard(props) {
    const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,CategoryName,SubCategoryName,ItemType,ItemName,BrandName } = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId } = props
    console.log("hello imageAbc ", props)
 
    return (
@@ -20,7 +20,7 @@ export default function ImageDashboard(props) {
                         style={{ width: "100%", height: "100%" }}
                         src={ImageA}
                         data-toggle="modal" data-target="#wishlist" /> </Link>
-                  <Link to={`/WebsiteRetailer/${MartId}`}>
+                  <Link to={`/WebsiteRetailer/${MartId}/${ImageName}`}>
                      <div class="tcl00">
                         <p> {ImageName} </p>
                      </div> </Link>

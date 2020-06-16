@@ -8,7 +8,6 @@ import Header2 from '../../components/Header2';
 import CountriesJSON from '../../utils/JSON/country.json';
 import apiRequest from '../../api/Apirequest';
 import ToasterFunction from '../../components/ToasterFunc';
-import Apirequest from '../../api/Apirequest'
 
 export default class CreateWebpageInitialSignupProcess extends Component {
     constructor(props) {
@@ -51,7 +50,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-                        
+
                         // alert('Submit Successfully');
                         
                         
@@ -92,6 +91,9 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                     ToasterFunction("error", "Network error, please contact the administrator");
         
                 }
+
+                        window.location.href = "SignupRetailer";
+                        this.setState({ modalStatus: false })
 
 
 
@@ -194,42 +196,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
             } else { this.setState({ dialCodeStatus: false, dialCodeErrorMessage: "*Please select Dial Code" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
-    }
-
-    resendHandler = () => {
-        // this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-        // var temp= this.props.location.pathname;
-        // console.log("----->",this.state.temp[2])
-        // var Array = this.state.temp.split("/")
-        var credentials={
-            "mobileNumber": this.state.mobileno
-        }
-        // console.log(temp.split("/"))
-        // console.log(this.state.temp[2])
-        Apirequest(credentials,"/user/resendOTP","POST")
-        .then((resp)=>{
-            // console.log("resenddddd",resp)
-            console.log("otpppp",resp.data.result)
-            switch(resp.status){
-                case 200: {
-                   if(resp.data.responseCode==200)
-                   {
-                      alert("Otp has been sent to your registered mobile number")
-                   }
-                   else if(resp.data.responseCode==404)
-                   {
-                      alert("Provided email/mobile number is not registered")
-                   }
-                   else if(resp.data.responseCode==500)
-                   {
-                      alert("Internal Server error")
-                   }
-                }
-                break;
-                default:
-                   console.log("default err",resp.data.error)
-             }
-        })
     }
 
     //to return list of all dial_code as per countries
@@ -430,10 +396,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                             {this.state.otpErrorMessage}
                                                         </label>
                                                     </div>
-                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick=
-                                                    // {() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}
-                                                    {() =>this.resendHandler() }
-                                                    >
+                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
                                                         Resend
                                                      </p></Link>
                                                 </div>
