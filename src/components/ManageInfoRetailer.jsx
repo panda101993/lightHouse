@@ -6,7 +6,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 import Apirequest from '../api/Apirequest';
 import { connect } from "react-redux";
-export default class ManageInfoRetailer extends Component {
+import {loginAction} from "../redux/action/AuthAction";
+export  class ManageInfoRetailer extends Component {
     submit=()=>{
         this.setState({ modalStatus: !this.state.modalStatus })
         var requestData = {
@@ -25,7 +26,7 @@ export default class ManageInfoRetailer extends Component {
            city: this.state.city,
            state: this.state.state,
            address: this.state.address,
-        //    token:this.state.token,
+           token:this.state.token,
         }  
         Apirequest(requestData,"/retailer/business" ,"POST",this.props.applicationkey.token)
       .then((resp)=> {
@@ -472,11 +473,11 @@ export default class ManageInfoRetailer extends Component {
         )
     }
 }
-// const mapSateToProps = state => {
-//     console.log("change state",state)
-//     return{
-//        applicationkey : state.AuthReducer.userData 
-//     }   
-// }
-// export default connect(mapSateToProps)(ManageInfoRetailer);
+const mapSateToProps = state => {
+    console.log("change state",state)
+    return{
+       applicationkey : state.AuthReducer.userData 
+    }   
+}
+export default connect(mapSateToProps,{loginAction})(ManageInfoRetailer);
 

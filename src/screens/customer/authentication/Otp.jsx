@@ -6,11 +6,9 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Apirequest from '../../../api/Apirequest';
 
 
 export default class OTPScreen extends Component {
-   
    constructor(props) {
       super(props)
 

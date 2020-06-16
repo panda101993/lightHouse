@@ -5,6 +5,8 @@ import apiRequest from '../api/Apirequest';
 import {loginAction} from "../redux/action/AuthAction";
 import { connect } from "react-redux";
 import ToasterFunction from '../components/ToasterFunc';
+import { myCouponData } from '../redux/action/CouponCodeAction';
+import { bindActionCreators } from 'redux';
 
 import {
    EmailShareButton,
@@ -337,6 +339,12 @@ const mapStateToProps = state => {
    }
 }
 
+const mapDispatchToProps = dispatch => {
+   return {
+      action: bindActionCreators({ myCouponData }, dispatch)
+   }
+}
+
 
 // export default CouponImageSetting
-export default connect(mapStateToProps,{loginAction})(CouponImageSetting);
+export default connect(mapStateToProps,{loginAction,myCouponData},mapDispatchToProps)(CouponImageSetting);
