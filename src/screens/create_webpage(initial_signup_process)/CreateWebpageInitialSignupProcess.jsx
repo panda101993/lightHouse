@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Footer from '../../components/Footer';
-import { Link, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
 
 import { validateOtp, validateMobileNo, validateDialCode } from '../../utils/validation/Validation';
@@ -79,6 +79,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
         
                                     }
                                 }
+                                break
                                 case (900): {
                                     if (resp.status == 900) {
                                         ToasterFunction("error", "Please check your internet connection")
@@ -170,6 +171,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
                             }
                         }
+                        break
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")

@@ -128,6 +128,38 @@ export const loginActionRetailer = (credential,navigationFunction) => dispatch =
         )
 }
 
+export const signupActionRetailer = (credential, navigationFunction) => dispatch => {
+    console.log('SHOW_BIG_MARKER=>Signup', credential);
+
+    Apirequest(credential, "/retailer/signUp", "POST")
+        .then((resp) => {
+            dispatch({ type: SIGNUP_ACTION, payload: credential })
+
+            switch (resp.status) {
+                
+                case (200): {
+                    // console.log("responseCode",resp.data.responseCode)
+                    if(resp.data.responseCode==200)
+                    {
+                        dispatch({ type: SIGNUP_ACTION, payload: credential })
+                    navigationFunction()
+                    }
+                    else if(resp.data.responseCode==404)
+                    {
+                        // console.log("Invalid credentials")
+                        alert("This Email/Mobile number already exists")
+                    }
+                }
+                    break
+                default: {
+                    alert(resp.data.error)
+                }
+            }
+            console.log("respppp-->",resp)
+        }
+        )
+
+}
 
 
 // export const completeSignupAction = (profileDetail, navigationFunction) => dispatch => {
