@@ -54,7 +54,7 @@ export  class ManageInfoRetailer extends Component {
                 city: '',
                 state: '',
                 address: '',
-                // token:'',
+                token:'',
 
                 otp: "",
                 otpErrorMessage: "",
@@ -135,11 +135,22 @@ export  class ManageInfoRetailer extends Component {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-
+                
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
                         this.setState({ modalStatus: false })
-
+                        var Data = {
+                        "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
+                        }
+                        Apirequest(Data,"/retailer/verifyOTP" ,"POST")
+                        .then((resp)=> {
+                           console.log("abcd==>",resp);
+                  
+                        })
+                        .catch(e=>{console.log(e)})
+                     
+                     
+                        
 
 
                     } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -199,6 +210,15 @@ export  class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+                        var Data = {
+                        "mobileNumber":this.state.mobileNumber,
+                            }
+                            Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
+                            .then((resp)=> {
+                               console.log("abcd==>",resp);
+                      
+                            })
+                            .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
@@ -208,7 +228,9 @@ export  class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+                       
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
+
     }
 
     render() {
