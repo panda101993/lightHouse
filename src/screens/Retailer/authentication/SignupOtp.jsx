@@ -6,6 +6,9 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom'; 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp } from '../../../utils/validation/Validation';
+import ToasterFunction from "../../../components/ToasterFunc"
+import apiRequest from '../../../api/Apirequest';
+
 
 
 
@@ -47,7 +50,44 @@ export default class SignupOtpRetailer extends Component {
                if (this.state.otpStatus4) {
 
                //   alert('Submit Successfully'); 
-               window.location.href='Setting_retailer'
+               // window.location.href='Setting_retailer'
+               try{
+                  apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
+                  .then((resp) => {
+                      console.log("response", resp)
+                      switch (resp.status) {
+                          case (200): {
+                              if (resp.data.responseCode == 200) {
+                                  this.props.history.push("/Setting_retailer")
+                                  this.setState({ modalStatus: false })
+                              }
+                              else if (resp.data.responseCode == 403) {
+                                  ToasterFunction("info", "This Mobile number already exists");
+  
+                                  this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                              }
+                              else if (resp.data.responseCode == 404) {
+                                  ToasterFunction("info", "This Mobile number already exists");
+  
+                              }
+                              else if (resp.data.responseCode == 500) {
+                                  ToasterFunction("error", "Internal Server Error");
+  
+                              }
+                          }
+                          break
+                          case (900): {
+                              if (resp.status == 900) {
+                                  ToasterFunction("error", "Please check your internet connection")
+                              }
+                          }
+                      }
+                  })
+          } catch (error) {
+              console.log("response", error)
+              ToasterFunction("error", "Network error, please contact the administrator");
+  
+          }
 
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }

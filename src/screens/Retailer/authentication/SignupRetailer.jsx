@@ -173,7 +173,7 @@ export class SignupRetailer extends Component {
                     // console.log("selectedvalue",this.state.selectedvalue)
                     // this.state.temp[2]
                                     var Sdata={
-                                    "mobileNumber": 918744810087,
+                                    "mobileNumber": this.state.temp[2],
                                     "martId":this.state.selectedvalue,
                                     "shopName":this.state.shopName,
                                     "shopNumber": this.state.shopNumber,
