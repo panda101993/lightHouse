@@ -397,45 +397,45 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                         <div class="mainoffer">
                            {/* <img src="images/burger1.png" class="bur-img" /> */}
                            {/* <img src={require("../assets/images/burger1.png")} class="bur-img" /> */}
-                           {/* <img src={favouriteImage} class="bur-img" /> */}
+                           <img src={this.state.favouriteImage} class="bur-img" />
 
                            {/* <h5><a href="60-Website(Retailer)%20.html">Burger King</a></h5> */}
                            {/* <h6><a href="61-Website-(Mart-Page%20)%20.html">GIP Mall</a></h6> */}
-                           {/* <label style={{fontSize:16}}>Title :</label>
-                  <label style={{fontSize:14}}>{couponTitle}</label>
+                           <label style={{fontSize:16}}>Title :</label>
+                  <label style={{fontSize:14}}>{this.state.couponTitle}</label>
                   <br/>
                   <label style={{fontSize:16}}>Coupon Code:</label>
-                  <label style={{fontSize:14}}>{couponCode}</label> 
+                  <label style={{fontSize:14}}>{this.state.couponCode}</label> 
                   <br/>
                   <label style={{fontSize:16}}>Discount % :</label>
-                  <label style={{fontSize:14}}>{couponDiscount}</label>
+                  <label style={{fontSize:14}}>{this.state.couponDiscount}</label>
                   <br/>
                   <label style={{fontSize:16}}>Coupon Applied On:</label>
-                  <label style={{fontSize:14}}> {couponAppliedOn}</label>
+                  <label style={{fontSize:14}}> {this.state.couponAppliedOn}</label>
                   <br/>
                   <label style={{fontSize:16}}>Expiry Date:</label>
-                  <label style={{fontSize:14}}>{couponExpiryDate}</label> 
+                  <label style={{fontSize:14}}>{this.state.couponExpiryDate}</label> 
                   <br/>
                   <label style={{fontSize:16}}>One Time Coupon :</label>
-                  <label style={{fontSize:14}}>{oneTimeCoupon}</label>
+                  <label style={{fontSize:14}}>{this.state.oneTimeCoupon}</label>
                   <br/>
                   <label style={{fontSize:16}}>Shop Name:</label>
-                  <label style={{fontSize:14}}> {shopName}</label>
+                  <label style={{fontSize:14}}> {this.state.shopName}</label>
                   <br/>
-                  <label style={{fontSize:16}}>Shop Number:</label>
-                  <label style={{fontSize:14}}>{shopNumber}</label> 
-                  <br/>
+                  {/* <label style={{fontSize:16}}>Shop Number:</label>
+                  <label style={{fontSize:14}}>{this.state.shopNumber}</label> 
+                  <br/> */}
                   <label style={{fontSize:16}}>Floor Number :</label>
-                  <label style={{fontSize:14}}>{floorNumber}</label>
+                  <label style={{fontSize:14}}>{this.state.floorNumber}</label>
                   <br/>
                   <label style={{fontSize:16}}>Mart Name:</label>
-                  <label style={{fontSize:14}}> {martName}</label>
+                  <label style={{fontSize:14}}> {this.state.martName}</label>
                   <br/>
                   <label style={{fontSize:16}}>Shop Phone Number:</label>
-                  <label style={{fontSize:14}}>{shopPhoneNumber}</label> 
+                  <label style={{fontSize:14}}>{this.state.shopPhoneNumber}</label> 
                   <br/>
                   <label style={{fontSize:16}}>Restrictionsr:</label>
-                  <label style={{fontSize:14}}>{restrictions}</label>  */}
+                  <label style={{fontSize:14}}>{this.state.restrictions}</label> 
 
                            <div class="cover-share">
                               <a data-toggle="modal" data-target="#icon" data-dismiss="modal">
@@ -446,7 +446,7 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                         </div>
                         <div class="modal-body ny">
                            {/* <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.deleteCoupans()}  >Delete</button> */}
-                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.hideCoupans()} >Don't Show Again</button>
+                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.hideCoupans(this.state.getCouponId)} >Don't Show Again</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-rmv-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Call Shop</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Navigate to Shop</button>
                         </div>

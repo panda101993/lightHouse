@@ -6,11 +6,8 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-<<<<<<< HEAD
 
 
-=======
->>>>>>> ddd60b0343d5090d289f90173a125288b5ce87de
 export default class OtpScreenRetailer extends Component {
    constructor(props) {
       super(props)
