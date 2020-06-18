@@ -54,7 +54,7 @@ export  class ManageInfoRetailer extends Component {
                 city: '',
                 state: '',
                 address: '',
-                // token:'',
+                token:'',
 
                 otp: "",
                 otpErrorMessage: "",
@@ -129,17 +129,41 @@ export  class ManageInfoRetailer extends Component {
               break;
       }
     }
+    handleResendOtp = () =>{
+        this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
+        var Data1 = {
+            "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
+            }
+            Apirequest(Data1,"/retailer/resendOTP" ,"POST")
+            .then((resp)=> {
+               console.log("reacd==>",resp);
+      
+            })
+            .catch(e=>{console.log(e)})
+    }
+
 
     submitHandler = () => {
         if (this.state.otpStatus) {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-
+                
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
                         this.setState({ modalStatus: false })
-
+                        var Data = {
+                        "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
+                        }
+                        Apirequest(Data,"/retailer/verifyOTP" ,"POST")
+                        .then((resp)=> {
+                           console.log("wxyz==>",resp);
+                  
+                        })
+                        .catch(e=>{console.log(e)})
+                     
+                     
+                        
 
 
                     } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -199,6 +223,15 @@ export  class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+                        var Data = {
+                        "mobileNumber":this.state.mobileNumber,
+                            }
+                            Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
+                            .then((resp)=> {
+                               console.log("abcd==>",resp);
+                      
+                            })
+                            .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
@@ -208,7 +241,17 @@ export  class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+                        var Data = {
+                            "mobileNumber":this.state.mobileNumber,
+                                }
+                                Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
+                                .then((resp)=> {
+                                   console.log("abcd==>",resp);
+                          
+                                })
+                                .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
+
     }
 
     render() {
@@ -427,7 +470,8 @@ export  class ManageInfoRetailer extends Component {
                                                         </label>
                                                     </div>
                                                     {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
+                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.handleResendOtp()}>
+                                                    {/* this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })} */}
                                                         Resend
                                                      </p></Link>
                                                 </div>

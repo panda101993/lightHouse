@@ -123,6 +123,24 @@ class componentName extends Component {
       //   console.log('category',categoryImage);
          return(
             <div>
+                <Carousel
+                        swipeable={true}
+                        draggable={false}
+                        showDots={false}
+                        responsive={responsive}
+                        ssr={true} // means to render carousel on server-side.
+                        infinite={true}
+                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                        autoPlaySpeed={5000000}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        deviceType={this.props.deviceType}
+                        dotListClass="custom-dot-list-style"
+                        itemClass="carousel-item-padding-40-px"
+                     >
             <ImageDashboard          
                ImageName={martName}
                LinkId={`/AllRetailers/${martId}`}
@@ -131,7 +149,7 @@ class componentName extends Component {
                heartImage={Imageid.RedHeart}
                MartId={martId}
             />
-             
+             </Carousel>
          </div>
          )
       })
@@ -145,14 +163,32 @@ class componentName extends Component {
          return(
             <div>
                <h5 class="product-herd">{productServiceType}</h5>
-            <ImageDashboard
-               ImageName={categoryName}
-               LinkId="/subCategories"
-               ImageA={categoryImage}
-               heartImage={Imageid.RedHeart}
-            />
-
-         </div>
+               <Carousel
+                  swipeable={true}
+                  draggable={false}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={5000000}
+                  keyBoardControl={true}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+               >
+                  <ImageDashboard
+                     ImageName={categoryName}
+                     LinkId="/subCategories"
+                     ImageA={categoryImage}
+                     heartImage={Imageid.RedHeart}
+                  />
+               </Carousel>
+            </div>
          )
       })
    }
@@ -172,8 +208,9 @@ class componentName extends Component {
                <section class="second">
                   <LandingTopicName HeaderName="Marts" />
                   <div class="container-fluid">
+                  {this.martData()}
                      {/* <DashboardImageScroll />  */}
-                     <Carousel
+                     {/* <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
@@ -190,22 +227,22 @@ class componentName extends Component {
                         deviceType={this.props.deviceType}
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                     >
-                        <div>                          
+                     > */}
+                        {/* <div>                          
                             {this.martData()}
                         </div>
-                 
+                  */}
 
-                     </Carousel>
+                     {/* </Carousel> */}
 
 
                   </div>
                   <LandingTopicName HeaderName="Categories" />
 
                   <div class="container-fluid">
-                     
+                  {this.categoryData()}
                      {/* <CatogriesScroll /> */}
-                     <Carousel
+                     {/* <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
@@ -222,13 +259,13 @@ class componentName extends Component {
                         deviceType={this.props.deviceType}
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                     >
-                        <div>
+                     > */}
+                        {/* <div>
                            {this.categoryData()}
-                        </div>
+                        </div> */}
                         
 
-                     </Carousel>
+                     {/* </Carousel> */}
 
 
                   </div>

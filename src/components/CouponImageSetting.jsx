@@ -57,15 +57,16 @@ class CouponImageSetting extends Component {
          limit: 10,
          modalStatus: false,
          modalStatusImage: false,
-         modalStatusBackImage: false
+         modalStatusBackImage: false,
+         allCoupon: []
 
       }
    }
    
    getCoupounList = () => {
       try {
+         console.log('hhhhii==>',this.props.applicationData)
          
-         console.log('hhhh==>',this.props.applicationData)
          apiRequest({ userId: this.props.applicationData.userId, search: this.state.search, pageNumber: this.state.pageNumber, limit: this.state.limit }, '/user/myCoupons', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('responseMycoupan', resp);
@@ -101,9 +102,10 @@ class CouponImageSetting extends Component {
 
    deleteCoupans = () => {
       try {
-         apiRequest({ couponId: "" }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
+         console.log("couponId",this.couponId())
+         apiRequest({ couponId: this.couponId() }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
-               console.log('respresp', resp);
+               console.log('resprespdel', resp);
                this.setState({ modalStatusImage: !this.state.modalStatusImage })
             })
       } catch (error) {
@@ -115,9 +117,10 @@ class CouponImageSetting extends Component {
 
    deleteCoupans1 = () => {
       try {
-         apiRequest({ couponId: "" }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
+         console.log("couponId",this.couponId())
+         apiRequest({ couponId: this.couponId()  }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
-               console.log('respresp', resp);
+               console.log('resprespdel', resp);
                this.setState({ modalStatus: !this.state.modalStatus })
             })
       } catch (error) {
@@ -128,7 +131,7 @@ class CouponImageSetting extends Component {
    }
    hideCoupans = () => {
       try {
-         apiRequest({ couponId: "" }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
+         apiRequest({ couponId: this.couponId()  }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('response', resp);
                this.setState({ modalStatusImage: !this.state.modalStatusImage })
@@ -142,9 +145,11 @@ class CouponImageSetting extends Component {
 
    addToFavourite = () => {
       try {
-         apiRequest({ couponId: "" }, 'user/saveMyCoupon', 'POST', this.props.applicationData.token)
+         console.log("gggg",this.couponId())
+         console.log("iiii",this.props.applicationData.token)
+         apiRequest({ couponId: this.couponId() }, '/user/saveMyCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
-               console.log('response', resp);
+               console.log('responseadd', resp);
                this.setState({ modalStatusImage: !this.state.modalStatusImage })
             })
       } catch (error) {
@@ -152,6 +157,20 @@ class CouponImageSetting extends Component {
          this.setState({ modalStatusImage: !this.state.modalStatusImage })
 
       }
+   }
+
+   couponId() {
+      if (this.props.allCouponData !== undefined) {
+         return this.props.allCouponData.map((allCoupon, index) => {
+            console.log("allCoupon",allCoupon._id)
+            return (
+               <div>
+                  {allCoupon._id}
+               </div>
+            )
+         })
+      }
+
    }
 
    render() {
@@ -328,13 +347,31 @@ class CouponImageSetting extends Component {
    }
 }
 
-const mapStateToProps = state => {
-  if(state.AuthReducer.isLoggedIn === true){
+// const mapStateToProps = state => {
+//   if(state.AuthReducer.isLoggedIn === true){
      
-  }
-   console.log("hhhh====>>", state)
+//   }
+//    console.log("hhhh====>>", state.AuthReducer.userData)
    
-   return{
+//    return{
+//       applicationData: state.AuthReducer.userData
+//    }
+// }
+
+// const mapDispatchToProps = dispatch => {
+//    return {
+//       action: bindActionCreators({ myCouponData }, dispatch)
+//    }
+// }
+
+
+// export default CouponImageSetting
+// export default connect(mapStateToProps,{loginAction,myCouponData})(CouponImageSetting);
+
+const mapStateToProps = state => {
+   console.log("state===", state)
+   return {
+      allCouponData: state.CouponCodeReducer.userData,
       applicationData: state.AuthReducer.userData
    }
 }
@@ -345,6 +382,4 @@ const mapDispatchToProps = dispatch => {
    }
 }
 
-
-// export default CouponImageSetting
-export default connect(mapStateToProps,{loginAction,myCouponData},mapDispatchToProps)(CouponImageSetting);
+export default connect(mapStateToProps, mapDispatchToProps)(CouponImageSetting);

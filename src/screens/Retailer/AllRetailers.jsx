@@ -80,7 +80,7 @@ export class AllRetailers extends Component {
       
       
       console.log('martt----',Id);
-      //  apiRequest({martId:Id},'/user/getAllCouponOfMart','POST')
+      //  apiRequest({martId:Id},'/user/ ','POST')
       this.props.action.myCouponData({martId:Id})
       
       //  .then((resp)=>{
@@ -145,7 +145,7 @@ martData(){
 
 martName(){
   if(this.props.allCouponData !== undefined){
-    return this.props.allCouponData.map((allCoupon, index)=>{
+    return this.props.allCouponData.slice(0,2).map((allCoupon, index)=>{
       return(
   <div>
 <h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>
@@ -205,6 +205,8 @@ retailerData(){
 }
 
 couponData(){
+  // if(this.props.applicationData.length > 0)
+  console.log("applicationData",this.props.applicationData)
   if(this.props.allCouponData !== undefined){
     return this.props.allCouponData.map((allCoupon, index)=>{
       return(
@@ -234,6 +236,18 @@ CouponCode={allCoupon.couponCode}
 Discount={allCoupon.discount}
 ItemName={allCoupon.itemName}
 ExpiryDate={allCoupon.ExpiryDate}
+CouponId={allCoupon._id}
+CouponToken={this.props.applicationData.token}
+CouponAppliedOn={allCoupon.couponAppliedOn}
+OneTimeCoupon={allCoupon.oneTimeCoupon}
+ShopName={allCoupon.shopName}
+ShopNumber={allCoupon.retailerId.shopNumber}
+FloorNumber={allCoupon.floorNumber}
+MartName={allCoupon.marName}
+ShopPhoneNumber={allCoupon.shopPhoneNumber}
+Restrictions={allCoupon.restrictions}
+
+
 
 />
 </Carousel>
@@ -406,8 +420,10 @@ ExpiryDate={allCoupon.ExpiryDate}
 // export default AllRetailers
 
 const mapStateToProps = state => {
+  console.log("stateabc",state)
     return {
-       allCouponData: state.CouponCodeReducer.userData
+       allCouponData: state.CouponCodeReducer.userData,
+       applicationData: state.AuthReducer.userData
     }
 }
 

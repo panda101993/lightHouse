@@ -338,12 +338,12 @@ export class WebsiteRetailer extends Component {
 }
 
 const mapStateToProps = state => {
-   console.log("state===", state)
+   console.log("state===", state.CouponCodeReducer)
    return {
       allCouponData: state.CouponCodeReducer.userData
    }
 }
-
+ 
 const mapDispatchToProps = dispatch => {
    return {
       action: bindActionCreators({ myCouponData }, dispatch)
