@@ -41,7 +41,7 @@ export class SignupRetailer extends Component {
 
             termsAndPrivacy: false,
 
-
+            selectedvalue:"",
             temp: this.props.location.pathname.split("/")
         }
     }
@@ -98,6 +98,7 @@ export class SignupRetailer extends Component {
     // }
     handleInput = (e, type) => {
         // console.log("abcd", this.state.selectedvalue)
+        console.log("temp----",this.state.temp)
         switch (type) {
             case "shopname":
                 {
@@ -151,7 +152,7 @@ export class SignupRetailer extends Component {
                 break
             case ("email"):
                 var edata = validateEmail(this.state.email)
-                console.log("email", data)
+                console.log("email", edata)
                 this.setState({ emailErrorMessage: edata.error, emailErrorStatus: edata.status }, () => console.log("errore", this.state))
                 break
                 case ("cfpassword"):
@@ -169,10 +170,11 @@ export class SignupRetailer extends Component {
                 this.state.emailErrorStatus &&
                 this.state.passwordErrorStatus &&
                 this.state.cfpasswordErrorStatus){
-
+                    // console.log("selectedvalue",this.state.selectedvalue)
+                    // this.state.temp[2]
                                     var Sdata={
-                                    "mobileNumber": this.state.temp[2],
-                                    "martId":"xyz",
+                                    "mobileNumber": 918744810087,
+                                    "martId":this.state.selectedvalue,
                                     "shopName":this.state.shopName,
                                     "shopNumber": this.state.shopNumber,
                                     "floorNumber": this.state.floorNumber,
@@ -224,7 +226,7 @@ export class SignupRetailer extends Component {
 
                                         >
                                             <option selected>Mart name</option>
-                                            <option value="1">{this.state.datafound.martName}</option>
+                                            <option value={this.state.datafound._id}>{this.state.datafound.martName}</option>
                                         </select>
                                     </div>
                                     <GlobalValidations
