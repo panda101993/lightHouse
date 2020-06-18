@@ -36,8 +36,6 @@ export default class ForgotPasswordOtp extends Component {
             mobilenoErrorMessage: "",
             mobilenoStatus: false,
 
-            temp: this.props.location.pathname.split("/")
-
 
 
             //   modalStatus: false,
@@ -75,38 +73,8 @@ export default class ForgotPasswordOtp extends Component {
                     if (this.state.otpStatus4) {
 
                         // alert('Submit Successfully');
-                        // window.location.href = "/Resetpassword"
+                        window.location.href = "/Resetpassword"
                         //    this.setState({ modalStatus: false })
-                        console.log("mobilenumber",this.state.temp[2])
-                        var credentials = {
-                            "mobileNumber": this.state.temp[2],
-                            "otp": this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4
-                         }
-
-                         Apirequest(credentials, "/user/otpVerify", "POST")
-                         .then((resp) => {
-                            // console.log("resenddddd",resp)
-                            // console.log("otpppp", resp.data)
-                            switch (resp.status) {
-                               case 200: {
-                                  if (resp.data.responseCode == 200) {
-                                     // alert("Otp has been sent to your registered mobile number")
-                                     window.location.href = '/Resetpassword'
-                                    
-                                  }
-                                  else if (resp.data.responseCode == 404) {
-                                     alert("This user does not exist.")
-                                  }
-                                  else if (resp.data.responseCode == 500) {
-                                     alert("Internal Server error")
-                                  }
-                               }
-                                  break;
-                               default:
-                                  console.log("default err", resp.data.error)
-                            }
-                         })
-
 
 
 
@@ -142,42 +110,6 @@ export default class ForgotPasswordOtp extends Component {
     //         }
     //         )
     // }
-    resendHandler = () => {
-        // this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-        // var temp= this.props.location.pathname;
-        // console.log("----->",this.state.temp[2])
-        // var Array = this.state.temp.split("/")
-        var credentials={
-            "mobileNumber": this.state.temp[2]
-        }
-        // console.log(temp.split("/"))
-        // console.log(this.state.temp[2])
-        Apirequest(credentials,"/user/resendOTP","POST")
-        .then((resp)=>{
-            // console.log("resenddddd",resp)
-            console.log("otpppp",resp.data.result)
-            switch(resp.status){
-                case 200: {
-                   if(resp.data.responseCode==200)
-                   {
-                      alert("Otp has been sent to your registered mobile number")
-                   }
-                   else if(resp.data.responseCode==404)
-                   {
-                      alert("Provided email/mobile number is not registered")
-                   }
-                   else if(resp.data.responseCode==500)
-                   {
-                      alert("Internal Server error")
-                   }
-                }
-                break;
-                default:
-                   console.log("default err",resp.data.error)
-             }
-        })
-    }
-
 
     render() {
         return (

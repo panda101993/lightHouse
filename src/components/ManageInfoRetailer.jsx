@@ -1,84 +1,38 @@
 
 
 import React, { Component } from 'react'
-import { Link, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
-import Apirequest from '../api/Apirequest';
-import { connect } from "react-redux";
-import {loginAction} from "../redux/action/AuthAction";
-export  class ManageInfoRetailer extends Component {
-    submit=()=>{
-        this.setState({ modalStatus: !this.state.modalStatus })
-        var requestData = {
-           shopName:this.state.shopName,
-           shopNumber:this.state.shopNumber,
-           floorNumer:this.state.floorNumer,
-           martName:this.state.martName,
-           martId:this.state.martId,
-           mobileNumber: this.state.mobileNumber,
-           email: this.state.email,
-           GSTIN:this.state.GSTIN,
-           registeredBusinessName:this.state.registeredBusinessName, 
-           registeredBussinessAddress: this.state.registeredBussinessAddress,
-           addressProof: this.state.addressProof,
-           pinCode: this.state.pinCode,
-           city: this.state.city,
-           state: this.state.state,
-           address: this.state.address,
-           token:this.state.token,
-        }  
-        Apirequest(requestData,"/retailer/business" ,"POST",this.props.applicationkey.token)
-      .then((resp)=> {
-         console.log("abcd==>",resp);
 
-      })
-      .catch(e=>{console.log(e)})
-   
-   }
+export default class ManageInfoRetailer extends Component {
     constructor(props) {
         super(props)
-            this.state = {
-                shopName:'',
-                shopNumber:'',
-                floorNumer:'',
-                martName:'',
-                martId:'',
-                mobileNumber: '',
-                email: '',
-                GSTIN:'',
-                registeredBusinessName:'', 
-                registeredBusinessAddress: '',
-                addressProof: '',
-                pinCode: '',
-                city: '',
-                state: '',
-                address: '',
-                token:'',
 
-                otp: "",
-                otpErrorMessage: "",
-                otpStatus: false,
+        this.state = {
+            otp: "",
+            otpErrorMessage: "",
+            otpStatus: false,
 
-                otp2: "",
-                otpErrorMessage2: "",
-                otpStatus2: false,
+            otp2: "",
+            otpErrorMessage2: "",
+            otpStatus2: false,
 
-                otp3: "",
-                otpErrorMessage3: "",
-                otpStatus3: false,
+            otp3: "",
+            otpErrorMessage3: "",
+            otpStatus3: false,
 
-                otp4: "",
-                otpErrorMessage4: "",
-                otpStatus4: false,
+            otp4: "",
+            otpErrorMessage4: "",
+            otpStatus4: false,
 
-                mobileno: "",
-                mobilenoErrorMessage: "",
-                mobilenoStatus: false,
+            mobileno: "",
+            mobilenoErrorMessage: "",
+            mobilenoStatus: false,
 
-                mobileno1: "",
-                mobilenoErrorMessage1: "",
-                mobilenoStatus1: false,
+            mobileno1: "",
+            mobilenoErrorMessage1: "",
+            mobilenoStatus1: false,
 
 
 
@@ -87,68 +41,13 @@ export  class ManageInfoRetailer extends Component {
    
          }
     }
-    shopNamehandler=(event,type)=>{
-      switch (type) {
-          case "shopName":
-              this.setState({shopName:event.target.value})
-              break;
-          case "shopNumber":
-              this.setState({shopNumber:event.target.value})
-              break;
-          case "floorNumer":
-                this.setState({floorNumer:event.target.value})
-                break;
-          case "email":
-                    this.setState({email:event.target.value})
-                    break; 
-          case "registeredBussinessName":
-                    this.setState({registeredBusinessName:event.target.value})
-                        break;
-           case "registeredBussinessAddress":
-                    this.setState({registeredbussinessAddress:event.target.value})
-                        break;
-          case "pinCode":
-                this.setState({pinCode:event.target.value})
-                break; 
-          case "GSTIN":
-                    this.setState({GSTIN:event.target.value})
-                    break;   
-          case "city":
-                        this.setState({city:event.target.value})
-                        break; 
-          case "state":
-                        this.setState({state:event.target.value})
-                        break;    
-          case "address":
-                        this.setState({address:event.target.value})
-                        break; 
-        //   case "martName":
-        //                 this.setState({martName:event.target.value})
-        //                 break; 
-          default:
-              break;
-      }
-    }
-    handleResendOtp = () =>{
-        this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-        var Data1 = {
-            "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
-            }
-            Apirequest(Data1,"/retailer/resendOTP" ,"POST")
-            .then((resp)=> {
-               console.log("reacd==>",resp);
-      
-            })
-            .catch(e=>{console.log(e)})
-    }
-
 
     submitHandler = () => {
         if (this.state.otpStatus) {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-                
+
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
                         this.setState({ modalStatus: false })
@@ -224,6 +123,7 @@ export  class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+
                         var Data = {
                         "mobileNumber":this.state.mobileno,
                         
@@ -235,6 +135,8 @@ export  class ManageInfoRetailer extends Component {
                       
                             })
                             .catch(e=>{console.log(e)})
+
+
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
@@ -255,7 +157,6 @@ export  class ManageInfoRetailer extends Component {
                                 })
                                 .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
-
     }
 
     render() {
@@ -267,7 +168,7 @@ export  class ManageInfoRetailer extends Component {
                     <div class="name_c3">
                         <span class="name">
                             <label>Shop Name*</label>
-                            <p><input type="text" class="form-control" placeholder="Shop name"  onChange= {(event) => this.shopNamehandler(event,"shopName")}/></p>
+                            <p><input type="text" class="form-control" placeholder="Shop name" /></p>
                         </span>
                         <span class="name">
                             <div class="shopfloor">
@@ -275,14 +176,14 @@ export  class ManageInfoRetailer extends Component {
                                     <label>Shop Number*</label>
                                     <ul class="select">
                                         <li>
-                                            <input type="text" class="form-control" placeholder="Shop number" onChange= {(event) => this.shopNamehandler(event,"shopNumber")} />
+                                            <input type="text" class="form-control" placeholder="Shop number" />
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="floor">
                                     <label>Floor Number*</label>
                                     <ul class="select">
-                                        <li><input type="text" class="form-control" placeholder="9" onChange= {(event) => this.shopNamehandler(event,"floorNumber")} /></li>
+                                        <li><input type="text" class="form-control" placeholder="9" /></li>
                                     </ul>
                                 </div>
                             </div>
@@ -358,21 +259,21 @@ export  class ManageInfoRetailer extends Component {
                         </span>
                         <span class="name">
                             <label> Email id for Managing Coupons and Getting Communications From LH</label>
-                            <p><input type="text" class="form-control" placeholder="bhaswti2526@gmail.com" onChange= {(event) => this.shopNamehandler(event,"email")}/></p>
+                            <p><input type="text" class="form-control" placeholder="bhaswti2526@gmail.com" /></p>
                         </span>
                         <span class="name">
                             <label>Registered Business Name *</label>
-                            <p><input type="text" class="form-control" placeholder="Business Name " onChange= {(event) => this.shopNamehandler(event,"registeredBussinessName")}/></p>
+                            <p><input type="text" class="form-control" placeholder="Business Name " /></p>
                         </span>
                         <span class="name">
                             <label> Registered Business Address*</label>
-                            <p><input type="text" class="form-control" placeholder="New Delhi  " onChange= {(event) => this.shopNamehandler(event,"bussinessAddress")} /></p>
+                            <p><input type="text" class="form-control" placeholder="New Delhi  " /></p>
                         </span>
                         <div class="address">
                             <h3 class="enregbus">Enter Registered Business Address:</h3>
                             <span class="name">
                                 <label>Pin Code*</label>
-                                <input type="text" class="form-control" placeholder="110025" onChange= {(event) => this.shopNamehandler(event,"pinCode")} />
+                                <input type="text" class="form-control" placeholder="110025" />
                             </span>
                             <span class="name">
                                 <label>State*</label>
@@ -388,11 +289,11 @@ export  class ManageInfoRetailer extends Component {
                             </span>
                             <span class="name">
                                 <label>Address*</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Okhla phase 1 , D115" onChange= {(event) => this.shopNamehandler(event,"address")}></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Okhla phase 1 , D115"></textarea>
                             </span>
                             <span class="name">
                                 <label>GSTIN *</label>
-                                <input type="text" class="form-control" placeholder="123456789" onChange= {(event) => this.shopNamehandler(event,"  GSTIN")} />
+                                <input type="text" class="form-control" placeholder="123456789" />
                             </span>
                             <span class="name">
                                 <div class="downproof">
@@ -405,8 +306,7 @@ export  class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-                                 <li>  <button class="save" onClick={()=> this.submit()} >Save  </button> </li> 
-                                 <Link to="/Coupon_template" > </Link>
+                                 <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
@@ -474,8 +374,7 @@ export  class ManageInfoRetailer extends Component {
                                                         </label>
                                                     </div>
                                                     {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.handleResendOtp()}>
-                                                    {/* this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })} */}
+                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
                                                         Resend
                                                      </p></Link>
                                                 </div>
@@ -521,11 +420,4 @@ export  class ManageInfoRetailer extends Component {
         )
     }
 }
-const mapSateToProps = state => {
-    console.log("change state",state)
-    return{
-       applicationkey : state.AuthReducer.userData 
-    }   
-}
-export default connect(mapSateToProps,{loginAction})(ManageInfoRetailer);
 

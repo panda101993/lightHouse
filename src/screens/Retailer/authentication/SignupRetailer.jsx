@@ -41,7 +41,7 @@ export class SignupRetailer extends Component {
 
             termsAndPrivacy: false,
 
-
+            selectedvalue:"",
             temp: this.props.location.pathname.split("/")
         }
     }
@@ -98,6 +98,7 @@ export class SignupRetailer extends Component {
     // }
     handleInput = (e, type) => {
         // console.log("abcd", this.state.selectedvalue)
+        console.log("temp----",this.state.temp)
         switch (type) {
             case "shopname":
                 {
@@ -151,7 +152,7 @@ export class SignupRetailer extends Component {
                 break
             case ("email"):
                 var edata = validateEmail(this.state.email)
-                console.log("email", data)
+                console.log("email", edata)
                 this.setState({ emailErrorMessage: edata.error, emailErrorStatus: edata.status }, () => console.log("errore", this.state))
                 break
                 case ("cfpassword"):
@@ -169,10 +170,11 @@ export class SignupRetailer extends Component {
                 this.state.emailErrorStatus &&
                 this.state.passwordErrorStatus &&
                 this.state.cfpasswordErrorStatus){
-
+                    // console.log("selectedvalue",this.state.selectedvalue)
+                    // this.state.temp[2]
                                     var Sdata={
                                     "mobileNumber": this.state.temp[2],
-                                    "martId":"xyz",
+                                    "martId":this.state.selectedvalue,
                                     "shopName":this.state.shopName,
                                     "shopNumber": this.state.shopNumber,
                                     "floorNumber": this.state.floorNumber,
@@ -218,13 +220,9 @@ export class SignupRetailer extends Component {
 
                                     <div class="form-group">
                                         <label>Mart Name*</label>
-                                        <select id="inputState" class="form-control"
-                                            onChange={(e) => this.setState({ selectedvalue: e.target.value }
-                                            )}
-
-                                        >
+                                        <select id="inputState" class="form-control">
                                             <option selected>Mart name</option>
-                                            <option value="1">{this.state.datafound.martName}</option>
+                                            <option>...</option>
                                         </select>
                                     </div>
                                     <GlobalValidations
@@ -236,39 +234,21 @@ export class SignupRetailer extends Component {
                                         inputPlaceholder="Shop Name"
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
-                                        onChange={(e) => { this.handleInput(e, "shopname") }}
                                     />
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label >Shop Number*</label>
-                                            <input type="text" class="form-control shpnm" placeholder="Shop Number"
-                                                onChange={(e) => this.handleInput(e, "shopNo")}
-                                            />
+                                            <input type="text" class="form-control shpnm" placeholder="Shop Number" />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Floor Number*</label>
-                                            <input type="text" class="form-control shpnm" placeholder="2"
-                                                onChange={(e) => this.handleInput(e, "floorNo")}
-                                            />
+                                            <input type="text" class="form-control shpnm" placeholder="2" />
                                         </div>
                                     </div>
 
                                     <div class="eimanaging">
                                         Email id for Managing Coupons and Getting Communications From LH *
                   </div>
-                                    <GlobalValidations
-                                        divClass="form-group"
-                                        label="Email*"
-                                        labelClass=""
-                                        inputType="text"
-                                        inputId=""
-                                        inputPlaceholder="email"
-                                        errorMessage=""
-                                        textInputClassName="form-control shpnm"
-                                        realValue={this.state.email}
-                                        onChange={(e) => this.handleInput(e, "email")}
-                                        errorMessage={this.state.emailErrorMessage}
-                                    />
 
 
                                     <GlobalValidations
@@ -278,9 +258,8 @@ export class SignupRetailer extends Component {
                                         inputType="text"
                                         inputId=""
                                         inputPlaceholder="Password"
+                                        errorMessage=""
                                         textInputClassName="form-control shpnm"
-                                        onChange={(e)=>this.handleInput(e,"password")}
-                                        errorMessage={this.state.passwordErrorMessage}
                                     />
 
                                     <GlobalValidations
@@ -290,21 +269,14 @@ export class SignupRetailer extends Component {
                                         inputType="text"
                                         inputId=""
                                         inputPlaceholder="Confirm Password"
+                                        errorMessage=""
                                         textInputClassName="form-control shpnm"
-                                        onChange={(e)=>this.handleInput(e,"cfpassword")}
-                                        errorMessage={this.state.cfpasswordErrorMessage}
                                     />
                                     <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input"
-                                        onChange={()=>this.handleTermsCondition()}
-                                        
-                                        />
+                                        <input type="checkbox" class="form-check-input" />
                                         <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions"> <Link to="/TermsCondition" > Terms and Conditions</Link></a> </label>
                                     </div>
-                                    <button type="button" class="btn btn-theme" 
-                                    onClick={()=>this.handleSignup()
-                                    }
-                                    >SIGNUP</button>
+                                    <Link to="SignupOtp"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
                                     <div class="have-an">
                                         <p>Already Have an account? <Link to="LoginRetailer">Login</Link></p>
                                     </div>
@@ -318,17 +290,3 @@ export class SignupRetailer extends Component {
         )
     }
 }
-
-const mapStateToProps = state => {
-    console.log("Signup state", state)
-    return {
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        action: bindActionCreators({ signupActionRetailer }, dispatch)
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupRetailer);
