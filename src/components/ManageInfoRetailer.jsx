@@ -162,7 +162,7 @@ export  class ManageInfoRetailer extends Component {
                         })
                         .catch(e=>{console.log(e)})
                      
-                     
+        
                         
 
 
@@ -200,6 +200,7 @@ export  class ManageInfoRetailer extends Component {
         const value = e.target.value;
         this.setState({ [name]: value })
         console.log("valueset==>", value)
+        console.log("valueset====>", name)
 
         this.state.mobilenoErrorMessage = validateMobileNo(value).error;
         this.state.mobilenoStatus = validateMobileNo(value).status;
@@ -224,8 +225,10 @@ export  class ManageInfoRetailer extends Component {
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
                         var Data = {
-                        "mobileNumber":this.state.mobileNumber,
+                        "mobileNumber":this.state.mobileno,
+                        
                             }
+                            console.log("Data",Data)
                             Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
                             .then((resp)=> {
                                console.log("abcd==>",resp);
@@ -242,8 +245,9 @@ export  class ManageInfoRetailer extends Component {
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
                         var Data = {
-                            "mobileNumber":this.state.mobileNumber,
+                            "mobileNumber":this.state.mobileno1,
                                 }
+                                console.log("Data",Data)
                                 Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
                                 .then((resp)=> {
                                    console.log("abcd==>",resp);

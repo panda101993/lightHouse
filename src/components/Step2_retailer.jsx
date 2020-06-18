@@ -6,6 +6,7 @@ export default class Step2_retailer extends Component {
         super(props)
     
         this.state = {
+             
              ManageInfostep2:false,
              modalStatus: false,
              modalStatus1: false
