@@ -115,12 +115,30 @@ class componentName extends Component {
    }
 
    martData(){
-      if(this.state.allData.length > 0)
+      // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
          const {martId,martImage,martName} = xyz
       //   console.log('category',categoryImage);
          return(
-            <div>
+            <div class="container-fluid">
+               <Carousel
+                        swipeable={true}
+                        draggable={false}
+                        showDots={false}
+                        responsive={responsive}
+                        ssr={true} // means to render carousel on server-side.
+                        infinite={true}
+                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                        autoPlaySpeed={5000000}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        deviceType={this.props.deviceType}
+                        dotListClass="custom-dot-list-style"
+                        itemClass="carousel-item-padding-40-px"
+                     >
             <ImageDashboard          
                ImageName={martName}
                LinkId="/AllRetailers"
@@ -128,28 +146,46 @@ class componentName extends Component {
                heartImage={Imageid.RedHeart}
                MartId={martId}
             />
-             
+             </Carousel>
          </div>
          )
       })
    }
 
    categoryData(){
-      if(this.state.allData.length > 0)
+      // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
          const {categoryId, categoryImage,categoryName,productServiceType} = xyz
       //   console.log('category',categoryImage);
          return(
-            <div>
-<h5 class="product-herd">{productServiceType}</h5>
-            <ImageDashboard
-               ImageName={categoryName}
-               LinkId="/subCategories"
-               ImageA={categoryImage}
-               heartImage={Imageid.RedHeart}
-            />
-
-         </div>
+            <div class="container-fluid">
+                <h5 class="product-herd">{productServiceType}</h5>
+               <Carousel
+                  swipeable={true}
+                  draggable={false}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={5000000}
+                  keyBoardControl={true}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+               >
+                  <ImageDashboard
+                     ImageName={categoryName}
+                     LinkId="/subCategories"
+                     ImageA={categoryImage}
+                     heartImage={Imageid.RedHeart}
+                  />
+               </Carousel>
+            </div>
          )
       })
    }
@@ -170,9 +206,10 @@ class componentName extends Component {
                <Header/>
                <section class="second">
                   <LandingTopicName HeaderName="Marts" />
-                  <div class="container-fluid">
+                  {/* <div class="container-fluid"> */}
+                  {this.martData()}
                      {/* <DashboardImageScroll />  */}
-                     <Carousel
+                     {/* <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
@@ -189,22 +226,22 @@ class componentName extends Component {
                         deviceType={this.props.deviceType}
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                     >
-                        <div>                          
+                     > */}
+                        {/* <div>                          
                             {this.martData()}
-                        </div>
+                        </div> */}
                  
 
-                     </Carousel>
+                     {/* </Carousel> */}
 
 
-                  </div>
+                  {/* </div> */}
                   <LandingTopicName HeaderName="Categories" />
 
-                  <div class="container-fluid">
-                  
+                  {/* <div class="container-fluid"> */}
+                  {this.categoryData()}
                      {/* <CatogriesScroll /> */}
-                     <Carousel
+                     {/* <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
@@ -221,16 +258,16 @@ class componentName extends Component {
                         deviceType={this.props.deviceType}
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                     >
-                        <div>
+                     > */}
+                        {/* <div>
                            {this.categoryData()}
-                        </div>
+                        </div> */}
                         
 
-                     </Carousel>
+                     {/* </Carousel> */}
 
 
-                  </div>
+                  {/* </div> */}
                   {/* <LandingTopicName HeaderName="Coupans" />
                    <div class="container-fluid">
                      <h5 class="product-herd">Services</h5>

@@ -5,10 +5,10 @@ export const myCouponData = (credential) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
     // console.log('navigationFunction=>', navigationFunction);
 
-    Apirequest(credential, "/user/getAllCouponOfMart", "POST")
+    Apirequest(credential, "/user/getRetailerAndCouponByMart", "POST")
         .then((resp) => {
             console.log('resprespMart===>',resp);
-            dispatch({ type: MyCoupon_Data, payload:resp.data.couponData})
+            dispatch({ type: MyCoupon_Data, payload:resp.data.Data})
             
             // navigationFunction()
             switch (resp.status) 
@@ -19,7 +19,7 @@ export const myCouponData = (credential) => dispatch => {
                     console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
-                    dispatch({ type: MyCoupon_Data, payload:resp.data.couponData })
+                    dispatch({ type: MyCoupon_Data, payload:resp.data.Data })
                     // navigationFunction()
                     }
                     else if(resp.data.responseCode==402)

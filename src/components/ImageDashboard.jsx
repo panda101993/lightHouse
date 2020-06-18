@@ -12,7 +12,7 @@ export default function ImageDashboard(props) {
    return (
       <>
          <body>
-
+      
             <div class="slider-item">
                <div class="main-coverslider">
                   <Link to={LinkId} >
@@ -20,7 +20,7 @@ export default function ImageDashboard(props) {
                         style={{ width: "100%", height: "100%" }}
                         src={ImageA}
                         data-toggle="modal" data-target="#wishlist" /> </Link>
-                  <Link to={`/WebsiteRetailer/${MartId}/${ImageName}`}>
+                  <Link to={`/WebsiteRetailer/${MartId}`}>
                      <div class="tcl00">
                         <p> {ImageName} </p>
                      </div> </Link>
