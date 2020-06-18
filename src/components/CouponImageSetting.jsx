@@ -58,7 +58,23 @@ class CouponImageSetting extends Component {
          modalStatus: false,
          modalStatusImage: false,
          modalStatusBackImage: false,
-         allCoupon: []
+         allCoupon: [],
+         allData: [],
+         getCouponId:"",
+         favouriteImage:"",
+         couponTitle:"",
+         couponCode:"",
+         couponDiscount:"",
+         itemName:"",
+         couponExpiryDate:"",
+         couponAppliedOn:"",
+         oneTimeCoupon:"",
+         shopName:"",
+         floorNumber:"",
+         martName:"",
+         shopPhoneNumber:"",
+         restrictions:""
+
 
       }
    }
@@ -70,11 +86,17 @@ class CouponImageSetting extends Component {
          apiRequest({ userId: this.props.applicationData.userId, search: this.state.search, pageNumber: this.state.pageNumber, limit: this.state.limit }, '/user/myCoupons', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('responseMycoupan', resp);
+
                switch (resp.status) {
                   case (200):
                       {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                               allData: resp.data.result.docs
+                            });
+                       }
                       
-                        if (resp.data.responseCode == 404) {
+                        else if (resp.data.responseCode == 404) {
                           ToasterFunction("info", "Data not found, internal server error");
       
                       }
@@ -100,91 +122,148 @@ class CouponImageSetting extends Component {
       this.getCoupounList();
    }
 
-   deleteCoupans = () => {
+   deleteCoupans = (getCouponId) => {
+      console.log("getCouponId---",getCouponId)
       try {
-         console.log("couponId",this.couponId())
-         apiRequest({ couponId: this.couponId() }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
+         
+         apiRequest({ couponId: getCouponId }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('resprespdel', resp);
-               this.setState({ modalStatusImage: !this.state.modalStatusImage })
+               switch (resp.status) {
+                  case (200):
+                      {
+                      if (resp.data.responseCode == 200) {
+                        ToasterFunction("success", "Coupon deleted Successfully");
+                      }
+                       else if (resp.data.responseCode == 404) {
+                          ToasterFunction("info", "Coupon already deleted");
+      
+                      }
+                      else if (resp.data.responseCode == 500) {
+                          ToasterFunction("error", "Internal Server Error");
+      
+                      }
+                  }
+                  case (900): {
+                      if (resp.status == 900) {
+                          ToasterFunction("error", "Please check your internet connection")
+                      }
+                  }
+              }
+              this.setState({modalStatus:false});
+            //   window.location.reload(false);
             })
       } catch (error) {
          console.log('errorresponse', error);
-         this.setState({ modalStatusImage: !this.state.modalStatusImage })
+         ToasterFunction("error", "Network error, please contact the administrator");
 
       }
    }
 
-   deleteCoupans1 = () => {
+   hideCoupans = (getCouponId) => {
+      console.log("getCouponId---",getCouponId)
       try {
-         console.log("couponId",this.couponId())
-         apiRequest({ couponId: this.couponId()  }, '/user/deleteCoupon', 'POST', this.props.applicationData.token)
-            .then((resp) => {
-               console.log('resprespdel', resp);
-               this.setState({ modalStatus: !this.state.modalStatus })
-            })
-      } catch (error) {
-         console.log('errorresponse', error);
-         this.setState({ modalStatus: !this.state.modalStatus })
-
-      }
-   }
-   hideCoupans = () => {
-      try {
-         apiRequest({ couponId: this.couponId()  }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
+         apiRequest({ couponId: getCouponId  }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
             .then((resp) => {
                console.log('response', resp);
-               this.setState({ modalStatusImage: !this.state.modalStatusImage })
+               switch (resp.status) {
+                  case (200):
+                      {
+                      if (resp.data.responseCode == 200) {
+                        ToasterFunction("success", "Coupon hide Successfully");
+                      }
+                       else if (resp.data.responseCode == 404) {
+                          ToasterFunction("info", "Coupon already hide");
+      
+                      }
+                      else if (resp.data.responseCode == 500) {
+                          ToasterFunction("error", "Internal Server Error");
+      
+                      }
+                  }
+                  case (900): {
+                      if (resp.status == 900) {
+                          ToasterFunction("error", "Please check your internet connection")
+                      }
+                  }
+              }
             })
       } catch (error) {
          console.log('errorresponse', error)
-         this.setState({ modalStatusImage: !this.state.modalStatusImage })
+         ToasterFunction("error", "Network error, please contact the administrator");
 
       }
    }
 
-   addToFavourite = () => {
-      try {
-         console.log("gggg",this.couponId())
-         console.log("iiii",this.props.applicationData.token)
-         apiRequest({ couponId: this.couponId() }, '/user/saveMyCoupon', 'POST', this.props.applicationData.token)
-            .then((resp) => {
-               console.log('responseadd', resp);
-               this.setState({ modalStatusImage: !this.state.modalStatusImage })
-            })
-      } catch (error) {
-         console.log('errorresponse', error)
-         this.setState({ modalStatusImage: !this.state.modalStatusImage })
-
-      }
+   openfavouriteModal= (id,image,title,couponCode,discount,itemName,
+      couponAppliedOn,ExpiryDate,oneTimeCoupon,shopName,floorNumber,
+      martName,shopPhoneNumber,restrictions) => {
+this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
+   couponCode:couponCode,couponDiscount:discount,itemName:itemName,
+   couponExpiryDate:ExpiryDate,couponAppliedOn:couponAppliedOn,oneTimeCoupon:oneTimeCoupon,
+   shopName:shopName,floorNumber:floorNumber,martName:martName,shopPhoneNumber:shopPhoneNumber,
+   restrictions:restrictions,modalStatusImage: true});
+// this.setState({favouriteImage:image});
+// this.setState({couponTitle:title});
+// this.setState({couponCode:couponCode}),
+// this.setState({couponDiscount:discount}),
+// this.setState({itemName:itemName}),
+// this.setState({couponExpiryDate:ExpiryDate}),
+// this.setState({ modalStatus: true })
    }
 
-   couponId() {
-      if (this.props.allCouponData !== undefined) {
-         return this.props.allCouponData.map((allCoupon, index) => {
-            console.log("allCoupon",allCoupon._id)
-            return (
-               <div>
-                  {allCoupon._id}
-               </div>
-            )
-         })
-      }
-
+   openDelteModal = (id) =>{
+      this.setState({getCouponId:id,modalStatus:true});
+      
+   }
+   couponData(){
+      // if(this.state.allData.length > 0)
+      return this.state.allData.map((xyz, index)=>{
+         const {couponId,image,title,couponCode,discount,itemName,
+            couponAppliedOn,ExpiryDate,oneTimeCoupon,shopName,floorNumber,
+            martName,shopPhoneNumber,restrictions} = xyz
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+               <div style={{width:"120%"}} class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
+               <figure class="coupon-sec">
+                  <img src={image} onClick={() => this.openfavouriteModal(couponId,image,title,couponCode,discount,itemName,
+            couponAppliedOn,ExpiryDate,oneTimeCoupon,shopName,floorNumber,
+            martName,shopPhoneNumber,restrictions)} />
+               </figure>
+                  <label style={{fontSize:14}}>Title :</label>
+                  <label style={{fontSize:14}}>{title}</label>
+                  <br/>
+                  <label style={{fontSize:14}}>Coupon Code:</label>
+                  <label style={{fontSize:14}}>{couponCode}</label>
+                  <br/>
+                  <label style={{fontSize:14}}>Discount % :</label>
+                  <label style={{fontSize:14}}>{discount}</label>
+                  <br/>
+                  <label style={{fontSize:14}}>Item Name  :</label>
+                  <label style={{fontSize:14}}> {itemName}</label>
+                  <br/>
+                  <label style={{fontSize:14}}>Expiry Date:</label>
+                  <label style={{fontSize:14}}>{ExpiryDate}</label> 
+            </div>
+            <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup" onClick={() => this.openDelteModal(couponId)}>Delete</button>
+            </div>
+         )
+      })
    }
 
    render() {
       return (
          <div>
             {/* <div class="col-lg-4 col-md-4 col-sm-12"> */}
-            <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
+            {/* <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
                <figure class="coupon-sec">
-                  {/* <img src="images/pizza great deal.png" /> */}
                   <img src={require("../assets/images/pizza great deal.png")} onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })} />
                </figure>
             </div>
-            <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Delete</button>
+            <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Delete</button> */}
             {/* </div>   */}
+            {this.couponData()}
 
             <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "190px", }}>
                <ModalBody>
@@ -198,7 +277,7 @@ class CouponImageSetting extends Component {
                      <div class="modal-body ny">
                         <button type="button" class="btn setloc-" type="submit" data-dismiss="modal"
                            onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>No</button>
-                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => this.deleteCoupans1()}>Yes</button>
+                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => this.deleteCoupans(this.state.getCouponId)}>Yes</button>
                      </div>
                   </div>
 
@@ -317,9 +396,46 @@ class CouponImageSetting extends Component {
                      <div class="modal-body bumoffer">
                         <div class="mainoffer">
                            {/* <img src="images/burger1.png" class="bur-img" /> */}
-                           <img src={require("../assets/images/burger1.png")} class="bur-img" />
-                           <h5><a href="60-Website(Retailer)%20.html">Burger King</a></h5>
-                           <h6><a href="61-Website-(Mart-Page%20)%20.html">GIP Mall</a></h6>
+                           {/* <img src={require("../assets/images/burger1.png")} class="bur-img" /> */}
+                           {/* <img src={favouriteImage} class="bur-img" /> */}
+
+                           {/* <h5><a href="60-Website(Retailer)%20.html">Burger King</a></h5> */}
+                           {/* <h6><a href="61-Website-(Mart-Page%20)%20.html">GIP Mall</a></h6> */}
+                           {/* <label style={{fontSize:16}}>Title :</label>
+                  <label style={{fontSize:14}}>{couponTitle}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Coupon Code:</label>
+                  <label style={{fontSize:14}}>{couponCode}</label> 
+                  <br/>
+                  <label style={{fontSize:16}}>Discount % :</label>
+                  <label style={{fontSize:14}}>{couponDiscount}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Coupon Applied On:</label>
+                  <label style={{fontSize:14}}> {couponAppliedOn}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Expiry Date:</label>
+                  <label style={{fontSize:14}}>{couponExpiryDate}</label> 
+                  <br/>
+                  <label style={{fontSize:16}}>One Time Coupon :</label>
+                  <label style={{fontSize:14}}>{oneTimeCoupon}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Shop Name:</label>
+                  <label style={{fontSize:14}}> {shopName}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Shop Number:</label>
+                  <label style={{fontSize:14}}>{shopNumber}</label> 
+                  <br/>
+                  <label style={{fontSize:16}}>Floor Number :</label>
+                  <label style={{fontSize:14}}>{floorNumber}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Mart Name:</label>
+                  <label style={{fontSize:14}}> {martName}</label>
+                  <br/>
+                  <label style={{fontSize:16}}>Shop Phone Number:</label>
+                  <label style={{fontSize:14}}>{shopPhoneNumber}</label> 
+                  <br/>
+                  <label style={{fontSize:16}}>Restrictionsr:</label>
+                  <label style={{fontSize:14}}>{restrictions}</label>  */}
 
                            <div class="cover-share">
                               <a data-toggle="modal" data-target="#icon" data-dismiss="modal">
@@ -330,7 +446,7 @@ class CouponImageSetting extends Component {
                         </div>
                         <div class="modal-body ny">
                            {/* <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.deleteCoupans()}  >Delete</button> */}
-                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.addToFavourite()} >Add to Favourite</button>
+                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.hideCoupans()} >Don't Show Again</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-rmv-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Call Shop</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Navigate to Shop</button>
                         </div>

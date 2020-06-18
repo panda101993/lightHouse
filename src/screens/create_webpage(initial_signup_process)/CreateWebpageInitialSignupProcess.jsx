@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Footer from '../../components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, Switch } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
 
 import { validateOtp, validateMobileNo, validateDialCode } from '../../utils/validation/Validation';
@@ -52,46 +52,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                     if (this.state.otpStatus4) {
 
                         // alert('Submit Successfully');
-                        
-                        
-                       try{
-                        apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
-                        .then((resp) => {
-                            console.log("response", resp)
-                            switch (resp.status) {
-                                case (200): {
-                                    if (resp.data.responseCode == 200) {
-                                        window.location.href = `SignupRetailer/${this.state.mobileno}`;
-                                        this.setState({ modalStatus: false })
-                                    }
-                                    else if (resp.data.responseCode == 403) {
-                                        ToasterFunction("info", "This Mobile number already exists");
-        
-                                        this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
-                                    }
-                                    else if (resp.data.responseCode == 404) {
-                                        ToasterFunction("info", "This Mobile number already exists");
-        
-                                    }
-                                    else if (resp.data.responseCode == 500) {
-                                        ToasterFunction("error", "Internal Server Error");
-        
-                                    }
-                                }
-                                break
-                                case (900): {
-                                    if (resp.status == 900) {
-                                        ToasterFunction("error", "Please check your internet connection")
-                                    }
-                                }
-                            }
-                        })
-                } catch (error) {
-                    console.log("response", error)
-                    ToasterFunction("error", "Network error, please contact the administrator");
-        
-                }
-
                         window.location.href = "SignupRetailer";
                         this.setState({ modalStatus: false })
 
@@ -173,7 +133,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
                             }
                         }
-                        break
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")

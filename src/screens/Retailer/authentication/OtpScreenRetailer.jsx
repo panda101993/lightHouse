@@ -6,28 +6,9 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Apirequest  from '../../../api/Apirequest';
 
 
 export default class OtpScreenRetailer extends Component {
-   otpHandler = () => {
-      this.setState({ modalStatus: !this.state.modalStatus })
-      var requestData = {
-         otp: this.state.otp,
-         otp2: this.state.otp2,
-         otp3:this.state.otp3,
-         otp4:this.state.otp4,
-      }
-      Apirequest(requestData,"/retailer/verifyOTP" ,"POST")
-      .then((resp)=> {
-         console.log("abcd==>",resp);
-
-      })
-      .catch(e=>{console.log(e)})
-   
-   }
-   
-   
    constructor(props) {
       super(props)
 
@@ -63,7 +44,7 @@ export default class OtpScreenRetailer extends Component {
          if (this.state.otpStatus2) {
             if (this.state.otpStatus3) {
                if (this.state.otpStatus4) {
-               //  window.location.href='ResetpasswordRetailer'
+                window.location.href='ResetpasswordRetailer'
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
          } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -279,4 +260,3 @@ export default class OtpScreenRetailer extends Component {
       )
    }
 }
-
