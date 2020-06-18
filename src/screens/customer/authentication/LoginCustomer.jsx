@@ -4,11 +4,11 @@ import Footer from '../../../components/Footer'
 import { GlobalValidations } from '../../../components/GlobalValidations'
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks'
 import { Link } from 'react-router-dom';
-import Api from '../../services/webservices'
+// import Api from '../../services/webservices'
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import {loginAction} from "../../../redux/action/AuthAction";
-import Apirequest from "../../../api/Apirequest"
+// import Apirequest from "../../../api/Apirequest"
 
 
 export class LoginCustomer extends Component {
