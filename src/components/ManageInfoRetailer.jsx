@@ -8,6 +8,7 @@ import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 export default class ManageInfoRetailer extends Component {
     constructor(props) {
         super(props)
+<<<<<<< HEAD
 
         this.state = {
             otp: "",
@@ -33,6 +34,49 @@ export default class ManageInfoRetailer extends Component {
             mobileno1: "",
             mobilenoErrorMessage1: "",
             mobilenoStatus1: false,
+=======
+            this.state = {
+                shopName:'',
+                shopNumber:'',
+                floorNumer:'',
+                martName:'',
+                martId:'',
+                mobileNumber: '',
+                email: '',
+                GSTIN:'',
+                registeredBusinessName:'', 
+                registeredBusinessAddress: '',
+                addressProof: '',
+                pinCode: '',
+                city: '',
+                state: '',
+                address: '',
+                token:'',
+
+                otp: "",
+                otpErrorMessage: "",
+                otpStatus: false,
+
+                otp2: "",
+                otpErrorMessage2: "",
+                otpStatus2: false,
+
+                otp3: "",
+                otpErrorMessage3: "",
+                otpStatus3: false,
+
+                otp4: "",
+                otpErrorMessage4: "",
+                otpStatus4: false,
+
+                mobileno: "",
+                mobilenoErrorMessage: "",
+                mobilenoStatus: false,
+
+                mobileno1: "",
+                mobilenoErrorMessage1: "",
+                mobilenoStatus1: false,
+>>>>>>> ddd60b0343d5090d289f90173a125288b5ce87de
 
 
 
@@ -41,17 +85,86 @@ export default class ManageInfoRetailer extends Component {
    
          }
     }
+<<<<<<< HEAD
+=======
+    shopNamehandler=(event,type)=>{
+      switch (type) {
+          case "shopName":
+              this.setState({shopName:event.target.value})
+              break;
+          case "shopNumber":
+              this.setState({shopNumber:event.target.value})
+              break;
+          case "floorNumer":
+                this.setState({floorNumer:event.target.value})
+                break;
+          case "email":
+                    this.setState({email:event.target.value})
+                    break; 
+          case "registeredBussinessName":
+                    this.setState({registeredBusinessName:event.target.value})
+                        break;
+           case "registeredBussinessAddress":
+                    this.setState({registeredbussinessAddress:event.target.value})
+                        break;
+          case "pinCode":
+                this.setState({pinCode:event.target.value})
+                break; 
+          case "GSTIN":
+                    this.setState({GSTIN:event.target.value})
+                    break;   
+          case "city":
+                        this.setState({city:event.target.value})
+                        break; 
+          case "state":
+                        this.setState({state:event.target.value})
+                        break;    
+          case "address":
+                        this.setState({address:event.target.value})
+                        break; 
+        //   case "martName":
+        //                 this.setState({martName:event.target.value})
+        //                 break; 
+          default:
+              break;
+      }
+    }
+    handleResendOtp = () =>{
+        this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
+        var Data1 = {
+            "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
+            }
+            Apirequest(Data1,"/retailer/resendOTP" ,"POST")
+            .then((resp)=> {
+               console.log("reacd==>",resp);
+      
+            })
+            .catch(e=>{console.log(e)})
+    }
+
+>>>>>>> ddd60b0343d5090d289f90173a125288b5ce87de
 
     submitHandler = () => {
         if (this.state.otpStatus) {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
                     if (this.state.otpStatus4) {
-
+                
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
                         this.setState({ modalStatus: false })
-
+                        var Data = {
+                        "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
+                        }
+                        Apirequest(Data,"/retailer/verifyOTP" ,"POST")
+                        .then((resp)=> {
+                           console.log("wxyz==>",resp);
+                  
+                        })
+                        .catch(e=>{console.log(e)})
+                     
+                     
+                        
 
 
                     } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -111,6 +224,15 @@ export default class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+                        var Data = {
+                        "mobileNumber":this.state.mobileNumber,
+                            }
+                            Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
+                            .then((resp)=> {
+                               console.log("abcd==>",resp);
+                      
+                            })
+                            .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
@@ -120,7 +242,17 @@ export default class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
+                        var Data = {
+                            "mobileNumber":this.state.mobileNumber,
+                                }
+                                Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
+                                .then((resp)=> {
+                                   console.log("abcd==>",resp);
+                          
+                                })
+                                .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
+
     }
 
     render() {
@@ -338,7 +470,8 @@ export default class ManageInfoRetailer extends Component {
                                                         </label>
                                                     </div>
                                                     {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
+                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.handleResendOtp()}>
+                                                    {/* this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })} */}
                                                         Resend
                                                      </p></Link>
                                                 </div>

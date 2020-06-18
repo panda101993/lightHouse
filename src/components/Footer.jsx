@@ -64,6 +64,7 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 
 export default class Footer extends Component {
+  
     render() {
         return (
             <div>
@@ -81,7 +82,7 @@ export default class Footer extends Component {
                                     <div class="info-left mr-15">
                                         <h2>Information</h2>
                                         <ul class="foter">
-                                            <li><Link to="/About">About Us</Link></li>
+                                            <li><Link to="/About"  >About Us</Link></li>
                                             <li><Link to="/TermsCondition">Terms&Conditions</Link></li>
                                             <li><Link to="/Policy">Privacy Policy</Link></li>
                                         </ul>
