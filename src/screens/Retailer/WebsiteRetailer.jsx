@@ -116,7 +116,7 @@ export class WebsiteRetailer extends Component {
 
    productServiceType() {
       if (this.props.allCouponData !== undefined) {
-         return this.props.allCouponData.map((allCoupon, index) => {
+         return this.props.allCouponData.slice(0,2).map((allCoupon, index) => {
             return (
                <div>
                   <h1>{allCoupon.productServiceType}</h1>
