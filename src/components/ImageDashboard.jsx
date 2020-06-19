@@ -8,7 +8,7 @@ export default function ImageDashboard(props) {
    const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token } = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId } = props
    console.log("hello imageAbc ", props)
 
    const  addToFavouriteMarts = (MartId) => {
@@ -49,6 +49,44 @@ export default function ImageDashboard(props) {
       setModal1(false)
    }
 
+   const  addToFavouriteRetailers = (RetailerId) => {
+      try {
+         console.log("RetailerId--",RetailerId)
+         console.log("RetailerId----",props.Token)
+         
+         apiRequest({ retailerId:RetailerId }, '/user/wishListRetailers', 'POST', props.Token)
+            .then((resp) => {
+               console.log('responseretaileradded', resp);
+               switch (resp.status) {
+                  case (200):
+                      {
+                      if (resp.data.responseCode == 200) {
+                        ToasterFunction("success", resp.data.responseMessage);
+                      }
+                       else if (resp.data.responseCode == 404) {
+                          ToasterFunction("info", resp.data.responseMessage);
+      
+                      }
+                      else if (resp.data.responseCode == 500) {
+                          ToasterFunction("error", resp.data.responseMessage);
+      
+                      }
+                  }
+                  case (900): {
+                      if (resp.status == 900) {
+                          ToasterFunction("error", "Please check your internet connection")
+                      }
+                  }
+              }
+            })
+      } catch (error) {
+         console.log('errorresponse', error)
+         ToasterFunction("error", "Network error, please contact the administrator");
+  
+      }
+      setModal(false)
+   }
+
    return (
       <>
          <body>
@@ -80,10 +118,10 @@ export default function ImageDashboard(props) {
                <ModalBody>
                   <div class="modal-content">
                      <div class="modal-header locationsethead">
-                        <h5>Mart removed from the wishlist !</h5>
+                        <h5>Retailer mark as a favourite !</h5>
                      </div>
                      <div class="modal-body ok">
-                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)} > OK </button>
+                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => addToFavouriteRetailers(RetailerId)} > OK </button>
                      </div>
                   </div>
                </ModalBody>

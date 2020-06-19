@@ -189,7 +189,7 @@ setLongitude(position.coords.longitude);
                                 </ul>
                             </div>
                             <div class="left-top">
-                                <ul class="leftsideloctn">4
+                                <ul class="leftsideloctn">
                                     <li class="nav-item dropdown">
                                         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                                             <DropdownToggle className="nav-item dropdown" caret>
@@ -198,7 +198,7 @@ setLongitude(position.coords.longitude);
                                             <DropdownMenu className="dropdown-menu log-menu">
 
                                                 <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
-                                                <DropdownItem tag={Link} to="/CreateWebpageInitialSignupProcess" >Signup</DropdownItem>
+                                                <DropdownItem tag={Link} to="/SignupRetailer" >Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
 

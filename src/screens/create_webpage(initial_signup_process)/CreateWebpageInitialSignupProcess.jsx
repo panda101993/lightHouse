@@ -119,21 +119,8 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 this.setState({ modalStatus: !this.state.modalStatus });
 
                             }
-                            else if (resp.data.responseCode == 402) {
-                                ToasterFunction("Already Signedup,Need login");
-                                this.props.history.push("/LoginRetailer")
-
-                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
-                            }
-                            else if (resp.data.responseCode == 400) {
-                                ToasterFunction("OTP Sent");
-                                // this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
-
-                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
-                            }
                             else if (resp.data.responseCode == 403) {
-                                ToasterFunction("Mobile OTP verified");
-                                this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
+                                ToasterFunction("info", "This Mobile number already exists");
 
                                 this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
                             }
@@ -146,7 +133,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
                             }
                         }
-                        break
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")
