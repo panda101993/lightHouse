@@ -52,8 +52,46 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                     if (this.state.otpStatus4) {
 
                         // alert('Submit Successfully');
-                        window.location.href = "SignupRetailer";
-                        this.setState({ modalStatus: false })
+                        // window.location.href = "SignupRetailer";
+                        // this.setState({ modalStatus: false })
+                        try{
+                            apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
+                            .then((resp) => {
+                                console.log("response", resp)
+                                switch (resp.status) {
+                                    case (200): {
+                                        if (resp.data.responseCode == 200) {
+                                            this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
+                                            this.setState({ modalStatus: false })
+                                        }
+                                        else if (resp.data.responseCode == 403) {
+                                            ToasterFunction("info", "This Mobile number already exists");
+            
+                                            this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                                        }
+                                        else if (resp.data.responseCode == 404) {
+                                            ToasterFunction("info", "This Mobile number already exists");
+            
+                                        }
+                                        else if (resp.data.responseCode == 500) {
+                                            ToasterFunction("error", "Internal Server Error");
+            
+                                        }
+                                    }
+                                    break
+                                    case (900): {
+                                        if (resp.status == 900) {
+                                            ToasterFunction("error", "Please check your internet connection")
+                                        }
+                                    }
+                                }
+                            })
+                    } catch (error) {
+                        console.log("response", error)
+                        ToasterFunction("error", "Network error, please contact the administrator");
+            
+                    }
+    
 
 
 
@@ -119,6 +157,22 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 this.setState({ modalStatus: !this.state.modalStatus });
 
                             }
+<<<<<<< HEAD
+=======
+                            else if (resp.data.responseCode == 402) {
+                                ToasterFunction("Already Signedup,Need login");
+                                this.props.history.push("/LoginRetailer")
+
+                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                            }
+                            else if (resp.data.responseCode == 400) {
+                                ToasterFunction("OTP Sent");
+                                this.setState({ modalStatus: !this.state.modalStatus });
+                                // this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
+
+                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                            }
+>>>>>>> 04799e07b14f01ba3ab82fb61f664124859d58db
                             else if (resp.data.responseCode == 403) {
                                 ToasterFunction("info", "This Mobile number already exists");
 
