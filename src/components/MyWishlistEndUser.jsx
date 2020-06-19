@@ -5,6 +5,10 @@ import WishlistImageComponent from './WishlistImageComponent';
 import DashboardImageScroll from '../screens/dashboard/DashboardImageScroll';
 import CatogriesScroll from './CatogriesScroll';  
 import ImageDashboard from "./ImageDashboard";
+import apiRequest from '../api/Apirequest';
+import {loginAction} from "../redux/action/AuthAction";
+import { connect } from "react-redux";
+import ToasterFunction from '../components/ToasterFunc';
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css'; 
@@ -46,8 +50,95 @@ export class MyWishlistEndUser extends Component {
       this.state = {
        
          modalStatus: false,
-        
+         favMartData: []
       }
+   }
+
+   getFavMartWishlist = () =>{
+      try {
+
+         console.log('hhhh=>',this.props.applicationData)
+         apiRequest({"type":"MART"},'/user/wishList','POST',this.props.applicationData.token)
+         .then((resp)=>{
+         console.log('response', resp);
+         switch (resp.status) {
+            case (200):
+                {
+                if (resp.data.responseCode == 200) {
+                    this.setState({
+                     favMartData: resp.data.result
+                     });
+                }
+               //   else if (resp.data.responseCode == 404) {
+               //      ToasterFunction("info", resp.data.responseMessage);
+
+               //  }
+                else if (resp.data.responseCode == 500) {
+                    ToasterFunction("error", resp.data.responseMessage);
+
+                }
+            }
+            case (900): {
+                if (resp.status == 900) {
+                    ToasterFunction("error", "Please check your internet connection")
+                }
+            }
+        }
+      });
+         
+      } catch (error) {
+         console.log('response===', error);
+         ToasterFunction("error", "Network error, please contact the administrator");
+         
+      }
+   }
+
+   async componentDidMount() {
+
+   this.getFavMartWishlist();
+   
+   }
+
+   martData(){
+      // if(this.state.allData.length > 0)
+      return this.state.favMartData.map((xyz, index)=>{
+         const {martId,martImage,martName} = xyz
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+               <Carousel
+                  swipeable={true}
+                  draggable={false}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={5000000}
+                  keyBoardControl={true}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+               >
+                  <div>
+                     <ImageDashboard
+                        ImageName={martName}
+                        ImageA={martImage[0]}
+                        heartImage={Imageid.RedHeart}
+                        MartId={martId}
+                        Token={this.props.applicationData.token}
+                     />
+                  </div>
+
+                  
+               </Carousel>
+            </div>
+         )
+      })
    }
 
     render() {
@@ -63,8 +154,9 @@ export class MyWishlistEndUser extends Component {
                               </div> 
                               
                                <div class="wish-slider"> 
+                               {this.martData()}
                                    {/* <DashboardImageScroll /> */} 
-                                   <Carousel
+                                   {/* <Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
@@ -86,17 +178,15 @@ export class MyWishlistEndUser extends Component {
       
        <ImageDashboard 
       ImageName="TCL E-Mart1" 
-     // LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
 
-   </div> 
-   <div> 
+   </div>  */}
+   {/* <div> 
    
    <ImageDashboard 
       ImageName="TCL E-Mart2" 
-     // LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
@@ -104,7 +194,6 @@ export class MyWishlistEndUser extends Component {
    <div>  
        <ImageDashboard 
       ImageName="TCL E-Mart3" 
-     // LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
@@ -113,7 +202,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart4" 
-    //  LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
@@ -122,7 +210,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart5" 
-    //  LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
@@ -132,7 +219,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart6" 
-    //  LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
@@ -141,14 +227,13 @@ export class MyWishlistEndUser extends Component {
     
        <ImageDashboard 
       ImageName="TCL E-Mart7" 
-  //    LinkId="/AllRetailers"
       ImageA={Imageid.Image1} 
       heartImage={Imageid.RedHeart}
          />
-   </div>
+   </div> */}
   
 
-</Carousel> 
+{/* </Carousel>  */}
 
                               </div>
                               <div class="left-contant00">
@@ -156,7 +241,6 @@ export class MyWishlistEndUser extends Component {
                                
                               </div>
                               <div class="wish-slider">
-                               {/* <CatogriesScroll /> */}
                                <Carousel
   swipeable={true}
   draggable={false}
@@ -179,7 +263,6 @@ export class MyWishlistEndUser extends Component {
       
        <ImageDashboard 
       ImageName="TCL E-Mart1" 
-     // LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -189,7 +272,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart2" 
-     // LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -197,7 +279,6 @@ export class MyWishlistEndUser extends Component {
    <div>  
        <ImageDashboard 
       ImageName="TCL E-Mart3" 
-     // LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -206,7 +287,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart4" 
-    //  LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -215,7 +295,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart5" 
-    //  LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -225,7 +304,6 @@ export class MyWishlistEndUser extends Component {
    
    <ImageDashboard 
       ImageName="TCL E-Mart6" 
-    //  LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -234,7 +312,6 @@ export class MyWishlistEndUser extends Component {
     
        <ImageDashboard 
       ImageName="TCL E-Mart7" 
-  //    LinkId="/AllRetailers"
       ImageA={Imageid.Image5} 
       heartImage={Imageid.RedHeart}
          />
@@ -249,71 +326,6 @@ export class MyWishlistEndUser extends Component {
                                  <h3>Categories</h3>
                               </div>
                               <div class="wish-slider">
-                                 {/* <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image5.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Bounce Salon & Spa</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image6.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Boddy Massage</p>
-                                       </div>
-                                       <div class="heart">
-                                         <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image7.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Hair Cutting</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image8.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Food Not Fine Dining</p>
-                                       </div>
-                                       <div class="heart">
-                                         <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image5.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                         <p>Bounce Salon & Spa</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png"  /></a>
-                                       </div>
-                                    </div> 
-                                 </div> */} 
                                        <Carousel
   swipeable={true}
   draggable={false}
@@ -406,76 +418,6 @@ export class MyWishlistEndUser extends Component {
                                  <h3>Sub categories</h3>
                               </div>
                               <div class="wish-slider">
-                                 {/* <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src={Imageid.Image10} />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Sub Category Name</p>
-                                          <p>Category Name</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /> </a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image6.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Sub Category Name</p>
-                                          <p>Category Name</p>
-                                       </div>
-                                       <div class="heart">
-                                        <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image7.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Sub Category Name</p>
-                                          <p>Category Name</p>
-                                       </div>
-                                       <div class="heart">
-                                         <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image8.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <p>Sub Category Name</p>
-                                          <p>Category Name</p>
-                                       </div>
-                                       <div class="heart">
-                                          <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="slider-item">
-                                    <div class="main-coverslider">
-                                       <div class="cover-images00">
-                                          <img src="images/image5.png" />
-                                       </div>
-                                       <div class="tcl00">
-                                          <h3>Sub Category Name</h3>
-                                          <h3>Category Name</h3>
-                                       </div>
-                                       <div class="heart">
-                                         <a data-toggle="modal" data-target="#coup-rmv-success" ><img src="images/redheart.png" /></a>
-                                       </div>
-                                    </div>
-                                 </div> */} 
                                           <Carousel
   swipeable={true}
   draggable={false}
@@ -567,7 +509,6 @@ export class MyWishlistEndUser extends Component {
                            </div>
                         </section>  
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} 
-                       // style={{ top: "110px", left: "100px" }}
                        style={{ top: "190px", }}
                         >
                   <ModalBody>
@@ -587,4 +528,17 @@ export class MyWishlistEndUser extends Component {
     }
 }
 
-export default MyWishlistEndUser
+// export default MyWishlistEndUser
+const mapStateToProps = state => {
+   console.log("stateLogin-------", state)
+   return {
+      applicationData: state.AuthReducer.userData
+        
+   }
+         
+}
+
+
+
+// export default componentName
+export default connect(mapStateToProps,{loginAction})(MyWishlistEndUser);

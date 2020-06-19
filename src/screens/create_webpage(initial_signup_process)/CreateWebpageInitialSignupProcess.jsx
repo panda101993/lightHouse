@@ -52,8 +52,46 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                     if (this.state.otpStatus4) {
 
                         // alert('Submit Successfully');
-                        window.location.href = "SignupRetailer";
-                        this.setState({ modalStatus: false })
+                        // window.location.href = "SignupRetailer";
+                        // this.setState({ modalStatus: false })
+                        try{
+                            apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
+                            .then((resp) => {
+                                console.log("response", resp)
+                                switch (resp.status) {
+                                    case (200): {
+                                        if (resp.data.responseCode == 200) {
+                                            this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
+                                            this.setState({ modalStatus: false })
+                                        }
+                                        else if (resp.data.responseCode == 403) {
+                                            ToasterFunction("info", "This Mobile number already exists");
+            
+                                            this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                                        }
+                                        else if (resp.data.responseCode == 404) {
+                                            ToasterFunction("info", "This Mobile number already exists");
+            
+                                        }
+                                        else if (resp.data.responseCode == 500) {
+                                            ToasterFunction("error", "Internal Server Error");
+            
+                                        }
+                                    }
+                                    break
+                                    case (900): {
+                                        if (resp.status == 900) {
+                                            ToasterFunction("error", "Please check your internet connection")
+                                        }
+                                    }
+                                }
+                            })
+                    } catch (error) {
+                        console.log("response", error)
+                        ToasterFunction("error", "Network error, please contact the administrator");
+            
+                    }
+    
 
 
 
@@ -127,6 +165,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                             }
                             else if (resp.data.responseCode == 400) {
                                 ToasterFunction("OTP Sent");
+                                this.setState({ modalStatus: !this.state.modalStatus });
                                 // this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
 
                                 this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
@@ -182,7 +221,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
         return (
             <div>
                 <body>
-                    {/* <Header2 /> */}
+                    {/* {/ <Header2 /> /} */}
                     <Header2 />
                     <section class="bg-form">
                         <div class="cover-forgot bg-whiteform">
@@ -242,7 +281,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 </div>
                                 <div class="text-center mt-5">
                                     <p>Already have an account ?
-                                        {/* <a href="3-login.html">Login</a> */}
+                                        {/* {/ <a href="3-login.html">Login</a> /} */}
                                         <Link to="/LoginCustomer" >Login</Link>
                                     </p>
                                 </div>
@@ -326,7 +365,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                 <div class="otp-box">
                                                     <p class="my-3">Enter 4 - digits code</p>
                                                     <ul>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* {/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp"
@@ -335,7 +374,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 placeholder="0"
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* {/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp2"
@@ -344,7 +383,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 placeholder="0"
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* /{/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp3"
@@ -354,7 +393,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 // value={this.state.otp}
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* {/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp4"

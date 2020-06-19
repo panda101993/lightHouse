@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo,validateEmail,validatePassword,validateCFPassword } from '../utils/validation/Validation';
 import ProvinceJSON from '../utils/JSON/province.json';
+import Apirequest from '../api/Apirequest';
 
 export default class ManageInfoRetailer extends Component {
     constructor(props) {
@@ -101,7 +102,6 @@ export default class ManageInfoRetailer extends Component {
         const value = e.target.value;
         this.setState({ [name]: value })
         console.log("valueset==>", value)
-        console.log("valueset====>", name)
 
         this.state.mobilenoErrorMessage = validateMobileNo(value).error;
         this.state.mobilenoStatus = validateMobileNo(value).status;
@@ -125,20 +125,6 @@ export default class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
-
-                        var Data = {
-                        "mobileNumber":this.state.mobileno,
-                        
-                            }
-                            console.log("Data",Data)
-                            Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
-                            .then((resp)=> {
-                               console.log("abcd==>",resp);
-                      
-                            })
-                            .catch(e=>{console.log(e)})
-
-
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
@@ -148,16 +134,6 @@ export default class ManageInfoRetailer extends Component {
                         //  window.location.href = "SignupRetailer";
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
-                        var Data = {
-                            "mobileNumber":this.state.mobileno1,
-                                }
-                                console.log("Data",Data)
-                                Apirequest(Data,"/retailer/signUpRetailer" ,"POST")
-                                .then((resp)=> {
-                                   console.log("abcd==>",resp);
-                          
-                                })
-                                .catch(e=>{console.log(e)})
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
     }
 

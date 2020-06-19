@@ -193,6 +193,8 @@ retailerData(){
               ItemType={allCoupon.itemType}
               ItemName={allCoupon.itemName}
               BrandName={allCoupon.brandName}
+              RetailerId={allCoupon._id}
+              Token={this.props.applicationData.token}
             />
 
           </div>

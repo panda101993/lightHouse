@@ -84,11 +84,11 @@ class componentName extends Component {
                      });
                 }
                  else if (resp.data.responseCode == 404) {
-                    ToasterFunction("info", "Data not found, internal server error");
+                    ToasterFunction("info", resp.data.responseMessage);
 
                 }
                 else if (resp.data.responseCode == 500) {
-                    ToasterFunction("error", "Internal Server Error");
+                    ToasterFunction("error", resp.data.responseMessage);
 
                 }
             }
@@ -146,8 +146,9 @@ class componentName extends Component {
                LinkId={`/AllRetailers/${martId}`}
                // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
                ImageA={martImage}
-               heartImage={Imageid.RedHeart}
+               heartImage={Imageid.heartImage}
                MartId={martId}
+               Token={this.props.applicationData.token}
             />
              </Carousel>
          </div>

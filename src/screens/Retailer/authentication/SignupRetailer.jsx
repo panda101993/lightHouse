@@ -9,9 +9,9 @@ import {signupActionRetailer} from "../../../redux/action/AuthAction"
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { TumblrShareButton } from 'react-share';
-//import { validateEmail, validatePassword, validateCFPassword } from '../../../utils/validation/Validation';
-//import validateCFPassword from '../../../utils/validation/Validation';
-export default class SignupRetailer extends Component {
+import { validateEmail, validatePassword, validateCFPassword } from '../../../utils/validation/Validation';
+
+export class SignupRetailer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,8 +40,6 @@ export default class SignupRetailer extends Component {
             cfpasswordErrorStatus:null,
 
             termsAndPrivacy: false,
-
-            selectedvalue:"",
             temp: this.props.location.pathname.split("/")
         }
     }
@@ -182,6 +180,8 @@ export default class SignupRetailer extends Component {
                                     "password": this.state.password
                                     }
                                     this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.mobileNumber}`))
+
+                                    
                                 
                     }
                     else {
@@ -220,9 +220,12 @@ export default class SignupRetailer extends Component {
 
                                     <div class="form-group">
                                         <label>Mart Name*</label>
-                                        <select id="inputState" class="form-control">
+                                        <select id="inputState" class="form-control"
+                                        onChange={(e) => this.setState({ selectedvalue: e.target.value }
+                                            )}
+                                        >
                                             <option selected>Mart name</option>
-                                            <option>...</option>
+                                            <option value={this.state.datafound._id}>{this.state.datafound.martName}</option>
                                         </select>
                                     </div>
                                     <GlobalValidations
@@ -234,21 +237,40 @@ export default class SignupRetailer extends Component {
                                         inputPlaceholder="Shop Name"
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
+                                        onChange={(e) => this.handleInput(e, "shopname")}
                                     />
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label >Shop Number*</label>
-                                            <input type="text" class="form-control shpnm" placeholder="Shop Number" />
+                                            <input type="text" class="form-control shpnm" placeholder="Shop Number"
+                                            onChange={(e) => this.handleInput(e, "shopNo")}
+                                            />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Floor Number*</label>
-                                            <input type="text" class="form-control shpnm" placeholder="2" />
+                                            <input type="text" class="form-control shpnm" placeholder="2"
+                                            onChange={(e) => this.handleInput(e, "floorNo")}
+                                            />
                                         </div>
                                     </div>
 
                                     <div class="eimanaging">
                                         Email id for Managing Coupons and Getting Communications From LH *
                   </div>
+                  <GlobalValidations
+                                        divClass="form-group"
+                                        label="Email*"
+                                        labelClass=""
+                                        inputType="text"
+                                        inputId=""
+                                        inputPlaceholder="email"
+                                        errorMessage=""
+                                        textInputClassName="form-control shpnm"
+                                        realValue={this.state.email}
+                                        onChange={(e) => this.handleInput(e, "email")}
+                                        errorMessage={this.state.emailErrorMessage}
+                                    />
+
 
 
                                     <GlobalValidations
@@ -260,6 +282,8 @@ export default class SignupRetailer extends Component {
                                         inputPlaceholder="Password"
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
+                                        onChange={(e) => this.handleInput(e, "password")}
+                                        errorMessage={this.state.passwordErrorMessage}
                                     />
 
                                     <GlobalValidations
@@ -271,12 +295,18 @@ export default class SignupRetailer extends Component {
                                         inputPlaceholder="Confirm Password"
                                         errorMessage=""
                                         textInputClassName="form-control shpnm"
+                                        onChange={(e) => this.handleInput(e, "cfpassword")}
+                                        errorMessage={this.state.cfpasswordErrorMessage}
                                     />
                                     <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" />
+                                        <input type="checkbox" class="form-check-input"
+                                        onChange={()=>this.handleTermsCondition()}
+                                        />
                                         <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions"> <Link to="/TermsCondition" > Terms and Conditions</Link></a> </label>
                                     </div>
-                                    <Link to="SignupOtp"><button type="button" class="btn btn-theme" >SIGNUP</button> </Link>
+                                    <button type="button" class="btn btn-theme"
+                                    onClick={()=>this.handleSignup()}
+                                    >SIGNUP</button>
                                     <div class="have-an">
                                         <p>Already Have an account? <Link to="LoginRetailer">Login</Link></p>
                                     </div>
@@ -290,3 +320,17 @@ export default class SignupRetailer extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    console.log("First state", state)
+    return {
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ signupActionRetailer }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupRetailer);
