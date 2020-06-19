@@ -59,6 +59,25 @@ export function validatePassword(password) {
   }
 }
 
+export function validateCFPassword(cfpassword,password) {
+  // var passwordRegex = /^ (?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+  // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+  password = password.trim();
+
+  if (password == "" || password == undefined || password == null) {
+    return { status: false, error: "*Please enter the password." };
+  } else if (cfpassword!==password) {
+    return { status: false, error: "*Please enter matching password" };
+  }
+  // else if (password.length < 8) {
+  //     return { status: false, error: "Password must contain atleast 8 character."}
+  // }
+  else {
+    return { status: true, error: "" };
+  }
+}
+
+
 /* To validate Mobile No. */
 
 export function validateMobileNo(mobileNo) {
