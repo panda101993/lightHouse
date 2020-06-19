@@ -9,9 +9,9 @@ import {signupActionRetailer} from "../../../redux/action/AuthAction"
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { TumblrShareButton } from 'react-share';
-import { validateEmail, validatePassword, validateCFPassword } from '../../../utils/validation/Validation';
-
-export class SignupRetailer extends Component {
+//import { validateEmail, validatePassword, validateCFPassword } from '../../../utils/validation/Validation';
+//import validateCFPassword from '../../../utils/validation/Validation';
+export default class SignupRetailer extends Component {
     constructor(props) {
         super(props);
         this.state = {

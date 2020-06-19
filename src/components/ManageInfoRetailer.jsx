@@ -3,7 +3,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+import { validateOtp,validateMobileNo,validateEmail,validatePassword,validateCFPassword } from '../utils/validation/Validation';
+import ProvinceJSON from '../utils/JSON/province.json';
 
 export default class ManageInfoRetailer extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ export default class ManageInfoRetailer extends Component {
                         var Data = {
                         "otp":this.state.otp+ this.state.otp2+this.state.otp3+this.state.otp4,
                         }
+                        console.log("data",Data)
                         Apirequest(Data,"/retailer/verifyOTP" ,"POST")
                         .then((resp)=> {
                            console.log("wxyz==>",resp);
