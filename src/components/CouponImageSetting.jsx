@@ -158,6 +158,7 @@ class CouponImageSetting extends Component {
          ToasterFunction("error", "Network error, please contact the administrator");
 
       }
+      this.setState({modalStatus:false});
    }
 
    hideCoupans = (getCouponId) => {
@@ -187,12 +188,14 @@ class CouponImageSetting extends Component {
                       }
                   }
               }
+              this.setState({modalStatusImage:false});
             })
       } catch (error) {
          console.log('errorresponse', error)
          ToasterFunction("error", "Network error, please contact the administrator");
 
       }
+      this.setState({modalStatusImage:false});
    }
 
    openfavouriteModal= (id,image,title,couponCode,discount,itemName,
@@ -203,13 +206,7 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
    couponExpiryDate:ExpiryDate,couponAppliedOn:couponAppliedOn,oneTimeCoupon:oneTimeCoupon,
    shopName:shopName,floorNumber:floorNumber,martName:martName,shopPhoneNumber:shopPhoneNumber,
    restrictions:restrictions,modalStatusImage: true});
-// this.setState({favouriteImage:image});
-// this.setState({couponTitle:title});
-// this.setState({couponCode:couponCode}),
-// this.setState({couponDiscount:discount}),
-// this.setState({itemName:itemName}),
-// this.setState({couponExpiryDate:ExpiryDate}),
-// this.setState({ modalStatus: true })
+
    }
 
    openDelteModal = (id) =>{
@@ -337,7 +334,6 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                            </div>
                         </div>
 
-
                         <div className="Demo__container">
                            <div className="Demo__some-network">
                               <FacebookShareButton
@@ -347,13 +343,6 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                               >
                                  <FacebookIcon size={50} round />
                               </FacebookShareButton>
-                              {/* 
-                                <div>
-                                   <FacebookShareCount url={'www.facebook.com'} className="Demo__some-network__share-count">
-                                      {count => count}
-                                   </FacebookShareCount>
-                                </div> */}
-
                            </div>
                         </div>
 
@@ -380,10 +369,6 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                               </EmailShareButton>
                            </div>
                         </div>
-
-
-
-
                      </div>
                   </div>
 
