@@ -3,61 +3,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
-import ProvinceJSON from '../utils/JSON/province.json';
-import Apirequest from '../api/Apirequest';
+import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 
 export default class ManageInfoRetailer extends Component {
-    submit = () => {
-        this.setState({ modalStatus: !this.state.modalStatus })
-        var requestData = {
-            shopName: this.state.shopName,
-            shopNumber: this.state.shopNumber,
-            floorNumer: this.state.floorNumer,
-            martName: this.state.martName,
-            martId: this.state.martId,
-            mobileNumber: this.state.mobileNumber,
-            email: this.state.email,
-            GSTIN: this.state.GSTIN,
-            registeredBusinessName: this.state.registeredBusinessName,
-            registeredBussinessAddress: this.state.registeredBussinessAddress,
-            addressProof: this.state.addressProof,
-            pinCode: this.state.pinCode,
-            city: this.state.city,
-            state: this.state.state,
-            address: this.state.address,
-            token: this.state.token,
-        }
-        Apirequest(requestData, "/retailer/business", "POST", this.props.applicationkey.token)
-            .then((resp) => {
-                console.log("abcd==>", resp);
-
-            })
-            .catch(e => { console.log(e) })
-
-    }
-
     constructor(props) {
         super(props)
+
         this.state = {
-            shopName: '',
-            shopNumber: '',
-            floorNumer: '',
-            martName: '',
-            martId: '',
-            mobileNumber: '',
-            email: '',
-            GSTIN: '',
-            registeredBusinessName: '',
-            registeredBusinessAddress: '',
-            addressProof: '',
-            pinCode: '',
-            city: '',
-            state: '',
-            address: '',
-            token:'',
-
-
             otp: "",
             otpErrorMessage: "",
             otpStatus: false,
@@ -86,52 +38,9 @@ export default class ManageInfoRetailer extends Component {
 
             modalStatus: false,
             modalStatusResend: false
-
-        }
+   
+         }
     }
-    shopNamehandler=(event,type)=>{
-        switch (type) {
-            case "shopName":
-                this.setState({shopName:event.target.value})
-                break;
-            case "shopNumber":
-                this.setState({shopNumber:event.target.value})
-                break;
-            case "floorNumer":
-                  this.setState({floorNumer:event.target.value})
-                  break;
-            case "email":
-                      this.setState({email:event.target.value})
-                      break; 
-            case "registeredBussinessName":
-                      this.setState({registeredBusinessName:event.target.value})
-                          break;
-             case "registeredBussinessAddress":
-                      this.setState({registeredbussinessAddress:event.target.value})
-                          break;
-            case "pinCode":
-                  this.setState({pinCode:event.target.value})
-                  break; 
-            case "GSTIN":
-                      this.setState({GSTIN:event.target.value})
-                      break;   
-            case "city":
-                          this.setState({city:event.target.value})
-                          break; 
-            case "state":
-                          this.setState({state:event.target.value})
-                          break;    
-            case "address":
-                          this.setState({address:event.target.value})
-                          break; 
-          //   case "martName":
-          //                 this.setState({martName:event.target.value})
-          //                 break; 
-            default:
-                break;
-        }
-      }
-  
 
     submitHandler = () => {
         if (this.state.otpStatus) {
@@ -142,18 +51,6 @@ export default class ManageInfoRetailer extends Component {
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
                         this.setState({ modalStatus: false })
-                        var Data = {
-                        "otp": this.state.otp + this.state.otp2 + this.state.otp3 + this.state.otp4,
-                        }
-                        console.log("data", Data)
-                        Apirequest(Data, "/retailer/verifyOTP", "POST")
-                            .then((resp) => {
-                                console.log("wxyz==>", resp);
-
-                            })
-                            .catch(e => { console.log(e) })
-
-
 
 
 
@@ -209,40 +106,20 @@ export default class ManageInfoRetailer extends Component {
     }
 
     submitmobilenoHandler = () => {
-        if (this.state.mobilenoStatus) {
-            // alert('Submit Successfully');
-            //  window.location.href = "SignupRetailer";
-            // this.setState({ modalStatus: false })
-            this.setState({ modalStatus: !this.state.modalStatus });
-            var Data = {
-                "mobileno": this.state.mobileno,
-            }
-            console.log("Data", Data)
-            Apirequest(Data, "/retailer/signUpRetailer", "POST")
-                .then((resp) => {
-                    console.log("wxyz==>", resp);
-
-                })
-                .catch(e => { console.log(e) })
+        if (this.state.mobilenoStatus) {          
+                        // alert('Submit Successfully');
+                        //  window.location.href = "SignupRetailer";
+                        // this.setState({ modalStatus: false })
+                        this.setState({ modalStatus: !this.state.modalStatus });
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
     submitmobilenoHandler1 = () => {
-        if (this.state.mobilenoStatus1) {
-            // alert('Submit Successfully');
-            //  window.location.href = "SignupRetailer";
-            // this.setState({ modalStatus: false })
-            this.setState({ modalStatus: !this.state.modalStatus });
-            var Data = {
-                "mobileno1": this.state.mobileno,
-            }
-            console.log("Data", Data)
-            Apirequest(Data, "/retailer/signUpRetailer", "POST")
-                .then((resp) => {
-                    console.log("wxyz==>", resp);
-
-                })
-                .catch(e => { console.log(e) })
+        if (this.state.mobilenoStatus1) {          
+                        // alert('Submit Successfully');
+                        //  window.location.href = "SignupRetailer";
+                        // this.setState({ modalStatus: false })
+                        this.setState({ modalStatus: !this.state.modalStatus });
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
     }
 
@@ -295,27 +172,27 @@ export default class ManageInfoRetailer extends Component {
                                 </div>
                                 <div class="code-no pos-rel">
                                     <input
-                                        name="mobileno"
-                                        type="text" class="form-control" placeholder="9999999999"
-                                        onChange={(event) => this.handlemobilenoInput(event)}
-                                    />
+                                     name="mobileno"
+                                     type="text" class="form-control" placeholder="9999999999"
+                                     onChange={(event) => this.handlemobilenoInput(event)}
+                                     />
                                     <div class="green-verify">
                                         <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
-                                            onClick={() => this.submitmobilenoHandler()}
+                                        onClick={()=>this.submitmobilenoHandler()}
                                         >verify</button>
                                     </div>
                                 </div>
-
+                                
                             </div>
                             <div>
-                                <label style={{ color: "red" }}>
-                                    {this.state.mobilenoErrorMessage}
-                                </label>
-                            </div>
+                                            <label style={{color:"red"}}>
+                                                {this.state.mobilenoErrorMessage}
+                                            </label>
+                                        </div>
                         </span>
                         <span class="name">
                             <label>Shop Phone Number to be Displayed on Coupons *</label>
-                            <div class="cover-phoneno no-minht" style={{ position: "relative" }}>
+                            <div class="cover-phoneno no-minht" style={{position:"relative"}}>
                                 <div class="code">
                                     <select class="form-control">
                                         <option selected>+91</option>
@@ -325,21 +202,21 @@ export default class ManageInfoRetailer extends Component {
                                 </div>
                                 <div class="code-no pos-rel" >
                                     <input
-                                        name="mobileno1"
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="9999999999"
-                                        onChange={(event) => this.handlemobilenoInput1(event)}
+                                    name="mobileno1"
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="9999999999" 
+                                    onChange={(event) => this.handlemobilenoInput1(event)}
                                     />
                                     <div class="green-verify">
                                         <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
-                                            onClick={() => this.submitmobilenoHandler1()}
+                                        onClick={()=>this.submitmobilenoHandler1()}
                                         >verify</button>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             <div>
-                                <label style={{ color: "red" }}>
+                                <label style={{color:"red"}}>
                                     {this.state.mobilenoErrorMessage1}
                                 </label>
                             </div>
@@ -393,112 +270,112 @@ export default class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-                                <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
+                                 <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
-                            {/* <ModalHeader >Alert!!
+                        {/* <ModalHeader >Alert!!
             <button onClick={() => this.setState({ modalStatus: false })} type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </ModalHeader> */}
-                            <ModalBody>
-                                <form>
-                                    <div class="modal-body">
-                                        <div class="web-pagemodal">
-                                            <h5 class="text-center mt-3">OTP verification</h5>
-                                            <form>
-                                                <div class="register-cont">
-                                                    <p class="my-3">Please enter the 4 digits OTP sent on your registered phone number.</p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="otp-box">
-                                                        <p class="my-3">Enter 4 - digits code</p>
-                                                        <ul>
-                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                            <li>
-                                                                <input class="form-control"
-                                                                    name="otp"
-                                                                    type="text"
-                                                                    maxLength={1}
-                                                                    placeholder="0"
-                                                                    onChange={(event) => this.handleOtpInput(event)} />
-                                                            </li>
-                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                            <li>
-                                                                <input class="form-control"
-                                                                    name="otp2"
-                                                                    type="text"
-                                                                    maxLength={1}
-                                                                    placeholder="0"
-                                                                    onChange={(event) => this.handleOtpInput(event)} />
-                                                            </li>
-                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                            <li>
-                                                                <input class="form-control"
-                                                                    name="otp3"
-                                                                    type="text"
-                                                                    maxLength={1}
-                                                                    placeholder="0"
-                                                                    // value={this.state.otp}
-                                                                    onChange={(event) => this.handleOtpInput(event)} />
-                                                            </li>
-                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                            <li>
-                                                                <input class="form-control"
-                                                                    name="otp4"
-                                                                    type="text"
-                                                                    maxLength={1}
-                                                                    placeholder="0"
-                                                                    id="d"
-                                                                    // value={this.state.otp}
-                                                                    onChange={(event) => this.handleOtpInput(event)} />
-                                                            </li>
-                                                        </ul>
-                                                        <div>
-                                                            <label class="validation-hint">
-                                                                {this.state.otpErrorMessage}
-                                                            </label>
-                                                        </div>
-                                                        {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
-                                                            Resend
-                                                     </p></Link>
+                        <ModalBody>
+                            <form>
+                                <div class="modal-body">
+                                    <div class="web-pagemodal">
+                                        <h5 class="text-center mt-3">OTP verification</h5>
+                                        <form>
+                                            <div class="register-cont">
+                                                <p class="my-3">Please enter the 4 digits OTP sent on your registered phone number.</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="otp-box">
+                                                    <p class="my-3">Enter 4 - digits code</p>
+                                                    <ul>
+                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        <li>
+                                                            <input class="form-control"
+                                                                name="otp"
+                                                                type="text"
+                                                                maxLength={1}
+                                                                placeholder="0"
+                                                                onChange={(event) => this.handleOtpInput(event)} />
+                                                        </li>
+                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        <li>
+                                                            <input class="form-control"
+                                                                name="otp2"
+                                                                type="text"
+                                                                maxLength={1}
+                                                                placeholder="0"
+                                                                onChange={(event) => this.handleOtpInput(event)} />
+                                                        </li>
+                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        <li>
+                                                            <input class="form-control"
+                                                                name="otp3"
+                                                                type="text"
+                                                                maxLength={1}
+                                                                placeholder="0"
+                                                                // value={this.state.otp}
+                                                                onChange={(event) => this.handleOtpInput(event)} />
+                                                        </li>
+                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        <li>
+                                                            <input class="form-control"
+                                                                name="otp4"
+                                                                type="text"
+                                                                maxLength={1}
+                                                                placeholder="0"
+                                                                id="d"
+                                                                // value={this.state.otp}
+                                                                onChange={(event) => this.handleOtpInput(event)} />
+                                                        </li>
+                                                    </ul>
+                                                    <div>
+                                                        <label class="validation-hint">
+                                                            {this.state.otpErrorMessage}
+                                                        </label>
                                                     </div>
+                                                    {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
+                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
+                                                        Resend
+                                                     </p></Link>
                                                 </div>
-                                                <div class="modalsumit">
-                                                    {/* <a href="25-signup-user.html"> */}
-                                                    {/* <Link to="SignupRetailer"> */}
-                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
-                                                    {/* </Link> */}
-                                                    {/* </a> */}
-                                                </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                            <div class="modalsumit">
+                                                {/* <a href="25-signup-user.html"> */}
+                                                {/* <Link to="SignupRetailer"> */}
+                                                <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
+                                                {/* </Link> */}
+                                                {/* </a> */}
+                                            </div>
+                                        </form>
                                     </div>
+                                </div>
 
 
+                            
+                            </form>
+                        </ModalBody>
+                    </Modal>
 
-                                </form>
-                            </ModalBody>
-                        </Modal>
-
-                        <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
-                            <ModalBody>
-                                <form>
-                                    <div class="modal-header locationsethead">
-                                        <h5>OTP resent successfully.</h5>
-                                    </div>
-                                    <div style={{ textAlign: "center" }} >
-                                        <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend })} >OK</button>
-                                    </div>
-                                </form>
-                            </ModalBody>
-                        </Modal>
+                    <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
+                        <ModalBody>
+                            <form>
+                                <div class="modal-header locationsethead">
+                                    <h5>OTP resent successfully.</h5>
+                                </div>
+                                <div style={{ textAlign: "center" }} >
+                                    <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend })} >OK</button>
+                                </div>
+                            </form>
+                        </ModalBody>
+                    </Modal>
                     </div>
 
                 </div>
-
+                
 
 
 
@@ -507,12 +384,4 @@ export default class ManageInfoRetailer extends Component {
         )
     }
 }
-const mapSateToProps = state => {
-    console.log("change state", state)
-    return {
-        applicationkey: state.AuthReducer.userData
-    }
-}
-export default connect(mapSateToProps, { loginAction })(ManageInfoRetailer);
-
 

@@ -115,7 +115,7 @@ class CouponImageSetting extends Component {
             })
       } catch (error) {
          console.log('errorresponse', error);
-         ToasterFunction("error", "Network error, please contact the administrator");
+         // ToasterFunction("error", "Network error, please contact the administrator");
       }
    }
    async componentDidMount() {
@@ -151,14 +151,16 @@ class CouponImageSetting extends Component {
                   }
               }
               this.setState({modalStatus:false});
+              this.setState({modalStatusImage:false});
             //   window.location.reload(false);
             })
       } catch (error) {
          console.log('errorresponse', error);
-         ToasterFunction("error", "Network error, please contact the administrator");
+         // ToasterFunction("error", "Network error, please contact the administrator");
 
       }
       this.setState({modalStatus:false});
+      this.setState({modalStatusImage:false});
    }
 
    hideCoupans = (getCouponId) => {
@@ -192,7 +194,7 @@ class CouponImageSetting extends Component {
             })
       } catch (error) {
          console.log('errorresponse', error)
-         ToasterFunction("error", "Network error, please contact the administrator");
+         // ToasterFunction("error", "Network error, please contact the administrator");
 
       }
       this.setState({modalStatusImage:false});
@@ -431,7 +433,7 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                         </div>
                         <div class="modal-body ny">
                            {/* <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.deleteCoupans()}  >Delete</button> */}
-                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.hideCoupans(this.state.getCouponId)} >Don't Show Again</button>
+                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.openDelteModal(this.couponId)} >Delete</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-rmv-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Call Shop</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Navigate to Shop</button>
                         </div>
