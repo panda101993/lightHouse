@@ -4,8 +4,12 @@ import Footer from '../../../components/Footer';
 import { GlobalValidations } from '../../../components/GlobalValidations';
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
+import {loginActionRetailer} from "../../../redux/action/AuthAction"
+import { validateEmailMobile } from '../../../utils/validation/Validation';
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
  
-export default class LoginRetailer extends Component {   
+export class LoginRetailer extends Component {   
     constructor(props) {
         super(props);
         this.state = {
@@ -28,8 +32,11 @@ export default class LoginRetailer extends Component {
         this.setState({ [name]: value })
 
         if (name == "mobileno") {
-            this.state.mobilenoErrorMessage = this.validateMobileno(value).error;
-        this.state.mobilenoStatus = this.validateMobileno(value).status;
+        //     this.state.mobilenoErrorMessage = this.validateMobileno(value).error;
+        // this.state.mobilenoStatus = this.validateMobileno(value).status;
+        this.state.mobilenoErrorMessage = validateEmailMobile(value).error;
+        this.state.mobilenoStatus = validateEmailMobile(value).status;
+
          }
          else if (name == "password") {
             this.state.passwordErrorMessage = this.validatePassword(value).error;
@@ -38,19 +45,19 @@ export default class LoginRetailer extends Component {
         }
 
 
-    validateMobileno(value) {
-        var numberRegex = /^[1-9][0-9]{9,12}$/;
-        if (value == "" || value == undefined || value == null) {
-            return { status: false, error: "Please enter mobileNo." }
+    // validateMobileno(value) {
+    //     var numberRegex = /^[1-9][0-9]{9,12}$/;
+    //     if (value == "" || value == undefined || value == null) {
+    //         return { status: false, error: "Please enter mobileNo." }
 
-        }
-        else if (!numberRegex.test(value)) {
-            return { status: false, error: "Please enter valid mobileNo." }
-        }
-        else {
-            return { status: true, error: '', height: 0 }
-        }
-    }
+    //     }
+    //     else if (!numberRegex.test(value)) {
+    //         return { status: false, error: "Please enter valid mobileNo." }
+    //     }
+    //     else {
+    //         return { status: true, error: '', height: 0 }
+    //     }
+    // }
       validatePassword(value) {
         if (value == "" || value == undefined || value == null) {
             return { status: false, error: "Please enter valid password." }
@@ -67,7 +74,13 @@ export default class LoginRetailer extends Component {
         if (this.state.mobilenoStatus) {
            if (this.state.passwordStatus){
                   //  alert('Submit Successfully');
-                    window.location.href = "Setting_retailer";
+                    // window.location.href = "Setting_retailer";
+                    var credential={
+                        "email":this.state.mobileno,
+                        "password":this.state.password
+                    }
+                    this.props.action.loginActionRetailer(credential,()=>this.props.history.push("/Setting_retailer"))
+
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
      }
@@ -77,7 +90,7 @@ export default class LoginRetailer extends Component {
     render() {
         return (
             <div>
-                {/* <section className="center-form"> */}
+                {/* {/ <section className="center-form"> /} */}
                 <body>
                     <Header />
                     <section>
@@ -181,3 +194,18 @@ export default class LoginRetailer extends Component {
         )
     }
 }
+
+
+const mapStateToProps = state => {
+    console.log("First state", state)
+    return {
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ loginActionRetailer }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRetailer);
