@@ -221,7 +221,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
         return (
             <div>
                 <body>
-                    {/* <Header2 /> */}
+                    {/* {/ <Header2 /> /} */}
                     <Header2 />
                     <section class="bg-form">
                         <div class="cover-forgot bg-whiteform">
@@ -281,7 +281,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 </div>
                                 <div class="text-center mt-5">
                                     <p>Already have an account ?
-                                        {/* <a href="3-login.html">Login</a> */}
+                                        {/* {/ <a href="3-login.html">Login</a> /} */}
                                         <Link to="/LoginCustomer" >Login</Link>
                                     </p>
                                 </div>
@@ -365,7 +365,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                 <div class="otp-box">
                                                     <p class="my-3">Enter 4 - digits code</p>
                                                     <ul>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* {/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp"
@@ -374,7 +374,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 placeholder="0"
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* {/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp2"
@@ -383,7 +383,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 placeholder="0"
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* /{/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp3"
@@ -393,7 +393,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 // value={this.state.otp}
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                        {/* {/ <li><input type="text" class="form-control" value="" /></li> /} */}
                                                         <li>
                                                             <input class="form-control"
                                                                 name="otp4"

@@ -77,7 +77,6 @@ export function validateCFPassword(cfpassword,password) {
   }
 }
 
-
 /* To validate Mobile No. */
 
 export function validateMobileNo(mobileNo) {

@@ -1,6 +1,6 @@
 
 
-// akhtar code here 4
+// akhtar code here 
 
 import React, { Component } from 'react'
 import Header2 from "../../../components/Header2"
