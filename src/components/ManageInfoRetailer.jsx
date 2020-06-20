@@ -394,7 +394,7 @@ export default class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-                                <li> <Link to="/Coupon_template" > <button class="save" onClick = {this.submit()} >Save</button> </Link></li>
+                                <li> <Link to="/Coupon_template" > <button class="save" onClick = {() => this.submit()} >Save</button> </Link></li>
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >

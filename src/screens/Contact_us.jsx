@@ -10,6 +10,10 @@ export default class Contact_us extends Component {
       super(props)
 
       this.state = {
+         name: '',
+         email: '',
+         subject: '',
+         description: '',
          // otp: "",
          // otpErrorMessage: "",
          // otpStatus: false,
@@ -17,6 +21,66 @@ export default class Contact_us extends Component {
 
       }
    }
+   validateName(name) {
+      var nameRegex = /^[a-zA-Z ]+$/;
+      var name = name.trim();
+      if (name == "" || name == undefined || name == null) {
+         return { status: false, error: "*Please enter your name." };
+      } else if (!nameRegex.test(name)) {
+         return { status: false, error: "*Please enter atleast 2 characters." };
+      } else if (name.length < 2) {
+         return { status: false, error: "*Please enter atleast 2 characters." };
+      } else {
+         return { status: true, error: "" };
+      }
+   }
+   validateName(subject) {
+      var nameRegex = /^[a-zA-Z ]+$/;
+      var name = name.trim();
+      if (name == "" || name == undefined || name == null) {
+         return { status: false, error: "*Please enter your subject." };
+      } else if (!nameRegex.test(name)) {
+         return { status: false, error: "*Please enter atleast 2 characters." };
+      } else if (name.length < 2) {
+         return { status: false, error: "*Please enter atleast 2 characters." };
+      } else {
+         return { status: true, error: "" };
+      }
+   }
+
+   validateEmail(email) {
+      var emailRegex = /^[A-Z0-9_-]+([\.][A-Z0-9_]+)*@[A-Z0-9-]+(\.[a-zA-Z]{2,3})+$/i;
+      email = email.trim();
+      if (email == "" || email == undefined || email == null) {
+         return { status: false, error: "*Please enter the email." };
+      } else if (!emailRegex.test(email)) {
+         return { status: false, error: "*Please enter valid Email Address." };
+      } else {
+         return { status: true, error: "" };
+      }
+   }
+   // inputHandler = (event, type) => {
+   //    switch (type) {
+   //       case name:
+   //          this.setState({ name: event.target.value })
+   //          break;
+   //       case email:
+   //          this.setState({ email: event.target.value })
+   //          break;
+   //       case subject:
+   //          this.setState({ subject: event.target.value })
+   //          break;
+   //       case description:
+   //          this.setState({ description: event.target.value })
+   //          break;
+   //       default:
+   //          break;
+   //    }
+   // }
+   // submitHandler = () =>{
+
+   // }
+
 
    render() {
       return (
@@ -38,7 +102,7 @@ export default class Contact_us extends Component {
    </head> */}
             <body>
                <Header />
-        
+
                <section>
                   <div class="container-fluid">
                      <div class="contact-head">
@@ -49,15 +113,15 @@ export default class Contact_us extends Component {
                            <div class="frmcent">
                               <div class="form-group">
                                  <label>Name</label>
-                                 <input type="text" class="form-control shpnm" aria-describedby="emailHelp" placeholder="Name" />
+                                 <input type="text" class="form-control shpnm" aria-describedby="emailHelp" placeholder="Name" onChange={(event) => this.inputHandler(event)} />
                               </div>
                               <div class="form-group">
                                  <label>Email ID</label>
-                                 <input type="email" class="form-control shpnm" placeholder="Email Id" />
+                                 <input type="email" class="form-control shpnm" placeholder="Email Id" onChange={(event) => this.inputHandler(event)} />
                               </div>
                               <div class="form-group">
                                  <label>Subject</label>
-                                 <input type="text" class="form-control shpnm" aria-describedby="emailHelp" placeholder="Subject" />
+                                 <input type="text" class="form-control shpnm" aria-describedby="emailHelp" placeholder="Subject" onChange={(event) => this.inputHandler(event)} />
                               </div>
                               <div class="form-group">
                                  <label>Description</label>
@@ -65,8 +129,8 @@ export default class Contact_us extends Component {
                               </div>
                               <div class="save-cancel">
                                  <button type="button" class="btn btn-save bt" onclick="window.location.href = 'index.html';" >Cancel</button>
-                                 <button type="button" class="btn btn-save bt active" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Send</button>
-
+                                 <button type="button" class="btn btn-save bt active" onClick={() => this.submitHandler()}>Send</button>
+                                 {/* onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}                                            */}
                                  <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "200px", }}>
                                     <ModalBody>
                                        <div>
@@ -78,7 +142,7 @@ export default class Contact_us extends Component {
                                           {/* <div style={{ textAlign: "center" }}>
                                              <button class="btn setloc-btn" onClick={() => this.setState({ modalStatus: false })} >OK</button>
                                           </div> */}
-                                          <div class="modal-body" style={{textAlign:'center'}}>
+                                          <div class="modal-body" style={{ textAlign: 'center' }}>
                                              <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatus: false })}>OK</button>
                                           </div>
                                        </div>
@@ -91,7 +155,7 @@ export default class Contact_us extends Component {
                   </div>
                </section>
                <Footer />
-              
+
             </body>
 
          </div>
