@@ -148,7 +148,10 @@ class componentName extends Component {
                ImageA={martImage}
                heartImage={Imageid.heartImage}
                MartId={martId}
+               Id={martId}
                Token={this.props.applicationData.token}
+               typeData = {'mart'}
+               
             />
              </Carousel>
          </div>
@@ -156,14 +159,25 @@ class componentName extends Component {
       })
    }
 
+   productServiceType(){
+      return this.state.allData.slice(0,2).map((xyz, index)=>{
+         const {productServiceType} = xyz
+         return(
+            <div>
+         <h5 class="product-herd">{productServiceType}</h5>
+         </div>
+         )
+         
+      })
+   }
+
    categoryData(){
       // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
-         const {categoryId, categoryImage,categoryName,productServiceType} = xyz
+         const {categoryId, categoryImage,categoryName} = xyz
       //   console.log('category',categoryImage);
          return(
             <div>
-               <h5 class="product-herd">{productServiceType}</h5>
                <Carousel
                   swipeable={true}
                   draggable={false}
@@ -187,6 +201,11 @@ class componentName extends Component {
                      LinkId="/subCategories"
                      ImageA={categoryImage}
                      heartImage={Imageid.RedHeart}
+                     CategoryId={categoryId}
+                     Id={categoryId}
+                     Token={this.props.applicationData.token}
+                     typeData = {'category'}
+                     
                   />
                </Carousel>
             </div>
@@ -241,6 +260,7 @@ class componentName extends Component {
                   <LandingTopicName HeaderName="Categories" />
 
                   <div class="container-fluid">
+                     {this.productServiceType()}
                   {this.categoryData()}
                      {/* <CatogriesScroll /> */}
                      {/* <Carousel
