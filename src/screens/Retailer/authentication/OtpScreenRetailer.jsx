@@ -6,7 +6,6 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Apirequest from "../../../api/Apirequest"
 
 
 export default class OtpScreenRetailer extends Component {
@@ -32,8 +31,6 @@ export default class OtpScreenRetailer extends Component {
 
 
          modalStatus: false,
-
-         temp: this.props.location.pathname.split("/")
          // error:"",
          // status:""
 
@@ -47,40 +44,7 @@ export default class OtpScreenRetailer extends Component {
          if (this.state.otpStatus2) {
             if (this.state.otpStatus3) {
                if (this.state.otpStatus4) {
-               //  window.location.href='ResetpasswordRetailer'
-               var credentials = {
-                  "otp": this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4
-               }
-
-               Apirequest(credentials, "/retailer/verifyOTP", "POST")
-               .then((resp) => {
-                  // console.log("resenddddd",resp)
-                  // console.log("otpppp", resp.data)
-                  switch (resp.status) {
-                     case 200: {
-                        if (resp.data.responseCode == 200) {
-                           // alert("Otp has been sent to your registered mobile number")
-                           window.location.href = '/Resetpassword'
-                          
-                        }
-                        else if (resp.data.responseCode == 404) {
-                           alert("This user does not exist.")
-                        }
-                        else if (resp.data.responseCode == 500) {
-                           alert("Internal Server error")
-                        }
-                     }
-                        break;
-                     default:
-                        console.log("default err", resp.data.error)
-                  }
-               })
-
-               .catch(err => {
-                  console.log("respresp---", err)
-              }
-              )
-
+                window.location.href='ResetpasswordRetailer'
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
          } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
