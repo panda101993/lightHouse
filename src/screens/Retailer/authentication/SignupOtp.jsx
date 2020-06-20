@@ -6,7 +6,7 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom'; 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp } from '../../../utils/validation/Validation';
-
+import apiRequest from "../../../api/Apirequest"
 
 
 export default class SignupOtpRetailer extends Component {  
@@ -32,6 +32,9 @@ export default class SignupOtpRetailer extends Component {
 
 
          modalStatus: false,
+
+         temp: this.props.location.pathname.split("/")
+
          // error:"",
          // status:""
 
@@ -115,7 +118,25 @@ export default class SignupOtpRetailer extends Component {
    }
 
  
-
+   resendOTP=()=>{
+      console.log(this.state.temp[2])
+      var OTPdata={
+            "email":this.state.temp[2]
+      }
+      apiRequest(OTPdata,"/retailer/resendOTP","POST")
+      .then((resp)=>{
+         switch(resp.status){
+            case 200:
+               if(resp.data.responseCode==200){
+                  alert("Otp has been sent to your registered Email successfully.")
+               }
+         }
+      })
+      .catch(err => {
+         console.log("respresp---", err)
+     }
+     )
+   }
    
 
 
@@ -215,7 +236,7 @@ export default class SignupOtpRetailer extends Component {
                                  </div>
 
 
-                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
+                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTP()}>
                                     Resend
                                  </p></Link>
 

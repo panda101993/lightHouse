@@ -6,6 +6,42 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 
 export default class ManageInfoRetailer extends Component {
+import Apirequest from "../api/Apirequest"
+import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
+import ProvinceJSON from '../utils/JSON/province.json';
+import { connect } from "react-redux";
+import {loginAction} from "../redux/action/AuthAction"
+
+export class ManageInfoRetailer extends Component {
+    submit = () => {
+        this.setState({ modalStatus: !this.state.modalStatus })
+        var requestData = {
+            shopName: this.state.shopName,
+            shopNumber: this.state.shopNumber,
+            floorNumer: this.state.floorNumer,
+            martName: this.state.martName,
+            martId: this.state.martId,
+            mobileNumber: this.state.mobileNumber,
+            email: this.state.email,
+            GSTIN: this.state.GSTIN,
+            registeredBusinessName: this.state.registeredBusinessName,
+            registeredBussinessAddress: this.state.registeredBussinessAddress,
+            addressProof: this.state.addressProof,
+            pinCode: this.state.pinCode,
+            city: this.state.city,
+            state: this.state.state,
+            address: this.state.address,
+            token: this.state.token,
+        }
+        Apirequest(requestData, "/retailer/business", "POST", this.props.applicationkey.token)
+            .then((resp) => {
+                console.log("abcd==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
+
     constructor(props) {
         super(props)
 

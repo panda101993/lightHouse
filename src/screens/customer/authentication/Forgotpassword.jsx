@@ -128,7 +128,7 @@ export default class ForgotPassword extends Component {
                      case 200: {
                         if(resp.data.responseCode==200)
                         {
-                        this.props.history.push("/ForgotPasswordOtp")
+                        this.props.history.push(`/ForgotPasswordOtp/${this.state.mobileNumber}`)
                         }
                         else if(resp.data.responseCode==500)
                         {

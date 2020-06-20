@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import Header2 from "../../../components/Header2"
 import Footer from "../../../components/Footer";
 import CreateWebpage from "../../../components/CreateWebpage";
-import ChangePasswordEndUser from "../../../components/ChangePasswordEndUser";
+import ChangePasswordRetailer from "../../../components/ChangePasswordRetailer";
 import ManageInfoRetailer from "../../../components/ManageInfoRetailer";
 import ReferralCodeRetailer from "../../../components/ReferralCodeRetailer";
 import CreditRetailer from "../../../components/CreditRetailer";
@@ -37,7 +37,7 @@ const MyReferralCode = () =>
 
 const ChangePassword = () => 
 <div>
-    <ChangePasswordEndUser />
+    <ChangePasswordRetailer />
 </div>;
 
 
