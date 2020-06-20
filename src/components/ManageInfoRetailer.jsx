@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+import Apirequest from "../api/Apirequest"
 
 export default class ManageInfoRetailer extends Component {
     constructor(props) {

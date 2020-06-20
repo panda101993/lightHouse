@@ -164,7 +164,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
                             }
                             else if (resp.data.responseCode == 400) {
-                                ToasterFunction("OTP Sent");
+                                ToasterFunction("OTP sent,Mobile OTP Verification needed");
                                 this.setState({ modalStatus: !this.state.modalStatus });
                                 // this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
 

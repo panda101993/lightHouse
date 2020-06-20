@@ -103,6 +103,11 @@ export const loginActionRetailer = (credential,navigationFunction) => dispatch =
                     dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
                     navigationFunction()
                     }
+                    else if(resp.data.responseCode==402)
+                    {
+                        // console.log("Invalid credentials")
+                        alert("Invalid credentials")
+                    }
                     else if(resp.data.responseCode==404)
                     {
                         // console.log("Invalid credentials")
@@ -155,6 +160,10 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
                 }
             }
             console.log("respppp-->",resp)
+        }
+        )
+        .catch(err => {
+            console.log("respresp---", err)
         }
         )
 

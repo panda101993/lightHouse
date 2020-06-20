@@ -179,7 +179,7 @@ export class SignupRetailer extends Component {
                                     "email": this.state.email,
                                     "password": this.state.password
                                     }
-                                    this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.mobileNumber}`))
+                                    this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.email}`))
 
                                     
                                 
@@ -308,7 +308,7 @@ export class SignupRetailer extends Component {
                                     onClick={()=>this.handleSignup()}
                                     >SIGNUP</button>
                                     <div class="have-an">
-                                        <p>Already Have an account? <Link to="LoginRetailer">Login</Link></p>
+                                        <p>Already Have an account? <Link to="/LoginRetailer">Login</Link></p>
                                     </div>
                                 </form>
                             </div>

@@ -130,7 +130,7 @@ export function validateEmailMobile(email) {
     return { status: true, error: "" };
   } else {
     //    return { status: true, error: '' };
-    return { status: false, error: "Please enter valid Email Address." };
+    return { status: false, error: "Please enter valid Mobile/ Email Address." };
   }
 }
 /* To Handle email mobile validation on Login */

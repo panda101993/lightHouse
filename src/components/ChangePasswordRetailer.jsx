@@ -81,7 +81,7 @@ request=()=>{
                "password":this.state.oldpass,
                "newPassword":this.state.newpass
             }
-            Apirequest(credentials,"/user/changePassword","POST",this.props.applicatonkey.token)
+            Apirequest(credentials,"/retailer/changePassword","POST",this.props.applicatonkey.token)
             .then((resp)=>{
                   switch(resp.status){
                      case 200:{

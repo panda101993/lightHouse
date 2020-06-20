@@ -189,7 +189,7 @@ setLongitude(position.coords.longitude);
                                 </ul>
                             </div>
                             <div class="left-top">
-                                <ul class="leftsideloctn">4
+                                <ul class="leftsideloctn">
                                     <li class="nav-item dropdown">
                                         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                                             <DropdownToggle className="nav-item dropdown" caret>
