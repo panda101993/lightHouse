@@ -74,7 +74,7 @@ class componentName extends Component {
          console.log('hhhh=>',this.props.applicationData)
          apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
          .then((resp)=>{
-         console.log('response', resp);
+         console.log('  ', resp);
          switch (resp.status) {
             case (200):
                 {

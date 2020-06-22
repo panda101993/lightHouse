@@ -80,7 +80,6 @@ export class MyWishlistEndUser extends Component {
 
                         }
                      }
-                     break
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")
@@ -120,7 +119,6 @@ export class MyWishlistEndUser extends Component {
 
                         }
                      }
-                     break
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")
@@ -160,7 +158,6 @@ export class MyWishlistEndUser extends Component {
 
                         }
                      }
-                     break
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")
@@ -220,6 +217,7 @@ export class MyWishlistEndUser extends Component {
                         Id={categoryId}
                         Token={this.props.applicationData.token}
                         typeData={'category'}
+                        typePage={'category'}
                      />
 
                   </div>
@@ -264,6 +262,7 @@ export class MyWishlistEndUser extends Component {
                         Id={martId}
                         Token={this.props.applicationData.token}
                         typeData={'mart'}
+                        typePage={'mart'}
                      />
                   </div>
 
@@ -331,220 +330,22 @@ export class MyWishlistEndUser extends Component {
 
                   <div class="wish-slider">
                      {this.martData()}
-                     {/* <DashboardImageScroll /> */}
-                     {/* <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
->
-   <div> 
-      
-       <ImageDashboard 
-      ImageName="TCL E-Mart1" 
-      ImageA={Imageid.Image1} 
-      heartImage={Imageid.RedHeart}
-         />
-
-   </div>  */}
-
-
-
-                     {/* </Carousel>  */}
-
                   </div>
+
                   <div class="left-contant00">
                      <h3>Retailers</h3>
-
                   </div>
                   <div class="wish-slider">
                      {this.retailerData()}
-                     {/* <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
->
-   <div> 
-      
-       <ImageDashboard 
-      ImageName="TCL E-Mart1" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-
-   </div> 
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="TCL E-Mart2" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div>  
-       <ImageDashboard 
-      ImageName="TCL E-Mart3" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="TCL E-Mart4" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="TCL E-Mart5" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-     
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="TCL E-Mart6" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-    
-       <ImageDashboard 
-      ImageName="TCL E-Mart7" 
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-  
-
-</Carousel>  */}
-
-
                   </div>
+
                   <div class="left-contant00">
                      <h3>Categories</h3>
                   </div>
                   <div class="wish-slider">
                      {this.categoryData()}
-                     {/* <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
->
-   <div> 
-      
-       <ImageDashboard 
-      ImageName="Bounce Salon & Spa" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-
-   </div> 
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="Boddy Massage" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div>  
-       <ImageDashboard 
-      ImageName="Hair Cutting" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="TCL E-Mart" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="Boddy Massage" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-     
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="Hair Cutting" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-    
-       <ImageDashboard 
-      ImageName="TCL E-Mart" 
-      LinkId="/subCategories"
-      ImageA={Imageid.Image10} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-  
-
-</Carousel>  */}
-
-
                   </div>
+
                   <div class="left-contant00">
                      <h3>Sub categories</h3>
                   </div>
