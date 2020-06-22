@@ -5,59 +5,218 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import CatogriesScroll from '../../components/CatogriesScroll';
 import CouponsScrollPupup from '../../components/CouponsScrollPupup';
-import CouponsImage from '../../components/CouponsImage'; 
-import ImageDashboard from "../../components/ImageDashboard" 
-const Imageid={
-   Image1:require("../../assets/images/image1.png"),
-   Image5:require('../../assets/images/image5.png'),
-   heartImage:require('../../assets//images/heart.png'),
-   RedHeart:require('../../assets/images/redheart.png'),
-   Image9:require("../../assets/images/image9.png"),
-    Image10:require("../../assets/images/image10.png"),
-    Image11:require("../../assets/images/image11.png"),
-    Image12:require("../../assets/images/image12.png"),
+import CouponsImage from '../../components/CouponsImage';
+import ImageDashboard from "../../components/ImageDashboard"
+import apiRequest from '../../api/Apirequest';
+import ToasterFunction from '../../components/ToasterFunc';
+import { loginAction } from "../../redux/action/AuthAction";
+import { connect } from "react-redux";
+
+const Imageid = {
+   Image1: require("../../assets/images/image1.png"),
+   Image5: require('../../assets/images/image5.png'),
+   heartImage: require('../../assets//images/heart.png'),
+   RedHeart: require('../../assets/images/redheart.png'),
+   Image9: require("../../assets/images/image9.png"),
+   Image10: require("../../assets/images/image10.png"),
+   Image11: require("../../assets/images/image11.png"),
+   Image12: require("../../assets/images/image12.png"),
    // Image13:require("../../assets/images/image13.png")
-         
-          
- }
- 
+
+
+}
+
 const responsive = {
    desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 7,
       slidesToSlide: 1, // optional, default to 1.
-    },
-    tablet: {
+   },
+   tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
       slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
+   },
+   mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
       slidesToSlide: 1, // optional, default to 1.
-    },
+   },
 };
 const responsive1 = {
    desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 4,
       slidesToSlide: 1, // optional, default to 1.
-    },
-    tablet: {
+   },
+   tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
       slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
+   },
+   mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
       slidesToSlide: 1, // optional, default to 1.
-    },
+   },
 };
 
 export class subCategories extends Component {
+   constructor(props) {
+      super(props)
+
+      this.state = {
+
+         allData: [],
+         subCategory:[]
+
+      }
+   }
+
+   getSubCategoryAndCouponByCategory = (categoryId, martId) => {
+      try {
+         apiRequest({ categoryId: categoryId, martId: martId }, '/user/getSubCategoryAndCouponByCategory', 'POST')
+            .then((resp) => {
+               console.log('responseCategorycoupon',resp);
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                              allData: resp.data.Data
+                            
+                           });
+                           // console.log("subCategory---",resp.data.DatasubCategoryId)
+                        }
+                        else if (resp.data.responseCode == 404) {
+                           ToasterFunction("info", resp.data.responseMessage);
+
+                        }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", resp.data.responseMessage);
+
+                        }
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
+               }
+            })
+      } catch (error) {
+         console.log('errorresponse', error)
+         // ToasterFunction("error", "Network error, please contact the administrator");
+
+      }
+
+   }
+
+   async componentDidMount() {
+      console.log('category', window.location.pathname);
+      let splitUrl = window.location.pathname.split('/')
+      console.log('category', splitUrl);
+      console.log('category', splitUrl[2]);
+      console.log('category', splitUrl[3]);
+      this.getSubCategoryAndCouponByCategory(splitUrl[2], splitUrl[3]);
+   }
+
+   couponCategory(){
+      // console.log("applicationData",this.props.applicationData)
+        return this.state.allData.map((allCouponData, index)=>{
+          return(
+            <div>
+              <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+    > 
+    <CouponsImage 
+    ImageSrc={allCouponData.image}
+    Title={allCouponData.title}
+    CouponCode={allCouponData.couponCode}
+    Discount={allCouponData.discount}
+    ItemName={allCouponData.itemName}
+    ExpiryDate={allCouponData.ExpiryDate}
+    CouponId={allCouponData._id}
+    CouponToken={this.props.applicationData.token}
+    CouponAppliedOn={allCouponData.couponAppliedOn}
+    OneTimeCoupon={allCouponData.oneTimeCoupon}
+    ShopName={allCouponData.shopName}
+    // ShopNumber={allCouponData.retailerId.shopNumber}
+    FloorNumber={allCouponData.floorNumber}
+    MartName={allCouponData.martName}
+    ShopPhoneNumber={allCouponData.shopPhoneNumber}
+    Restrictions={allCouponData.restrictions}
+    
+    
+    
+    />
+    </Carousel>
+            </div>
+          )
+        })
+        }
+
+
+
+   subCategoryData(){
+      return this.state.allData.map((allCouponData, index)=>{
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+                <Carousel
+                                 swipeable={true}
+                                 draggable={false}
+                                 showDots={false}
+                                 responsive={responsive1}
+                                 ssr={true} // means to render carousel on server-side.
+                                 infinite={true}
+                                 autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                                 autoPlaySpeed={5000000}
+                                 keyBoardControl={true}
+                                 customTransition="all .5"
+                                 transitionDuration={500}
+                                 containerClass="carousel-container"
+                                 removeArrowOnDeviceType={["tablet", "mobile"]}
+                                 deviceType={this.props.deviceType}
+                                 dotListClass="custom-dot-list-style"
+                                 itemClass="carousel-item-padding-40-px"
+                              >
+                                 <div>
+            <ImageDashboard          
+               ImageName={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.subCategoryName : ''}
+               LinkId="/ItemList"
+               ImageA={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.image : ''}
+               heartImage={Imageid.heartImage}
+               Id={ allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId._id : ''}
+               Token={this.props.applicationData.token}
+               typeData = {'subCategory'}
+               
+            />
+            </div>
+             </Carousel>
+         </div>
+         )
+      })
+   }
+
+
    render() {
+
       return (
          <div> <body>
             <Header2 />
@@ -88,47 +247,6 @@ export class subCategories extends Component {
                            Category Name
                   </div>
                      </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     <div>
-                        <div class="slicent">
-                           Category Name
-                  </div>
-                     </div>
-                     {/* </section> */}
 
                   </Carousel>
                </div>
@@ -367,137 +485,35 @@ export class subCategories extends Component {
                         </div>
                      </div>
                      <div class="col-md-9">
-                        <section class="second"> 
-                        <div class="landing-slider">
-                           {/* <div class="top-slider"> */}
+                        <section class="second">
+                           <div class="landing-slider">
+                              {/* <div class="top-slider"> */}
 
                               {/* <CatogriesScroll /> */}
-                               {/* </div> */}  
-                               <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive1}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
->
-   <div> 
-      
-       <ImageDashboard 
-      ImageName="Bounce Salon & Spa" 
-      LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
+                              {/* </div> */}
+                              {this.subCategoryData()}
+                          
+                                 {/* <div>
 
-   </div> 
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="Boddy Massage" 
-     LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div>  
-       <ImageDashboard
-      ImageName="Hair Cutting" 
-     LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="TCL E-Mart" 
-     LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="Boddy Massage" 
-     LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-     
-   </div>
-   <div> 
-   
-   <ImageDashboard 
-      ImageName="Hair Cutting" 
-     LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-   <div> 
-    
-       <ImageDashboard 
-      ImageName="TCL E-Mart" 
-     LinkId="/ItemList"
-      ImageA={Imageid.Image5} 
-      heartImage={Imageid.RedHeart}
-         />
-   </div>
-  
+                                    <ImageDashboard
+                                       ImageName="Bounce Salon & Spa"
+                                       LinkId="/ItemList"
+                                       ImageA={Imageid.Image5}
+                                       heartImage={Imageid.RedHeart}
+                                    />
 
-</Carousel> 
+                                 </div> */}
 
+                              <div class="left-contant">
+                                 <h3>Coupons</h3>
+                              </div>
+                              {/* <CouponsScrollPupup /> */}
 
-
-                           <div class="left-contant">
-                              <h3>Coupons</h3>
+                              <div class="cover-slidersection">
+                                 {this.couponCategory()}
+                              </div>
                            </div>
-                           {/* <CouponsScrollPupup /> */} 
-                        
-                        <div class="cover-slidersection">
-                           <Carousel
-                             swipeable={true}
-                             draggable={false}
-                             showDots={false}
-                             responsive={responsive1}
-                             ssr={true} // means to render carousel on server-side.
-                             infinite={true}
-                             autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                             autoPlaySpeed={5000000}
-                             keyBoardControl={true}
-                             customTransition="all .5"
-                             transitionDuration={500}
-                             containerClass="carousel-container"
-                             removeArrowOnDeviceType={["tablet", "mobile"]}
-                             deviceType={this.props.deviceType}
-                             dotListClass="custom-dot-list-style"
-                             itemClass="carousel-item-padding-40-px"
-                           >   
-                            <CouponsImage />
-                            <CouponsImage />
-                            <CouponsImage />
-                            <CouponsImage />
-                            <CouponsImage />
-                            <CouponsImage />
-                            <CouponsImage />
-                         
-                            
-                              </Carousel>
-                         </div>
-                         </div> 
-                        
+
                         </section>
                      </div>
                   </div>
@@ -510,4 +526,14 @@ export class subCategories extends Component {
    }
 }
 
-export default subCategories
+// export default subCategories
+const mapStateToProps = state => {
+   console.log("state-------", state)
+   return {
+      applicationData: state.AuthReducer.userData
+
+   }
+
+}
+
+export default connect(mapStateToProps, { loginAction })(subCategories);

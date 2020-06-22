@@ -9,7 +9,7 @@ import ProvinceJSON from '../utils/JSON/province.json';
 
 import Apirequest from '../api/Apirequest';
 
-//import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+//={import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 // 542a0596fd65c3351774d55bb1506619019389ac
 
 export default class ManageInfoRetailer extends Component {

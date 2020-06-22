@@ -123,6 +123,44 @@ export default function ImageDashboard(props) {
             }
             setModal(false)
          }
+         else if(typeData == 'subCategory') {
+            try {
+               console.log("subCategory",Id)
+               console.log("subCategory---",props.Token)
+               
+               apiRequest({ subCategoryId :Id }, '/user/wishListSubCategories', 'POST', props.Token)
+                  .then((resp) => {
+                     console.log('responseSubcategoryadded', resp);
+                     switch (resp.status) {
+                        case (200):
+                            {
+                            if (resp.data.responseCode == 200) {
+                              ToasterFunction("success", resp.data.responseMessage);
+                            }
+                             else if (resp.data.responseCode == 404) {
+                                ToasterFunction("info", resp.data.responseMessage);
+            
+                            }
+                            else if (resp.data.responseCode == 500) {
+                                ToasterFunction("error", resp.data.responseMessage);
+            
+                            }
+                        }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+                  })
+            } catch (error) {
+               console.log('errorresponse', error)
+               ToasterFunction("error", "Network error, please contact the administrator");
+        
+            }
+            setModal(false)
+         }
+         
       
       
    }
