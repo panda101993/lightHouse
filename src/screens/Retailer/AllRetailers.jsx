@@ -184,7 +184,8 @@ retailerData(){
 
             <ImageDashboard
               ImageName={allCoupon.shopName}
-              LinkId="/AllCouponsRetailers"
+              LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
+              // LinkId={`/AllRetailers/${martId}`}
               ImageA={allCoupon.image}
               heartImage={Imageid.RedHeart}
               MartId={allCoupon.martId}
@@ -193,8 +194,10 @@ retailerData(){
               ItemType={allCoupon.itemType}
               ItemName={allCoupon.itemName}
               BrandName={allCoupon.brandName}
-              RetailerId={allCoupon._id}
+              RetailerId={allCoupon.retailerId._id}
+              Id={allCoupon.retailerId._id}
               Token={this.props.applicationData.token}
+              typeData = {'retailer'}
             />
 
           </div>
@@ -245,7 +248,7 @@ OneTimeCoupon={allCoupon.oneTimeCoupon}
 ShopName={allCoupon.shopName}
 ShopNumber={allCoupon.retailerId.shopNumber}
 FloorNumber={allCoupon.floorNumber}
-MartName={allCoupon.marName}
+MartName={allCoupon.martName}
 ShopPhoneNumber={allCoupon.shopPhoneNumber}
 Restrictions={allCoupon.restrictions}
 
