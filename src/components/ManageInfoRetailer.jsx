@@ -3,7 +3,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+<<<<<<< HEAD
+import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
+import ProvinceJSON from '../utils/JSON/province.json';
+
+import Apirequest from '../api/Apirequest';
+=======
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+>>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
 
 export default class ManageInfoRetailer extends Component {
     constructor(props) {
@@ -270,7 +277,11 @@ export default class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
+<<<<<<< HEAD
+                                <li> <Link to="/Coupon_template" > <button class="save" onClick = {() => this.submit()} >Save</button> </Link></li>
+=======
                                  <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
+>>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
@@ -384,4 +395,15 @@ export default class ManageInfoRetailer extends Component {
         )
     }
 }
+<<<<<<< HEAD
+// const mapSateToProps = state => {
+//     console.log("change state", state)
+//     return {
+//         applicationkey: state.AuthReducer.userData
+//     }
+// }
+// export default connect(mapSateToProps, { loginAction })(ManageInfoRetailer);
+
+=======
+>>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
 
