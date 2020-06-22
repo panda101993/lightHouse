@@ -254,14 +254,6 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
    render() {
       return (
          <div>
-            {/* <div class="col-lg-4 col-md-4 col-sm-12"> */}
-            {/* <div class="cover-slidersection00" data-toggle="modal" data-target="#great-deal">
-               <figure class="coupon-sec">
-                  <img src={require("../assets/images/pizza great deal.png")} onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })} />
-               </figure>
-            </div>
-            <button type="button" class="dlt-btn" data-toggle="modal" data-target="#delcoup" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Delete</button> */}
-            {/* </div>   */}
             {this.couponData()}
 
             <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "190px", }}>
@@ -270,7 +262,7 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                   <div class="modal-content">
                      <div class="modal-header locationsethead">
                         <h5>Are you sure you want to remove this
-                        from wishlist ?
+                        from favourite ?
                   </h5>
                      </div>
                      <div class="modal-body ny">
@@ -378,6 +370,11 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
             </Modal>
 
             <Modal isOpen={this.state.modalStatusImage} toggle={this.toggle} style={{ top: "190px", }}>
+            <ModalHeader >
+                  <button onClick={() => this.setState({modalStatusImage:false})} type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">×</span>
+                  </button>
+               </ModalHeader>
                <ModalBody>
                   <div class="modal-content offer">
                      <div class="modal-body bumoffer">

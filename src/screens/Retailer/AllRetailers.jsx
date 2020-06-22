@@ -197,6 +197,7 @@ retailerData(){
               Id={allCoupon.retailerId._id}
               Token={this.props.applicationData.token}
               typeData = {'retailer'}
+              typePage = {'retailer'}
             />
 
           </div>

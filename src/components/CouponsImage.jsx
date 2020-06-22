@@ -45,20 +45,6 @@ import {
    const [modalStatus, setModal] = useState(false);   
    const [modalStatusImage, setModal1] = useState(false);
    const [modalStatusBackImage,setModal2] = useState(false);
-   // const [favouriteImage,setFavouriteImage] = useState('');
-   // const [getCouponId,setGetCouponId] = useState('');
-   // const [couponTitle, setCouponTitle] = useState('');
-   // const [couponCode, setCouponCode] = useState('');
-   // const [couponDiscount, setCouponDiscount] = useState('');
-   // const [couponAppliedOn, setCouponAppliedOn] = useState('');
-   // const [couponExpiryDate, setCouponExpiryDate] = useState('');
-   // const [oneTimeCoupon, setOneTimeCoupon] = useState('');
-   // const [shopName, setShopName] = useState('');
-   // const [shopNumber, setShopNumber] = useState('');
-   // const [floorNumber, setFloorNumber] = useState('');
-   // const [martName, setMartName] = useState('')
-   // const [shopPhoneNumber, setShopPhoneNumber] = useState('');
-   // const [restrictions, setRestrictions] = useState('');
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
       CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
@@ -218,7 +204,7 @@ import {
                </ModalBody>
             </Modal>
 
-            <Modal isOpen={modalStatus} style={{ top: "190px", }}>
+            {/* <Modal isOpen={modalStatus} style={{ top: "190px", }}>
                <ModalBody>
                   <div class="modal-content">
                      <div class="modal-header locationsethead">
@@ -232,9 +218,14 @@ import {
                      </div>
                   </div>
                </ModalBody>
-            </Modal>
+            </Modal> */}
 
             <Modal class="modalviewcoupon" isOpen={modalStatusImage}  style={{ top: "190px", }}>
+            <ModalHeader >
+                  <button onClick={() => setModal1(false)} type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">×</span>
+                  </button>
+               </ModalHeader>
                <ModalBody class="modalviewcoupon" >
 
                   <div class="mainoffer">
