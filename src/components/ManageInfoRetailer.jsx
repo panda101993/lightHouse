@@ -3,15 +3,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-<<<<<<< HEAD
-import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
-import ProvinceJSON from '../utils/JSON/province.json';
-
-import Apirequest from '../api/Apirequest';
-=======
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
->>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
-
+import ApiRequest from '../api/Apirequest';
+import ToasterFunction from '../components/ToasterFunc';
 export default class ManageInfoRetailer extends Component {
     constructor(props) {
         super(props)
@@ -40,7 +34,6 @@ export default class ManageInfoRetailer extends Component {
             mobileno1: "",
             mobilenoErrorMessage1: "",
             mobilenoStatus1: false,
-
 
 
             modalStatus: false,
@@ -128,6 +121,46 @@ export default class ManageInfoRetailer extends Component {
                         // this.setState({ modalStatus: false })
                         this.setState({ modalStatus: !this.state.modalStatus });
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
+    }
+    resetOTPHandler(){
+
+        try {
+            
+            
+            ApiRequest({ email : "abc@gmail.com" }, '/api/v1/retailer/resendOTP', 'POST')
+               .then((resp) => {
+                  console.log('responseOTP====>', resp);
+   
+                  switch (resp.status) {
+                     case (200):
+                         {
+                           if (resp.data.responseCode == 200) {
+                            this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
+                            ToasterFunction("info", "OTP sent Successfully");
+                        }
+                         
+                           else if (resp.data.responseCode == 404) {
+                             ToasterFunction("info", "Data not found, internal server error");
+         
+                         }
+                         else if (resp.data.responseCode == 500) {
+                             ToasterFunction("error", "Internal Server Error");
+         
+                         }
+                     }
+                     case (900): {
+                         if (resp.status == 900) {
+                             ToasterFunction("error", "Please check your internet connection")
+                         }
+                     }
+                 }
+   
+               })
+         } catch (error) {
+            console.log('errorresponse', error);
+            // ToasterFunction("error", "Network error, please contact the administrator");
+         }
+
     }
 
     render() {
@@ -277,11 +310,7 @@ export default class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-<<<<<<< HEAD
-                                <li> <Link to="/Coupon_template" > <button class="save" onClick = {() => this.submit()} >Save</button> </Link></li>
-=======
                                  <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
->>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
@@ -349,7 +378,7 @@ export default class ManageInfoRetailer extends Component {
                                                         </label>
                                                     </div>
                                                     {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
+                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resetOTPHandler() }>
                                                         Resend
                                                      </p></Link>
                                                 </div>
@@ -395,15 +424,4 @@ export default class ManageInfoRetailer extends Component {
         )
     }
 }
-<<<<<<< HEAD
-// const mapSateToProps = state => {
-//     console.log("change state", state)
-//     return {
-//         applicationkey: state.AuthReducer.userData
-//     }
-// }
-// export default connect(mapSateToProps, { loginAction })(ManageInfoRetailer);
-
-=======
->>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
 
