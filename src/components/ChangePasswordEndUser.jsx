@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { validatePassword, validateCFPassword } from '../utils/validation/Validation';
 
 
-export class ChangePasswordRetailer extends Component { 
+export class ChangePasswordEndUser extends Component { 
    constructor(props) {
       super(props)
 
@@ -171,4 +171,4 @@ const mapStateToProps = state => {
       
    }
 }
-export default connect(mapStateToProps)(ChangePasswordRetailer);
+export default connect(mapStateToProps)(ChangePasswordEndUser);

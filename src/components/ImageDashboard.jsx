@@ -8,10 +8,11 @@ export default function ImageDashboard(props) {
    const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData } = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData,typePage } = props
    console.log("hello imageAbc ", props)
+   console.log("typePage--",typePage)
 
-   const  addToFavouriteMarts = (Id,typeData) => {
+   const  addToFavouriteAll = (Id,typeData) => {
        if(typeData == 'mart'){
          try {
             apiRequest({ martId:Id }, '/user/wishListMarts', 'POST', props.Token)
@@ -44,7 +45,7 @@ export default function ImageDashboard(props) {
             ToasterFunction("error", "Network error, please contact the administrator");
      
          }
-         setModal1(false)
+         setModal(false)
 
          }
          else if(typeData == 'retailer'){
@@ -82,7 +83,7 @@ export default function ImageDashboard(props) {
                ToasterFunction("error", "Network error, please contact the administrator");
         
             }
-            setModal1(false)
+            setModal(false)
          }
 
          else if(typeData == 'category') {
@@ -120,8 +121,46 @@ export default function ImageDashboard(props) {
                ToasterFunction("error", "Network error, please contact the administrator");
         
             }
-            setModal1(false)
+            setModal(false)
          }
+         else if(typeData == 'subCategory') {
+            try {
+               console.log("subCategory",Id)
+               console.log("subCategory---",props.Token)
+               
+               apiRequest({ subCategoryId :Id }, '/user/wishListSubCategories', 'POST', props.Token)
+                  .then((resp) => {
+                     console.log('responseSubcategoryadded', resp);
+                     switch (resp.status) {
+                        case (200):
+                            {
+                            if (resp.data.responseCode == 200) {
+                              ToasterFunction("success", resp.data.responseMessage);
+                            }
+                             else if (resp.data.responseCode == 404) {
+                                ToasterFunction("info", resp.data.responseMessage);
+            
+                            }
+                            else if (resp.data.responseCode == 500) {
+                                ToasterFunction("error", resp.data.responseMessage);
+            
+                            }
+                        }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+                  })
+            } catch (error) {
+               console.log('errorresponse', error)
+               ToasterFunction("error", "Network error, please contact the administrator");
+        
+            }
+            setModal(false)
+         }
+         
       
       
    }
@@ -149,7 +188,18 @@ export default function ImageDashboard(props) {
 
                         <img
                            src={heartImage}
-                           onClick={() => setModal1(!modalStatus1)} />
+
+                           onClick={() => 
+                              {typePage 
+                              ?
+                              setModal(true)
+                              :
+                              addToFavouriteAll(Id,typeData)
+
+                           }
+                           
+                           } 
+                           />                         
                            </a>
                   </div>
                </div>
@@ -169,16 +219,17 @@ export default function ImageDashboard(props) {
                </ModalBody>
             </Modal> */}
 
-            <Modal isOpen={modalStatus1}
+            <Modal isOpen={modalStatus}
                style={{ top: "190px", }}
             >
                <ModalBody>
                   <div class="modal-content">
                      <div class="modal-header locationsethead">
-                        <h5>Mart mark as a favourite !</h5>
+                        <h5>Are you sure you want to remove this from wishlist ?</h5>
                      </div>
-                     <div class="modal-body ok">
-                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => addToFavouriteMarts(Id,typeData)}  > OK </button>
+                     <div class="modal-body ny">
+                        <button type="button" class="btn setloc-" type="submit" data-dismiss="modal" onClick={() => setModal(false)}>No</button>
+                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => addToFavouriteAll(Id,typeData)}>Yes</button>
                      </div>
                   </div>
                </ModalBody>

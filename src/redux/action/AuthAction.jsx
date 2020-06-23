@@ -81,6 +81,7 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
         )
 
 }
+
 export const loginActionRetailer = (credential,navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
     // console.log('navigationFunction=>', navigationFunction);
@@ -167,6 +168,7 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
         )
 
 }
+
 
 
 

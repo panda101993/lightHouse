@@ -74,7 +74,7 @@ class componentName extends Component {
          console.log('hhhh=>',this.props.applicationData)
          apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
          .then((resp)=>{
-         console.log('response', resp);
+         console.log('  ', resp);
          switch (resp.status) {
             case (200):
                 {
@@ -98,9 +98,6 @@ class componentName extends Component {
                 }
             }
         }
-         // this.setState({
-         //    allData: resp.data.result[0].details
-         // });
       });
          
       } catch (error) {
@@ -159,6 +156,8 @@ class componentName extends Component {
       })
    }
 
+   
+
    productServiceType(){
       return this.state.allData.slice(0,2).map((xyz, index)=>{
          const {productServiceType} = xyz
@@ -174,7 +173,7 @@ class componentName extends Component {
    categoryData(){
       // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
-         const {categoryId, categoryImage,categoryName} = xyz
+         const {martId,categoryId, categoryImage,categoryName} = xyz
       //   console.log('category',categoryImage);
          return(
             <div>
@@ -198,7 +197,7 @@ class componentName extends Component {
                >
                   <ImageDashboard
                      ImageName={categoryName}
-                     LinkId="/subCategories"
+                     LinkId={`/subCategories/${categoryId}/${martId}`}
                      ImageA={categoryImage}
                      heartImage={Imageid.RedHeart}
                      CategoryId={categoryId}
@@ -229,161 +228,14 @@ class componentName extends Component {
                   <LandingTopicName HeaderName="Marts" />
                   <div class="container-fluid">
                   {this.martData()}
-                     {/* <DashboardImageScroll />  */}
-                     {/* <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     > */}
-                        {/* <div>                          
-                            {this.martData()}
-                        </div>
-                  */}
-
-                     {/* </Carousel> */}
-
-
                   </div>
                   <LandingTopicName HeaderName="Categories" />
 
                   <div class="container-fluid">
                      {this.productServiceType()}
                   {this.categoryData()}
-                     {/* <CatogriesScroll /> */}
-                     {/* <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     > */}
-                        {/* <div>
-                           {this.categoryData()}
-                        </div> */}
-                        
-
-                     {/* </Carousel> */}
-
 
                   </div>
-
-                  {/* <div class="container-fluid">
-                     <h5 class="product-herd">Services</h5>
-                     <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     >
-
-                        <div>
-                           <ImageDashboard
-                              ImageName="Watches"
-                              //  LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Ornaments"
-                              // LinkId="/subCategories"
-                              ImageA={Imageid.Image10}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-                           <ImageDashboard
-                              ImageName="Dresses"
-                              // LinkId="/subCategories"
-                              ImageA={Imageid.Image11}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Furniture"
-                              //   LinkId="/subCategories"
-                              ImageA={Imageid.Image10}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              //   LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              //   LinkId="/subCategories"
-                              ImageA={Imageid.Image10}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              //   LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-
-
-
-                     </Carousel>
-
-
-                  </div> */}
-
-
                </section>
                <Footer />
             </body>
