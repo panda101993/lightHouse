@@ -5,9 +5,10 @@ import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { connect } from "react-redux"; 
 
 function Header2(props) {
-
+    console.log("creditData==>",props.applicationData.credit)
     // const [modalStatus,setModal] =useState(false)
     const [modalStatus, setModal] = useState(false) 
     const [modalStatusView, setModalView] = useState(false)
@@ -121,7 +122,7 @@ function Header2(props) {
                                 />
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </li> */}
-                                <li class="serch-sec">
+                                {/* <li class="serch-sec">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
                                         <div class="input-group-append">
@@ -130,8 +131,14 @@ function Header2(props) {
                                             </button>
                                         </div>
                                     </div>
-                                </li>
-
+                                </li> */}
+                                    <li class="nav-item dropdown account-drop">
+                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">  */}
+                         <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
+                             Credits Point({props.applicationData.credit}) 
+                             </Link>
+                         {/* </a> */}
+                      </li>
                                 <li class="nav-item dropdown account-drop">
                                     <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
                                         {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
@@ -181,7 +188,15 @@ function Header2(props) {
                                             </button>
                                         </div>
                                     </div>
-                                </li> */}
+                                </li> */} 
+                                 <li class="nav-item dropdown account-drop">
+                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">
+                             Credits Point({props.applicationData.credit})
+                         </a> */}
+                          <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
+                             Credits Point({props.applicationData.credit}) 
+                             </Link>
+                      </li>
 
                                 <li class="nav-item dropdown account-drop">
                                     <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
@@ -240,5 +255,13 @@ function Header2(props) {
         </div>
     )
 }
-
-export default Header2
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.ProfileDetailsReducer.profileData      
+    }
+          
+  }
+ 
+// export default Header2
+export default connect(mapStateToProps)(Header2);
