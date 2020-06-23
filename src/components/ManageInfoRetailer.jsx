@@ -6,10 +6,13 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
 import ApiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
-export default class ManageInfoRetailer extends Component {
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
+import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
+ class ManageInfoRetailer extends Component {
     constructor(props) {
         super(props)
-
+        this.handleUploadFile = this.handleUploadFile.bind(this);
         this.state = {
             otp: "",
             otpErrorMessage: "",
@@ -40,6 +43,10 @@ export default class ManageInfoRetailer extends Component {
             modalStatusResend: false
    
          }
+    }
+
+    componentDidMount(){
+        this.props.action.retailerProfileAction(this.props.applicationData.token)
     }
 
     submitHandler = () => {
@@ -125,9 +132,7 @@ export default class ManageInfoRetailer extends Component {
     resetOTPHandler(){
 
         try {
-            
-            
-            ApiRequest({ email : "abc@gmail.com" }, '/api/v1/retailer/resendOTP', 'POST')
+            ApiRequest( {email : "abc@gmail.com"} , '/retailer/resendOTP', 'POST')
                .then((resp) => {
                   console.log('responseOTP====>', resp);
    
@@ -141,11 +146,9 @@ export default class ManageInfoRetailer extends Component {
                          
                            else if (resp.data.responseCode == 404) {
                              ToasterFunction("info", "Data not found, internal server error");
-         
                          }
                          else if (resp.data.responseCode == 500) {
                              ToasterFunction("error", "Internal Server Error");
-         
                          }
                      }
                      case (900): {
@@ -161,6 +164,73 @@ export default class ManageInfoRetailer extends Component {
             // ToasterFunction("error", "Network error, please contact the administrator");
          }
 
+    }
+    saveButtonHandler(){
+
+
+
+        //obj = {
+        //     shopName: req.body.shopName,
+        //     shopNumber: req.body.shopNumber,
+        //     floorNumber: req.body.floorNumber,
+        //     martName: martFound.martName,
+        //     martId: martFound._id,
+        //     mobileNumber: req.body.mobileNumber,
+        //     email: req.body.email,
+        //     GSTIN: req.body.GSTIN,
+        //     registeredBusinessName: req.body.registeredBusinessName,
+        //     registeredBusinessPhoneNumber: req.body.registeredBusinessPhoneNumber,
+        //     addressProof: await uploadAddressProof(),
+        //     pinCode: req.body.pinCode,
+        //     city: req.body.city,
+        //     state: req.body.state,
+        //     address: req.body.address
+        // }
+
+       
+
+
+
+
+
+        // try {
+        //     ApiRequest( {email : "abc@gmail.com"} , '/retailer/resendOTP', 'PUT',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA")
+        //        .then((resp) => {
+        //           console.log('responseOTP====>', resp);
+   
+        //           switch (resp.status) {
+        //              case (200):
+        //                  {
+        //                    if (resp.data.responseCode == 200) {
+        //                     this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
+        //                     ToasterFunction("info", "OTP sent Successfully");
+        //                 }
+                         
+        //                    else if (resp.data.responseCode == 404) {
+        //                      ToasterFunction("info", "Data not found, internal server error");
+        //                  }
+        //                  else if (resp.data.responseCode == 500) {
+        //                      ToasterFunction("error", "Internal Server Error");
+        //                  }
+        //              }
+        //              case (900): {
+        //                  if (resp.status == 900) {
+        //                      ToasterFunction("error", "Please check your internet connection")
+        //                  }
+        //              }
+        //          }
+   
+        //        })
+        //  } catch (error) {
+        //     console.log('errorresponse', error);
+        //     // ToasterFunction("error", "Network error, please contact the administrator");
+        //  }
+
+    }
+
+    handleUploadFile(event) {
+    
+        
     }
 
     render() {
@@ -303,14 +373,18 @@ export default class ManageInfoRetailer extends Component {
                                 <div class="downproof">
                                     <label>Download Proof *</label>
                                     <div class="dow">
-                                        <img src={require("../assets/images/download.png")} />
+                                       
+                                    
+                                        
+                                        <img onClick={(event)=>this.handleUploadFile(event)} src={require("../assets/images/download.png")} />
+                                       
                                     </div>
                                 </div>
                             </span>
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-                                 <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li>
+                                 <li> <Link to="/Coupon_template" > <button class="save" onClick={() => this.saveButtonHandler()}>Save</button> </Link></li>
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
@@ -424,4 +498,21 @@ export default class ManageInfoRetailer extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.AuthReducer.userData
+         
+    }
+          
+ }
+ const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ retailerProfileAction }, dispatch)
+    }
+  }
+
+ // export default componentName
+export default connect(mapStateToProps,mapDispatchToProps)(ManageInfoRetailer);
 
