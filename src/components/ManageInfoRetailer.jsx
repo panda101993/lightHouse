@@ -3,16 +3,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+import { validateOtp, validateMobileNo } from '../utils/validation/Validation';
 import ApiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import { connect } from "react-redux";
-import {bindActionCreators} from 'redux';
-import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
- class ManageInfoRetailer extends Component {
+import { bindActionCreators } from 'redux';
+import { retailerProfileAction } from "../redux/action/ProfileDetailsAction";
+import { FilePicker } from 'react-file-picker'
+
+let file64 = null
+
+class ManageInfoRetailer extends Component {
     constructor(props) {
         super(props)
-        this.handleUploadFile = this.handleUploadFile.bind(this);
+        // this.handleUploadFile = this.handleUploadFile.bind(this);
         this.state = {
             otp: "",
             otpErrorMessage: "",
@@ -40,13 +44,18 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
 
 
             modalStatus: false,
-            modalStatusResend: false
-   
-         }
+            modalStatusResend: false,
+            
+
+            
+
+        }
     }
 
-    componentDidMount(){
-        this.props.action.retailerProfileAction(this.props.applicationData.token)
+    componentDidMount() {
+        // this.props.action.retailerProfileAction(this.props.applicationData.token)
+        this.props.action.retailerProfileAction("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5MjkxODY1MywiZXhwIjoxNTkzMDA1MDUzfQ.kgo_uJWULnHUpxK7Jy211QD-2IvuETF1njzMh0dJyQE")
+        
     }
 
     submitHandler = () => {
@@ -113,29 +122,104 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
     }
 
     submitmobilenoHandler = () => {
-        if (this.state.mobilenoStatus) {          
-                        // alert('Submit Successfully');
-                        //  window.location.href = "SignupRetailer";
-                        // this.setState({ modalStatus: false })
-                        this.setState({ modalStatus: !this.state.modalStatus });
+        if (this.state.mobilenoStatus) {
+            // alert('Submit Successfully');
+            //  window.location.href = "SignupRetailer";
+            // this.setState({ modalStatus: false })
+            this.setState({ modalStatus: !this.state.modalStatus });
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
     submitmobilenoHandler1 = () => {
-        if (this.state.mobilenoStatus1) {          
-                        // alert('Submit Successfully');
-                        //  window.location.href = "SignupRetailer";
-                        // this.setState({ modalStatus: false })
-                        this.setState({ modalStatus: !this.state.modalStatus });
+        if (this.state.mobilenoStatus1) {
+            // alert('Submit Successfully');
+            //  window.location.href = "SignupRetailer";
+            // this.setState({ modalStatus: false })
+            this.setState({ modalStatus: !this.state.modalStatus });
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
     }
-    resetOTPHandler(){
+    resetOTPHandler() {
 
         try {
-            ApiRequest( {email : "abc@gmail.com"} , '/retailer/resendOTP', 'POST')
+            ApiRequest({ email: "abc@gmail.com" }, '/retailer/resendOTP', 'POST')
+                .then((resp) => {
+                    console.log('responseOTP====>', resp);
+
+                    switch (resp.status) {
+                        case (200):
+                            {
+                                if (resp.data.responseCode == 200) {
+                                    this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
+                                    ToasterFunction("info", "OTP sent Successfully");
+                                }
+
+                                else if (resp.data.responseCode == 404) {
+                                    ToasterFunction("info", "Data not found, internal server error");
+                                }
+                                else if (resp.data.responseCode == 500) {
+                                    ToasterFunction("error", "Internal Server Error");
+                                }
+                            }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+
+                })
+        } catch (error) {
+            console.log('errorresponse', error);
+            // ToasterFunction("error", "Network error, please contact the administrator");
+        }
+
+    }
+    handleUploadFile(FileObject) {
+        
+        let file = null;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(FileObject)
+        fileReader.onload = function(fileLoadedEvent) {
+            file = fileLoadedEvent.target.result;
+            // Print data in console
+            console.log(file);
+            file64 = file
+            
+        };  
+        fileReader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+        
+    }
+
+    saveButtonHandler() {
+
+  console.log("file64=====>",file64)
+
+       let obj = {
+            shopName: "BigBazaar",
+            shopNumber: 12344,
+            floorNumber: 4,
+            martName: "V3S",
+            martId: 1234,
+            mobileNumber: this.state.mobileno,
+            email: "abccc7@gmail.com",
+            GSTIN: "123456798",
+            registeredBusinessName: "BigBazaar",
+            registeredBusinessPhoneNumber: this.state.mobileno1,
+            addressProof: file64,
+            pinCode: 110093,
+            city: "Delhi",
+            state: "Delhi",
+            address: "Delhi india"
+        }
+
+
+        try {
+            ApiRequest( obj , '/retailer/manage', 'PUT',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA")
                .then((resp) => {
                   console.log('responseOTP====>', resp);
-   
+
                   switch (resp.status) {
                      case (200):
                          {
@@ -143,7 +227,7 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
                             this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
                             ToasterFunction("info", "OTP sent Successfully");
                         }
-                         
+
                            else if (resp.data.responseCode == 404) {
                              ToasterFunction("info", "Data not found, internal server error");
                          }
@@ -157,7 +241,7 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
                          }
                      }
                  }
-   
+
                })
          } catch (error) {
             console.log('errorresponse', error);
@@ -165,73 +249,11 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
          }
 
     }
-    saveButtonHandler(){
 
-
-
-        //obj = {
-        //     shopName: req.body.shopName,
-        //     shopNumber: req.body.shopNumber,
-        //     floorNumber: req.body.floorNumber,
-        //     martName: martFound.martName,
-        //     martId: martFound._id,
-        //     mobileNumber: req.body.mobileNumber,
-        //     email: req.body.email,
-        //     GSTIN: req.body.GSTIN,
-        //     registeredBusinessName: req.body.registeredBusinessName,
-        //     registeredBusinessPhoneNumber: req.body.registeredBusinessPhoneNumber,
-        //     addressProof: await uploadAddressProof(),
-        //     pinCode: req.body.pinCode,
-        //     city: req.body.city,
-        //     state: req.body.state,
-        //     address: req.body.address
-        // }
-
-       
-
-
-
-
-
-        // try {
-        //     ApiRequest( {email : "abc@gmail.com"} , '/retailer/resendOTP', 'PUT',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA")
-        //        .then((resp) => {
-        //           console.log('responseOTP====>', resp);
-   
-        //           switch (resp.status) {
-        //              case (200):
-        //                  {
-        //                    if (resp.data.responseCode == 200) {
-        //                     this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-        //                     ToasterFunction("info", "OTP sent Successfully");
-        //                 }
-                         
-        //                    else if (resp.data.responseCode == 404) {
-        //                      ToasterFunction("info", "Data not found, internal server error");
-        //                  }
-        //                  else if (resp.data.responseCode == 500) {
-        //                      ToasterFunction("error", "Internal Server Error");
-        //                  }
-        //              }
-        //              case (900): {
-        //                  if (resp.status == 900) {
-        //                      ToasterFunction("error", "Please check your internet connection")
-        //                  }
-        //              }
-        //          }
-   
-        //        })
-        //  } catch (error) {
-        //     console.log('errorresponse', error);
-        //     // ToasterFunction("error", "Network error, please contact the administrator");
-        //  }
-
-    }
-
-    handleUploadFile(event) {
     
-        
-    }
+
+
+
 
     render() {
         return (
@@ -282,27 +304,27 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
                                 </div>
                                 <div class="code-no pos-rel">
                                     <input
-                                     name="mobileno"
-                                     type="text" class="form-control" placeholder="9999999999"
-                                     onChange={(event) => this.handlemobilenoInput(event)}
-                                     />
+                                        name="mobileno"
+                                        type="text" class="form-control" placeholder="9999999999"
+                                        onChange={(event) => this.handlemobilenoInput(event)}
+                                    />
                                     <div class="green-verify">
                                         <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
-                                        onClick={()=>this.submitmobilenoHandler()}
+                                            onClick={() => this.submitmobilenoHandler()}
                                         >verify</button>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div>
-                                            <label style={{color:"red"}}>
-                                                {this.state.mobilenoErrorMessage}
-                                            </label>
-                                        </div>
+                                <label style={{ color: "red" }}>
+                                    {this.state.mobilenoErrorMessage}
+                                </label>
+                            </div>
                         </span>
                         <span class="name">
                             <label>Shop Phone Number to be Displayed on Coupons *</label>
-                            <div class="cover-phoneno no-minht" style={{position:"relative"}}>
+                            <div class="cover-phoneno no-minht" style={{ position: "relative" }}>
                                 <div class="code">
                                     <select class="form-control">
                                         <option selected>+91</option>
@@ -312,21 +334,21 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
                                 </div>
                                 <div class="code-no pos-rel" >
                                     <input
-                                    name="mobileno1"
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="9999999999" 
-                                    onChange={(event) => this.handlemobilenoInput1(event)}
+                                        name="mobileno1"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="9999999999"
+                                        onChange={(event) => this.handlemobilenoInput1(event)}
                                     />
                                     <div class="green-verify">
                                         <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
-                                        onClick={()=>this.submitmobilenoHandler1()}
+                                            onClick={() => this.submitmobilenoHandler1()}
                                         >verify</button>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div>
-                                <label style={{color:"red"}}>
+                                <label style={{ color: "red" }}>
                                     {this.state.mobilenoErrorMessage1}
                                 </label>
                             </div>
@@ -373,123 +395,132 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
                                 <div class="downproof">
                                     <label>Download Proof *</label>
                                     <div class="dow">
-                                       
-                                    
-                                        
-                                        <img onClick={(event)=>this.handleUploadFile(event)} src={require("../assets/images/download.png")} />
-                                       
+
+
+                                    <FilePicker
+                                    extensions={['pdf']}
+                                    onChange={FileObject => this.handleUploadFile(FileObject)}
+                                    onError={errMsg => console.log(errMsg)}
+                                >
+                                   
+                                
+                                        <img src={require("../assets/images/download.png")} />
+                                        </FilePicker>
                                     </div>
                                 </div>
                             </span>
+                           
+
+
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
-                                 <li> <Link to="/Coupon_template" > <button class="save" onClick={() => this.saveButtonHandler()}>Save</button> </Link></li>
+                                <li> <Link to="/Coupon_template" > <button class="save" onClick={() => this.saveButtonHandler()}>Save</button> </Link></li>
                             </ul>
                         </div>
                         <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
-                        {/* <ModalHeader >Alert!!
+                            {/* <ModalHeader >Alert!!
             <button onClick={() => this.setState({ modalStatus: false })} type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </ModalHeader> */}
-                        <ModalBody>
-                            <form>
-                                <div class="modal-body">
-                                    <div class="web-pagemodal">
-                                        <h5 class="text-center mt-3">OTP verification</h5>
-                                        <form>
-                                            <div class="register-cont">
-                                                <p class="my-3">Please enter the 4 digits OTP sent on your registered phone number.</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="otp-box">
-                                                    <p class="my-3">Enter 4 - digits code</p>
-                                                    <ul>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                        <li>
-                                                            <input class="form-control"
-                                                                name="otp"
-                                                                type="text"
-                                                                maxLength={1}
-                                                                placeholder="0"
-                                                                onChange={(event) => this.handleOtpInput(event)} />
-                                                        </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                        <li>
-                                                            <input class="form-control"
-                                                                name="otp2"
-                                                                type="text"
-                                                                maxLength={1}
-                                                                placeholder="0"
-                                                                onChange={(event) => this.handleOtpInput(event)} />
-                                                        </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                        <li>
-                                                            <input class="form-control"
-                                                                name="otp3"
-                                                                type="text"
-                                                                maxLength={1}
-                                                                placeholder="0"
-                                                                // value={this.state.otp}
-                                                                onChange={(event) => this.handleOtpInput(event)} />
-                                                        </li>
-                                                        {/* <li><input type="text" class="form-control" value="" /></li> */}
-                                                        <li>
-                                                            <input class="form-control"
-                                                                name="otp4"
-                                                                type="text"
-                                                                maxLength={1}
-                                                                placeholder="0"
-                                                                id="d"
-                                                                // value={this.state.otp}
-                                                                onChange={(event) => this.handleOtpInput(event)} />
-                                                        </li>
-                                                    </ul>
-                                                    <div>
-                                                        <label class="validation-hint">
-                                                            {this.state.otpErrorMessage}
-                                                        </label>
-                                                    </div>
-                                                    {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                    <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resetOTPHandler() }>
-                                                        Resend
-                                                     </p></Link>
+                            <ModalBody>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="web-pagemodal">
+                                            <h5 class="text-center mt-3">OTP verification</h5>
+                                            <form>
+                                                <div class="register-cont">
+                                                    <p class="my-3">Please enter the 4 digits OTP sent on your registered phone number.</p>
                                                 </div>
-                                            </div>
-                                            <div class="modalsumit">
-                                                {/* <a href="25-signup-user.html"> */}
-                                                {/* <Link to="SignupRetailer"> */}
-                                                <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
-                                                {/* </Link> */}
-                                                {/* </a> */}
-                                            </div>
-                                        </form>
+                                                <div class="form-group">
+                                                    <div class="otp-box">
+                                                        <p class="my-3">Enter 4 - digits code</p>
+                                                        <ul>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp2"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp3"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    // value={this.state.otp}
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp4"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    id="d"
+                                                                    // value={this.state.otp}
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                        </ul>
+                                                        <div>
+                                                            <label class="validation-hint">
+                                                                {this.state.otpErrorMessage}
+                                                            </label>
+                                                        </div>
+                                                        {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
+                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resetOTPHandler()}>
+                                                            Resend
+                                                     </p></Link>
+                                                    </div>
+                                                </div>
+                                                <div class="modalsumit">
+                                                    {/* <a href="25-signup-user.html"> */}
+                                                    {/* <Link to="SignupRetailer"> */}
+                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
+                                                    {/* </Link> */}
+                                                    {/* </a> */}
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
 
 
-                            
-                            </form>
-                        </ModalBody>
-                    </Modal>
 
-                    <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
-                        <ModalBody>
-                            <form>
-                                <div class="modal-header locationsethead">
-                                    <h5>OTP resent successfully.</h5>
-                                </div>
-                                <div style={{ textAlign: "center" }} >
-                                    <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend })} >OK</button>
-                                </div>
-                            </form>
-                        </ModalBody>
-                    </Modal>
+                                </form>
+                            </ModalBody>
+                        </Modal>
+
+                        <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
+                            <ModalBody>
+                                <form>
+                                    <div class="modal-header locationsethead">
+                                        <h5>OTP resent successfully.</h5>
+                                    </div>
+                                    <div style={{ textAlign: "center" }} >
+                                        <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend })} >OK</button>
+                                    </div>
+                                </form>
+                            </ModalBody>
+                        </Modal>
                     </div>
 
                 </div>
-                
+
 
 
 
@@ -502,17 +533,17 @@ import {retailerProfileAction} from "../redux/action/ProfileDetailsAction";
 const mapStateToProps = state => {
     console.log("stateLogin-------", state)
     return {
-       applicationData: state.AuthReducer.userData
-         
+        applicationData: state.AuthReducer.userData
+
     }
-          
- }
- const mapDispatchToProps = dispatch => {
+
+}
+const mapDispatchToProps = dispatch => {
     return {
         action: bindActionCreators({ retailerProfileAction }, dispatch)
     }
-  }
+}
 
- // export default componentName
-export default connect(mapStateToProps,mapDispatchToProps)(ManageInfoRetailer);
+// export default componentName
+export default connect(mapStateToProps, mapDispatchToProps)(ManageInfoRetailer);
 
