@@ -90,7 +90,7 @@ export class LoginRetailer extends Component {
     render() {
         return (
             <div>
-                {/* {/ <section className="center-form"> /} */}
+                {/* <section className="center-form"> */}
                 <body>
                     <Header />
                     <section>

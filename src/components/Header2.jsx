@@ -65,7 +65,7 @@ function Header2(props) {
                                             <DropdownMenu className="dropdown-menu log-menu">
 
                                                 <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
-                                                <DropdownItem tag={Link} to="/" >Signup</DropdownItem>
+                                                <DropdownItem tag={Link} to="/CreateWebpageInitialSignupProcess" >Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
 
