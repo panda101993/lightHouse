@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
-export default class ReferralCodeRetailer extends Component {
+import { connect } from "react-redux"; 
+ class ReferralCodeRetailer extends Component {
     constructor(props) {
         super(props)
 
@@ -26,7 +26,8 @@ export default class ReferralCodeRetailer extends Component {
             <div class="maincred ref">
                 <div class="mycredit ref">
                     <p class="li"> LI3G4T</p>
-                    <img src={require("../assets/images/qrreader.png")} />
+                    {/* <img src={require("../assets/images/qrreader.png")} /> */}
+                    {/* <img src ={require("")} /> */}
                 </div>
             </div>
             <div class="pas print">
@@ -46,3 +47,13 @@ export default class ReferralCodeRetailer extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.ProfileDetailsReducer.profileData      
+    }
+          
+  }
+ 
+// export default Header2
+export default connect(mapStateToProps)(ReferralCodeRetailer);

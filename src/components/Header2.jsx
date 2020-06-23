@@ -150,8 +150,12 @@ function Header2(props) {
                                     <a class="dropdown-item" href="#">MY</a>
                                     <a class="dropdown-item" href="#">My Account</a>
                                 </div> */}
-                                </li>
-                                <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                </li> 
+                                <Link to='/NotificationScreensRetailer' > 
+                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
+                                  </Link>
+                              
+
                                 <li class="prfile">
                                     <img src={require("../assets/images/new-profile.png")} />
                                     <p>Kamal</p>
@@ -210,7 +214,10 @@ function Header2(props) {
                                     <a class="dropdown-item" href="#">My Account</a>
                                 </div> */}
                                 </li>
-                                <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                {/* <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> */} 
+                                <Link to='/NotificationScreensRetailer' > 
+                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
+                                  </Link>
                                 <li class="prfile">
                                     {/* <img src={require("../assets/images/new-profile.png")} /> */}
                                     <p>Kamal</p>

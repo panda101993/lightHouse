@@ -6,9 +6,10 @@ import Footer from '../../components/Footer';
 import { GlobalValidations } from '../../components/GlobalValidations';
 import { GlobalAlertCoupanTitleBox } from '../../components/GlobalAlertCoupanTitleBox';
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
+import { connect } from "react-redux"; 
 
-export default class NotificationScreensRetailer extends Component {
+ class NotificationScreensRetailer extends Component {
    constructor(props) {
       super(props)
 
@@ -25,7 +26,7 @@ export default class NotificationScreensRetailer extends Component {
             <body>
                <Header2 />
 
-               <section>
+               {/* <section>
                   <div class="container-fluid">
                      <div class="coupn-setting my-5">
                         <ul>
@@ -36,7 +37,21 @@ export default class NotificationScreensRetailer extends Component {
                         </ul>
                      </div>
                   </div>
-               </section>
+               </section> */} 
+                   <section>
+         <div class="container-fluid">
+           <div class="coupn-setting my-5">
+            
+              <ul>
+                                    <li>
+                                      <Link to="/Coupon_template" class="active" > Create Coupon</Link> </li>
+                                    <li> <Link to='/MyCoupanHistory' > Manage Coupons </Link></li>
+                                    <li><Link to='/ManageOnetime'>Single Use Coupon</Link></li>
+                                    <li><Link to="/Setting_retailer">Settings</Link></li>
+                                </ul>
+           </div>
+         </div>
+       </section> 
                <section>
                   <div class="container-fluid border-with-radius">
                      <div class="container-fluid inner-size">
@@ -299,6 +314,17 @@ export default class NotificationScreensRetailer extends Component {
       )
    }
 }
+
+const mapStateToProps = state => {
+   console.log("stateLogin-------", state)
+   return {
+      applicationData: state.AuthReducer.userData
+        
+   }
+         
+ }
+ 
+ export default connect(mapStateToProps)(NotificationScreensRetailer);
 
 
 
