@@ -129,11 +129,13 @@ export class AllRetailers extends Component {
               dotListClass="custom-dot-list-style"
               itemClass="carousel-item-padding-40-px"
             >
-              <div>
+            
+
                 <div class="slicent activa">
                   {allCoupon.martName}
                 </div>
-              </div>
+              
+      
             </Carousel>
 
           </div>
@@ -271,16 +273,16 @@ export class AllRetailers extends Component {
           {/* <Header2 /> */}
           <Header4 />
           <section class="second">
-            <div class="container-fluid">
+            <div class="container-fluid"> 
 
-              <div class="slidertop">
-                <section class="center slider">
+                <div class="slidertop">
+                <section class="center slider"> 
 
                   {this.martData()}
-                </section>
+                 </section>
               </div>
             </div>
-          </section>
+          </section> 
           <div class="left-contant">
             <div class="marname">
               {this.martName()}

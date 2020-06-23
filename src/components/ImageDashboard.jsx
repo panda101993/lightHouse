@@ -181,7 +181,15 @@ export default function ImageDashboard(props) {
                         data-toggle="modal" data-target="#wishlist" />
                   </Link>
                   {
-                  typeData == 'mart' || typeData == 'retailer'
+                  typeData == 'mart'
+                  ?
+                  <Link to={`/WebsiteMart/${MartId}`}>
+                     <div class="tcl00">
+                        <p> {ImageName} </p>
+                     </div>
+                  </Link>
+                  : 
+                  typeData == 'retailer'
                   ?
                   <Link to={`/WebsiteRetailer/${MartId}`}>
                      <div class="tcl00">
