@@ -120,13 +120,52 @@ class ManageInfoRetailer extends Component {
         this.state.mobilenoStatus1 = validateMobileNo(value).status;
 
     }
+    mobileOTPHandler() {
+
+        try {
+            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5MjkyNjAxMCwiZXhwIjoxNTkzMDEyNDEwfQ.as3HKT9qtO5f-pGvq0gGJES-p3F-W1k0PDWd3msLWpI")
+                .then((resp) => {
+                    console.log('responseOTP====>', resp);
+
+                    switch (resp.status) {
+                        case (200):
+                            {
+                                if (resp.data.responseCode == 200) {
+                                      this.setState({ modalStatus: !this.state.modalStatus });
+                                    
+                                    ToasterFunction("info", "OTP sent Successfully");
+                                }
+
+                                else if (resp.data.responseCode == 404) {
+                                    ToasterFunction("info", "Data not found, internal server error");
+                                }
+                                else if (resp.data.responseCode == 500) {
+                                    ToasterFunction("error", "Internal Server Error");
+                                }
+                            }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+
+                })
+        } catch (error) {
+            console.log('errorresponse', error);
+            // ToasterFunction("error", "Network error, please contact the administrator");
+        }
+
+    }
 
     submitmobilenoHandler = () => {
         if (this.state.mobilenoStatus) {
+           // this.mobileOTPHandler()
+           this.setState({ modalStatus: !this.state.modalStatus });
             // alert('Submit Successfully');
             //  window.location.href = "SignupRetailer";
             // this.setState({ modalStatus: false })
-            this.setState({ modalStatus: !this.state.modalStatus });
+            
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
 
@@ -135,13 +174,14 @@ class ManageInfoRetailer extends Component {
             // alert('Submit Successfully');
             //  window.location.href = "SignupRetailer";
             // this.setState({ modalStatus: false })
+             
             this.setState({ modalStatus: !this.state.modalStatus });
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
     }
     resetOTPHandler() {
 
         try {
-            ApiRequest({ email: "abc@gmail.com" }, '/retailer/resendOTP', 'POST')
+            ApiRequest({ "email":"abc@gmail.com" }, '/retailer/resendOTP', 'POST',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5MjkyNjAxMCwiZXhwIjoxNTkzMDEyNDEwfQ.as3HKT9qtO5f-pGvq0gGJES-p3F-W1k0PDWd3msLWpI")
                 .then((resp) => {
                     console.log('responseOTP====>', resp);
 
@@ -197,28 +237,25 @@ class ManageInfoRetailer extends Component {
   console.log("file64=====>",file64)
 
        let obj = {
-            shopName: "BigBazaar",
-            shopNumber: 12344,
-            floorNumber: 4,
-            martName: "V3S",
-            martId: 1234,
-            mobileNumber: this.state.mobileno,
-            email: "abccc7@gmail.com",
-            GSTIN: "123456798",
-            registeredBusinessName: "BigBazaar",
-            registeredBusinessPhoneNumber: this.state.mobileno1,
-            addressProof: file64,
-            pinCode: 110093,
-            city: "Delhi",
-            state: "Delhi",
-            address: "Delhi india"
-        }
+        shopName:"Ali",
+        shopNumber:"450",
+        floorNumber:"45",
+        mobileNumber:"7979862051",
+        email:"noo-aliahmad",
+        GSTIN:"1220000",
+        registeredBusinessName:"Ayaz",
+        registeredBusinessPhoneNumber:"7979862051",
+        pinCode:"801505",
+        city:"Patna",
+        state:"Bihar",
+        address:"Isapur",
+        addressProof:file64}
 
 
         try {
             ApiRequest( obj , '/retailer/manage', 'PUT',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA")
                .then((resp) => {
-                  console.log('responseOTP====>', resp);
+                  console.log('response====>/retailer/manage', resp);
 
                   switch (resp.status) {
                      case (200):
