@@ -52,7 +52,48 @@ export class MyWishlistEndUser extends Component {
          modalStatus: false,
          favMartData: [],
          favRetailerData: [],
-         favCategoryData: []
+         favCategoryData: [],
+         favSubCategoryData: []
+      }
+   }
+
+
+   getFavSubCategoryWishlist = () => {
+      try {
+
+         console.log('hhhh=>', this.props.applicationData)
+         apiRequest({ "type": "SUBCATEGORY" }, '/user/wishList', 'POST', this.props.applicationData.token)
+            .then((resp) => {
+               console.log('responseSubCategory', resp);
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                              favSubCategoryData: resp.data.result
+                           });
+                        }
+                        //   else if (resp.data.responseCode == 404) {
+                        //      ToasterFunction("info", resp.data.responseMessage);
+
+                        //  }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", resp.data.responseMessage);
+
+                        }
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
+               }
+            });
+
+      } catch (error) {
+         console.log('response===', error);
+         // ToasterFunction("error", "Network error, please contact the administrator");
+
       }
    }
 
@@ -178,9 +219,54 @@ export class MyWishlistEndUser extends Component {
       this.getFavMartWishlist();
       this.getFavRetailerWishlist();
       this.getFavCategoryWishlist();
+      this.getFavSubCategoryWishlist();
 
    }
+   subCategoryData() {
+      // if(this.state.allData.length > 0)
+      return this.state.favSubCategoryData.map((xyz, index) => {
+         const { subCategoryId, subCategoryImage, subCategoryName } = xyz
+         //   console.log('category',categoryImage);
+         return (
+            <div>
+              <Carousel
+                        swipeable={true}
+                        draggable={false}
+                        showDots={false}
+                        responsive={responsive}
+                        ssr={true} // means to render carousel on server-side.
+                        infinite={true}
+                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                        autoPlaySpeed={5000000}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        deviceType={this.props.deviceType}
+                        dotListClass="custom-dot-list-style"
+                        itemClass="carousel-item-padding-40-px"
+                     >
+                  <div>
 
+                     <ImageDashboard
+                        ImageName={subCategoryName}
+                        LinkId="/subCategories"
+                        ImageA={subCategoryImage}
+                        heartImage={Imageid.RedHeart}
+                        Id={subCategoryId}
+                        Token={this.props.applicationData.token}
+                        typeData={'subCategory'}
+                        typePage={'subCategory'}
+                        
+                     />
+
+                  </div>
+               </Carousel>
+            </div>
+         )
+      })
+   }
 
    categoryData() {
       // if(this.state.allData.length > 0)
@@ -350,93 +436,7 @@ export class MyWishlistEndUser extends Component {
                      <h3>Sub categories</h3>
                   </div>
                   <div class="wish-slider">
-                     <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     >
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Bounce Salon & Spa"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-
-
-                     </Carousel>
-
-
+                     {this.subCategoryData()}
                   </div>
                </div>
             </section>
