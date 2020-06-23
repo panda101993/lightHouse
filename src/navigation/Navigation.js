@@ -44,6 +44,7 @@ import { createBrowserHistory } from 'history';
 // import ProfileUpdate from '../screens/settings/ProfileUpdateForm';
 
 import LandingScreen from '../screens/dashboard/LandingScreen'
+import LandingScreenGuestUser from '../screens/dashboard/LandingScreenGuestUser';
 // import SettingEndUser from '../screens/settings/SettingEndUser';
 import WebsiteRetailer from '../screens/Retailer/WebsiteRetailer';
 import WebsiteMart from '../screens/Retailer/WebsiteMart';
@@ -65,6 +66,7 @@ import MyCoupanHistory from '../screens/myCoupanHistory/MyCoupanHistory';
 import ManageOnetime from '../screens/Retailer/Manage_Coupons/ManageOnetime';
 import CreateCouponform from '../screens/Retailer/Coupon_Template/CreateCouponform';
 
+
 export default class Navigation extends Component {
     render() {
         return (
@@ -72,7 +74,8 @@ export default class Navigation extends Component {
                 <div> 
                 
                     {/* <Route exact path="/" component= {SignupCustomer} /> */} 
-                    <Route exact path="/" component= {CreateWebpageInitialSignupProcess} />
+                    <Route exact path="/" component= {LandingScreenGuestUser} />
+                    <Route exact path="/CreateWebpageInitialSignupProcess" component= {CreateWebpageInitialSignupProcess} />
                     <Route path="/SignupCustomer" component= {SignupCustomer} />
                     <Route  path="/LandingScreen"  component={ LandingScreen } /> 
 
@@ -87,7 +90,7 @@ export default class Navigation extends Component {
                     
                     {/* settings EndUser */}
                    {/* <Route path="/SettingEndUser"  component ={SettingEndUser } /> */}
-                <Route path='/Setting_enduser' component={Setting_enduser} />
+                     <Route path='/Setting_enduser' component={Setting_enduser} />
                     {/* <Route path='/settings' component= {Settings} /> */}
                     <Route path="/Setting_retailer" component= {Setting_retailer} />
                  
@@ -125,6 +128,7 @@ export default class Navigation extends Component {
                   <Route path='/ManageOnetime' component={ManageOnetime} />
                 <Route path='/ResetPassword' component={ResetPassword} /> 
                 <Route path="/ResetpasswordRetailer" component={ResetpasswordRetailer} />
+                
                 </div>
             </Router>
         )

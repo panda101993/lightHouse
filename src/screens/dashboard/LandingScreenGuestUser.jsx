@@ -13,8 +13,8 @@ import CouponsScrollPupup from '../../components/CouponsScrollPupup'
 import CatogriesScroll from '../../components/CatogriesScroll'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import Header4 from '../../components/Header4'
-import apiRequest from '../../api/Apirequest'
+import Header from '../../components/Header'
+import apiRequest from '../../api/Apirequest';
 import {loginAction} from "../../redux/action/AuthAction";
 import { connect } from "react-redux";
 import Cookies from 'universal-cookie';
@@ -56,7 +56,7 @@ class componentName extends Component {
       super(props)
    
       this.state = {
-         allData: []
+         allData: [],
           
       }
     
@@ -64,17 +64,17 @@ class componentName extends Component {
 
    getmartsbyUserList = () =>{
       try {
-         const cookies = new Cookies();
-         console.log(cookies.get('latitude'));
-         const latitude = cookies.get('latitude')
- 
-         console.log(cookies.get('longitude'));
-         const longitude = cookies.get('longitude')
+        const cookies = new Cookies();
+        console.log(cookies.get('latitude'));
+        const latitude = cookies.get('latitude')
 
-         console.log('hhhh=>',this.props.applicationData)
-         apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
+        console.log(cookies.get('longitude'));
+        const longitude = cookies.get('longitude')
+
+        //  console.log('hhhh=>',this.props.applicationData)
+         apiRequest({lat:latitude, long:longitude},'/user/getMartsByUser','POST')
          .then((resp)=>{
-         console.log('  ', resp);
+         console.log('response', resp);
          switch (resp.status) {
             case (200):
                 {
@@ -84,11 +84,11 @@ class componentName extends Component {
                      });
                 }
                  else if (resp.data.responseCode == 404) {
-                    ToasterFunction("info", resp.data.responseMessage);
+                    ToasterFunction("info", "Data not found, internal server error");
 
                 }
                 else if (resp.data.responseCode == 500) {
-                    ToasterFunction("error", resp.data.responseMessage);
+                    ToasterFunction("error", "Internal Server Error");
 
                 }
             }
@@ -98,6 +98,7 @@ class componentName extends Component {
                 }
             }
         }
+        
       });
          
       } catch (error) {
@@ -119,8 +120,8 @@ class componentName extends Component {
          const {martId,martImage,martName} = xyz
       //   console.log('category',categoryImage);
          return(
-            <div>
-                <Carousel
+            <div class="container-fluid">
+               <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
@@ -140,15 +141,10 @@ class componentName extends Component {
                      >
             <ImageDashboard          
                ImageName={martName}
-               LinkId={`/AllRetailers/${martId}`}
-               // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
+               LinkId="/AllRetailers"
                ImageA={martImage}
-               heartImage={Imageid.heartImage}
+               heartImage={Imageid.RedHeart}
                MartId={martId}
-               Id={martId}
-               Token={this.props.applicationData.token}
-               typeData = {'mart'}
-               
             />
              </Carousel>
          </div>
@@ -156,7 +152,6 @@ class componentName extends Component {
       })
    }
 
-   
 
    productServiceType(){
       return this.state.allData.slice(0,2).map((xyz, index)=>{
@@ -173,10 +168,11 @@ class componentName extends Component {
    categoryData(){
       // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
-         const {martId,categoryId, categoryImage,categoryName} = xyz
+         const {categoryId, categoryImage,categoryName,productServiceType} = xyz
       //   console.log('category',categoryImage);
          return(
-            <div>
+            // <div class="container-fluid">
+              <div>  
                <Carousel
                   swipeable={true}
                   draggable={false}
@@ -197,13 +193,9 @@ class componentName extends Component {
                >
                   <ImageDashboard
                      ImageName={categoryName}
-                     LinkId={`/subCategories/${categoryId}/${martId}`}
+                     LinkId="/subCategories"
                      ImageA={categoryImage}
                      heartImage={Imageid.RedHeart}
-                     CategoryId={categoryId}
-                     Id={categoryId}
-                     Token={this.props.applicationData.token}
-                     typeData = {'category'}
                      
                   />
                </Carousel>
@@ -211,6 +203,8 @@ class componentName extends Component {
          )
       })
    }
+
+ 
    
   
 
@@ -222,20 +216,17 @@ class componentName extends Component {
 
          <>
             <body>
-               {/* <HeaderLandingScreen /> */}
-               <Header4 />
+               <Header/>
                <section class="second">
                   <LandingTopicName HeaderName="Marts" />
-                  <div class="container-fluid">
                   {this.martData()}
-                  </div>
+
                   <LandingTopicName HeaderName="Categories" />
 
-                  <div class="container-fluid">
-                     {this.productServiceType()}
+                   <div class="container-fluid"> 
+                  {this.productServiceType()}
                   {this.categoryData()}
-
-                  </div>
+                   </div>
                </section>
                <Footer />
             </body>
@@ -244,16 +235,7 @@ class componentName extends Component {
       )
    }
 }
-const mapStateToProps = state => {
-   console.log("stateLogin-------", state)
-   return {
-      applicationData: state.AuthReducer.userData
-        
-   }
-         
-}
 
 
 
-// export default componentName
-export default connect(mapStateToProps,{loginAction})(componentName);
+export default componentName

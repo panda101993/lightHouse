@@ -14,7 +14,7 @@ const ManageGeneralInfoUser = () =>
 <div>
     {/* <ManageInfoEndUser />  */}
     <ManageInfostep2  /> 
-  
+
 </div>;
 
 const ChangePasswordUser = () => 
@@ -46,7 +46,8 @@ class componentName extends Component {
    
    
   render()  
-  {  const { path } = this.props.match;
+  {  
+     const { path } = this.props.match;
     return (
       <div> <body> 
            {/* <Header2 />  */}
@@ -105,4 +106,4 @@ class componentName extends Component {
   }
 }
 
-export default componentName
+export default componentName;

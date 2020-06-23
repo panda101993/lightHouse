@@ -1,13 +1,13 @@
-
-
 import React, { Component } from 'react'
-import Header2 from '../../components/Header2';
 import Footer from '../../components/Footer';
 import { Link, Switch } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalBody } from 'reactstrap';
 
-import { validateOtp,validateMobileNo } from '../../utils/validation/Validation';
-import Header from '../../components/Header';
+import { validateOtp, validateMobileNo, validateDialCode } from '../../utils/validation/Validation';
+import Header2 from '../../components/Header2';
+import CountriesJSON from '../../utils/JSON/country.json';
+import apiRequest from '../../api/Apirequest';
+import ToasterFunction from '../../components/ToasterFunc';
 
 export default class CreateWebpageInitialSignupProcess extends Component {
     constructor(props) {
@@ -33,6 +33,10 @@ export default class CreateWebpageInitialSignupProcess extends Component {
             mobileno: "",
             mobilenoErrorMessage: "",
             mobilenoStatus: false,
+
+            dialCode: "+91",
+            dialCodeErrorMessage: "",
+            dialCodeStatus: true,
 
 
 
@@ -93,21 +97,79 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
     }
 
-    submitmobilenoHandler = () => {
-        if (this.state.mobilenoStatus) {          
-                        // alert('Submit Successfully');
-                        //  window.location.href = "SignupRetailer";
-                        // this.setState({ modalStatus: false })
-                        this.setState({ modalStatus: !this.state.modalStatus });
-        } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
+    handleDialCode = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+        this.state.dialCodeErrorMessage = validateDialCode(value).error;
+        this.state.dialCodeStatus = validateDialCode(value).status;
     }
+
+    getInitialSignupRetailer = () => {
+        try {
+            apiRequest({ mobileNumber: this.state.mobileno }, '/retailer/signUpRetailer', 'POST')
+                .then((resp) => {
+                    console.log("response", resp)
+                    switch (resp.status) {
+                        case (200): {
+                            if (resp.data.responseCode == 200) {
+                                ToasterFunction("success", "Successfully sent otp . Please verify");
+                                this.setState({ modalStatus: !this.state.modalStatus });
+
+                            }
+                            else if (resp.data.responseCode == 403) {
+                                ToasterFunction("info", "This Mobile number already exists");
+
+                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                            }
+                            else if (resp.data.responseCode == 404) {
+                                ToasterFunction("info", "This Mobile number already exists");
+
+                            }
+                            else if (resp.data.responseCode == 500) {
+                                ToasterFunction("error", "Internal Server Error");
+
+                            }
+                        }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+                })
+        } catch (error) {
+            console.log("response", error)
+            ToasterFunction("error", "Network error, please contact the administrator");
+
+        }
+    }
+
+    submitmobilenoHandler = () => {
+        if (this.state.mobilenoStatus) {
+            if (this.state.dialCodeStatus) {
+                console.log("dialCodeStatus", this.state.dialCodeStatus)
+                this.getInitialSignupRetailer();
+
+            } else { this.setState({ dialCodeStatus: false, dialCodeErrorMessage: "*Please select Dial Code" }) }
+        } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
+    }
+
+    //to return list of all dial_code as per countries
+    DialCode = CountriesJSON.map((item, index) => {
+        return <option value={index} >{item.dial_code}</option>
+    });
+
+
 
     render() {
         return (
-            <div> 
+            <div>
                 <body>
-                    {/* <Header2 /> */} 
-                    <Header /> 
+                    {/* <Header2 /> */}
+                    <Header2 />
                     <section class="bg-form">
                         <div class="cover-forgot bg-whiteform">
                             <h1>Join Us:</h1>
@@ -116,29 +178,46 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                     <label>Mobile Number</label>
                                     <div class="cover-phoneno">
                                         <div class="code">
-                                            <select class="form-control">
+                                            <select class="form-control"
+                                                name="dialCode"
+                                                onChange={(event) => this.handleDialCode(event)}
+                                            >
                                                 <option selected>+91</option>
-                                                <option>+92</option>
-                                                <option>+92</option>
+                                                {this.DialCode}
+                                                {/* <option>+92</option>
+                                                <option>+92</option> */}
                                             </select>
+                                            <br />
+                                            <div>
+                                                <label style={{ color: "red" }}>
+                                                    {this.state.dialCodeErrorMessage}
+                                                </label>
+                                            </div>
                                         </div>
+
                                         <div class="code-no">
-                                            <input 
-                                            name="mobileno"
-                                            type="text" class="form-control" 
-                                            placeholder="Enter your phone number"
-                                            onChange={(event) => this.handlemobilenoInput(event)}
-                                             />
+                                            <input
+                                                name="mobileno"
+                                                type="text" class="form-control"
+                                                placeholder="Enter your phone number"
+                                                onChange={(event) => this.handlemobilenoInput(event)}
+                                            />
+                                            <br />
+                                            <div>
+                                                <label style={{ color: "red" }}>
+                                                    {this.state.mobilenoErrorMessage}
+                                                </label>
+                                            </div>
                                         </div>
-                                       
+
                                     </div>
-                                    <div>
+                                    {/* <div>
                                             <label style={{color:"red"}}>
                                                 {this.state.mobilenoErrorMessage}
                                             </label>
-                                        </div>
+                                        </div> */}
                                     <div class="join-usbttn">
-                                        <button type="button" class="btn btn-theme" data-toggle="modal" data-target="#otpmodal-2" onClick={() =>this.submitmobilenoHandler()} >SUBMIT</button>
+                                        <button type="button" class="btn btn-theme" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitmobilenoHandler()} >SUBMIT</button>
                                     </div>
 
                                     {/* <p onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
@@ -148,7 +227,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
                                 </div>
                                 <div class="text-center mt-5">
-                                    <p>Already have an account ? 
+                                    <p>Already have an account ?
                                         {/* <a href="3-login.html">Login</a> */}
                                         <Link to="/LoginCustomer" >Login</Link>
                                     </p>
@@ -220,11 +299,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
 
                     <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "90px" }} >
-                        {/* <ModalHeader >Alert!!
-            <button onClick={() => this.setState({ modalStatus: false })} type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </ModalHeader> */}
                         <ModalBody>
                             <form>
                                 <div class="modal-body">
@@ -273,8 +347,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                                 type="text"
                                                                 maxLength={1}
                                                                 placeholder="0"
-                                                                id="d"
-                                                                // value={this.state.otp}
                                                                 onChange={(event) => this.handleOtpInput(event)} />
                                                         </li>
                                                     </ul>
@@ -283,25 +355,21 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                                             {this.state.otpErrorMessage}
                                                         </label>
                                                     </div>
-                                                    {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
                                                     <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>
                                                         Resend
                                                      </p></Link>
                                                 </div>
                                             </div>
                                             <div class="modalsumit">
-                                                {/* <a href="25-signup-user.html"> */}
-                                                {/* <Link to="SignupRetailer"> */}
+
                                                 <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
-                                                {/* </Link> */}
-                                                {/* </a> */}
                                             </div>
                                         </form>
                                     </div>
                                 </div>
 
 
-                            
+
                             </form>
                         </ModalBody>
                     </Modal>
@@ -318,25 +386,6 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                             </form>
                         </ModalBody>
                     </Modal>
-
-
-
-                 
-                    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content coup-code">
-                                <div class="modal-header locationsethead adminis">
-                                    <h5>Are you sure you want to Logout?</h5>
-                                </div>
-                                <div class="modal-body ok n-yes">
-                                    <button class="btn setloc-btn" type="submit" data-dismiss="modal">No</button>
-                                    <a href="3-login.html"><button type="button" class="btn setloc-btn" type="submit">Yes</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  
-
                 </body>
             </div>
         )

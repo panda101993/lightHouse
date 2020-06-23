@@ -9,6 +9,12 @@ import ImageDashboard from "../../components/ImageDashboard"
 import CouponsImage from  "../../components/CouponsImage"
 import Header4 from '../../components/Header4'; 
 import { Link } from 'react-router-dom'
+import apiRequest from '../../api/Apirequest';
+import {myCouponData} from '../../redux/action/CouponCodeAction'
+import {bindActionCreators} from 'redux';
+import { connect } from "react-redux";
+
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -60,7 +66,205 @@ const Imageid = {
 }
 
 export class AllRetailers extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+
+      allCoupon:[] 
+    }
+  }
+
+  getAllCoupansOfMart=(Id)=>{
+    try {
+      
+      
+      console.log('martt----',Id);
+      //  apiRequest({martId:Id},'/user/ ','POST')
+      this.props.action.myCouponData({martId:Id})
+      
+      //  .then((resp)=>{
+      //     console.log("responseCoupan",resp)
+        //   this.setState({
+        //     allCoupon: resp.data.couponData
+        //  });
+      //  })
+    } catch (error) {
+       console.log("responseError",error)
+       
+    }
+
+ }
+
+async componentDidMount() { 
+  console.log('martt',window.location.pathname);
+  let splitUrl = window.location.pathname.split('/')
+  console.log('martt',splitUrl);
+  console.log('martt',splitUrl[2]);
+ this.getAllCoupansOfMart(splitUrl[2]);
+}
+
+martData(){
+
+  if(this.props.allCouponData !== undefined){
+    return this.props.allCouponData.map((allCoupon, index)=>{
+
+      return(
+         <div>
+           <Carousel
+                    swipeable={true}
+                    draggable={false}
+                    showDots={false}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                   // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                    autoPlaySpeed={5000000}
+                    keyBoardControl={true}
+                    customTransition="all .5"
+                    transitionDuration={500}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    //deviceType={this.props.deviceType}
+                    dotListClass="custom-dot-list-style"
+                    itemClass="carousel-item-padding-40-px"
+                  >
+            <div>
+              <div class="slicent activa">
+                {allCoupon.martName}
+              </div>
+            </div>
+        </Carousel>
+          
+      </div>
+      )
+   })
+  }
+  
+}
+
+martName(){
+  if(this.props.allCouponData !== undefined){
+    return this.props.allCouponData.slice(0,2).map((allCoupon, index)=>{
+      return(
+  <div>
+<h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>
+  </div>
+      )
+    })
+    }
+}
+
+retailerData(){
+  if(this.props.allCouponData !== undefined){
+    return this.props.allCouponData.map((allCoupon, index)=>{
+      return(
+        // <div class="top-slider index-top">
+        <div>
+        {/* <DashboardImageScroll /> */}
+        <Carousel
+          swipeable={true}
+          draggable={false}
+          showDots={false}
+          responsive={responsive1}
+          ssr={true} // means to render carousel on server-side.
+          infinite={true}
+          autoPlay={this.props.deviceType !== "mobile" ? true : false}
+          autoPlaySpeed={5000000}
+          keyBoardControl={true}
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          deviceType={this.props.deviceType}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          <div>
+
+            <ImageDashboard
+              ImageName={allCoupon.shopName}
+              LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
+              // LinkId={`/AllRetailers/${martId}`}
+              ImageA={allCoupon.image}
+              heartImage={Imageid.RedHeart}
+              MartId={allCoupon.martId}
+              CategoryName={allCoupon.categoryName}
+              SubCategoryName={allCoupon.subCategoryName}
+              ItemType={allCoupon.itemType}
+              ItemName={allCoupon.itemName}
+              BrandName={allCoupon.brandName}
+              RetailerId={allCoupon.retailerId._id}
+              Id={allCoupon.retailerId._id}
+              Token={this.props.applicationData.token}
+              typeData = {'retailer'}
+            />
+
+          </div>
+        </Carousel>
+
+      </div>
+            )
+    })
+    }
+}
+
+couponData(){
+  // if(this.props.applicationData.length > 0)
+  console.log("applicationData",this.props.applicationData)
+  if(this.props.allCouponData !== undefined){
+    return this.props.allCouponData.map((allCoupon, index)=>{
+      return(
+        <div>
+          <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive1}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+> 
+<CouponsImage 
+ImageSrc={allCoupon.image}
+Title={allCoupon.title}
+CouponCode={allCoupon.couponCode}
+Discount={allCoupon.discount}
+ItemName={allCoupon.itemName}
+ExpiryDate={allCoupon.ExpiryDate}
+CouponId={allCoupon._id}
+CouponToken={this.props.applicationData.token}
+CouponAppliedOn={allCoupon.couponAppliedOn}
+OneTimeCoupon={allCoupon.oneTimeCoupon}
+ShopName={allCoupon.shopName}
+ShopNumber={allCoupon.retailerId.shopNumber}
+FloorNumber={allCoupon.floorNumber}
+MartName={allCoupon.martName}
+ShopPhoneNumber={allCoupon.shopPhoneNumber}
+Restrictions={allCoupon.restrictions}
+
+
+
+/>
+</Carousel>
+        </div>
+      )
+    })
+  }
+}
+
+  
   render() {
+
     return (
       <div>
         <body>
@@ -71,89 +275,18 @@ export class AllRetailers extends Component {
 
               <div class="slidertop">
                 <section class="center slider">
-                  <Carousel
-                    swipeable={true}
-                    draggable={false}
-                    showDots={false}
-                    responsive={responsive}
-                    ssr={true} // means to render carousel on server-side.
-                    infinite={true}
-                    autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                    autoPlaySpeed={5000000}
-                    keyBoardControl={true}
-                    customTransition="all .5"
-                    transitionDuration={500}
-                    containerClass="carousel-container"
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
-                    deviceType={this.props.deviceType}
-                    dotListClass="custom-dot-list-style"
-                    itemClass="carousel-item-padding-40-px"
-                  >
-                    <div>
-                      <div class="slicent activa">
-                        Mart Name
+                  
+                {this.martData() } 
+                  </section>
                   </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                        Mart Name
-                        </div>
-                    </div>
-
-                  </Carousel>
+                  </div>
                 </section>
-              </div>
-
-
-
-
-
-
-            </div>
-
-          </section>
-
           <div class="left-contant">
             <div class="marname">
-              <h2 class="mn">  <Link to="/WebsiteMart"> Mart Name </Link></h2>
-
+            {this.martName()}
             </div>
           </div>
+
           <section class="third">
             <div class="container-fluid">
               <div class="row">
@@ -186,19 +319,21 @@ export class AllRetailers extends Component {
                 </div>
 
 
-                <div class="col-md-9 border-b7">
+                <div class="col-md-9 border-b7 mt-4">
                   <section class="second">
                     <div class="left-contant my-4">
                       <h3>Retailers</h3>
                     </div>
                     <div class="top-slider index-top">
-                      {/* <DashboardImageScroll /> */}
+                      {this.retailerData()}
+                    </div>
+                    {/* <div class="top-slider index-top">
                       <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
                         responsive={responsive1}
-                        ssr={true} // means to render carousel on server-side.
+                        ssr={true} 
                         infinite={true}
                         autoPlay={this.props.deviceType !== "mobile" ? true : false}
                         autoPlaySpeed={5000000}
@@ -214,85 +349,30 @@ export class AllRetailers extends Component {
                         <div>
 
                           <ImageDashboard
-                            ImageName="TCL E-Mart1"
+                            ImageName={allCoupon.shopName}
                             LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
+                            ImageA={allCoupon.image}
                             heartImage={Imageid.RedHeart}
+                            MartId={allCoupon.martId}
+                            CategoryName={allCoupon.categoryName}
+                            SubCategoryName={allCoupon.subCategoryName}
+                            ItemType={allCoupon.itemType}
+                            ItemName={allCoupon.itemName}
+                            BrandName={allCoupon.brandName}
                           />
 
                         </div>
-                        <div>
-
-                         
-                        <ImageDashboard
-                            ImageName="TCL E-Mart1"
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
-                            heartImage={Imageid.RedHeart}
-                          />
-                        </div>
-                        <div>
-                         
-                        <ImageDashboard
-                            ImageName="TCL E-Mart1"
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
-                            heartImage={Imageid.RedHeart}
-                          />
-                        </div>
-                        <div>
-
-                          
-                        <ImageDashboard
-                            ImageName="TCL E-Mart1"
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
-                            heartImage={Imageid.RedHeart}
-                          />
-                        </div>
-                        <div>
-
-                         
-                        <ImageDashboard
-                            ImageName="TCL E-Mart1"
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
-                            heartImage={Imageid.RedHeart}
-                          />
-
-                        </div>
-                        <div>
-
-                         
-                        <ImageDashboard
-                            ImageName="TCL E-Mart1"
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
-                            heartImage={Imageid.RedHeart}
-                          />
-                        </div>
-                        <div>
-
-                          
-                        <ImageDashboard
-                            ImageName="TCL E-Mart1"
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={Imageid.Image1}
-                            heartImage={Imageid.RedHeart}
-                          />
-                        </div>
-
-
                       </Carousel>
 
-                    </div>
+                    </div> */}
+
                     <div class="left-contant">
                       <h3>Coupons</h3>
                     </div>
                     <div class="landing-slider">
                       <div class="cover-slidersection">
                         {/* <CouponsScrollPupup /> */}  
-                        <Carousel
+                        {/* <Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
@@ -310,13 +390,22 @@ export class AllRetailers extends Component {
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
 > 
+<CouponsImage 
+ImageSrc={allCoupon.image}
+Title={allCoupon.title}
+CouponCode={allCoupon.couponCode}
+Discount={allCoupon.discount}
+ItemName={allCoupon.itemName}
+ExpiryDate={allCoupon.ExpiryDate}
+
+/> */}
+{/* <CouponsImage />
 <CouponsImage />
 <CouponsImage />
 <CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
- </Carousel>
+<CouponsImage /> */}
+ {/* </Carousel> */}
+ {this.couponData()}
 
                       </div>
                     </div>
@@ -326,13 +415,27 @@ export class AllRetailers extends Component {
               </div>
             </div>
           </section>
-
           <Footer />
-        </body>
-
+                </body>
+     
       </div>
-    )
+      );
+    }
+  }
+// export default AllRetailers
+
+const mapStateToProps = state => {
+  console.log("stateabc",state)
+    return {
+       allCouponData: state.CouponCodeReducer.userData,
+       applicationData: state.AuthReducer.userData
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      action: bindActionCreators({ myCouponData }, dispatch)
   }
 }
 
-export default AllRetailers
+export default connect(mapStateToProps, mapDispatchToProps)(AllRetailers);

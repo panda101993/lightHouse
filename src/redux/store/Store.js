@@ -6,13 +6,23 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
+// const persistConfig = {
+//     key: 'root',
+//     storage: storage,
+//     stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
+//    };
+
+
+// const pReducer = persistReducer(persistConfig, RootReducer);
+// export const Store = createStore(pReducer,compose(applyMiddleware(thunk)));
+// export const persistor = persistStore(Store);
 const persistConfig = {
     key: 'root',
-    storage: storage,
-    stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
-   };
-
-
-const pReducer = persistReducer(persistConfig, RootReducer);
-export const Store = createStore(pReducer,compose(applyMiddleware(thunk)));
-export const persistor = persistStore(Store);
+    storage,
+  }
+   
+  const persistedReducer = persistReducer(persistConfig, RootReducer);
+  let store = createStore(persistedReducer, compose(applyMiddleware(thunk)))
+    let persistor = persistStore(store)
+   
+  export { store, persistor };

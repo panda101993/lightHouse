@@ -6,6 +6,10 @@ import 'react-multi-carousel/lib/styles.css';
 import  CouponsImage from '../../components/CouponsImage'
 import Header4 from '../../components/Header4';
 import { Link } from 'react-router-dom';
+import ToasterFunction from '../../components/ToasterFunc';
+import apiRequest from '../../api/Apirequest';
+import {loginAction} from "../../redux/action/AuthAction";
+import { connect } from "react-redux";
 
 const responsive = {
   desktop: {
@@ -28,6 +32,114 @@ const responsive = {
 
 
 export class AllCouponsRetailers extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+
+      allData:[]
+       
+    }
+  }
+
+
+  getAllCoupanDisplayForRetailer=(Id)=>{
+    try {
+      apiRequest({ retailerId:Id }, '/user/allCouponDisplayForRetailer', 'POST')
+         .then((resp) => {
+            console.log('responseRetailercoupon', resp);
+            switch (resp.status) {
+               case (200):
+                   {
+                   if (resp.data.responseCode == 200) {
+                    this.setState({
+                      allData: resp.data.data
+                   });
+                   }
+                    else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", resp.data.responseMessage);
+   
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", resp.data.responseMessage);
+   
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+         })
+   } catch (error) {
+      console.log('errorresponse', error)
+      // ToasterFunction("error", "Network error, please contact the administrator");
+
+   }
+
+ }
+
+
+  async componentDidMount() { 
+    console.log('retailer',window.location.pathname);
+    let splitUrl = window.location.pathname.split('/')
+    console.log('retailer',splitUrl);
+    console.log('retailer',splitUrl[2]);
+   this.getAllCoupanDisplayForRetailer(splitUrl[2]);
+  }
+  
+
+  couponRetailer(){
+    // console.log("applicationData",this.props.applicationData)
+      return this.state.allData.map((allCouponData, index)=>{
+        return(
+          <div>
+            {/* <Carousel
+    swipeable={true}
+    draggable={false}
+    showDots={false}
+    responsive={responsive}
+    ssr={true} // means to render carousel on server-side.
+    infinite={true}
+    autoPlay={this.props.deviceType !== "mobile" ? true : false}
+    autoPlaySpeed={5000000}
+    keyBoardControl={true}
+    customTransition="all .5"
+    transitionDuration={500}
+    containerClass="carousel-container"
+    removeArrowOnDeviceType={["tablet", "mobile"]}
+    deviceType={this.props.deviceType}
+    dotListClass="custom-dot-list-style"
+    itemClass="carousel-item-padding-40-px"
+  >  */}
+  <CouponsImage 
+  ImageSrc={allCouponData.image}
+  Title={allCouponData.title}
+  CouponCode={allCouponData.couponCode}
+  Discount={allCouponData.discount}
+  ItemName={allCouponData.itemName}
+  ExpiryDate={allCouponData.ExpiryDate}
+  CouponId={allCouponData._id}
+  CouponToken={this.props.applicationData.token}
+  CouponAppliedOn={allCouponData.couponAppliedOn}
+  OneTimeCoupon={allCouponData.oneTimeCoupon}
+  ShopName={allCouponData.shopName}
+  // ShopNumber={allCouponData.retailerId.shopNumber}
+  FloorNumber={allCouponData.floorNumber}
+  MartName={allCouponData.martName}
+  ShopPhoneNumber={allCouponData.shopPhoneNumber}
+  Restrictions={allCouponData.restrictions}
+  
+  
+  
+  />
+  {/* </Carousel> */}
+          </div>
+        )
+      })
+      }
+  
     render() {
         return (
             <div> 
@@ -163,50 +275,26 @@ export class AllCouponsRetailers extends Component {
               </div>
 
 
-              <div class="col-md-9">
+              <div class="col-md-9 mt-4">
 
                 <div class="slid-margin">
   
                   <div class="row mar-bottom">
-                      {/* <div class="col-md-3">
-                      <img src="images/pizza great deal.png"
-                       class="pizza-deal" data-dismiss="modal" data-toggle="modal" data-target="#great-deal"/>
-                      </div>
-                      <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div>
-                      <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div>
-                      <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div> */} 
-                        <CouponsImage />
+                    {this.couponRetailer()}
+                        {/* <CouponsImage /> */}
+                      {/* <CouponsImage />
                       <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage />
+                      <CouponsImage /> */}
                   </div>
   
                  
   
-                  <div class="row mar-bottom">
-                      {/* <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div>
-                      <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div>
-                      <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal"/>
-                      </div>
-                      <div class="col-md-3">
-                      <img src="images/pizza great deal.png" class="pizza-deal" />
-                      </div> */}
+                  {/* <div class="row mar-bottom">
                         <CouponsImage />
                       <CouponsImage />
                       <CouponsImage />
                       <CouponsImage />
-                  </div>
+                  </div> */}
   
                 </div>
   
@@ -223,4 +311,17 @@ export class AllCouponsRetailers extends Component {
     }
 }
 
-export default AllCouponsRetailers
+// export default AllCouponsRetailers
+const mapStateToProps = state => {
+  console.log("state-------", state)
+  return {
+     applicationData: state.AuthReducer.userData
+       
+  }
+        
+}
+
+
+
+// export default componentName
+export default connect(mapStateToProps,{loginAction})(AllCouponsRetailers);
