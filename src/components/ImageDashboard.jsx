@@ -178,29 +178,40 @@ export default function ImageDashboard(props) {
                      <img
                         style={{ width: "100%", height: "100%" }}
                         src={ImageA}
-                        data-toggle="modal" data-target="#wishlist" /> </Link>
+                        data-toggle="modal" data-target="#wishlist" />
+                  </Link>
+                  {
+                  typeData == 'mart' || typeData == 'retailer'
+                  ?
                   <Link to={`/WebsiteRetailer/${MartId}`}>
                      <div class="tcl00">
                         <p> {ImageName} </p>
-                     </div> </Link>
+                     </div>
+                  </Link>
+                  :
+                  <div class="tcl00">
+                        <p> {ImageName} </p>
+                     </div>
+                     }
+
                   <div class="heart">
                      <a data-toggle="modal" data-target="#coup-rmv-success" >
 
                         <img
                            src={heartImage}
 
-                           onClick={() => 
-                              {typePage 
-                              ?
-                              setModal(true)
-                              :
-                              addToFavouriteAll(Id,typeData)
+                           onClick={() => {
+                              typePage
+                                 ?
+                                 setModal(true)
+                                 :
+                                 addToFavouriteAll(Id, typeData)
 
                            }
-                           
-                           } 
-                           />                         
-                           </a>
+
+                           }
+                        />
+                     </a>
                   </div>
                </div>
             </div>
