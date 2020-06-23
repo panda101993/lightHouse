@@ -147,7 +147,7 @@ export class AllRetailers extends Component {
 
   martName() {
     if (this.props.allCouponData !== undefined) {
-      return this.props.allCouponData.slice(0, 2).map((allCoupon, index) => {
+      return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
         return (
           <div>
             <h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>

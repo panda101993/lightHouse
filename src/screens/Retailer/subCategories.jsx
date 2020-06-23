@@ -199,7 +199,7 @@ export class subCategories extends Component {
                                  <div>
             <ImageDashboard          
                ImageName={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.subCategoryName : ''}
-               LinkId="/ItemList"
+               LinkId={`/ItemList/${allCouponData.subCategoryId ? allCouponData.subCategoryId._id : ''}/${allCouponData.subCategoryId ? allCouponData.subCategoryId.categoryId : ''}/${allCouponData ? allCouponData.martId : ''}`}
                ImageA={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.image : ''}
                heartImage={Imageid.heartImage}
                Id={ allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId._id : ''}
@@ -214,7 +214,43 @@ export class subCategories extends Component {
       })
    }
 
+categoryNameList(){
+   return this.state.allData.map((allCouponData, index)=>{
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+               <Carousel
+                  swipeable={true}
+                  draggable={false}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={5000000}
+                  keyBoardControl={true}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+               >
 
+
+                  <div>
+                     <div class="slicent activa">
+                        {allCouponData ? allCouponData.categoryName : ''}
+                  </div>
+                  </div>
+
+               </Carousel>
+            </div>
+         )
+      })
+
+}
    render() {
 
       return (
@@ -222,33 +258,7 @@ export class subCategories extends Component {
             <Header2 />
             <div class="container-fluid">
                <div class="slidertop">
-                  <Carousel
-                     swipeable={true}
-                     draggable={false}
-                     showDots={false}
-                     responsive={responsive}
-                     ssr={true} // means to render carousel on server-side.
-                     infinite={true}
-                     autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                     autoPlaySpeed={5000000}
-                     keyBoardControl={true}
-                     customTransition="all .5"
-                     transitionDuration={500}
-                     containerClass="carousel-container"
-                     removeArrowOnDeviceType={["tablet", "mobile"]}
-                     deviceType={this.props.deviceType}
-                     dotListClass="custom-dot-list-style"
-                     itemClass="carousel-item-padding-40-px"
-                  >
-
-                     {/* <section class="center slider"> */}
-                     <div>
-                        <div class="slicent activa">
-                           Category Name
-                  </div>
-                     </div>
-
-                  </Carousel>
+                  {this.categoryNameList()}
                </div>
             </div>
             <section class="third">

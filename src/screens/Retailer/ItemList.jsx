@@ -5,6 +5,12 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css'; 
 import CouponImageSetting from '../../components/CouponImageSetting';
 import CouponsImage from '../../components/CouponsImage';
+import apiRequest from '../../api/Apirequest';
+import ToasterFunction from '../../components/ToasterFunc';
+import { loginAction } from "../../redux/action/AuthAction";
+import { connect } from "react-redux";
+
+
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -25,6 +31,98 @@ const responsive = {
 
 
 export class ItemList extends Component {
+   constructor(props) {
+      super(props)
+   
+      this.state = {
+         allData: [] 
+      }
+   }
+
+   
+
+
+   getCouponByMartSubCategory = (subCategoryId,categoryId, martId) => {
+      try {
+         apiRequest({ subCategoryId:subCategoryId, categoryId:categoryId, martId: martId }, '/user/getCouponByMartSubCategory', 'POST')
+            .then((resp) => {
+               console.log('responsesubCategorycoupon',resp);
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                              allData: resp.data.Data
+                            
+                           });
+                           // console.log("subCategory---",resp.data.DatasubCategoryId)
+                        }
+                        else if (resp.data.responseCode == 404) {
+                           ToasterFunction("info", resp.data.responseMessage);
+
+                        }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", resp.data.responseMessage);
+
+                        }
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
+               }
+            })
+      } catch (error) {
+         console.log('errorresponse', error)
+         // ToasterFunction("error", "Network error, please contact the administrator");
+
+      }
+
+   }
+   
+   async componentDidMount() {
+      console.log('subCategoryCoupon', window.location.pathname);
+      let splitUrl = window.location.pathname.split('/')
+      console.log('subCategoryCoupon', splitUrl);
+      console.log('subCategoryCoupon', splitUrl[2]);
+      console.log('subCategoryCoupon', splitUrl[3]);
+      console.log('subCategoryCoupon', splitUrl[4]);
+      this.getCouponByMartSubCategory(splitUrl[2], splitUrl[3],splitUrl[4]);
+   }
+
+   couponSubCategory(){
+      // console.log("applicationData",this.props.applicationData)
+        return this.state.allData.map((allCouponData, index)=>{
+          return(
+            <div>
+    <CouponsImage 
+    ImageSrc={allCouponData.image}
+    Title={allCouponData.title}
+    CouponCode={allCouponData.couponCode}
+    Discount={allCouponData.discount}
+    ItemName={allCouponData.itemName}
+    ExpiryDate={allCouponData.ExpiryDate}
+    CouponId={allCouponData._id}
+    CouponToken={this.props.applicationData.token}
+    CouponAppliedOn={allCouponData.couponAppliedOn}
+    OneTimeCoupon={allCouponData.oneTimeCoupon}
+    ShopName={allCouponData.shopName}
+    // ShopNumber={allCouponData.retailerId.shopNumber}
+    FloorNumber={allCouponData.floorNumber}
+    MartName={allCouponData.martName}
+    ShopPhoneNumber={allCouponData.shopPhoneNumber}
+    Restrictions={allCouponData.restrictions}
+    
+    
+    
+    />
+            </div>
+          )
+        })
+        }
+
+
     render() {
         return (
             <div>
@@ -52,46 +150,6 @@ export class ItemList extends Component {
 >   
 <div>
                      <div class="slicent activa">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
-                        Sub-Category Name
-                     </div>
-                  </div>
-                  <div>
-                     <div class="slicent">
                         Sub-Category Name
                      </div>
                   </div>
@@ -335,47 +393,9 @@ export class ItemList extends Component {
                <div class="col-md-9">
                   <div class="slid-margin">
                      <div class="row mar-bottom">
-                        {/* <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"/></a>
-                        </div>
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                     </div>
-                     <div class="row mar-bottom">
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                     </div>
-                     <div class="row mar-bottom">
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                        <div class="col-md-4">
-                           <a data-toggle="modal" data-target="#great-deal" > <img src="images/pizza great deal.png"></a>
-                        </div>
-                     </div>
-                  </div> */} 
-               
-                  {/* <CouponImageSetting />  */}  
-                  <CouponsImage />
-                  <CouponsImage />
-                  <CouponsImage />
-                  <CouponsImage />
-                  <CouponsImage />
-                  <CouponsImage />
+                     {this.couponSubCategory()}
+                  {/* <CouponsImage /> */}
+                
                </div>
             </div>
          </div> 
@@ -391,4 +411,14 @@ export class ItemList extends Component {
     }
 }
 
-export default ItemList
+// export default ItemList
+const mapStateToProps = state => {
+   console.log("state-------", state)
+   return {
+      applicationData: state.AuthReducer.userData
+
+   }
+
+}
+
+export default connect(mapStateToProps, { loginAction })(ItemList);

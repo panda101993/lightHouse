@@ -191,7 +191,7 @@ export default function ImageDashboard(props) {
                   : 
                   typeData == 'retailer'
                   ?
-                  <Link to={`/WebsiteRetailer/${MartId}`}>
+                  <Link to={`/WebsiteRetailer/${RetailerId}`}>
                      <div class="tcl00">
                         <p> {ImageName} </p>
                      </div>
