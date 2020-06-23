@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+import { connect } from "react-redux";
 
 export class ManageInfostep2 extends Component { 
    constructor(props) {
@@ -11,6 +12,11 @@ export class ManageInfostep2 extends Component {
          // modalStatusSubmit:false,
          // modalStatus: false,
          // modalStatusResend:false
+         email:"",
+         emailErrorMsg:"",
+         emailErrorStatus:null,
+
+         pincode:"",
 
          otp: "",
          otpErrorMessage: "",
@@ -101,6 +107,18 @@ export class ManageInfostep2 extends Component {
                      this.setState({ modalStatus: !this.state.modalStatus });
      } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
  }
+
+   handleWeeklySignup = (e,type)=> {
+         switch(type){
+            case "email":
+               this.setState({email: e.target.value}, ()=>this.handleValidation("email"))
+               break;
+            case "pincode":
+               this.setState({pincode: e.target.value}, ()=>this.handleValidation("pincode"))
+               break;
+
+         }
+   }
  
     render() {
         return (
@@ -228,7 +246,7 @@ export class ManageInfostep2 extends Component {
                            <label>Email  
                               <img src= { require("../assets/images/about-icon.png") }  /> 
                            </label>
-                           <span><input type="text" class="form-control email_c3" placeholder="" /></span>
+                           <span><input type="text" class="form-control email_c3" placeholder="" onChange={(e)=>this.handleWeeklySignup(e,"email")}/></span>
                            <label class="home_c3">Home Address</label>
                            <ul class="current_c3"> 
                               <li><img src={require("../assets/images/location-512.png")} /></li>
@@ -236,7 +254,9 @@ export class ManageInfostep2 extends Component {
                            </ul>
                            <h5 class="enter_cs3">Enetr your location details</h5>
                            <label>Pin Code*</label>
-                           <span><input type="text" class="form-control" placeholder="Pin Code" /></span>
+                           <span><input type="text" class="form-control" placeholder="Pin Code" 
+                           onChange={(e)=>this.handleWeeklySignup(e,"pincode")}
+                           /></span>
                            <label>State*</label>
                            <select class="form-control">
                               <option>UP</option>
@@ -359,4 +379,12 @@ export class ManageInfostep2 extends Component {
     }
 }
 
-export default ManageInfostep2
+// export default ManageInfostep2
+const mapStateToProps = state => {
+   console.log("change state", state)
+   return {
+      applicatonkey: state.AuthReducer.userData
+      
+   }
+}
+export default connect(mapStateToProps)(ManageInfostep2);

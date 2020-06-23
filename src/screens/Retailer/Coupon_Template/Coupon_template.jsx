@@ -9,6 +9,9 @@ import Header2 from '../../../components/Header2'
 import CreateCoupon from '../../../components/CreateCoupon'
 import CoupontempleteImage from '../../../components/CoupontempleteImage'
 import Header3 from '../../../components/Header3';
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
+import {retailerProfileAction} from "../../../redux/action/ProfileDetailsAction";
 const responsive = {
    desktop: {
      breakpoint: { max: 3000, min: 1024 },
@@ -41,9 +44,23 @@ const Coupontemplete =() =>
 <CoupontempleteImage />
 </div>;
 
-export default class Coupon_template extends Component {
+ class Coupon_template extends Component {
+  constructor(props) {
+    super(props)
+    
+    this.state = {
+      
+        
+    }
+  
+ }
+   componentDidMount(){
+     
+     const {token,userId} = this.props.applicationData
 
-   
+    
+    this.props.action.retailerProfileAction(token)
+   }
 
     render() { 
       const { path } = this.props.match;
@@ -189,3 +206,19 @@ export default class Coupon_template extends Component {
         )
     }
 }
+
+
+const mapStateToProps = state => {
+  console.log("stateLogin-------", state)
+  return {
+     applicationData: state.AuthReducer.userData
+       
+  }
+        
+}
+const mapDispatchToProps = dispatch => {
+  return {
+      action: bindActionCreators({ retailerProfileAction }, dispatch)
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Coupon_template);
