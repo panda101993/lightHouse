@@ -45,9 +45,18 @@ class ManageInfoRetailer extends Component {
 
             modalStatus: false,
             modalStatusResend: false,
-            
-
-            
+            shopName:"",
+            shopNumber:"",
+            floorNumber:"",
+            martName:"",
+            email:"",
+            registeredBusinessName:"",
+            registeredBusinessAddress:"",
+            pinCode:"",
+            state:"",
+            city:"",
+            address:"",
+            GSTIN:""
 
         }
     }
@@ -120,6 +129,74 @@ class ManageInfoRetailer extends Component {
         this.state.mobilenoStatus1 = validateMobileNo(value).status;
 
     }
+
+    handleShopNameInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+       
+    }
+    handleShopNumberInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+      
+    }
+
+    handlefloorNumberInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+       
+    }
+
+    handleRegisteredBusinessNameInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+     
+    }
+    handleRegisteredBusinessAddressInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+    }
+    handlePinCodeInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+      
+    }
+    handleAddressInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+    }
+    handleGSTINInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value })
+        console.log("valueset==>", value)
+
+   
+    }
+
+
+
     mobileOTPHandler() {
 
         try {
@@ -301,7 +378,10 @@ class ManageInfoRetailer extends Component {
                     <div class="name_c3">
                         <span class="name">
                             <label>Shop Name*</label>
-                            <p><input type="text" class="form-control" placeholder="Shop name" /></p>
+                            <p><input name="shopName" 
+                             onChange={(event) => this.handleShopNameInput(event)}
+                            type="text" class="form-control"
+                            placeholder="Shop name" /></p>
                         </span>
                         <span class="name">
                             <div class="shopfloor">
@@ -309,14 +389,19 @@ class ManageInfoRetailer extends Component {
                                     <label>Shop Number*</label>
                                     <ul class="select">
                                         <li>
-                                            <input type="text" class="form-control" placeholder="Shop number" />
+                                            <input 
+                                            name="shopNumber" 
+                                            onChange={(event) => this.handleShopNumberInput(event)}
+                                            type="text" class="form-control" placeholder="Shop number" />
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="floor">
                                     <label>Floor Number*</label>
                                     <ul class="select">
-                                        <li><input type="text" class="form-control" placeholder="9" /></li>
+                                        <li><input name="floorNumber" 
+                                            onChange={(event) => this.handlefloorNumberInput(event)} 
+                                            type="text" class="form-control" placeholder="9" /></li>
                                     </ul>
                                 </div>
                             </div>
@@ -392,21 +477,30 @@ class ManageInfoRetailer extends Component {
                         </span>
                         <span class="name">
                             <label> Email id for Managing Coupons and Getting Communications From LH</label>
-                            <p><input type="text" class="form-control" placeholder="bhaswti2526@gmail.com" /></p>
+                            <p><input 
+                            name="email" 
+                            onChange={(event) => this.handleEmailInput(event)} 
+                          type="text" class="form-control" placeholder="bhaswti2526@gmail.com" /></p>
                         </span>
                         <span class="name">
                             <label>Registered Business Name *</label>
-                            <p><input type="text" class="form-control" placeholder="Business Name " /></p>
+                            <p><input name="registeredBusinessName" 
+                            onChange={(event) => this.handleRegisteredBusinessNameInput(event)} 
+     type="text" class="form-control" placeholder="Business Name " /></p>
                         </span>
                         <span class="name">
                             <label> Registered Business Address*</label>
-                            <p><input type="text" class="form-control" placeholder="New Delhi  " /></p>
+                            <p><input name="registeredBusinessAddress" 
+                            onChange={(event) => this.handleRegisteredBusinessAddressInput(event)} 
+     type="text" class="form-control" placeholder="New Delhi  " /></p>
                         </span>
                         <div class="address">
                             <h3 class="enregbus">Enter Registered Business Address:</h3>
                             <span class="name">
                                 <label>Pin Code*</label>
-                                <input type="text" class="form-control" placeholder="110025" />
+                                <input name="pinCode" 
+                            onChange={(event) => this.handlePinCodeInput(event)} 
+     type="text" class="form-control" placeholder="110025" />
                             </span>
                             <span class="name">
                                 <label>State*</label>
@@ -422,11 +516,16 @@ class ManageInfoRetailer extends Component {
                             </span>
                             <span class="name">
                                 <label>Address*</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Okhla phase 1 , D115"></textarea>
+                                <textarea 
+                                name="address" 
+                                onChange={(event) => this.handleAddressInput(event)} 
+                                class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Okhla phase 1 , D115"></textarea>
                             </span>
                             <span class="name">
                                 <label>GSTIN *</label>
-                                <input type="text" class="form-control" placeholder="123456789" />
+                                <input  name="GSTIN" 
+                                onChange={(event) => this.handleGSTINInput(event)} 
+                             type="text" class="form-control" placeholder="123456789" />
                             </span>
                             <span class="name">
                                 <div class="downproof">
