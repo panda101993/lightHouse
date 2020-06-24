@@ -16,7 +16,7 @@ export class WebsiteRetailer extends Component {
 
       this.state = {
          allData: [],
-         allCoupon: []
+         // allCoupon: []
 
       }
    }
@@ -29,7 +29,7 @@ export class WebsiteRetailer extends Component {
                console.log('responseWebsite=>', resp);
                // console.log('response===>', resp.data.userData);
                this.setState({
-                  allData: resp.data.userData
+                  allData: resp.data.result
                });
             });
 
@@ -47,52 +47,101 @@ export class WebsiteRetailer extends Component {
       this.getWebsiteByRetailer(splitUrl[2]);
    }
 
-   // shopDetails() {
-   //    return this.state.allData.map((allData, index) => {
-   //       return (
-   //          <div>
-   //             <div class="basic mt-3 ">
-   //                <div class="d-flex justify-content-between align-items-center">
-   //                   <div class="john-json">
-   //                      <h5>Shop Name : {allData.shopName}</h5>
-   //                      <h6>Shop Number : {allData.shopNumber}</h6>
-   //                      <h6>Floor Number : {allData.floorNumber}</h6>
-   //                      <h6>Mart Name : {allData.martId.martName}</h6>
-   //                      <h6>Mart Address : {allData.martId.address} {allData.martId.city}</h6>
-   //                   </div>
-   //                   <div> <Link to="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
-   //                </div>
-   //             </div>
-   //          </div>
-   //       )
-   //    })
-   // }
+   websiteRetailerImage() {
+      console.log("alldata---",this.state.allData.webSiteImages)
+          if (this.state.allData.webSiteImages !== undefined)
+            return this.state.allData.webSiteImages.map((xyz, index) => {
+               // const { webSiteImages } = xyz
+               // console.log('abcd==',xyz)
+               // console.log('abcd==>>', webSiteImages)
+               return (
+                  <div>
+                   <img src={xyz} />
+                  </div>
+               )
+            })
+      }
+   
+
+   shopDetails= () => {
+      //  console.log("alldataaaa---",this.state.allData)
+       if (this.state.allData.basicInformation !== undefined)
+      return this.state.allData.basicInformation.map((basicInformation, index) => {
+         console.log('abcd==',basicInformation)
+         return (
+            <div>
+               <div class="basic mt-3 ">
+                  <div class="d-flex justify-content-between align-items-center">
+                     <div class="john-json">
+                        <h5>Shop Name : {basicInformation.shopName}</h5>
+                        <h6>Shop Number : {basicInformation.shopNumber}</h6>
+                        <h6>Floor Number : {basicInformation.floorNumber}</h6>
+                        <h6>Mart Name : {basicInformation.martName}</h6>
+                        <h6>Mart Address : {basicInformation.martAddress}</h6>
+                     </div>
+                     <div> <Link to="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
+                  </div>
+               </div>
+            </div>
+         )
+      })
+   }
+
+   aboutUs= () => {
+      // console.log("alldataaaa---",this.state.allData.aboutUs)
+      if (this.state.allData.aboutUs !== undefined)
+      // return this.state.allData.aboutUs.map((aboutUs, index) => {
+      //    console.log('abcd==',aboutUs)
+         return (
+            <div>
+               {this.state.allData.aboutUs}
+            </div>
+         )
+      // })
+      
+   }
+
+   shopTiming = () => {
+      
+      if (this.state.allData.shopTiming !== undefined)
+      console.log("alldataaaa---",this.state.allData.shopTiming[0].friday[0])
+      return (
+      <div>
+         <li>9:30 AM - 5 PM</li>
+         <li>9:30 AM - 5 PM</li>
+         <li>9:30 AM - 5 PM</li>
+         <li>9:30 AM - 5 PM</li>
+         <li>9:30 AM - 5 PM</li>
+         <li>9:30 AM - 5 PM</li>
+      </div>
+      )
+   }
 
    // catagoryData() {
-   //    if (this.props.allCouponData !== undefined) {
-   //       return this.props.allCouponData.map((allCoupon, index) => {
+   //    // if (this.props.allCouponData !== undefined) {
+   //       return this.props.allData.map((allData, index) => {
    //          return (
    //             <div>
 
    //                <div class="card-header" id="headingOne">
    //                   <h2 class="mb-0">
-   //                      {allCoupon.categoryName}
+   //                      {allData.categoryName}
    //                   </h2>
    //                </div>
    //                <div class="card">
    //                   <div class="card-header chl-head" id="headingsub1">
    //                      <h2 class="mb-0">
-   //                         {allCoupon.subCategoryName}
+   //                         {allData.subCategoryName}
    //                      </h2>
    //                   </div>
    //                   {/* <div id="collapsesub1" class="collapse" aria-labelledby="headingsub1" data-parent="#accordionExample1"> */}
    //                      <div class="card-body">
    //                         <div class="sub-catgy">
    //                            <ul>
-   //                               <li>{allCoupon.itemType} </li>
-   //                               <li>{allCoupon.brandName}</li>
-   //                               <li>{allCoupon.itemName}</li>
-   //                               <li>Rs.123.00</li>
+   //                               <li>{allData.itemType} </li>
+   //                               <li>{allData.brandName}</li>
+   //                               <li>{allData.itemName}</li>
+   //                               <li>{allData.price}</li>
    //                            </ul>
    //                            <ul>
    //                               <li>Cloth</li>
@@ -139,30 +188,18 @@ export class WebsiteRetailer extends Component {
                <Header2 />
                <section>
                   <div class="bg">
-                     <img src={require("../../assets/images/Layer-40.png")} />
+                     {this.websiteRetailerImage()}
+                     {/* <img src={require("../../assets/images/Layer-40.png")} /> */}
                   </div>
                   <div class="container">
-                     {/* {this.shopDetails()} */}
+                  <div class="left-contant00">
+                        <h3>Basic Information</h3>
+                     </div>
+                     {this.shopDetails()}
                      <div class="about-us">
-                        <h4>About Us ( Limit 500 words )</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
-                        Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
-                        tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-                      </p>
-                        <p>
-                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                           Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
-                           Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                           ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-               </p>
-                        <p>
-                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
-                           Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.
-                           Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
-                           nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-               </p>
-                        <span><a href="#">Read More</a></span>
+                        <h4>About Us</h4>
+                        {this.aboutUs()}
+                        {/* <span><a href="#">Read More</a></span> */}
                      </div>
                      <div class="time">
                         <h2>Shop Timings  </h2>
@@ -177,12 +214,13 @@ export class WebsiteRetailer extends Component {
                               <li>Saturday</li>
                            </ul>
                            <ul class="timeing">
+                              {this.shopTiming()}
+                              {/* <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li> */}
                               <li><a href="#">Close</a></li>
                            </ul>
                         </div>

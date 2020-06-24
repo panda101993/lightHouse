@@ -114,7 +114,6 @@ class componentName extends Component {
    async componentDidMount() {
 
    this.getmartsbyUserList();
-   // this.getReduxData();
    
    }
 
