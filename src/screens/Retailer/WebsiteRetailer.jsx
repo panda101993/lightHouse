@@ -23,7 +23,8 @@ export class WebsiteRetailer extends Component {
    getWebsiteByRetailer = (Id) => {
       try {
          console.log('RetailerId----', Id);
-         apiRequest({ }, `/retailer/viewWebsites/${Id}`, 'GET',this.props.applicationData.token)
+         console.log('RetailerId----', this.props.applicationData.token);
+         apiRequest({ }, `/user/viewWebsites/${Id}`, 'GET',this.props.applicationData.token)
             .then((resp) => {
                console.log('responseWebsite=>', resp);
                // console.log('response===>', resp.data.userData);
