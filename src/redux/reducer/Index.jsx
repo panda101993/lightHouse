@@ -4,8 +4,8 @@ import {FirstReducer} from './FirstReducer'
 import {AuthReducer} from './AuthReducer'
 import {appReducer} from './AppCreaterReducer'
 
-const RootReducer = combineReducers({
+export const RootReducer = combineReducers({
     FirstReducer,AuthReducer,appReducer,CouponCodeReducer
 })
 
-export default RootReducer;
+// export default RootReducer;

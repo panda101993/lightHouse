@@ -46,6 +46,7 @@ export default function ImageDashboard(props) {
      
          }
          setModal(false)
+         // window.location.reload();
 
          }
          else if(typeData == 'retailer'){
@@ -84,6 +85,7 @@ export default function ImageDashboard(props) {
         
             }
             setModal(false)
+            // window.location.reload(false);
          }
 
          else if(typeData == 'category') {
@@ -122,6 +124,7 @@ export default function ImageDashboard(props) {
         
             }
             setModal(false)
+            // window.location.reload(false);
          }
          else if(typeData == 'subCategory') {
             try {
@@ -159,6 +162,7 @@ export default function ImageDashboard(props) {
         
             }
             setModal(false)
+            // window.location.reload(false);
          }
          
       

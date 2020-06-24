@@ -152,7 +152,7 @@ class CouponImageSetting extends Component {
               }
               this.setState({modalStatus:false});
               this.setState({modalStatusImage:false});
-            //   window.location.reload(false);
+              window.location.reload(false);
             })
       } catch (error) {
          console.log('errorresponse', error);

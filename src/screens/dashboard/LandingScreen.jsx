@@ -64,41 +64,45 @@ class componentName extends Component {
 
    getmartsbyUserList = () =>{
       try {
-         const cookies = new Cookies();
-         console.log(cookies.get('latitude'));
-         const latitude = cookies.get('latitude')
- 
-         console.log(cookies.get('longitude'));
-         const longitude = cookies.get('longitude')
-
-         console.log('hhhh=>',this.props.applicationData)
-         apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
-         .then((resp)=>{
-         console.log('responseLandingscreen--', resp);
-         switch (resp.status) {
-            case (200):
-                {
-                if (resp.data.responseCode == 200) {
-                    this.setState({
-                        allData: resp.data.result[0].details
-                     });
-                }
-                 else if (resp.data.responseCode == 404) {
-                    ToasterFunction("info", resp.data.responseMessage);
-
-                }
-                else if (resp.data.responseCode == 500) {
-                    ToasterFunction("error", resp.data.responseMessage);
-
-                }
-            }
-            case (900): {
-                if (resp.status == 900) {
-                    ToasterFunction("error", "Please check your internet connection")
-                }
-            }
-        }
-      });
+         console.log('token++++++',this.props.applicationData)
+         if(this.props.applicationData.token){
+            const cookies = new Cookies();
+         
+            const latitude = cookies.get('latitude')
+    
+            
+            const longitude = cookies.get('longitude')
+   
+            console.log('hhhh=>',this.props.applicationData)
+            apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
+            .then((resp)=>{
+            console.log('responseLandingscreen--', resp);
+            switch (resp.status) {
+               case (200):
+                   {
+                   if (resp.data.responseCode == 200) {
+                       this.setState({
+                           allData: resp.data.result[0].details
+                        });
+                   }
+                    else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", resp.data.responseMessage);
+   
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", resp.data.responseMessage);
+   
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+         });
+         }
+        
          
       } catch (error) {
          console.log('response===', error);
@@ -110,6 +114,7 @@ class componentName extends Component {
    async componentDidMount() {
 
    this.getmartsbyUserList();
+   // this.getReduxData();
    
    }
 
@@ -159,7 +164,7 @@ class componentName extends Component {
 
 
    productServiceType(){
-      return this.state.allData.slice(0,1).map((xyz, index)=>{
+      return this.state.allData.slice(0,1 ).map((xyz, index)=>{
          const {productServiceType} = xyz
          return(
             <div>
