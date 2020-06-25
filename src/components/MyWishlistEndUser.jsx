@@ -362,7 +362,7 @@ export class MyWishlistEndUser extends Component {
    retailerData() {
       // if(this.state.allData.length > 0)
       return this.state.favRetailerData.map((xyz, index) => {
-         const { martId, martImage, martName } = xyz
+         const { retailerId, martImage, shopName } = xyz
          //   console.log('category',categoryImage);
          return (
             <div>
@@ -387,11 +387,13 @@ export class MyWishlistEndUser extends Component {
                   <div>
 
                      <ImageDashboard
-                        ImageName="TCL E-Mart1"
+                        ImageName={shopName}
                         ImageA={Imageid.Image5}
                         heartImage={Imageid.RedHeart}
                         Token={this.props.applicationData.token}
-
+                        typeData={'retailer'}
+                        typePage={'retailer'}
+                        Id={retailerId}
                      />
                   </div>
                </Carousel>

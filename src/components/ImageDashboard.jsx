@@ -8,11 +8,14 @@ export default function ImageDashboard(props) {
    const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData,typePage } = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData,typePage,HeartData } = props
    console.log("hello imageAbc ", props)
    console.log("typePage--",typePage)
 
+  
+
    const  addToFavouriteAll = (Id,typeData) => {
+      console.log('Id------',Id);
        if(typeData == 'mart'){
          try {
             apiRequest({ martId:Id }, '/user/wishListMarts', 'POST', props.Token)
@@ -61,7 +64,7 @@ export default function ImageDashboard(props) {
                         case (200):
                             {
                             if (resp.data.responseCode == 200) {
-                              ToasterFunction("success", resp.data.responseMessage);
+                              ToasterFunction("success", resp.data.responseMessage )
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
@@ -72,6 +75,7 @@ export default function ImageDashboard(props) {
             
                             }
                         }
+                        window.location.reload(false);
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")
@@ -227,20 +231,6 @@ export default function ImageDashboard(props) {
                   </div>
                </div>
             </div>
-            {/* <Modal isOpen={modalStatus}
-               style={{ top: "190px", }}
-            >
-               <ModalBody>
-                  <div class="modal-content">
-                     <div class="modal-header locationsethead">
-                        <h5>Retailer mark as a favourite !</h5>
-                     </div>
-                     <div class="modal-body ok">
-                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => addToFavouriteRetailers(RetailerId)} > OK </button>
-                     </div>
-                  </div>
-               </ModalBody>
-            </Modal> */}
 
             <Modal isOpen={modalStatus}
                style={{ top: "190px", }}

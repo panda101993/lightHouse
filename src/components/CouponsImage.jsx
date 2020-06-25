@@ -48,11 +48,12 @@ import {
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
       CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
-      FloorNumber,MartName,ShopPhoneNumber,Restrictions} = props
+      FloorNumber,MartName,ShopPhoneNumber,Restrictions,HeartData} = props
 
    console.log("props==", props)
 
    const  addToFavourite = (CouponId) => {
+      console.log("CouponId---",CouponId)
       try {
          apiRequest({ couponId:CouponId }, '/user/saveMyCoupon', 'POST', props.CouponToken)
             .then((resp) => {
@@ -61,14 +62,14 @@ import {
                   case (200):
                       {
                       if (resp.data.responseCode == 200) {
-                        ToasterFunction("success", "Coupon added Successfully");
+                        ToasterFunction("success", resp.data.responseMessage);
                       }
                        else if (resp.data.responseCode == 404) {
-                          ToasterFunction("info", "Coupon already saved");
+                          ToasterFunction("info", resp.data.responseMessage);
       
                       }
                       else if (resp.data.responseCode == 500) {
-                          ToasterFunction("error", "Internal Server Error");
+                          ToasterFunction("error", resp.data.responseMessage);
       
                       }
                   }

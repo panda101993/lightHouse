@@ -147,7 +147,9 @@ export class AllRetailers extends Component {
 
   martName() {
     if (this.props.allCouponData !== undefined) {
+      
       return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
+        console.log("xyzzzz=======",allCoupon.retailerId.users)
         return (
           <div>
             <h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>
@@ -157,9 +159,23 @@ export class AllRetailers extends Component {
     }
   }
 
+  
+  
+
   retailerData() {
     if (this.props.allCouponData !== undefined) {
       return this.props.allCouponData.map((allCoupon, index) => {
+        console.log("akhtar===",allCoupon.retailerId._id)
+        let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+        console.log('checkData--',checkData)
+        let heartStatus;
+        if(checkData == -1){
+          heartStatus = Imageid.heartImage;
+        }else{
+          heartStatus = Imageid.RedHeart;
+        }
+        console.log('checkData--',heartStatus)
         return (
           // <div class="top-slider index-top">
           <div>
@@ -189,7 +205,7 @@ export class AllRetailers extends Component {
                   LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
                   // LinkId={`/AllRetailers/${martId}`}
                   ImageA={allCoupon.image}
-                  heartImage={Imageid.RedHeart}
+                  heartImage={heartStatus}
                   MartId={allCoupon.martId}
                   CategoryName={allCoupon.categoryName}
                   SubCategoryName={allCoupon.subCategoryName}
@@ -200,6 +216,7 @@ export class AllRetailers extends Component {
                   Id={allCoupon.retailerId._id}
                   Token={this.props.applicationData.token}
                   typeData={'retailer'}
+                  HeartData = {heartStatus}
                 />
 
               </div>
@@ -213,9 +230,11 @@ export class AllRetailers extends Component {
 
   couponData() {
     // if(this.props.applicationData.length > 0)
-    console.log("applicationData", this.props.applicationData)
+    
     if (this.props.allCouponData !== undefined) {
       return this.props.allCouponData.map((allCoupon, index) => {
+        console.log("applicationData--", allCoupon.retailerId.users)
+       
         return (
           <div>
             <Carousel
@@ -253,6 +272,7 @@ export class AllRetailers extends Component {
                 MartName={allCoupon.martName}
                 ShopPhoneNumber={allCoupon.shopPhoneNumber}
                 Restrictions={allCoupon.restrictions}
+                
 
 
 

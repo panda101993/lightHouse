@@ -93,8 +93,8 @@ export class WebsiteMart extends Component {
    }
 
    martImageSlider() {
-      // if (this.state.allData.length > 0)
-         return this.state.allData.map((xyz, index) => {
+      if (this.state.allData.length > 0)
+         return this.state.allData.slice(0,1).map((xyz, index) => {
             const { martId } = xyz
             // console.log('abcd==',martId.images[0])
             console.log('abcd==>>', xyz)
@@ -137,56 +137,45 @@ export class WebsiteMart extends Component {
    }
 
    martBasicInfo() {
-      if(this.state.allData[0] !== undefined){
-         console.log("martBasicInfo--",this.state.allData[0])
-      }
-      
-      
-      // if (!this.state.allData[0].martId) return null;
-         // return this.state.allData.map((xyz, index) => {
-         //    const { shopName, shopNumber, floorNumber, email, martId, pinCode, otpTime, parkingAvailability, martName } = xyz
-         //    // console.log('abcd==',martId.images[0])
-         //    console.log('abcd==>>', xyz)
-            // let martBasicInfo = this.state.allData[0].martId; 
-            // if (this.state.allData[0].martId !== undefined){
-            // if(martBasicInfo !== undefined){
-               // console.log("martBasicInfo===",martBasicInfo)
-            // }
-      // }
-            // return (
-            //    <div class="basic mt-3 ">
-            //       <div class="d-flex justify-content-between align-items-center">
-            //          <div class="john-json">
-            //             <label>Mart Name :</label>
-            //             <span>{martBasicInfo.martId.martName}</span>
-            //             <br />
-            //             <label>Parking Availability :</label>
-            //             <span>{martBasicInfo.martId.parkingAvailability}</span>
-            //             <br />
-            //             <label>Mart Address :</label>
-            //             <span>{martBasicInfo.martId.address}</span>
-            //             <br />
-            //             <div>
-            //                <h5>Location Details</h5>
-            //             </div>
-            //             <label>Pin Code :</label>
-            //             <span>{martBasicInfo.martId.pinCode}</span>
-            //             <br />
-            //             <label>State :</label>
-            //             <span>{martBasicInfo.martId.state}</span>
-            //             <br />
-            //             <label>City :</label>
-            //             <span>{martBasicInfo.martId.city}</span>
-            //             <br />
-            //             <label>Address :</label>
-            //             <span>{martBasicInfo.martId.address}</span>
-            //             <br />
-            //          </div>
-            //          <div> <Link to={`/AllRetailers/${martBasicInfo.martId._id}`}  > <button class="btn btn-theme">View Coupons</button> </Link></div>
-            //       </div>
-            //    </div>
-            // )
-         // })
+      if (this.state.allData.length > 0)
+         return this.state.allData.slice(0,1).map((xyz, index) => {
+            const { shopName, shopNumber, floorNumber, email, martId, pinCode, otpTime, parkingAvailability, martName } = xyz
+            console.log('abcd==>>', xyz)
+            
+            return (
+               <div class="basic mt-3 ">
+                  <div class="d-flex justify-content-between align-items-center">
+                     <div class="john-json">
+                        <label>Mart Name :</label>
+                        <span>{martId.martName}</span>
+                        <br />
+                        <label>Parking Availability :</label>
+                        <span>{martId.parkingAvailability}</span>
+                        <br />
+                        <label>Mart Address :</label>
+                        <span>{martId.address}</span>
+                        <br />
+                        <div>
+                           <h5>Location Details</h5>
+                        </div>
+                        <label>Pin Code :</label>
+                        <span>{martId.pinCode}</span>
+                        <br />
+                        <label>State :</label>
+                        <span>{martId.state}</span>
+                        <br />
+                        <label>City :</label>
+                        <span>{martId.city}</span>
+                        <br />
+                        <label>Address :</label>
+                        <span>{martId.address}</span>
+                        <br />
+                     </div>
+                     <div> <Link to={`/AllRetailers/${martId._id}`}  > <button class="btn btn-theme">View Coupons</button> </Link></div>
+                  </div>
+               </div>
+            )
+         })
    }
 
    shopData() {
