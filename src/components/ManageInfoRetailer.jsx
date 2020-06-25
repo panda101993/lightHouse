@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { validateOtp, validateMobileNo } from '../utils/validation/Validation';
+import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
 import ApiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import { connect } from "react-redux";
@@ -12,6 +12,9 @@ import { retailerProfileAction } from "../redux/action/ProfileDetailsAction";
 import { FilePicker } from 'react-file-picker'
 
 let file64 = null
+
+//={import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
+// 542a0596fd65c3351774d55bb1506619019389ac
 
 class ManageInfoRetailer extends Component {
     constructor(props) {
@@ -63,7 +66,7 @@ class ManageInfoRetailer extends Component {
 
     componentDidMount() {
         // this.props.action.retailerProfileAction(this.props.applicationData.token)
-        this.props.action.retailerProfileAction("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5MjkxODY1MywiZXhwIjoxNTkzMDA1MDUzfQ.kgo_uJWULnHUpxK7Jy211QD-2IvuETF1njzMh0dJyQE")
+        this.props.action.retailerProfileAction(this.props.applicationData.token)
         
     }
 
@@ -200,7 +203,7 @@ class ManageInfoRetailer extends Component {
     mobileOTPHandler() {
 
         try {
-            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5MjkyNjAxMCwiZXhwIjoxNTkzMDEyNDEwfQ.as3HKT9qtO5f-pGvq0gGJES-p3F-W1k0PDWd3msLWpI")
+            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
                 .then((resp) => {
                     console.log('responseOTP====>', resp);
 
@@ -258,7 +261,7 @@ class ManageInfoRetailer extends Component {
     resetOTPHandler() {
 
         try {
-            ApiRequest({ "email":"abc@gmail.com" }, '/retailer/resendOTP', 'POST',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5MjkyNjAxMCwiZXhwIjoxNTkzMDEyNDEwfQ.as3HKT9qtO5f-pGvq0gGJES-p3F-W1k0PDWd3msLWpI")
+            ApiRequest({ "email":this.state.email }, '/retailer/resendOTP', 'POST',this.props.applicationData.token)
                 .then((resp) => {
                     console.log('responseOTP====>', resp);
 
@@ -330,7 +333,7 @@ class ManageInfoRetailer extends Component {
 
         console.log("retailer/manage=====>",obj)
         try {
-            ApiRequest( obj , '/retailer/manage', 'PUT',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA")
+            ApiRequest( obj , '/retailer/manage', 'PUT',this.props.applicationData.token)
                .then((resp) => {
                   console.log('response====>/retailer/manage', resp);
 
@@ -656,11 +659,6 @@ class ManageInfoRetailer extends Component {
                     </div>
 
                 </div>
-
-
-
-
-
             </div>
         )
     }
@@ -682,4 +680,15 @@ const mapDispatchToProps = dispatch => {
 
 // export default componentName
 export default connect(mapStateToProps, mapDispatchToProps)(ManageInfoRetailer);
+// <<<<<<< HEAD
+// const mapSateToProps = state => {
+//     console.log("change state", state)
+//     return {
+//         applicationkey: state.AuthReducer.userData
+//     }
+// }
+// export default connect(mapSateToProps, { loginAction })(ManageInfoRetailer);
+
+// =======
+// >>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
 
