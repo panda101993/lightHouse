@@ -78,10 +78,10 @@ class ManageInfoRetailer extends Component {
 
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
+                        this.setState({ modalStatusResend: false })
                         this.setState({ modalStatus: false })
 
-
-
+                        
                     } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
                 } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -212,6 +212,43 @@ class ManageInfoRetailer extends Component {
                             {
                                 if (resp.data.responseCode == 200) {
                                       this.setState({ modalStatus: !this.state.modalStatus });
+                                      
+                                    ToasterFunction("info", "OTP sent Successfully");
+                                }
+
+                                else if (resp.data.responseCode == 404) {
+                                    ToasterFunction("info", "Data not found, internal server error");
+                                }
+                                else if (resp.data.responseCode == 500) {
+                                    ToasterFunction("error", "Internal Server Error");
+                                }
+                            }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+
+                })
+        } catch (error) {
+            console.log('errorresponse', error);
+            // ToasterFunction("error", "Network error, please contact the administrator");
+        }
+
+    }
+    mobileOTPHandler1() {
+
+        try {
+            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
+                .then((resp) => {
+                    console.log('responseOTP====>', resp);
+
+                    switch (resp.status) {
+                        case (200):
+                            {
+                                if (resp.data.responseCode == 200) {
+                                      this.setState({ modalStatus: !this.state.modalStatus });
                                     
                                     ToasterFunction("info", "OTP sent Successfully");
                                 }
@@ -240,8 +277,8 @@ class ManageInfoRetailer extends Component {
 
     submitmobilenoHandler = () => {
         if (this.state.mobilenoStatus) {
-           // this.mobileOTPHandler()
-           this.setState({ modalStatus: !this.state.modalStatus });
+           this.mobileOTPHandler()
+           
             // alert('Submit Successfully');
             //  window.location.href = "SignupRetailer";
             // this.setState({ modalStatus: false })
@@ -251,17 +288,18 @@ class ManageInfoRetailer extends Component {
 
     submitmobilenoHandler1 = () => {
         if (this.state.mobilenoStatus1) {
+            this.mobileOTPHandler1()
             // alert('Submit Successfully');
             //  window.location.href = "SignupRetailer";
             // this.setState({ modalStatus: false })
              
-            this.setState({ modalStatus: !this.state.modalStatus });
+            
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
     }
-    resetOTPHandler() {
+    resendOTPHandler() {
 
         try {
-            ApiRequest({ "email":this.state.email }, '/retailer/resendOTP', 'POST',this.props.applicationData.token)
+            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
                 .then((resp) => {
                     console.log('responseOTP====>', resp);
 
@@ -270,7 +308,7 @@ class ManageInfoRetailer extends Component {
                             {
                                 if (resp.data.responseCode == 200) {
                                     this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-                                    ToasterFunction("info", "OTP sent Successfully");
+                                    ToasterFunction("info", "OTP Resend Successful");
                                 }
 
                                 else if (resp.data.responseCode == 404) {
@@ -329,7 +367,7 @@ class ManageInfoRetailer extends Component {
         city:"Patna",
         state:"Bihar",
         address:"Isapur",
-        addressProof:file64}
+       }
 
         console.log("retailer/manage=====>",obj)
         try {
@@ -622,7 +660,7 @@ class ManageInfoRetailer extends Component {
                                                             </label>
                                                         </div>
                                                         {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resetOTPHandler()}>
+                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTPHandler()}>
                                                             Resend
                                                      </p></Link>
                                                     </div>
@@ -645,14 +683,83 @@ class ManageInfoRetailer extends Component {
                         </Modal>
 
                         <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
-                            <ModalBody>
+                        <ModalBody>
                                 <form>
-                                    <div class="modal-header locationsethead">
-                                        <h5>OTP resent successfully.</h5>
+                                    <div class="modal-body">
+                                        <div class="web-pagemodal">
+                                            <h5 class="text-center mt-3"> OTP verification</h5>
+                                            <form>
+                                                <div class="register-cont">
+                                                    <p class="my-3">Please enter the 4 digits OTP sent on your registered phone number.</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="otp-box">
+                                                        <p class="my-3">Enter 4 - digits code</p>
+                                                        <ul>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp2"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp3"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    // value={this.state.otp}
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                            {/* <li><input type="text" class="form-control" value="" /></li> */}
+                                                            <li>
+                                                                <input class="form-control"
+                                                                    name="otp4"
+                                                                    type="text"
+                                                                    maxLength={1}
+                                                                    placeholder="0"
+                                                                    id="d"
+                                                                    // value={this.state.otp}
+                                                                    onChange={(event) => this.handleOtpInput(event)} />
+                                                            </li>
+                                                        </ul>
+                                                        <div>
+                                                            <label class="validation-hint">
+                                                                {this.state.otpErrorMessage}
+                                                            </label>
+                                                        </div>
+                                                        {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
+                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTPHandler()}>
+                                                            Resend
+                                                     </p></Link>
+                                                    </div>
+                                                </div>
+                                                <div class="modalsumit">
+                                                    {/* <a href="25-signup-user.html"> */}
+                                                    {/* <Link to="SignupRetailer"> */}
+                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
+                                                    {/* </Link> */}
+                                                    {/* </a> */}
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div style={{ textAlign: "center" }} >
-                                        <button class="btn setloc-btn" type="submit" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend })} >OK</button>
-                                    </div>
+
+
+
                                 </form>
                             </ModalBody>
                         </Modal>

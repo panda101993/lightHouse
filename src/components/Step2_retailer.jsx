@@ -11,12 +11,15 @@ let file64 = null
         super(props)
     
         this.state = {
-             ManageInfostep2:false,
+             ManageInfostep2:true,
              modalStatus: false,
              modalStatus1: false,
              GSTIN:"",
              registeredBusinessName:"",
              pinCode:"",
+             signUpFee: 0 ,
+             gstOnSignUp:0,
+             totalAmount:0
         }
     }  
     handlestate = () =>{
@@ -67,6 +70,101 @@ handleUploadFile(FileObject) {
    };
    
 }
+
+handlePayment(){
+console.log("PaymentLinkAPI going to hit====>")
+   try {
+      ApiRequest( {token: this.props.applicationData.token} , '/retailer/payment', 'POST',this.props.applicationData.token)
+         .then((resp) => {
+            console.log('response====>/retailer/business', resp);
+
+            switch (resp.status) {
+               case (200):
+                   {
+                     if (resp.data.responseCode == 200) {
+                     console.log(resp.data.paymentLink)
+                     window.location.assign(`${resp.data.paymentLink}`);
+                      
+                  }
+
+                     else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", "Data not found, internal server error");
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", "Internal Server Error");
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+
+         })
+   } catch (error) {
+      console.log('errorresponse', error);
+      // ToasterFunction("error", "Network error, please contact the administrator");
+   }
+
+
+
+}
+
+componentDidMount(){
+   console.log("getting GST etc=====>")
+  let obj1 = {
+     token: this.props.applicationData.token,
+     configType: "RETAILER"
+  }
+   try {
+      ApiRequest( obj1 , '/configuration/configurations/RETAILER', 'GET',this.props.applicationData.token)
+         .then((resp) => {
+            console.log('/configuration/configurations/{configType}', resp);
+
+            switch (resp.status) {
+               case (200):
+                   {
+                     if (resp.data.responseCode == 200) {
+                       ToasterFunction("info", "Data is saved successfully");
+                       console.log("/configuration/configurations/RETAILER",resp.data.result)
+                       let signUpFee = resp.data.result.retailerSignupAmount
+                       let gstOnSignUp = resp.data.result.gstOnSignup
+                       let totalAmount = (signUpFee + (gstOnSignUp*signUpFee/100))
+                       console.log("signUpFee,gstOnSignUp,totalAmount",totalAmount)
+                       this.setState({
+                          signUpFee: resp.data.result.retailerSignupAmount ,
+                          gstOnSignUp:resp.data.result.gstOnSignup,
+                          totalAmount:totalAmount
+                       })
+                     // this.setState({ ManageInfostep2: !this.state.ManageInfostep2 })
+                  }
+
+                     else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", "Data not found, internal server error");
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", "Internal Server Error");
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+
+         })
+   } catch (error) {
+      console.log('errorresponse', error);
+      // ToasterFunction("error", "Network error, please contact the administrator");
+   }
+
+
+}
+
+
+
      saveButtonHandler() {
 
       console.log("file64=====>",file64)
@@ -95,7 +193,8 @@ handleUploadFile(FileObject) {
                              {
                                if (resp.data.responseCode == 200) {
                                 ToasterFunction("info", "Data is saved successfully");
-                                this.setState({ ManageInfostep2: !this.state.ManageInfostep2 })
+                               
+                                this.getAmountAPI()
                             }
     
                                else if (resp.data.responseCode == 404) {
@@ -135,16 +234,16 @@ handleUploadFile(FileObject) {
                         <li class="ta bl">Total Amount :</li>
                      </ul>
                      <ul class="gst">
-                        <li class="rs">Rs 300.00 </li>
-                        <li class="rs">18% of sign up free</li>
-                        <li class="rs bl">RS 800.00 </li>
+                        <li class="rs">{`Rs ${this.state.signUpFee}`}  </li>
+                        <li class="rs">{`${this.state.gstOnSignUp} % of sign up free`}</li>
+                        <li class="rs bl"> {`RS ${this.state.totalAmount}`} </li>
                      </ul>
                   </div>
                   <div class="pas">
                      <ul class="button_cs">
-                        <li><button class="save paddi" data-toggle="modal" data-target="#icon" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Pay and Submit</button></li>
+                        <li><button class="save paddi" data-toggle="modal" data-target="#icon" onClick={() => this.handlePayment()}>Pay and Submit</button></li>
                      </ul>
-                     <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "200px", }}>
+                     {/* <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "200px", }}>
                         <ModalBody>
                            <div>
                               <div class="modal-content">
@@ -164,9 +263,9 @@ handleUploadFile(FileObject) {
                                              <button class="btn setloc-btn" onClick={() => this.setState({ modalStatus: false })} >OK</button>
                                           </div> */}
 
-                           </div>
-                        </ModalBody>
-                     </Modal>
+                           {/* </div> */}
+                        {/* </ModalBody>
+                     </Modal> */} 
 
                      <Modal isOpen={this.state.modalStatus1} toggle={this.toggle} style={{ top: "200px", }}>
                         <ModalBody>
