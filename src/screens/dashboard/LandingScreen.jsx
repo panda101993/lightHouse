@@ -54,7 +54,7 @@ const Imageid = {
 class componentName extends Component {
    constructor(props) {
       super(props)
-   
+      
       this.state = {
          allData: []
           
@@ -72,6 +72,7 @@ class componentName extends Component {
          const longitude = cookies.get('longitude')
 
          console.log('hhhh=>',this.props.applicationData)
+
          apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
          .then((resp)=>{
          console.log('  ', resp);

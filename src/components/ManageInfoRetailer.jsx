@@ -314,21 +314,21 @@ class ManageInfoRetailer extends Component {
   console.log("file64=====>",file64)
 
        let obj = {
-        shopName:"Ali",
-        shopNumber:"450",
-        floorNumber:"45",
+        shopName:this.state.shopName,
+        shopNumber:this.state.shopNumber,
+        floorNumber:this.state.floorNumber,
         mobileNumber:"7979862051",
-        email:"noo-aliahmad",
-        GSTIN:"1220000",
-        registeredBusinessName:"Ayaz",
+        email:this.state.email,
+        GSTIN:this.state.GSTIN,
+        registeredBusinessName:this.state.registeredBusinessName,
         registeredBusinessPhoneNumber:"7979862051",
-        pinCode:"801505",
+        pinCode:this.state.pinCode,
         city:"Patna",
         state:"Bihar",
         address:"Isapur",
         addressProof:file64}
 
-
+        console.log("retailer/manage=====>",obj)
         try {
             ApiRequest( obj , '/retailer/manage', 'PUT',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA")
                .then((resp) => {
