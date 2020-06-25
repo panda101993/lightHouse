@@ -102,19 +102,82 @@ export class WebsiteRetailer extends Component {
    }
 
    shopTiming = () => {
-      
-      if (this.state.allData.shopTiming !== undefined)
-      console.log("alldataaaa---",this.state.allData.shopTiming[0].friday[0])
-      return (
-      <div>
-         <li>9:30 AM - 5 PM</li>
-         <li>9:30 AM - 5 PM</li>
-         <li>9:30 AM - 5 PM</li>
-         <li>9:30 AM - 5 PM</li>
-         <li>9:30 AM - 5 PM</li>
-         <li>9:30 AM - 5 PM</li>
-      </div>
-      )
+
+      if (!this.state.allData.shopTiming) return null;
+      // console.log("alldataaaa---", this.state.allData.shopTiming[0].friday[0])
+      // return this.state.allData.shopTiming.map((shopTiming, index) => {
+         // console.log("friday===", shopTiming)
+         let shopTiming = this.state.allData.shopTiming[0]
+         return (
+
+            <div>
+               <div class="shop-timing">
+                  <ul class="sunday">
+                     <li>Sunday</li>
+                     <li>Monday</li>
+                     <li>Tuesday</li>
+                     <li>Wednesday</li>
+                     <li>Thursday</li>
+                     <li>Friday</li>
+                     <li>Saturday</li>
+                  </ul>
+                  <ul class="timeing">
+
+                     {shopTiming.sunday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.sunday[0].startTime} - {shopTiming.sunday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {shopTiming.monday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.monday[0].startTime} - {shopTiming.monday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {shopTiming.tuesday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.tuesday[0].startTime} - {shopTiming.tuesday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {shopTiming.wednesday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.wednesday[0].startTime} - {shopTiming.wednesday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {shopTiming.thursday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.thursday[0].startTime} - {shopTiming.thursday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {shopTiming.friday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.friday[0].startTime} - {shopTiming.friday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {shopTiming.saturday[0].closeDay == false
+                        ?
+                        <li>{shopTiming.saturday[0].startTime} - {shopTiming.saturday[0].endTime}</li>
+                        :
+                        <li><a href="#">Close</a></li>
+                     }
+
+                     {/* <li><a href="#">Close</a></li> */}
+                  </ul>
+               </div>
+            </div>
+         )
+      // })
    }
 
    // catagoryData() {
@@ -181,9 +244,6 @@ export class WebsiteRetailer extends Component {
    render() {
       return (
          <div>
-
-
-
             <body>
                <Header2 />
                <section>
@@ -203,7 +263,9 @@ export class WebsiteRetailer extends Component {
                      </div>
                      <div class="time">
                         <h2>Shop Timings  </h2>
-                        <div class="shop-timing">
+                        {this.shopTiming()}
+                        {/* <div class="shop-timing">
+                        
                            <ul class="sunday">
                               <li>Sunday</li>
                               <li>Monday</li>
@@ -214,16 +276,16 @@ export class WebsiteRetailer extends Component {
                               <li>Saturday</li>
                            </ul>
                            <ul class="timeing">
-                              {this.shopTiming()}
-                              {/* <li>9:30 AM - 5 PM</li>
+                              
                               <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
                               <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li> */}
+                              <li>9:30 AM - 5 PM</li>
+                              <li>9:30 AM - 5 PM</li>
                               <li><a href="#">Close</a></li>
                            </ul>
-                        </div>
+                        </div> */}
                      </div>
                      <div class="product">
                         {/* {this.productServiceType()} */}
