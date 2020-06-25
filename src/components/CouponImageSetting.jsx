@@ -97,11 +97,11 @@ class CouponImageSetting extends Component {
                        }
                       
                         else if (resp.data.responseCode == 404) {
-                          ToasterFunction("info", "Data not found, internal server error");
+                          ToasterFunction("info", resp.data.responseMessage);
       
                       }
                       else if (resp.data.responseCode == 500) {
-                          ToasterFunction("error", "Internal Server Error");
+                          ToasterFunction("error", resp.data.responseMessage);
       
                       }
                   }
@@ -133,14 +133,14 @@ class CouponImageSetting extends Component {
                   case (200):
                       {
                       if (resp.data.responseCode == 200) {
-                        ToasterFunction("success", "Coupon deleted Successfully");
+                        ToasterFunction("success", resp.data.responseMessage);
                       }
                        else if (resp.data.responseCode == 404) {
-                          ToasterFunction("info", "Coupon already deleted");
+                          ToasterFunction("info", resp.data.responseMessage);
       
                       }
                       else if (resp.data.responseCode == 500) {
-                          ToasterFunction("error", "Internal Server Error");
+                          ToasterFunction("error", resp.data.responseMessage);
       
                       }
                   }
@@ -152,7 +152,7 @@ class CouponImageSetting extends Component {
               }
               this.setState({modalStatus:false});
               this.setState({modalStatusImage:false});
-              window.location.reload(false);
+              window.location.reload();
             })
       } catch (error) {
          console.log('errorresponse', error);

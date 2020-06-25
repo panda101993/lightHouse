@@ -67,7 +67,8 @@ export class WebsiteRetailer extends Component {
       //  console.log("alldataaaa---",this.state.allData)
        if (this.state.allData.basicInformation !== undefined)
       return this.state.allData.basicInformation.map((basicInformation, index) => {
-         console.log('abcd==',basicInformation)
+         console.log('abcd==',this.state.allData.retailerId)
+         let retailerId = this.state.allData.retailerId;
          return (
             <div>
                <div class="basic mt-3 ">
@@ -79,7 +80,7 @@ export class WebsiteRetailer extends Component {
                         <h6>Mart Name : {basicInformation.martName}</h6>
                         <h6>Mart Address : {basicInformation.martAddress}</h6>
                      </div>
-                     <div> <Link to="/AllCouponsRetailers"  > <button class="btn btn-theme">View Coupons</button> </Link></div>
+                     <div> <Link to={`/AllCouponsRetailers/${retailerId}`}  > <button class="btn btn-theme">View Coupons</button> </Link></div>
                   </div>
                </div>
             </div>
@@ -180,66 +181,56 @@ export class WebsiteRetailer extends Component {
       // })
    }
 
-   // catagoryData() {
-   //    // if (this.props.allCouponData !== undefined) {
-   //       return this.props.allData.map((allData, index) => {
-   //          return (
-   //             <div>
+   productServiceDetails() {
+      console.log("alldataaaa---",this.state.allData.productServiceDetails)
+       if (!this.state.allData.productServiceDetails) return null;
+      return this.state.allData.productServiceDetails.map((productServiceDetails, index) => {
+       console.log("productServiceDetails--",productServiceDetails)
+            return (
+               <div class="product">
+                        {/* <h1>Product Service Details</h1> */}
+                        <div class="accordion frequently" id="accordionExample">
+                           <div class="card">
+                     <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                           <button class="btn btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                           {productServiceDetails.categoryName} </button>
+                        </h2>
+                     </div>
+                     <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                           <div class="sub-catgy">
+            <h6>{productServiceDetails.subCategoryName}</h6>
+                              <ul>
+            <li>{productServiceDetails.itemType}</li>
+                                 <li>{productServiceDetails.brand}</li>
+                                 <li>{productServiceDetails.itemName}</li>
+                                 <li>{productServiceDetails.price}</li>
+                              </ul>
+                              {/* <ul>
+                                 <li>Cloth</li>
+                                 <li>Nike</li>
+                                 <li>T-shirt</li>
+                                 <li>Rs.123.00</li>
+                              </ul>
+                              <ul>
+                                 <li>Cloth</li>
+                                 <li>Nike</li>
+                                 <li>T-shirt</li>
+                                 <li>Rs.123.00</li>
+                              </ul> */}
+                           </div>
+                           </div>
+                     </div>
+                           </div>
+                           
+                        </div>
+                     </div>
+            )
+         })
+      }
+   
 
-   //                <div class="card-header" id="headingOne">
-   //                   <h2 class="mb-0">
-   //                      {allData.categoryName}
-   //                   </h2>
-   //                </div>
-   //                <div class="card">
-   //                   <div class="card-header chl-head" id="headingsub1">
-   //                      <h2 class="mb-0">
-   //                         {allData.subCategoryName}
-   //                      </h2>
-   //                   </div>
-   //                   {/* <div id="collapsesub1" class="collapse" aria-labelledby="headingsub1" data-parent="#accordionExample1"> */}
-   //                      <div class="card-body">
-   //                         <div class="sub-catgy">
-   //                            <ul>
-   //                               <li>{allData.itemType} </li>
-   //                               <li>{allData.brandName}</li>
-   //                               <li>{allData.itemName}</li>
-   //                               <li>{allData.price}</li>
-   //                            </ul>
-   //                            <ul>
-   //                               <li>Cloth</li>
-   //                               <li>Nike</li>
-   //                               <li>T-shirt</li>
-   //                               <li>Rs.123.00</li>
-   //                            </ul>
-   //                            <ul>
-   //                               <li>Cloth</li>
-   //                               <li>Nike</li>
-   //                               <li>T-shirt</li>
-   //                               <li>Rs.123.00</li>
-   //                            </ul>
-   //                         </div>
-   //                      </div>
-   //                   {/* </div> */}
-   //                </div>
-   //             </div>
-   //          )
-   //       })
-   //    }
-   // }
-
-   // productServiceType() {
-   //    if (this.props.allCouponData !== undefined) {
-   //       return this.props.allCouponData.slice(0,2).map((allCoupon, index) => {
-   //          return (
-   //             <div>
-   //                <h1>{allCoupon.productServiceType}</h1>
-   //             </div>
-   //          )
-   //       })
-   //    }
-
-   // }
 
    render() {
       return (
@@ -264,35 +255,17 @@ export class WebsiteRetailer extends Component {
                      <div class="time">
                         <h2>Shop Timings  </h2>
                         {this.shopTiming()}
-                        {/* <div class="shop-timing">
-                        
-                           <ul class="sunday">
-                              <li>Sunday</li>
-                              <li>Monday</li>
-                              <li>Tuesday</li>
-                              <li>Wednesday</li>
-                              <li>Thursday</li>
-                              <li>Friday</li>
-                              <li>Saturday</li>
-                           </ul>
-                           <ul class="timeing">
-                              
-                              <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
-                              <li>9:30 AM - 5 PM</li>
-                              <li><a href="#">Close</a></li>
-                           </ul>
-                        </div> */}
                      </div>
-                     <div class="product">
-                        {/* {this.productServiceType()} */}
-                        {/* <h1>Product Service Details</h1> */}
+                     <div class="left-contant00">
+                        <h3>Product Service Details</h3>
+                     </div>
+                     {this.productServiceDetails()}
+                     {/* <div class="product">
+                        
+                        <h1>Product Service Details</h1>
                         <div class="accordion frequently" id="accordionExample">
-                           {/* {this.catagoryData()} */}
-                           {/* <div class="card">
+                           
+                           <div class="card">
                      <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -300,8 +273,8 @@ export class WebsiteRetailer extends Component {
                         </h2>
                      </div>
                      <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body"> */}
-                           {/* <div class="sub-catgy">
+                        <div class="card-body">
+                           <div class="sub-catgy">
                               <h6>Sub Category 1</h6>
                               <ul>
                                  <li>Cloth</li>
@@ -320,9 +293,9 @@ export class WebsiteRetailer extends Component {
                                  <li>Nike</li>
                                  <li>T-shirt</li>
                                  <li>Rs.123.00</li>
-                              </ul> */}
-                           {/* <div class="accordion frequently" id="accordionExample1"> */}
-                           {/* <div class="card">
+                              </ul>
+                           <div class="accordion frequently" id="accordionExample1">
+                           <div class="card">
                                     <div class="card-header chl-head" id="headingsub1">
                                        <h2 class="mb-0">
                                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsesub1" aria-expanded="false" aria-controls="collapsesub1">
@@ -353,8 +326,8 @@ export class WebsiteRetailer extends Component {
                                           </div>
                                        </div>
                                     </div>
-                                 </div> */}
-                           {/* <div class="card">
+                                 </div>
+                           <div class="card">
                                     <div class="card-header chl-head" id="heading2">
                                        <h2 class="mb-0">
                                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsesub2" aria-expanded="false" aria-controls="collapseOne">
@@ -386,12 +359,12 @@ export class WebsiteRetailer extends Component {
                                        </div>
                                     </div>
                                  </div>
-                              </div> */}
-                           {/* </div> */}
-                           {/* </div>
-                     </div> */}
-                           {/* </div> */}
-                           {/* <div class="card">
+                              </div>
+                           </div>
+                           </div>
+                     </div>
+                           </div>
+                           <div class="card">
                      <div class="card-header" id="heading2">
                         <h2 class="mb-0">
                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseOne">
@@ -423,9 +396,9 @@ export class WebsiteRetailer extends Component {
                            </div>
                         </div>
                      </div>
-                  </div> */}
+                  </div>
                         </div>
-                     </div>
+                     </div> */}
 
 
                   </div>
