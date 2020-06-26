@@ -6,9 +6,6 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom'; 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp } from '../../../utils/validation/Validation';
-import ToasterFunction from "../../../components/ToasterFunc"
-import apiRequest from '../../../api/Apirequest';
-
 
 
 
@@ -35,9 +32,6 @@ export default class SignupOtpRetailer extends Component {
 
 
          modalStatus: false,
-
-         temp: this.props.location.pathname.split("/")
-
          // error:"",
          // status:""
 
@@ -53,44 +47,7 @@ export default class SignupOtpRetailer extends Component {
                if (this.state.otpStatus4) {
 
                //   alert('Submit Successfully'); 
-               // window.location.href='Setting_retailer'
-               try{
-                  apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
-                  .then((resp) => {
-                      console.log("response", resp)
-                      switch (resp.status) {
-                          case (200): {
-                              if (resp.data.responseCode == 200) {
-                                  this.props.history.push("/Setting_retailer")
-                                  this.setState({ modalStatus: false })
-                              }
-                              else if (resp.data.responseCode == 403) {
-                                  ToasterFunction("info", "This Mobile number already exists");
-  
-                                  this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
-                              }
-                              else if (resp.data.responseCode == 404) {
-                                  ToasterFunction("info", "This Mobile number already exists");
-  
-                              }
-                              else if (resp.data.responseCode == 500) {
-                                  ToasterFunction("error", "Internal Server Error");
-  
-                              }
-                          }
-                          break
-                          case (900): {
-                              if (resp.status == 900) {
-                                  ToasterFunction("error", "Please check your internet connection")
-                              }
-                          }
-                      }
-                  })
-          } catch (error) {
-              console.log("response", error)
-              ToasterFunction("error", "Network error, please contact the administrator");
-  
-          }
+               window.location.href='Setting_retailer'
 
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -158,25 +115,7 @@ export default class SignupOtpRetailer extends Component {
    }
 
  
-   resendOTP=()=>{
-      console.log(this.state.temp[2])
-      var OTPdata={
-            "email":this.state.temp[2]
-      }
-      apiRequest(OTPdata,"/retailer/resendOTP","POST")
-      .then((resp)=>{
-         switch(resp.status){
-            case 200:
-               if(resp.data.responseCode==200){
-                  alert("Otp has been sent to your registered Email successfully.")
-               }
-         }
-      })
-      .catch(err => {
-         console.log("respresp---", err)
-     }
-     )
-   }
+
    
 
 
@@ -276,7 +215,7 @@ export default class SignupOtpRetailer extends Component {
                                  </div>
 
 
-                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTP()}>
+                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
                                     Resend
                                  </p></Link>
 

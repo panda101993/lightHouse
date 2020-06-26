@@ -412,6 +412,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { validateOtp,validateMobileNo } from '../utils/validation/Validation';
  //HEAD
 import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
 import ProvinceJSON from '../utils/JSON/province.json';
@@ -686,6 +687,7 @@ export default class ManageInfoRetailer extends Component {
                             <ul class="button_cs">
                                 <li class="cancel_c3"><button class="save">Cancel</button></li>
                                 {/* <a href="101-coupon-template.html">   <li><button class="save">Save</button></li></a> */}
+                                 {/* <li> <Link to="/Coupon_template" > <button class="save">Save</button> </Link></li> */}
                                 <li> <Link to="/Coupon_template" > <button class="save" onClick = {() => this.submit()} >Save</button> </Link></li>
                             </ul>
                         </div>

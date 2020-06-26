@@ -6,11 +6,13 @@ import Apirequest from "../../api/Apirequest";
 export const loginAction = (credential,navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
     console.log('navigationFunction=>', navigationFunction);
-
+    console.log('credential=>', credential);
+    
     Apirequest(credential, "/user/login", "POST")
         .then((resp) => {
-            console.log('respresp===>',resp);
-            dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
+            // console.log('respresp===>',resp);
+            console.log('credentialiiiii=>', resp.data.result);
+            dispatch({ type: LOGIN_ACTION, payload: resp.data.result})
             
             // navigationFunction()
             switch (resp.status) 
@@ -82,94 +84,6 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
         )
 
 }
-
-export const loginActionRetailer = (credential,navigationFunction) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>', credential);
-    // console.log('navigationFunction=>', navigationFunction);
-
-    Apirequest(credential, "/retailer/login", "POST")
-        .then((resp) => {
-            console.log('respresp===>',resp);
-            dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
-            
-            // navigationFunction()
-            switch (resp.status) 
-            {
-                
-                
-                case (200): {
-                    // console.log("responseCode",resp.data.responseCode)
-                    if(resp.data.responseCode==200)
-                    {
-                    dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
-                    navigationFunction()
-                    }
-                    else if(resp.data.responseCode==402)
-                    {
-                        // console.log("Invalid credentials")
-                        alert("Invalid credentials")
-                    }
-                    else if(resp.data.responseCode==404)
-                    {
-                        // console.log("Invalid credentials")
-                        alert("No data found")
-                    }
-                    else if(resp.data.responseCode==500)
-                    {
-                        // console.log("Invalid credentials")
-                        alert("Internal Server Error")
-                    }
-                }
-                    break
-                default: {
-                    alert(resp.data.error)
-                }
-            }
-        }
-        )
-        .catch(err => {
-            console.log("respresp---", err)
-        }
-        )
-}
-
-export const signupActionRetailer = (credential, navigationFunction) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>Signup', credential);
-
-    Apirequest(credential, "/retailer/signUp", "POST")
-        .then((resp) => {
-            dispatch({ type: SIGNUP_ACTION, payload: credential })
-
-            switch (resp.status) {
-                
-                case (200): {
-                    // console.log("responseCode",resp.data.responseCode)
-                    if(resp.data.responseCode==200)
-                    {
-                        dispatch({ type: SIGNUP_ACTION, payload: credential })
-                    navigationFunction()
-                    }
-                    else if(resp.data.responseCode==404)
-                    {
-                        // console.log("Invalid credentials")
-                        alert("This Email/Mobile number already exists")
-                    }
-                }
-                    break
-                default: {
-                    alert(resp.data.error)
-                }
-            }
-            console.log("respppp-->",resp)
-        }
-        )
-        .catch(err => {
-            console.log("respresp---", err)
-        }
-        )
-
-}
-
 
 
 

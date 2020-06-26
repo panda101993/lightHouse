@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { signupAction } from "../../../redux/action/AuthAction"
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import {validateName, validatePassword, validateCFPassword, validateMobileNo } from '../../../utils/validation/Validation';
 
 
 export class SignupCustomer extends Component {
@@ -15,76 +14,48 @@ export class SignupCustomer extends Component {
 
         this.state = {
             fname: "",
-            fnameErrorMsg:"",
-            fnameErrorStatus:null,
-
             password: "",
-            passwordErrorMsg:"",
-            passwordErrorStatus:null,
-
-            cfPassword:"",
-            cfPasswordErrorMsg:"",
-            cfPasswordErrorStatus:null,
-
+            email:"",
+            // cfpassword:"",
             mobileNumber: "",
-            mobileNumberErrorMsg:"",
-            mobileNumberErrorStatus:null,
 
-            referralCode:"",
-
-            termsAndPrivacy:null
+            fielderr: ""
         }
     }
 
     submithandler = () => {
-        if(this.state.termsAndPrivacy){
-            if(this.state.fnameErrorStatus&&
-                this.state.mobileNumberErrorStatus&&
-                this.state.passwordErrorStatus&&
-                this.state.cfPasswordErrorStatus){
-
+        if (this.state.fname == "" || this.state.password == "" || this.state.mobileNumber == "") {
+            this.setState({ fielderr: "Please enter all fields" })
+        }
+        else {
+            this.setState({ fielderr: "" })
             var requestData = {
                 "firstName": this.state.fname,
                 "mobileNumber": this.state.mobileNumber,
+                "email": this.state.email,
                 "password": this.state.password,
-                "referralCode":this.state.referralCode
+                "TeamName": this.state.teamName,
             }
             
-            this.props.action.signupAction(requestData,()=> this.props.history.push(`/OtpScreenUser/${this.state.mobileNumber}`))
+            this.props.action.signupAction(requestData,()=> this.props.history.push("/OtpScreenUser"))
             //  window.location.href = "/OtpScreenUser";
 
         }
-        else {
-            alert("Enter all Fields")
-        }
     }
-    else{
-        alert("Accept Terms and Conditions")
-    }
-}
 
     changehandler = (e, type) => {
         switch (type) {
             case "fullname":
-                { this.setState({ fname: e.target.value }, ()=>{
-                    this.handleValidation("fullname")
-                }) }
+                { this.setState({ fname: e.target.value }) }
                 break
             case "password":
-                { this.setState({ password: e.target.value }, ()=>{
-                    this.handleValidation("password") 
-                })
-                }
+                { this.setState({ password: e.target.value }) }
                 break
             case "mobileNumber":
-                { this.setState({ mobileNumber: e.target.value },()=>{
-                    this.handleValidation("mobileNumber")
-                }) }
+                { this.setState({ mobileNumber: e.target.value }) }
                 break
-            case "cfPassword":
-                { this.setState({ cfPassword: e.target.value }, ()=>{
-                    this.handleValidation("cfPassword")
-                })  }
+            case "email":
+                { this.setState({ email: e.target.value })  }
                 break
             default:
                 {
@@ -93,41 +64,6 @@ export class SignupCustomer extends Component {
         }
 
     }
-
-    handleValidation=(type)=>{
-            switch(type){
-                case ("fullname"):
-                var data = validateName(this.state.fname)
-                console.log("this is data of fullname", data)
-                this.setState({ fnameErrorMsg: data.error, fnameErrorStatus: data.status }, () => console.log("errore", this.state))
-                break
-
-                case ("password"):
-                var data = validatePassword(this.state.password)
-                console.log("this is data of password", data)
-                this.setState({ passwordErrorMsg: data.error, passwordErrorStatus: data.status }, () => console.log("errore", this.state))
-                break
-
-                case ("cfPassword"):
-                var data = validateCFPassword(this.state.cfPassword,this.state.password)
-                console.log("this is data of cfPassword", data)
-                this.setState({ cfPasswordErrorMsg: data.error, cfPasswordErrorStatus: data.status }, () => console.log("errore", this.state))
-                break
-
-                case ("mobileNumber"):
-                var data = validateMobileNo(this.state.mobileNumber)
-                console.log("this is data of mobileNumber", data)
-                this.setState({ mobileNumberErrorMsg: data.error, mobileNumberErrorStatus: data.status }, () => console.log("errore", this.state))
-                break
-            }
-    }
-
-    handleTermsCondition=()=>{
-        this.setState({
-             termsAndPrivacy: !this.state.termsAndPrivacy
-        })
-    }
-
     render() {
         return (
             <div>
@@ -158,13 +94,13 @@ export class SignupCustomer extends Component {
                                         inputType="text"
                                         inputId=""
                                         inputPlaceholder="Name"
-                                        errorMessage={this.state.fnameErrorMsg}
+                                        errorMessage=""
                                         textInputClassName="form-control shpnm"
                                         realValue={this.state.fname}
                                         onChange={(e) => this.changehandler(e, "fullname")}
                                     />
 
-                                    {/* <GlobalValidations
+                                    <GlobalValidations
                                         divClass="form-group"
                                         label="Email*"
                                         labelClass=""
@@ -175,7 +111,7 @@ export class SignupCustomer extends Component {
                                         textInputClassName="form-control shpnm"
                                         realValue={this.state.email}
                                         onChange={(e) => this.changehandler(e, "email")}
-                                    /> */}
+                                    />
                                     <div class="form-group">
                                         <label>Phone Number*</label>
                                         <div class="cover-phoneno no-spase">
@@ -195,7 +131,6 @@ export class SignupCustomer extends Component {
                                                 textInputClassName="form-control"
                                                 realValue={this.state.mobileNumber}
                                                 onChange={(e) => this.changehandler(e, "mobileNumber")}
-                                                errorMessage={this.state.mobileNumberErrorMsg}
                                             />
 
                                         </div>
@@ -219,7 +154,7 @@ export class SignupCustomer extends Component {
                                         inputType="text"
                                         inputId=""
                                         inputPlaceholder="Password"
-                                        errorMessage={this.state.passwordErrorMsg}
+                                        errorMessage=""
                                         textInputClassName="form-control shpnm"
                                         realValue={this.state.password}
                                         onChange={(e) => this.changehandler(e, "password")}
@@ -235,14 +170,12 @@ export class SignupCustomer extends Component {
                                         inputType="text"
                                         inputId=""
                                         inputPlaceholder="Confirm Password"
-                                        errorMessage={this.state.cfPasswordErrorMsg}
+                                        errorMessage=""
                                         textInputClassName="form-control shpnm"
-                                        onChange={(e) => this.changehandler(e, "cfPassword")}
                                     />
+                                    {this.state.fielderr}
                                     <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" 
-                                        onChange={()=>this.handleTermsCondition()}
-                                        />
+                                        <input type="checkbox" class="form-check-input" />
                                         <label class="form-check-label agree">I agree to  <Link to="/TermsCondition" > Terms and Conditions</Link> </label>
 
                                     </div>

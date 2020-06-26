@@ -66,7 +66,7 @@ function Header2(props) {
                                             <DropdownMenu className="dropdown-menu log-menu">
 
                                                 <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
-                                                <DropdownItem tag={Link} to="/CreateWebpageInitialSignupProcess" >Signup</DropdownItem>
+                                                <DropdownItem tag={Link} to="/" >Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
 
@@ -183,7 +183,7 @@ function Header2(props) {
                                 />
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </li> */}
-                                {/* <li class="serch-sec">
+                                <li class="serch-sec">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
                                         <div class="input-group-append">
@@ -192,15 +192,7 @@ function Header2(props) {
                                             </button>
                                         </div>
                                     </div>
-                                </li> */} 
-                                 <li class="nav-item dropdown account-drop">
-                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">
-                             Credits Point({props.applicationData.credit})
-                         </a> */}
-                          <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
-                             Credits Point({props.applicationData.credit}) 
-                             </Link>
-                      </li>
+                                </li>
 
                                 <li class="nav-item dropdown account-drop">
                                     <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
@@ -219,7 +211,7 @@ function Header2(props) {
                                  <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
                                   </Link>
                                 <li class="prfile">
-                                    {/* <img src={require("../assets/images/new-profile.png")} /> */}
+                                    <img src={require("../assets/images/new-profile.png")} />
                                     <p>Kamal</p>
                                 </li>
                             </ul>
