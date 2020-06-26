@@ -122,6 +122,41 @@ export class ItemList extends Component {
         })
         }
 
+   subCategoryDataList (){
+      // console.log("applicationData",this.props.applicationData)
+      return this.state.allData.map((allCouponData, index)=>{
+         return(
+           <div>
+   <Carousel
+  swipeable={true}
+  draggable={false}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={5000000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+>   
+<div>
+                     <div class="slicent activa">
+                        {allCouponData.subCategoryName}
+                     </div>
+                  </div>
+            </Carousel> 
+           </div>
+         )
+       })
+
+   }
+
 
     render() {
         return (
@@ -130,7 +165,8 @@ export class ItemList extends Component {
                <div class="container-fluid">
             <div class="slidertop"> 
             <section class="center slider">
-            <Carousel
+               {this.subCategoryDataList ()}
+            {/* <Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
@@ -153,7 +189,7 @@ export class ItemList extends Component {
                         Sub-Category Name
                      </div>
                   </div>
-            </Carousel> 
+            </Carousel>  */}
          </section>
             </div>
            </div>  

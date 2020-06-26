@@ -48,7 +48,7 @@ import {
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
       CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
-      FloorNumber,MartName,ShopPhoneNumber,Restrictions,HeartData} = props
+      FloorNumber,MartName,ShopPhoneNumber,Restrictions,HeartData,} = props
 
    console.log("props==", props)
 

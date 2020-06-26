@@ -8,7 +8,7 @@ export default function ImageDashboard(props) {
    const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData,typePage,HeartData } = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData,typePage,HeartData} = props
    console.log("hello imageAbc ", props)
    console.log("typePage--",typePage)
 
@@ -65,6 +65,7 @@ export default function ImageDashboard(props) {
                             {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage )
+                              
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
@@ -173,7 +174,6 @@ export default function ImageDashboard(props) {
       
    }
    
-
 
 
    return (

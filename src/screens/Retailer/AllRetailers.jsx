@@ -152,7 +152,7 @@ export class AllRetailers extends Component {
         console.log("xyzzzz=======",allCoupon.retailerId.users)
         return (
           <div>
-            <h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>
+            <h2 class="mn">  <Link to={`/WebsiteMart/${allCoupon.martId}`}>{allCoupon.martName} </Link></h2>
           </div>
         )
       })
@@ -272,6 +272,7 @@ export class AllRetailers extends Component {
                 MartName={allCoupon.martName}
                 ShopPhoneNumber={allCoupon.shopPhoneNumber}
                 Restrictions={allCoupon.restrictions}
+                
                 
 
 
