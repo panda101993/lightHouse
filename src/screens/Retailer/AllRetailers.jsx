@@ -4,14 +4,14 @@ import Footer from '../../components/Footer'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import DashboardImageScroll from '../dashboard/DashboardImageScroll';
-import CouponsScrollPupup from '../../components/CouponsScrollPupup'; 
+import CouponsScrollPupup from '../../components/CouponsScrollPupup';
 import ImageDashboard from "../../components/ImageDashboard"
-import CouponsImage from  "../../components/CouponsImage"
-import Header4 from '../../components/Header4'; 
+import CouponsImage from "../../components/CouponsImage"
+import Header4 from '../../components/Header4';
 import { Link } from 'react-router-dom'
 import apiRequest from '../../api/Apirequest';
-import {myCouponData} from '../../redux/action/CouponCodeAction'
-import {bindActionCreators} from 'redux';
+import { myCouponData } from '../../redux/action/CouponCodeAction'
+import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 
 
@@ -68,222 +68,253 @@ const Imageid = {
 export class AllRetailers extends Component {
   constructor(props) {
     super(props)
-  
+
     this.state = {
 
-      allCoupon:[] 
+      allCoupon: [],
+  
     }
   }
 
-  getAllCoupansOfMart=(Id)=>{
+  getAllCoupansOfMart = (Id) => {
     try {
-      
-      
-      console.log('martt----',Id);
+
+
+      console.log('martt----', Id);
       //  apiRequest({martId:Id},'/user/ ','POST')
-      this.props.action.myCouponData({martId:Id})
+      this.props.action.myCouponData({ martId: Id })
       
       //  .then((resp)=>{
       //     console.log("responseCoupan",resp)
-        //   this.setState({
-        //     allCoupon: resp.data.couponData
-        //  });
+      //   this.setState({
+      //     allCoupon: resp.data.couponData
+      //  });
       //  })
     } catch (error) {
-       console.log("responseError",error)
-       
+      console.log("responseError", error)
+
     }
 
- }
-
-async componentDidMount() { 
-  console.log('martt',window.location.pathname);
-  let splitUrl = window.location.pathname.split('/')
-  console.log('martt',splitUrl);
-  console.log('martt',splitUrl[2]);
- this.getAllCoupansOfMart(splitUrl[2]);
-}
-
-martData(){
-
-  if(this.props.allCouponData !== undefined){
-    return this.props.allCouponData.map((allCoupon, index)=>{
-
-      return(
-         <div>
-           <Carousel
-                    swipeable={true}
-                    draggable={false}
-                    showDots={false}
-                    responsive={responsive}
-                    ssr={true} // means to render carousel on server-side.
-                    infinite={true}
-                   // autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                    autoPlaySpeed={5000000}
-                    keyBoardControl={true}
-                    customTransition="all .5"
-                    transitionDuration={500}
-                    containerClass="carousel-container"
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
-                    //deviceType={this.props.deviceType}
-                    dotListClass="custom-dot-list-style"
-                    itemClass="carousel-item-padding-40-px"
-                  >
-            <div>
-              <div class="slicent activa">
-                {allCoupon.martName}
-              </div>
-            </div>
-        </Carousel>
-          
-      </div>
-      )
-   })
   }
-  
-}
 
-martName(){
-  if(this.props.allCouponData !== undefined){
-    return this.props.allCouponData.slice(0,2).map((allCoupon, index)=>{
-      return(
-  <div>
-<h2 class="mn">  <Link to="/WebsiteMart">{allCoupon.martName} </Link></h2>
-  </div>
-      )
-    })
-    }
-}
+  async componentDidMount() {
+    console.log('martt', window.location.pathname);
+     let splitUrl = window.location.pathname.split('/')
+    console.log('martt', splitUrl);
+    console.log('martt', splitUrl[2]);
+    this.getAllCoupansOfMart(splitUrl[2]);
+  }
 
-retailerData(){
-  if(this.props.allCouponData !== undefined){
-    return this.props.allCouponData.map((allCoupon, index)=>{
-      return(
-        // <div class="top-slider index-top">
-        <div>
-        {/* <DashboardImageScroll /> */}
-        <Carousel
-          swipeable={true}
-          draggable={false}
-          showDots={false}
-          responsive={responsive1}
-          ssr={true} // means to render carousel on server-side.
-          infinite={true}
-          autoPlay={this.props.deviceType !== "mobile" ? true : false}
-          autoPlaySpeed={5000000}
-          keyBoardControl={true}
-          customTransition="all .5"
-          transitionDuration={500}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          deviceType={this.props.deviceType}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
-        >
+  martData() {
+
+    if (this.props.allCouponData !== undefined) {
+      return this.props.allCouponData.map((allCoupon, index) => {
+
+        return (
           <div>
+            <Carousel
+              swipeable={true}
+              draggable={false}
+              showDots={false}
+              responsive={responsive}
+              ssr={true} // means to render carousel on server-side.
+              infinite={true}
+              // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+              autoPlaySpeed={5000000}
+              keyBoardControl={true}
+              customTransition="all .5"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              //deviceType={this.props.deviceType}
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+            
 
-            <ImageDashboard
-              ImageName={allCoupon.shopName}
-              LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
-              // LinkId={`/AllRetailers/${martId}`}
-              ImageA={allCoupon.image}
-              heartImage={Imageid.RedHeart}
-              MartId={allCoupon.martId}
-              CategoryName={allCoupon.categoryName}
-              SubCategoryName={allCoupon.subCategoryName}
-              ItemType={allCoupon.itemType}
-              ItemName={allCoupon.itemName}
-              BrandName={allCoupon.brandName}
-              RetailerId={allCoupon.retailerId._id}
-              Id={allCoupon.retailerId._id}
-              Token={this.props.applicationData.token}
-              typeData = {'retailer'}
-            />
+                <div class="slicent activa">
+                  {allCoupon.martName}
+                </div>
+              
+      
+            </Carousel>
 
           </div>
-        </Carousel>
-
-      </div>
-            )
-    })
+        )
+      })
     }
-}
 
-couponData(){
-  // if(this.props.applicationData.length > 0)
-  console.log("applicationData",this.props.applicationData)
-  if(this.props.allCouponData !== undefined){
-    return this.props.allCouponData.map((allCoupon, index)=>{
-      return(
-        <div>
-          <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive1}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
-> 
-<CouponsImage 
-ImageSrc={allCoupon.image}
-Title={allCoupon.title}
-CouponCode={allCoupon.couponCode}
-Discount={allCoupon.discount}
-ItemName={allCoupon.itemName}
-ExpiryDate={allCoupon.ExpiryDate}
-CouponId={allCoupon._id}
-CouponToken={this.props.applicationData.token}
-CouponAppliedOn={allCoupon.couponAppliedOn}
-OneTimeCoupon={allCoupon.oneTimeCoupon}
-ShopName={allCoupon.shopName}
-ShopNumber={allCoupon.retailerId.shopNumber}
-FloorNumber={allCoupon.floorNumber}
-MartName={allCoupon.martName}
-ShopPhoneNumber={allCoupon.shopPhoneNumber}
-Restrictions={allCoupon.restrictions}
-
-
-
-/>
-</Carousel>
-        </div>
-      )
-    })
   }
-}
+
+  martName() {
+    if (this.props.allCouponData !== undefined) {
+      
+      return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
+        console.log("xyzzzz=======",allCoupon.retailerId.users)
+        return (
+          <div>
+            <h2 class="mn">  <Link to={`/WebsiteMart/${allCoupon.martId}`}>{allCoupon.martName} </Link></h2>
+          </div>
+        )
+      })
+    }
+  }
 
   
+ 
+
+  retailerData() {
+    if (this.props.allCouponData !== undefined) {
+      return this.props.allCouponData.map((allCoupon, index) => {
+        console.log("akhtar===",allCoupon.retailerId._id)
+        let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+        console.log('checkData--',checkData)
+        let heartStatus;
+        if(checkData == -1){
+          heartStatus = false;
+        }else{
+          heartStatus = true ;
+        }
+        console.log('checkData--',heartStatus)
+
+        
+
+        return (
+          // <div class="top-slider index-top">
+          <div>
+            {/* <DashboardImageScroll /> */}
+            <Carousel
+              swipeable={true}
+              draggable={false}
+              showDots={false}
+              responsive={responsive1}
+              ssr={true} // means to render carousel on server-side.
+              infinite={true}
+              autoPlay={this.props.deviceType !== "mobile" ? true : false}
+              autoPlaySpeed={5000000}
+              keyBoardControl={true}
+              customTransition="all .5"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              deviceType={this.props.deviceType}
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              <div>
+
+                <ImageDashboard
+                 
+                  ImageName={allCoupon.shopName}
+                  LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
+                  // LinkId={`/AllRetailers/${martId}`}
+                  ImageA={allCoupon.image}
+                  heartImage={heartStatus}
+                  MartId={allCoupon.martId}
+                  CategoryName={allCoupon.categoryName}
+                  SubCategoryName={allCoupon.subCategoryName}
+                  ItemType={allCoupon.itemType}
+                  ItemName={allCoupon.itemName}
+                  BrandName={allCoupon.brandName}
+                  RetailerId={allCoupon.retailerId._id}
+                  Id={allCoupon.retailerId._id}
+                  Token={this.props.applicationData.token}
+                  typeData={'retailer'}
+                  HeartData = {heartStatus}
+                  blankHeart={Imageid.heartImage}
+                  redHeart={Imageid.RedHeart}
+                  // getAllCoupansOfMart = {this.getAllCoupansOfMart(mart_ID)}
+                />
+
+              </div>
+            </Carousel>
+
+          </div>
+        )
+      })
+    }
+  }
+
+  couponData() {
+    // if(this.props.applicationData.length > 0)
+    
+    if (this.props.allCouponData !== undefined) {
+      return this.props.allCouponData.map((allCoupon, index) => {
+        console.log("applicationData--", allCoupon.retailerId.users)
+       
+        return (
+          <div>
+            <Carousel
+              swipeable={true}
+              draggable={false}
+              showDots={false}
+              responsive={responsive1}
+              ssr={true} // means to render carousel on server-side.
+              infinite={true}
+              autoPlay={this.props.deviceType !== "mobile" ? true : false}
+              autoPlaySpeed={5000000}
+              keyBoardControl={true}
+              customTransition="all .5"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              deviceType={this.props.deviceType}
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              <CouponsImage
+                ImageSrc={allCoupon.image}
+                Title={allCoupon.title}
+                CouponCode={allCoupon.couponCode}
+                Discount={allCoupon.discount}
+                ItemName={allCoupon.itemName}
+                ExpiryDate={allCoupon.ExpiryDate}
+                CouponId={allCoupon._id}
+                CouponToken={this.props.applicationData.token}
+                CouponAppliedOn={allCoupon.couponAppliedOn}
+                OneTimeCoupon={allCoupon.oneTimeCoupon}
+                ShopName={allCoupon.shopName}
+                ShopNumber={allCoupon.retailerId.shopNumber}
+                FloorNumber={allCoupon.floorNumber}
+                MartName={allCoupon.martName}
+                ShopPhoneNumber={allCoupon.shopPhoneNumber}
+                Restrictions={allCoupon.restrictions}
+                
+                
+
+
+
+              />
+            </Carousel>
+          </div>
+        )
+      })
+    }
+  }
+
+
   render() {
 
     return (
       <div>
         <body>
-          {/* <Header2 /> */} 
+          {/* <Header2 /> */}
           <Header4 />
           <section class="second">
-            <div class="container-fluid">
+            <div class="container-fluid"> 
 
-              <div class="slidertop">
-                <section class="center slider">
-                  
-                {this.martData() } 
-                  </section>
-                  </div>
-                  </div>
-                </section>
+                <div class="slidertop">
+                <section class="center slider"> 
+
+                  {this.martData()}
+                 </section>
+              </div>
+            </div>
+          </section> 
           <div class="left-contant">
             <div class="marname">
-            {this.martName()}
+              {this.martName()}
             </div>
           </div>
 
@@ -327,85 +358,13 @@ Restrictions={allCoupon.restrictions}
                     <div class="top-slider index-top">
                       {this.retailerData()}
                     </div>
-                    {/* <div class="top-slider index-top">
-                      <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive1}
-                        ssr={true} 
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                      >
-                        <div>
-
-                          <ImageDashboard
-                            ImageName={allCoupon.shopName}
-                            LinkId="/AllCouponsRetailers"
-                            ImageA={allCoupon.image}
-                            heartImage={Imageid.RedHeart}
-                            MartId={allCoupon.martId}
-                            CategoryName={allCoupon.categoryName}
-                            SubCategoryName={allCoupon.subCategoryName}
-                            ItemType={allCoupon.itemType}
-                            ItemName={allCoupon.itemName}
-                            BrandName={allCoupon.brandName}
-                          />
-
-                        </div>
-                      </Carousel>
-
-                    </div> */}
 
                     <div class="left-contant">
                       <h3>Coupons</h3>
                     </div>
                     <div class="landing-slider">
                       <div class="cover-slidersection">
-                        {/* <CouponsScrollPupup /> */}  
-                        {/* <Carousel
-  swipeable={true}
-  draggable={false}
-  showDots={false}
-  responsive={responsive1}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={5000000}
-  keyBoardControl={true}
-  customTransition="all .5"
-  transitionDuration={500}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={this.props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
-> 
-<CouponsImage 
-ImageSrc={allCoupon.image}
-Title={allCoupon.title}
-CouponCode={allCoupon.couponCode}
-Discount={allCoupon.discount}
-ItemName={allCoupon.itemName}
-ExpiryDate={allCoupon.ExpiryDate}
-
-/> */}
-{/* <CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage />
-<CouponsImage /> */}
- {/* </Carousel> */}
- {this.couponData()}
+                        {this.couponData()}
 
                       </div>
                     </div>
@@ -416,25 +375,25 @@ ExpiryDate={allCoupon.ExpiryDate}
             </div>
           </section>
           <Footer />
-                </body>
-     
+        </body>
+
       </div>
-      );
-    }
+    );
   }
+}
 // export default AllRetailers
 
 const mapStateToProps = state => {
-  console.log("stateabc",state)
-    return {
-       allCouponData: state.CouponCodeReducer.userData,
-       applicationData: state.AuthReducer.userData
-    }
+  console.log("stateabc", state)
+  return {
+    allCouponData: state.CouponCodeReducer.userData,
+    applicationData: state.AuthReducer.userData
+  }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-      action: bindActionCreators({ myCouponData }, dispatch)
+    action: bindActionCreators({ myCouponData }, dispatch)
   }
 }
 

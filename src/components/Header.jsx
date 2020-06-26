@@ -7,6 +7,7 @@ import ProvinceJSON from '../utils/JSON/province.json';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import Cookies from 'universal-cookie';
+import Geocode from "react-geocode";
 
 const Header = (props) => {
     const [pinCode, setPinCode] = useState("");
@@ -73,6 +74,36 @@ const Header = (props) => {
         >{item.state}</option>
         
     });
+
+    let getAddressData = () => {
+
+// Get address from latidude & longitude.
+        Geocode.setApiKey("AIzaSyAfs4xUIDuU2UVdRkbUERjCGGx_dvSWobU");
+
+        Geocode.fromLatLng("48.8583701", "2.2922926").then(
+            response => {
+              const address = response.results[0].formatted_address;
+              console.log("getaddressdata",address);
+            },
+            error => {
+              console.error(error);
+            }
+          );
+    }
+
+//     let getCoordinateFromAddress = () => {
+        
+//         // Get latidude & longitude from address.
+// Geocode.fromAddress("Eiffel Tower").then(
+//     response => {
+//       const { lat, lng } = response.results[0].geometry.location;
+//       console.log(lat, lng);
+//     },
+//     error => {
+//       console.error(error);
+//     }
+//   );
+//     }
 
     let getPopupAddress = () => {
     try {
@@ -180,7 +211,7 @@ setLongitude(position.coords.longitude);
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude , longitude }<i class="" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude ,longitude }<i class="" aria-hidden="true"></i></a>
                                             
                                         
 
