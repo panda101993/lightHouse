@@ -74,7 +74,7 @@ class componentName extends Component {
          console.log('hhhh=>',this.props.applicationData)
          apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
          .then((resp)=>{
-         console.log('  ', resp);
+         console.log('responseLandingscreen--', resp);
          switch (resp.status) {
             case (200):
                 {
@@ -156,7 +156,7 @@ class componentName extends Component {
       })
    }
 
-   
+
 
    productServiceType(){
       return this.state.allData.slice(0,2).map((xyz, index)=>{
