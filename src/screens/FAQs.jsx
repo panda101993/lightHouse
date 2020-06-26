@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { Switch, Route, NavLink  ,Link} from "react-router-dom";
 import FAQComponent from '../components/FAQComponent';
+import Apirequest from '../api/Apirequest';
 
 
 const Loging = () => 
@@ -23,6 +24,11 @@ const Settings = () =>
     
 </div>;
 export default class FAQs extends Component {
+   constructor(props){
+      super(props)
+
+   }
+   
  
     render() {
       const { path } = this.props.match;

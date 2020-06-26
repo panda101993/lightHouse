@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
-export default class CreditRetailer extends Component {
+import { connect } from "react-redux"; 
+class CreditRetailer extends Component {
     constructor(props) {
         super(props)
 
@@ -24,7 +24,7 @@ export default class CreditRetailer extends Component {
                     <div class="name_c301">
                         <div class="maincred">
                             <div class="mycredit">
-                                5000 credits
+                                 credits ( {this.props.applicationData.credit} )
                                 </div>
                         </div>
                     </div>
@@ -38,3 +38,11 @@ export default class CreditRetailer extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.ProfileDetailsReducer.profileData      
+    }
+          
+  }
+  export default connect(mapStateToProps)(CreditRetailer);

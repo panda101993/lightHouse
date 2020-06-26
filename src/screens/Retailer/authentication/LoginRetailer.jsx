@@ -67,7 +67,13 @@ export default class LoginRetailer extends Component {
         if (this.state.mobilenoStatus) {
            if (this.state.passwordStatus){
                   //  alert('Submit Successfully');
-                    window.location.href = "Setting_retailer";
+                    // window.location.href = "Setting_retailer";
+                    var credential={
+                        "email":this.state.mobileno,
+                        "password":this.state.password
+                    }
+                    this.props.action.loginActionRetailer(credential,()=>this.props.history.push("/Coupon_template"))
+
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
      }

@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
 import { Modal, ModalBody } from "reactstrap";
+import { connect } from "react-redux";
+import ApiRequest from '../api/Apirequest';
+import ToasterFunction from '../components/ToasterFunc';
+import { FilePicker } from 'react-file-picker'
 
-export default class Step2_retailer extends Component { 
+let file64 = null
+ class Step2_retailer extends Component { 
     constructor(props) {
         super(props)
     
         this.state = {
-             ManageInfostep2:false,
+             ManageInfostep2:true,
              modalStatus: false,
-             modalStatus1: false
+             modalStatus1: false,
+             GSTIN:"",
+             registeredBusinessName:"",
+             pinCode:"",
+             signUpFee: 0 ,
+             gstOnSignUp:0,
+             totalAmount:0
         }
     }  
     handlestate = () =>{
@@ -17,6 +28,198 @@ export default class Step2_retailer extends Component {
            modalStatus1: !this.state.modalStatus1
         })
      }
+     handleRegisteredBusinessNameInput = (e) => {
+      const name = e.target.name;
+      const value = e.target.value;
+      this.setState({ [name]: value })
+      console.log("valueset==>", value)
+
+   
+  }  
+  
+  handlePinCodeInput = (e) => {
+   const name = e.target.name;
+   const value = e.target.value;
+   this.setState({ [name]: value })
+   console.log("valueset==>", value)
+
+ 
+}
+handleGSTINInput = (e) => {
+   const name = e.target.name;
+   const value = e.target.value;
+   this.setState({ [name]: value })
+   console.log("valueset==>", value)
+
+
+}
+handleUploadFile(FileObject) {
+        
+   let file = null;
+   let fileReader = new FileReader();
+   fileReader.readAsDataURL(FileObject)
+   fileReader.onload = function(fileLoadedEvent) {
+       file = fileLoadedEvent.target.result;
+       // Print data in console
+       console.log(file);
+       file64 = file
+       
+   };  
+   fileReader.onerror = function (error) {
+       console.log('Error: ', error);
+   };
+   
+}
+
+handlePayment(){
+console.log("PaymentLinkAPI going to hit====>")
+   try {
+      ApiRequest( {token: this.props.applicationData.token} , '/retailer/payment', 'POST',this.props.applicationData.token)
+         .then((resp) => {
+            console.log('response====>/retailer/business', resp);
+
+            switch (resp.status) {
+               case (200):
+                   {
+                     if (resp.data.responseCode == 200) {
+                     console.log("payment==>",resp.data.paymentLink)
+                     window.location.assign(`${resp.data.paymentLink}`);
+                      
+                  }
+
+                     else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", "Data not found, internal server error");
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", "Internal Server Error");
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+
+         })
+   } catch (error) {
+      console.log('errorresponse', error);
+      // ToasterFunction("error", "Network error, please contact the administrator");
+   }
+
+
+
+}
+
+componentDidMount(){
+   console.log("getting GST etc=====>")
+  let obj1 = {
+     token: this.props.applicationData.token,
+     configType: "RETAILER"
+  }
+   try {
+      ApiRequest( obj1 , '/configuration/configurations/RETAILER', 'GET',this.props.applicationData.token)
+         .then((resp) => {
+            console.log('/configuration/configurations/{configType}', resp);
+
+            switch (resp.status) {
+               case (200):
+                   {
+                     if (resp.data.responseCode == 200) {
+                       ToasterFunction("info", "Data is saved successfully");
+                       console.log("/configuration/configurations/RETAILER",resp.data.result)
+                       let signUpFee = resp.data.result.retailerSignupAmount
+                       let gstOnSignUp = resp.data.result.gstOnSignup
+                       let totalAmount = (signUpFee + (gstOnSignUp*signUpFee/100))
+                       console.log("signUpFee,gstOnSignUp,totalAmount",totalAmount)
+                       this.setState({
+                          signUpFee: resp.data.result.retailerSignupAmount ,
+                          gstOnSignUp:resp.data.result.gstOnSignup,
+                          totalAmount:totalAmount
+                       })
+                     // this.setState({ ManageInfostep2: !this.state.ManageInfostep2 })
+                  }
+
+                     else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", "Data not found, internal server error");
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", "Internal Server Error");
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+
+         })
+   } catch (error) {
+      console.log('errorresponse', error);
+      // ToasterFunction("error", "Network error, please contact the administrator");
+   }
+
+
+}
+
+
+
+     saveButtonHandler() {
+
+      console.log("file64=====>",file64)
+      //Token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjBjZmVlM2M4Njc1MDRhMjNmYjFkMSIsImlhdCI6MTU5Mjg5NTU3NywiZXhwIjoxNTkyOTgxOTc3fQ.ANJ7tTwDe235TN8m4lfL6TXJ9GIIcFaFF5dK6wBWIHA"
+           let obj = {
+            token :this.props.applicationData.token,
+            GSTIN:this.state.GSTIN,
+            registeredBusinessName:this.state.registeredBusinessName,
+            pinCode:this.state.pinCode,
+            city:"Patna",
+            state:"Bihar",
+            address:"Isapur",
+            addressProof:file64
+         
+         
+         }
+    
+            console.log("retailer/manage=====>",obj)
+            try {
+                ApiRequest( obj , '/retailer/business', 'POST',this.props.applicationData.token)
+                   .then((resp) => {
+                      console.log('response====>/retailer/business', resp);
+    
+                      switch (resp.status) {
+                         case (200):
+                             {
+                               if (resp.data.responseCode == 200) {
+                                ToasterFunction("info", "Data is saved successfully");
+                               
+                                this.getAmountAPI()
+                            }
+    
+                               else if (resp.data.responseCode == 404) {
+                                 ToasterFunction("info", "Data not found, internal server error");
+                             }
+                             else if (resp.data.responseCode == 500) {
+                                 ToasterFunction("error", "Internal Server Error");
+                             }
+                         }
+                         case (900): {
+                             if (resp.status == 900) {
+                                 ToasterFunction("error", "Please check your internet connection")
+                             }
+                         }
+                     }
+    
+                   })
+             } catch (error) {
+                console.log('errorresponse', error);
+                // ToasterFunction("error", "Network error, please contact the administrator");
+             }
+    
+        }
+
+
     render() {
         return ( 
             this.state.ManageInfostep2 ?  
@@ -31,16 +234,16 @@ export default class Step2_retailer extends Component {
                         <li class="ta bl">Total Amount :</li>
                      </ul>
                      <ul class="gst">
-                        <li class="rs">Rs 300.00 </li>
-                        <li class="rs">18% of sign up free</li>
-                        <li class="rs bl">RS 800.00 </li>
+                        <li class="rs">{`Rs ${this.state.signUpFee}`}  </li>
+                        <li class="rs">{`${this.state.gstOnSignUp} % of sign up free`}</li>
+                        <li class="rs bl"> {`RS ${this.state.totalAmount}`} </li>
                      </ul>
                   </div>
                   <div class="pas">
                      <ul class="button_cs">
-                        <li><button class="save paddi" data-toggle="modal" data-target="#icon" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>Pay and Submit</button></li>
+                        <li><button class="save paddi" data-toggle="modal" data-target="#icon" onClick={() => this.handlePayment()}>Pay and Submit</button></li>
                      </ul>
-                     <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "200px", }}>
+                     {/* <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "200px", }}>
                         <ModalBody>
                            <div>
                               <div class="modal-content">
@@ -60,9 +263,9 @@ export default class Step2_retailer extends Component {
                                              <button class="btn setloc-btn" onClick={() => this.setState({ modalStatus: false })} >OK</button>
                                           </div> */}
 
-                           </div>
-                        </ModalBody>
-                     </Modal>
+                           {/* </div> */}
+                        {/* </ModalBody>
+                     </Modal> */} 
 
                      <Modal isOpen={this.state.modalStatus1} toggle={this.toggle} style={{ top: "200px", }}>
                         <ModalBody>
@@ -109,7 +312,9 @@ export default class Step2_retailer extends Component {
                         </div>
                         <div class="col-md-10">
                            <ul class="select_s34">
-                              <li><input type="text" class="form-control" placeholder="Please enter GSTIN"/></li>
+                              <li><input   name="GSTIN" 
+                                onChange={(event) => this.handleGSTINInput(event)} 
+                              type="text" class="form-control" placeholder="Please enter GSTIN"/></li>
                            </ul>
                         </div>
                      </div>
@@ -140,7 +345,11 @@ export default class Step2_retailer extends Component {
                                 
                                 <span class="name">
                   <label>Registered Business Name *</label>
-                  <p><input type="text" class="form-control" placeholder="Business Name "/></p>
+                  <p><input 
+                   name="registeredBusinessName" 
+                   onChange={(event) => this.handleRegisteredBusinessNameInput(event)} 
+
+                  type="text" class="form-control" placeholder="Business Name "/></p>
                </span>
                                 <span class="name">
                   <label>Registered Business Phone Number *</label>
@@ -168,7 +377,10 @@ export default class Step2_retailer extends Component {
                                     <h3 class="enregbus">Registered Business Address:</h3>
                                     <span class="name">
                   <label>Pin Code*</label>
-                  <input type="text" class="form-control" placeholder="110025"/>
+                  <input
+                  name="pinCode" 
+                  onChange={(event) => this.handlePinCodeInput(event)} 
+                  type="text" class="form-control" placeholder="110025"/>
                   </span>
                                     <span class="name">
                      <label>State*</label>
@@ -195,7 +407,13 @@ export default class Step2_retailer extends Component {
                                             <p class="upload">(Upload Electric Bill,Water Bill,Gas Bill,Bank Statement,Adhar Card Detail)</p>
                                             <i class="fa fa-paperclip" aria-hidden="true"></i>
                                             <div class="icnflex">
-                                                <input type="file" class="form-control-file"/>
+                                            <FilePicker
+                                    extensions={['pdf']}
+                                    onChange={FileObject => this.handleUploadFile(FileObject)}
+                                    onError={errMsg => console.log(errMsg)}
+                                >
+                                                <input type="text" class="form-control-file"/>
+                                                </FilePicker>
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +422,7 @@ export default class Step2_retailer extends Component {
                                             <button class="save" data-toggle="modal" data-target="#exampleModal">Cancel</button>
                                         </li>
                                         <li>
-                  <button type="button" class="save" data-toggle="modal" data-target="#"  onClick={() => this.setState({ ManageInfostep2: !this.state.ManageInfostep2 })}  >Save</button>
+                  <button type="button" class="save" data-toggle="modal" data-target="#"  onClick={() => this.saveButtonHandler()}  >Save</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -217,3 +435,17 @@ export default class Step2_retailer extends Component {
         )
     }
 }
+
+
+const mapStateToProps = state => {
+   console.log("stateLogin-------", state)
+   return {
+       applicationData: state.AuthReducer.userData
+
+   }
+
+}
+
+
+// export default componentName
+export default connect(mapStateToProps)(Step2_retailer);

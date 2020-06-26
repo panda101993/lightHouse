@@ -177,7 +177,7 @@ class componentName extends Component {
       })
    }
 
-
+   
 
    productServiceType(){
       return this.state.allData.slice(0,1 ).map((xyz, index)=>{
