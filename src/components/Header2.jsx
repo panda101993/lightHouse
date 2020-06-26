@@ -157,8 +157,8 @@ function Header2(props) {
                               
 
                                 <li class="prfile">
-                                    <img src={require("../assets/images/new-profile.png")} />
-                                    <p>Kamal</p>
+                                {props.applicationData.shopName}
+                                    <p></p>
                                 </li>
                             </ul>
                         </div>

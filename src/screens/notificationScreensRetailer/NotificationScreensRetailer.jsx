@@ -44,7 +44,7 @@ import { connect } from "react-redux";
             
               <ul>
                                     <li>
-                                      <Link to="/Coupon_template" class="active" > Create Coupon</Link> </li>
+                                      <Link to="/Coupon_template" > Create Coupon</Link> </li>
                                     <li> <Link to='/MyCoupanHistory' > Manage Coupons </Link></li>
                                     <li><Link to='/ManageOnetime'>Single Use Coupon</Link></li>
                                     <li><Link to="/Setting_retailer">Settings</Link></li>

@@ -9,9 +9,14 @@ import { connect } from "react-redux";
         this.state = {
 
             modalStatus: false,
-
+           
         }
-    }
+    } 
+    componentDidMount(){
+        
+        console.log("qrcodeeeee====>",this.props.applicationData)
+      }
+   
 
     render() {
         return (
@@ -25,9 +30,10 @@ import { connect } from "react-redux";
                             </div>
             <div class="maincred ref">
                 <div class="mycredit ref">
-                    <p class="li"> LI3G4T</p>
+        <p class="li"> {this.props.applicationData.retailerReferralCode}</p>
                     {/* <img src={require("../assets/images/qrreader.png")} /> */}
-                    {/* <img src ={require("")} /> */}
+                    <img src ={this.props.applicationData.qrCode} />
+                  
                 </div>
             </div>
             <div class="pas print">

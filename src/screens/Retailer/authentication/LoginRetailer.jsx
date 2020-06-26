@@ -79,7 +79,7 @@ export class LoginRetailer extends Component {
                         "email":this.state.mobileno,
                         "password":this.state.password
                     }
-                    this.props.action.loginActionRetailer(credential,()=>this.props.history.push("/Setting_retailer"))
+                    this.props.action.loginActionRetailer(credential,()=>this.props.history.push("/Coupon_template"))
 
            } else { this.setState({ passwordStatus: false, passwordErrorMessage: "*Please enter password" }) }
         } else { this.setState({ mobilenoStatus: false, mobilenoErrorMessage: "*Please enter mobileno" }) }
