@@ -118,9 +118,22 @@ class componentName extends Component {
    }
 
    martData(){
-      // if(this.state.allData.length > 0)
+      // /if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
-         const {martId,martImage,martName} = xyz
+         console.log("abcffff",xyz.martUsers)
+         // if (!xyz.martUsers) return null;
+         if (xyz.martUsers !== undefined){
+         let checkData = xyz.martUsers.indexOf(this.props.applicationData.userId);
+         
+         console.log('checkData--',checkData)
+         let heartStatus;
+         if(checkData == -1){
+           heartStatus = false;
+         }else{
+           heartStatus = true ;
+         }
+         console.log('checkData--',heartStatus)
+      
       //   console.log('category',categoryImage);
          return(
             <div>
@@ -143,20 +156,24 @@ class componentName extends Component {
                         itemClass="carousel-item-padding-40-px"
                      >
             <ImageDashboard          
-               ImageName={martName}
-               LinkId={`/AllRetailers/${martId}`}
+               ImageName={xyz.martName}
+               LinkId={`/AllRetailers/${xyz.martId}`}
                // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
-               ImageA={martImage}
-               heartImage={Imageid.heartImage}
-               MartId={martId}
-               Id={martId}
+               ImageA={xyz.martImage}
+               heartImage={heartStatus}
+               MartId={xyz.martId}
+               Id={xyz.martId}
                Token={this.props.applicationData.token}
                typeData = {'mart'}
+               UniqueId={xyz._id}
+               HeartData = {heartStatus}
+               blankHeart={Imageid.heartImage}
+               redHeart={Imageid.RedHeart}
                
             />
              </Carousel>
          </div>
-         )
+         )}
       })
    }
 
@@ -177,7 +194,18 @@ class componentName extends Component {
    categoryData(){
       // if(this.state.allData.length > 0)
       return this.state.allData.map((xyz, index)=>{
-         const {martId,categoryId, categoryImage,categoryName} = xyz
+         // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
+         if(xyz.categoryUsers !== undefined){
+         let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
+
+         console.log('checkData--',checkData)
+         let heartStatus;
+         if(checkData == -1){
+           heartStatus = false;
+         }else{
+           heartStatus = true ;
+         }
+         console.log('checkData--',heartStatus)
       //   console.log('category',categoryImage);
          return(
             <div>
@@ -200,19 +228,23 @@ class componentName extends Component {
                   itemClass="carousel-item-padding-40-px"
                >
                   <ImageDashboard
-                     ImageName={categoryName}
-                     LinkId={`/subCategories/${categoryId}/${martId}`}
-                     ImageA={categoryImage}
-                     heartImage={Imageid.RedHeart}
-                     CategoryId={categoryId}
-                     Id={categoryId}
+                     ImageName={xyz.categoryName}
+                     LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                     ImageA={xyz.categoryImage}
+                     heartImage={heartStatus}
+                     CategoryId={xyz.categoryId}
+                     Id={xyz.categoryId}
                      Token={this.props.applicationData.token}
                      typeData = {'category'}
+                     UniqueId={xyz._id}
+                     HeartData = {heartStatus}
+                     blankHeart={Imageid.heartImage}
+                     redHeart={Imageid.RedHeart}
                      
                   />
                </Carousel>
             </div>
-         )
+         )}
       })
    }
    
