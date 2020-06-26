@@ -1,13 +1,11 @@
 import { RETAILER_PROFILE_ACTION } from '../action/ActionTypes';
 
 const initialState = {
-<<<<<<< HEAD
     
-=======
     profileData:{
-        credit:0
+        credit:0,
+        shopName:''
     }
->>>>>>> e73cf6bcb080baa2d6e4a849abe76df3aa93b4f0
 }
 export const ProfileDetailsReducer = (state = initialState, action) => {
     switch (action.type) {

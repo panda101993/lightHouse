@@ -9,14 +9,11 @@ import Header2 from '../../../components/Header2'
 import CreateCoupon from '../../../components/CreateCoupon'
 import CoupontempleteImage from '../../../components/CoupontempleteImage'
 import Header3 from '../../../components/Header3';
-<<<<<<< HEAD
 import Apirequest from "../../../api/Apirequest";
 
-=======
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import {retailerProfileAction} from "../../../redux/action/ProfileDetailsAction";
->>>>>>> e73cf6bcb080baa2d6e4a849abe76df3aa93b4f0
 const responsive = {
    desktop: {
      breakpoint: { max: 3000, min: 1024 },
@@ -52,29 +49,22 @@ const Coupontemplete =() =>
  class Coupon_template extends Component {
   constructor(props) {
     super(props)
-    
-    this.state = {
-      
-        
-    }
-  
- }
-   componentDidMount(){
-     
-     const {token,userId} = this.props.applicationData
-
-<<<<<<< HEAD
-  constructor(props) {
-    super(props)
   
     this.state = {
        couponTemplateList:[]
-    };
-  };
+    }
+  }
+   
+     
+    
+
+  
   
 
    componentDidMount(){
-
+    const {token,userId} = this.props.applicationData
+    this.props.action.retailerProfileAction(token)
+   
 let obj={}
     Apirequest(obj, "/admin/couponTemplateList", "POST")
     .then((resp) => {
@@ -110,12 +100,9 @@ let obj={}
     }
     )
 
-
-=======
+  }
     
-    this.props.action.retailerProfileAction(token)
->>>>>>> e73cf6bcb080baa2d6e4a849abe76df3aa93b4f0
-   }
+  
 
     render() { 
       const { path } = this.props.match;

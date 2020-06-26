@@ -9,7 +9,7 @@ export const retailerProfileAction = (credential) => dispatch => {
 
     Apirequest(credential, "/retailer/profile", "GET",credential)
         .then((resp) => {
-            console.log('respresp===>',resp);
+            console.log('/retailer/profile===>',resp);
             // dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
             
             // navigationFunction()
