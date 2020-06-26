@@ -71,7 +71,8 @@ export class AllRetailers extends Component {
 
     this.state = {
 
-      allCoupon: []
+      allCoupon: [],
+  
     }
   }
 
@@ -82,7 +83,7 @@ export class AllRetailers extends Component {
       console.log('martt----', Id);
       //  apiRequest({martId:Id},'/user/ ','POST')
       this.props.action.myCouponData({ martId: Id })
-
+      
       //  .then((resp)=>{
       //     console.log("responseCoupan",resp)
       //   this.setState({
@@ -98,7 +99,7 @@ export class AllRetailers extends Component {
 
   async componentDidMount() {
     console.log('martt', window.location.pathname);
-    let splitUrl = window.location.pathname.split('/')
+     let splitUrl = window.location.pathname.split('/')
     console.log('martt', splitUrl);
     console.log('martt', splitUrl[2]);
     this.getAllCoupansOfMart(splitUrl[2]);
@@ -160,7 +161,7 @@ export class AllRetailers extends Component {
   }
 
   
-  
+ 
 
   retailerData() {
     if (this.props.allCouponData !== undefined) {
@@ -171,11 +172,14 @@ export class AllRetailers extends Component {
         console.log('checkData--',checkData)
         let heartStatus;
         if(checkData == -1){
-          heartStatus = Imageid.heartImage;
+          heartStatus = false;
         }else{
-          heartStatus = Imageid.RedHeart;
+          heartStatus = true ;
         }
         console.log('checkData--',heartStatus)
+
+        
+
         return (
           // <div class="top-slider index-top">
           <div>
@@ -201,6 +205,7 @@ export class AllRetailers extends Component {
               <div>
 
                 <ImageDashboard
+                 
                   ImageName={allCoupon.shopName}
                   LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
                   // LinkId={`/AllRetailers/${martId}`}
@@ -217,6 +222,9 @@ export class AllRetailers extends Component {
                   Token={this.props.applicationData.token}
                   typeData={'retailer'}
                   HeartData = {heartStatus}
+                  blankHeart={Imageid.heartImage}
+                  redHeart={Imageid.RedHeart}
+                  // getAllCoupansOfMart = {this.getAllCoupansOfMart(mart_ID)}
                 />
 
               </div>
