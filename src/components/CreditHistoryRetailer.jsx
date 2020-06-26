@@ -12,14 +12,14 @@ export default class CreditHistoryRetailer extends Component {
 
         }
     } 
-    submitCreditHistory = () => {
-        if (this.state.mobilenoStatus) {          
-                        // alert('Submit Successfully');
-                        //  window.location.href = "SignupRetailer";
-                        // this.setState({ modalStatus: false })
-                        this.setState({ modalStatus: !this.state.modalStatus });
-        } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
-    }
+    // submitCreditHistory = () => {
+    //     if (this.state.mobilenoStatus) {          
+    //                     // alert('Submit Successfully');
+    //                     //  window.location.href = "SignupRetailer";
+    //                     // this.setState({ modalStatus: false })
+    //                     this.setState({ modalStatus: !this.state.modalStatus });
+    //     } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
+    // }
 
 
     render() {
