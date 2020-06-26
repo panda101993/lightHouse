@@ -9,9 +9,8 @@ import Header2 from '../../../components/Header2'
 import CreateCoupon from '../../../components/CreateCoupon'
 import CoupontempleteImage from '../../../components/CoupontempleteImage'
 import Header3 from '../../../components/Header3';
-import { connect } from "react-redux";
-import {bindActionCreators} from 'redux';
-import {retailerProfileAction} from "../../../redux/action/ProfileDetailsAction";
+import Apirequest from "../../../api/Apirequest";
+
 const responsive = {
    desktop: {
      breakpoint: { max: 3000, min: 1024 },
@@ -44,22 +43,55 @@ const Coupontemplete =() =>
 <CoupontempleteImage />
 </div>;
 
- class Coupon_template extends Component {
+export default class Coupon_template extends Component {
+
   constructor(props) {
     super(props)
-    
-    this.state = {
-      
-        
-    }
   
- }
-   componentDidMount(){
-     
-     const {token,userId} = this.props.applicationData
+    this.state = {
+       couponTemplateList:[]
+    };
+  };
+  
 
-    
-    this.props.action.retailerProfileAction(token)
+   componentDidMount(){
+
+let obj={}
+    Apirequest(obj, "/admin/couponTemplateList", "POST")
+    .then((resp) => {
+        console.log('respresp===>',resp);
+       
+        // navigationFunction()
+        switch (resp.status) 
+        {
+            
+            
+            case (200): {
+                // console.log("responseCode",resp.data.responseCode)
+                if(resp.data.responseCode==200)
+                {
+                console.log("coupantemplateAPI===>",resp.data.result)
+                this.setState({couponTemplateList:resp.data.result})
+                }
+                else if(resp.data.responseCode==402)
+                {
+                    // console.log("Invalid credentials")
+                    alert("Invalid credentials")
+                }
+            }
+                break
+            default: {
+                alert(resp.data.error)
+            }
+        }
+    }
+    )
+    .catch(err => {
+        console.log("respresp---", err)
+    }
+    )
+
+
    }
 
     render() { 
@@ -86,7 +118,8 @@ const Coupontemplete =() =>
        <section class="second">
          <div class="container-fluid border-with-radius img-slic">
             <h3 class="info_c3 chnge-pass coup-temp">Please select the coupon template for the creation of the coupon : </h3>
-            <Carousel
+            
+<Carousel
   swipeable={true}
   draggable={false}
   showDots={false}
@@ -105,89 +138,38 @@ const Coupontemplete =() =>
   itemClass="carousel-item-padding-40-px"
 >
   
-      
-      
-   <div>  
+{this.state.couponTemplateList.map((item,index)=>{
+  console.log("couponTemplate_item==>",item)
+  return(
+<div> 
+   
+   
+   <div class="main-coverslider">  
+         <div class="cover-images">
+         <Link to='/CreateCouponform'>
+       <img  
+        style={{width:"100%",height:"100%" }} 
+        src={item.couponTemplate} 
         
-           <div class="main-coverslider">  
-           <div class="cover-images"> 
-          
-         {/* <img  
-          style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} 
-          
-          />  */} 
-            <Link to='/CreateCouponform'>
-         <img  
-          style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} 
-          
-          />  
-          </Link>
-          </div> 
-          </div>
-   </div>
-   <div> 
+        />  
+        </Link>
+        </div> 
+        </div>
+
+ </div>
+  )
+})
+}
+      
    
    
-     <div class="main-coverslider">  
-           <div class="cover-images">
-           <Link to='/CreateCouponform'>
-         <img  
-          style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} 
-          
-          />  
-          </Link>
-          </div> 
-          </div>
-
-   </div>
-   <div> 
-
-         <div class="main-coverslider">  
-           <div class="cover-images">
-           <Link to='/CreateCouponform'>
-         <img  
-          style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} 
-          
-          />  
-          </Link>
-          </div> 
-          </div>
-   </div>
-   <div> 
-  
-          <div class="main-coverslider">  
-           <div class="cover-images">
-           <Link to='/CreateCouponform'>
-         <img  
-          style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} 
-          
-          />  
-          </Link>
-          </div> 
-          </div>
-   </div>
-   <div> 
-
-          <div class="main-coverslider">  
-           <div class="cover-images">
-           <Link to='/CreateCouponform'>
-         <img  
-          style={{width:"100%",height:"100%" }} 
-          src={Imageid.Image1} 
-          
-          />  
-          </Link>
-          </div> 
-          </div>
-   </div>
+   
   
 
 </Carousel> 
+
+
+
         </div>   
       </section> 
               {/* <Switch>
@@ -206,19 +188,3 @@ const Coupontemplete =() =>
         )
     }
 }
-
-
-const mapStateToProps = state => {
-  console.log("stateLogin-------", state)
-  return {
-     applicationData: state.AuthReducer.userData
-       
-  }
-        
-}
-const mapDispatchToProps = dispatch => {
-  return {
-      action: bindActionCreators({ retailerProfileAction }, dispatch)
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Coupon_template);
