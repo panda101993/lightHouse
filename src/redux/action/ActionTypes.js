@@ -1,3 +1,4 @@
+
 export const JUST_ACTION="just_action";
 export const FIRSTACTION="FIRSTACTION";
 export const LOGIN_ACTION="LOGIN_ACTION";

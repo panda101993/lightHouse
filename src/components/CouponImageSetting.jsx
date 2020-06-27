@@ -97,11 +97,11 @@ class CouponImageSetting extends Component {
                        }
                       
                         else if (resp.data.responseCode == 404) {
-                          ToasterFunction("info", "Data not found, internal server error");
+                          ToasterFunction("info", resp.data.responseMessage);
       
                       }
                       else if (resp.data.responseCode == 500) {
-                          ToasterFunction("error", "Internal Server Error");
+                          ToasterFunction("error", resp.data.responseMessage);
       
                       }
                   }
@@ -133,14 +133,15 @@ class CouponImageSetting extends Component {
                   case (200):
                       {
                       if (resp.data.responseCode == 200) {
-                        ToasterFunction("success", "Coupon deleted Successfully");
+                        ToasterFunction("success", resp.data.responseMessage) 
+                        this.getCoupounList();
                       }
                        else if (resp.data.responseCode == 404) {
-                          ToasterFunction("info", "Coupon already deleted");
+                          ToasterFunction("info", resp.data.responseMessage);
       
                       }
                       else if (resp.data.responseCode == 500) {
-                          ToasterFunction("error", "Internal Server Error");
+                          ToasterFunction("error", resp.data.responseMessage);
       
                       }
                   }
@@ -163,42 +164,42 @@ class CouponImageSetting extends Component {
       this.setState({modalStatusImage:false});
    }
 
-   hideCoupans = (getCouponId) => {
-      console.log("getCouponId---",getCouponId)
-      try {
-         apiRequest({ couponId: getCouponId  }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
-            .then((resp) => {
-               console.log('response', resp);
-               switch (resp.status) {
-                  case (200):
-                      {
-                      if (resp.data.responseCode == 200) {
-                        ToasterFunction("success", "Coupon hide Successfully");
-                      }
-                       else if (resp.data.responseCode == 404) {
-                          ToasterFunction("info", "Coupon already hide");
+   // hideCoupans = (getCouponId) => {
+   //    console.log("getCouponId---",getCouponId)
+   //    try {
+   //       apiRequest({ couponId: getCouponId  }, '/user/hideCoupon', 'POST', this.props.applicationData.token)
+   //          .then((resp) => {
+   //             console.log('response', resp);
+   //             switch (resp.status) {
+   //                case (200):
+   //                    {
+   //                    if (resp.data.responseCode == 200) {
+   //                      ToasterFunction("success", "Coupon hide Successfully");
+   //                    }
+   //                     else if (resp.data.responseCode == 404) {
+   //                        ToasterFunction("info", "Coupon already hide");
       
-                      }
-                      else if (resp.data.responseCode == 500) {
-                          ToasterFunction("error", "Internal Server Error");
+   //                    }
+   //                    else if (resp.data.responseCode == 500) {
+   //                        ToasterFunction("error", "Internal Server Error");
       
-                      }
-                  }
-                  case (900): {
-                      if (resp.status == 900) {
-                          ToasterFunction("error", "Please check your internet connection")
-                      }
-                  }
-              }
-              this.setState({modalStatusImage:false});
-            })
-      } catch (error) {
-         console.log('errorresponse', error)
-         // ToasterFunction("error", "Network error, please contact the administrator");
+   //                    }
+   //                }
+   //                case (900): {
+   //                    if (resp.status == 900) {
+   //                        ToasterFunction("error", "Please check your internet connection")
+   //                    }
+   //                }
+   //            }
+   //            this.setState({modalStatusImage:false});
+   //          })
+   //    } catch (error) {
+   //       console.log('errorresponse', error)
+   //       // ToasterFunction("error", "Network error, please contact the administrator");
 
-      }
-      this.setState({modalStatusImage:false});
-   }
+   //    }
+   //    this.setState({modalStatusImage:false});
+   // }
 
    openfavouriteModal= (id,image,title,couponCode,discount,itemName,
       couponAppliedOn,ExpiryDate,oneTimeCoupon,shopName,floorNumber,
@@ -212,6 +213,7 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
    }
 
    openDelteModal = (id) =>{
+      console.log("CouponIdd-------",id)
       this.setState({getCouponId:id,modalStatus:true});
       
    }
@@ -430,7 +432,7 @@ this.setState({getCouponId:id,favouriteImage:image,couponTitle:title,
                         </div>
                         <div class="modal-body ny">
                            {/* <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-svd-success" onClick={() => this.deleteCoupans()}  >Delete</button> */}
-                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.openDelteModal(this.couponId)} >Delete</button>
+                           <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-wish-success" onClick={() => this.openDelteModal(this.state.getCouponId)} >Delete</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#coup-rmv-success" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Call Shop</button>
                            <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onClick={() => this.setState({ modalStatusImage: !this.state.modalStatusImage })}>Navigate to Shop</button>
                         </div>

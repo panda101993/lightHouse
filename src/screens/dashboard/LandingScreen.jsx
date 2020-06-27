@@ -64,41 +64,45 @@ class componentName extends Component {
 
    getmartsbyUserList = () =>{
       try {
-         const cookies = new Cookies();
-         console.log(cookies.get('latitude'));
-         const latitude = cookies.get('latitude')
- 
-         console.log(cookies.get('longitude'));
-         const longitude = cookies.get('longitude')
-
-         console.log('hhhh=>',this.props.applicationData)
-         apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
-         .then((resp)=>{
-         console.log('responseLandingscreen--', resp);
-         switch (resp.status) {
-            case (200):
-                {
-                if (resp.data.responseCode == 200) {
-                    this.setState({
-                        allData: resp.data.result[0].details
-                     });
-                }
-                 else if (resp.data.responseCode == 404) {
-                    ToasterFunction("info", resp.data.responseMessage);
-
-                }
-                else if (resp.data.responseCode == 500) {
-                    ToasterFunction("error", resp.data.responseMessage);
-
-                }
-            }
-            case (900): {
-                if (resp.status == 900) {
-                    ToasterFunction("error", "Please check your internet connection")
-                }
-            }
-        }
-      });
+         console.log('token++++++',this.props.applicationData)
+         if(this.props.applicationData.token){
+            const cookies = new Cookies();
+         
+            const latitude = cookies.get('latitude')
+    
+            
+            const longitude = cookies.get('longitude')
+   
+            console.log('hhhh=>',this.props.applicationData)
+            apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
+            .then((resp)=>{
+            console.log('responseLandingscreen--', resp);
+            switch (resp.status) {
+               case (200):
+                   {
+                   if (resp.data.responseCode == 200) {
+                       this.setState({
+                           allData: resp.data.result[0].details
+                        });
+                   }
+                    else if (resp.data.responseCode == 404) {
+                       ToasterFunction("info", resp.data.responseMessage);
+   
+                   }
+                   else if (resp.data.responseCode == 500) {
+                       ToasterFunction("error", resp.data.responseMessage);
+   
+                   }
+               }
+               case (900): {
+                   if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                   }
+               }
+           }
+         });
+         }
+        
          
       } catch (error) {
          console.log('response===', error);
@@ -114,52 +118,71 @@ class componentName extends Component {
    }
 
    martData(){
-      // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
-         const {martId,martImage,martName} = xyz
+      // /if(this.state.allData.length > 0)
+      return <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+   >
+      { this.state.allData.map((xyz, index)=>{
+         console.log("abcffff",xyz.martUsers)
+         // if (!xyz.martUsers) return null;
+         if (xyz.martUsers !== undefined){
+         let checkData = xyz.martUsers.indexOf(this.props.applicationData.userId);
+         
+         console.log('checkData--',checkData)
+         let heartStatus;
+         if(checkData == -1){
+           heartStatus = false;
+         }else{
+           heartStatus = true ;
+         }
+         console.log('checkData--',heartStatus)
+      
       //   console.log('category',categoryImage);
          return(
             <div>
-                <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     >
+               
             <ImageDashboard          
-               ImageName={martName}
-               LinkId={`/AllRetailers/${martId}`}
+               ImageName={xyz.martName}
+               LinkId={`/AllRetailers/${xyz.martId}`}
                // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
-               ImageA={martImage}
-               heartImage={Imageid.heartImage}
-               MartId={martId}
-               Id={martId}
+               ImageA={xyz.martImage}
+               heartImage={heartStatus}
+               MartId={xyz.martId}
+               Id={xyz.martId}
                Token={this.props.applicationData.token}
                typeData = {'mart'}
+               UniqueId={xyz._id}
+               HeartData = {heartStatus}
+               blankHeart={Imageid.heartImage}
+               redHeart={Imageid.RedHeart}
                
             />
-             </Carousel>
+             
          </div>
-         )
+         )}
       })
+   }</Carousel>
    }
 
 
 
    productServiceType(){
-      return this.state.allData.slice(0,2).map((xyz, index)=>{
+      return this.state.allData.slice(0,1 ).map((xyz, index)=>{
          const {productServiceType} = xyz
          return(
             <div>
@@ -172,12 +195,7 @@ class componentName extends Component {
 
    categoryData(){
       // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
-         const {martId,categoryId, categoryImage,categoryName} = xyz
-      //   console.log('category',categoryImage);
-         return(
-            <div>
-               <Carousel
+      return <Carousel
                   swipeable={true}
                   draggable={false}
                   showDots={false}
@@ -195,21 +213,45 @@ class componentName extends Component {
                   dotListClass="custom-dot-list-style"
                   itemClass="carousel-item-padding-40-px"
                >
+      {
+       this.state.allData.map((xyz, index)=>{
+         // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
+         if(xyz.categoryUsers !== undefined){
+         let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
+
+         console.log('checkData--',checkData)
+         let heartStatus;
+         if(checkData == -1){
+           heartStatus = false;
+         }else{
+           heartStatus = true ;
+         }
+         console.log('checkData--',heartStatus)
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+               
                   <ImageDashboard
-                     ImageName={categoryName}
-                     LinkId={`/subCategories/${categoryId}/${martId}`}
-                     ImageA={categoryImage}
-                     heartImage={Imageid.RedHeart}
-                     CategoryId={categoryId}
-                     Id={categoryId}
+                     ImageName={xyz.categoryName}
+                     LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                     ImageA={xyz.categoryImage}
+                     heartImage={heartStatus}
+                     CategoryId={xyz.categoryId}
+                     Id={xyz.categoryId}
                      Token={this.props.applicationData.token}
                      typeData = {'category'}
+                     UniqueId={xyz._id}
+                     HeartData = {heartStatus}
+                     blankHeart={Imageid.heartImage}
+                     redHeart={Imageid.RedHeart}
                      
                   />
-               </Carousel>
+              
             </div>
-         )
+         )}
       })
+   }
+   </Carousel>
    }
    
   

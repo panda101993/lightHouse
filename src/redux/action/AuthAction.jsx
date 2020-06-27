@@ -49,12 +49,14 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
 
 
 
+
 export const signupAction = (credential, navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>Signup', credential);
 
     Apirequest(credential, "/user/signUp", "POST")
         .then((resp) => {
-            dispatch({ type: SIGNUP_ACTION, payload: credential })
+            console.log('respSSresp===>',resp);
+            dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
 
             switch (resp.status) {
                 
@@ -62,7 +64,7 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
                     // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
-                        dispatch({ type: SIGNUP_ACTION, payload: credential })
+                        dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
                     navigationFunction()
                     }
                     else if(resp.data.responseCode==404)

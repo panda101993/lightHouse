@@ -139,20 +139,13 @@ export class AllCouponsRetailers extends Component {
         )
       })
       }
-  
-    render() {
-        return (
-            <div> 
-                <body> 
-                {/* <Header2 />  */} 
-                <Header4 />
-                <section class="second">
-         <div class="container-fluid">
 
-            <div class="slidertop">
-               <section class="center slider">
-                 
-  <Carousel
+      retailerNamedata(){
+        // console.log("applicationData",this.props.applicationData)
+          return this.state.allData.map((allCouponData, index)=>{
+            return(
+              <div>
+          <Carousel
                     swipeable={true}
                     draggable={false}
                     showDots={false}
@@ -172,71 +165,49 @@ export class AllCouponsRetailers extends Component {
                   >
                     <div>
                       <div class="slicent activa">
-                      Retailer Name
+                      {allCouponData.shopName}
                   </div>
                     </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-                    <div>
-                      <div class="slicent">
-                      Retailer Name
-                        </div>
-                    </div>
-
                   </Carousel>
+              </div>
+            )
+          })
+          }
 
+          retailerName(){
+            // console.log("applicationData",this.props.applicationData)
+              return this.state.allData.slice(0,1).map((allCouponData, index)=>{
+                return(
+                  <div>
+            <h2 class="mn"><Link to={`/WebsiteRetailer/${allCouponData.retailerId}`}>{allCouponData.shopName}</Link></h2>
+                  </div>
+                )
+              })
+              }
+      
+  
+    render() {
+        return (
+            <div> 
+                <body> 
+                {/* <Header2 />  */} 
+                <Header4 />
+                <section class="second">
+         <div class="container-fluid">
 
-
-
-
+            <div class="slidertop">
+               <section class="center slider">
+                 {this.retailerNamedata()}
                 </section>
   
-              </div>
-
-
-
-
-
-            
+              </div>           
          </div>
       </section>
 
       <div class="left-contant">
         <div class="marname">
-           <h2 class="mn"><Link to="/WebsiteRetailer">Retailer Name</Link></h2>
+          {this.retailerName()}
+           {/* <h2 class="mn"><Link to="/WebsiteRetailer">Retailer Name</Link></h2> */}
           
         </div>
         </div>
