@@ -272,6 +272,8 @@ export class MyWishlistEndUser extends Component {
                         // HeartData = {heartStatus}
                         blankHeart={Imageid.heartImage}
                         redHeart={Imageid.RedHeart}
+                     
+                        
                         
                      />
 
@@ -442,7 +444,7 @@ export class MyWishlistEndUser extends Component {
 
                      <ImageDashboard
                         ImageName={xyz.shopName}
-                        ImageA={xyz.retailerImage}
+                        ImageA={xyz.retailerImage }
                         // heartImage={heartStatus}
                         Token={this.props.applicationData.token}
                         typeData={'retailer'}

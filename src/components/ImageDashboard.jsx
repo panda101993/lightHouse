@@ -70,6 +70,7 @@ export default function ImageDashboard(props) {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage )
                               setheartStatusNOW(!heartStatusNOW)
+                              window.location.reload(false);
                             
                             }
                              else if (resp.data.responseCode == 404) {
@@ -81,7 +82,7 @@ export default function ImageDashboard(props) {
             
                             }
                         }
-                     {/*window.location.reload(false);*/}
+                     
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")
@@ -152,6 +153,8 @@ export default function ImageDashboard(props) {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage);
                               setheartStatusNOW(!heartStatusNOW)
+                            
+                              
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
