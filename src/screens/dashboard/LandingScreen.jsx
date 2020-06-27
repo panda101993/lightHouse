@@ -115,13 +115,7 @@ class componentName extends Component {
    }
 
    martData(){
-      // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
-         const {martId,martImage,martName} = xyz
-      //   console.log('category',categoryImage);
-         return(
-            <div>
-                <Carousel
+      return(  <Carousel
                         swipeable={true}
                         draggable={false}
                         showDots={false}
@@ -138,7 +132,14 @@ class componentName extends Component {
                         deviceType={this.props.deviceType}
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                     >
+                     >{
+      // if(this.state.allData.length > 0)
+       this.state.allData.map((xyz, index)=>{
+         const {martId,martImage,martName} = xyz
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+                
             <ImageDashboard          
                ImageName={martName}
                LinkId={`/AllRetailers/${martId}`}
@@ -151,10 +152,11 @@ class componentName extends Component {
                typeData = {'mart'}
                
             />
-             </Carousel>
+             
          </div>
          )
-      })
+      })}
+      </Carousel>)
    }
 
    

@@ -116,29 +116,30 @@ class componentName extends Component {
 
    martData(){
       // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
+      return <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+   > 
+      { this.state.allData.map((xyz, index)=>{
          const {martId,martImage,martName} = xyz
       //   console.log('category',categoryImage);
          return(
             <div class="container-fluid">
-               <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     >
+               
             <ImageDashboard          
                ImageName={martName}
                LinkId="/AllRetailers"
@@ -146,11 +147,12 @@ class componentName extends Component {
                heartImage={Imageid.RedHeart}
                MartId={martId}
             />
-             </Carousel>
+            
          </div>
          )
       })
-   }
+   } </Carousel>
+}
 
 
    productServiceType(){
@@ -167,30 +169,31 @@ class componentName extends Component {
 
    categoryData(){
       // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
+      return   <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+   >
+      {this.state.allData.map((xyz, index)=>{
          const {categoryId, categoryImage,categoryName,productServiceType} = xyz
       //   console.log('category',categoryImage);
          return(
             // <div class="container-fluid">
               <div>  
-               <Carousel
-                  swipeable={true}
-                  draggable={false}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={5000000}
-                  keyBoardControl={true}
-                  customTransition="all .5"
-                  transitionDuration={500}
-                  containerClass="carousel-container"
-                  removeArrowOnDeviceType={["tablet", "mobile"]}
-                  deviceType={this.props.deviceType}
-                  dotListClass="custom-dot-list-style"
-                  itemClass="carousel-item-padding-40-px"
-               >
+              
                   <ImageDashboard
                      ImageName={categoryName}
                      LinkId="/subCategories"
@@ -198,11 +201,12 @@ class componentName extends Component {
                      heartImage={Imageid.RedHeart}
                      
                   />
-               </Carousel>
+               
             </div>
          )
       })
-   }
+   } </Carousel>
+}
 
  
    

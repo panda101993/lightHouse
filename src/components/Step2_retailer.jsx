@@ -114,7 +114,7 @@ class Step2_retailer extends Component {
 
    }
 
-   componentDidMount() {
+   getAmountAPI() {
 
       console.log("this.props.action.retailerProfileAction===>", this.props.profileData.shopName)
       console.log("getting GST etc=====>")
@@ -142,7 +142,7 @@ class Step2_retailer extends Component {
                               gstOnSignUp: resp.data.result.gstOnSignup,
                               totalAmount: totalAmount
                            })
-                           // this.setState({ ManageInfostep2: !this.state.ManageInfostep2 })
+                            this.setState({ ManageInfostep2: !this.state.ManageInfostep2 })
                         }
 
                         else if (resp.data.responseCode == 404) {
@@ -444,8 +444,10 @@ class Step2_retailer extends Component {
                                           
                                        </div>
                                        <div class="modal-body ok">
-                                          <button type="button" class="btn setloc-btn" data-dismiss="modal" onclick={()=>this.setState({signUpSuccessModalStatus :!this.state.signUpSuccessModalStatus})}>OK</button>
+                                          <button type="button" class="btn setloc-btn" data-dismiss="modal" onClick={() => this.setState({ signUpSuccessModalStatus: !this.state.signUpSuccessModalStatus })} >OK</button>
                                        </div>
+
+                                       
                                     
                                 
                               </div>
