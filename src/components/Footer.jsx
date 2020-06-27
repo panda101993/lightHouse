@@ -62,8 +62,112 @@
 
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
+import Apirequest from '../api/Apirequest'
 
 export default class Footer extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            email: '',
+            subject: '',
+            description: '',
+            FAQs:'',
+            PrivacyPolicy:'',
+            HowItworks:'',
+            ContactUs:'',
+            TermAndCondition:'',
+            staticID:''
+        }
+        // submitHandler = () =>{
+
+        // }
+
+    }
+    
+
+    handleFaqs = () => {
+        var requestData = {
+            "title":""
+        }
+        console.log("Data",requestData)
+        Apirequest(requestData, "/user/FAQs", "POST")
+            .then((resp) => {
+                console.log("wxyz==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
+
+    handlePolicy = () => {
+        var requestData = {
+            
+                "title":"Privacy Policy"
+                
+        }
+        console.log("Data",requestData)
+        Apirequest(requestData, "/static/viewStatic", "POST")
+            .then((resp) => {
+                console.log("wxyz==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
+    handleWorks = () => {
+        var requestData = {
+            "title":"How it's Work"
+        }
+        console.log("Data",requestData)
+        Apirequest(requestData, "/static/viewStatic", "POST")
+            .then((resp) => {
+                console.log("wxyz==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
+    hanndleContactUs = () => {
+        var requestData = {
+            "title":""
+        }
+        console.log("Data",requestData)
+        Apirequest(requestData, "/static/viewStatic", "POST")
+            .then((resp) => {
+                console.log("wxyz==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
+    handleTermsCondition = () => {
+        var requestData = {
+            "title":"Terms & Condition"
+        }
+        console.log("Data",requestData)
+        Apirequest(requestData, "/static/viewStatic", "POST")
+            .then((resp) => {
+                console.log("wxyz==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
+
+    aboutHandler = () => {
+        var requestData = {
+            "title":"Abouts Us"
+        }
+        console.log("Data",requestData)
+        Apirequest(requestData, "/static/viewStatic", "POST")
+            .then((resp) => {
+                console.log("wxyz==>", resp);
+
+            })
+            .catch(e => { console.log(e) })
+
+    }
     render() {
         return (
             <div>
@@ -81,17 +185,17 @@ export default class Footer extends Component {
                                     <div class="info-left mr-15">
                                         <h2>Information</h2>
                                         <ul class="foter">
-                                            <li><Link to="/About">About Us</Link></li>
-                                            <li><Link to="/TermsCondition">Terms&Conditions</Link></li>
-                                            <li><Link to="/Policy">Privacy Policy</Link></li>
+                                            <li><Link to="/About" onClick={() => this.aboutHandler()}>About Us</Link></li>
+                                            <li><Link to="/TermsCondition" onClick={() => this.handleTermsCondition()}>Terms&Conditions</Link></li>
+                                            <li><Link to="/Policy" onClick={() => this.handlePolicy()}>Privacy Policy</Link></li>
                                         </ul>
                                     </div>
                                     <div class="info-left">
                                         <h2>CONTACT</h2>
                                         <ul class="foter">
-                                            <li><Link to="/How_It_Works">How it Works </Link></li>
-                                            <li><Link to="/Contact_us">Contact Us</Link></li>
-                                            <li><Link to="/FaQs">FAQs</Link></li>
+                                            <li><Link to="/How_It_Works"  onClick={() => this.handleWorks()}>How it Works </Link></li>
+                                            <li><Link to="/Contact_us"  onClick={() => this.hanndleContactUs()}>Contact Us</Link></li>
+                                            <li><Link to="/FaQs" onClick={() => this.handleFaqs()}>FAQs</Link></li>
                                         </ul>
                                     </div>
                                 </div>

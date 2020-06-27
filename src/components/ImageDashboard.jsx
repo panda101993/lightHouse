@@ -8,14 +8,19 @@ export default function ImageDashboard(props) {
    const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,typeData,typePage } = props
+   const [heartStatusNOW, setheartStatusNOW] = useState(props.heartImage)
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart} = props
    console.log("hello imageAbc ", props)
    console.log("typePage--",typePage)
 
-   const  addToFavouriteAll = (Id,typeData) => {
+  
+
+   const  addToFavouriteAll = (UniqueId,Id,typeData) => {
+      console.log('Id------',Id);
+      console.log("UniqueId===",UniqueId)
        if(typeData == 'mart'){
          try {
-            apiRequest({ martId:Id }, '/user/wishListMarts', 'POST', props.Token)
+            apiRequest({uniqueId:UniqueId,martId:Id }, '/user/wishListMarts', 'POST', props.Token)
                .then((resp) => {
                   console.log('responsemartadded', resp);
                   switch (resp.status) {
@@ -23,6 +28,8 @@ export default function ImageDashboard(props) {
                          {
                          if (resp.data.responseCode == 200) {
                            ToasterFunction("success", resp.data.responseMessage);
+                           setheartStatusNOW(!heartStatusNOW)
+            
                          }
                           else if (resp.data.responseCode == 404) {
                              ToasterFunction("info", resp.data.responseMessage);
@@ -46,6 +53,7 @@ export default function ImageDashboard(props) {
      
          }
          setModal(false)
+         // window.location.reload();
 
          }
          else if(typeData == 'retailer'){
@@ -60,7 +68,9 @@ export default function ImageDashboard(props) {
                         case (200):
                             {
                             if (resp.data.responseCode == 200) {
-                              ToasterFunction("success", resp.data.responseMessage);
+                              ToasterFunction("success", resp.data.responseMessage )
+                              setheartStatusNOW(!heartStatusNOW)
+                            
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
@@ -71,6 +81,7 @@ export default function ImageDashboard(props) {
             
                             }
                         }
+                     
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")
@@ -84,14 +95,16 @@ export default function ImageDashboard(props) {
         
             }
             setModal(false)
+            // window.location.reload(false);
          }
 
          else if(typeData == 'category') {
             try {
                console.log("categoryid",Id)
+               console.log("categoryiiiid",UniqueId)
                console.log("categoryid---",props.Token)
                
-               apiRequest({ categoryId:Id }, '/user/wishListCategories', 'POST', props.Token)
+               apiRequest({ uniqueId:UniqueId, categoryId:Id }, '/user/wishListCategories', 'POST', props.Token)
                   .then((resp) => {
                      console.log('responsrcategoryadded', resp);
                      switch (resp.status) {
@@ -99,6 +112,8 @@ export default function ImageDashboard(props) {
                             {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage);
+                              setheartStatusNOW(!heartStatusNOW)
+                              // window.location.reload(false);
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
@@ -122,6 +137,7 @@ export default function ImageDashboard(props) {
         
             }
             setModal(false)
+            // window.location.reload(false);
          }
          else if(typeData == 'subCategory') {
             try {
@@ -136,6 +152,9 @@ export default function ImageDashboard(props) {
                             {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage);
+                              setheartStatusNOW(!heartStatusNOW)
+                            
+                              
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
@@ -159,13 +178,13 @@ export default function ImageDashboard(props) {
         
             }
             setModal(false)
+            // window.location.reload(false);
          }
          
       
       
    }
    
-
 
 
    return (
@@ -181,9 +200,17 @@ export default function ImageDashboard(props) {
                         data-toggle="modal" data-target="#wishlist" />
                   </Link>
                   {
-                  typeData == 'mart' || typeData == 'retailer'
+                  typeData == 'mart'
                   ?
-                  <Link to={`/WebsiteRetailer/${MartId}`}>
+                  <Link to={`/WebsiteMart/${MartId}`}>
+                     <div class="tcl00">
+                        <p> {ImageName} </p>
+                     </div>
+                  </Link>
+                  : 
+                  typeData == 'retailer'
+                  ?
+                  <Link to={`/WebsiteRetailer/${RetailerId}`}>
                      <div class="tcl00">
                         <p> {ImageName} </p>
                      </div>
@@ -198,14 +225,17 @@ export default function ImageDashboard(props) {
                      <a data-toggle="modal" data-target="#coup-rmv-success" >
 
                         <img
-                           src={heartImage}
+                           src={heartStatusNOW==true?redHeart:blankHeart}
 
                            onClick={() => {
+                              console.log("heartImage==>",heartStatusNOW)
+                             
+                             
                               typePage
                                  ?
                                  setModal(true)
                                  :
-                                 addToFavouriteAll(Id, typeData)
+                                 addToFavouriteAll(UniqueId, Id, typeData)
 
                            }
 
@@ -215,20 +245,6 @@ export default function ImageDashboard(props) {
                   </div>
                </div>
             </div>
-            {/* <Modal isOpen={modalStatus}
-               style={{ top: "190px", }}
-            >
-               <ModalBody>
-                  <div class="modal-content">
-                     <div class="modal-header locationsethead">
-                        <h5>Retailer mark as a favourite !</h5>
-                     </div>
-                     <div class="modal-body ok">
-                        <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => addToFavouriteRetailers(RetailerId)} > OK </button>
-                     </div>
-                  </div>
-               </ModalBody>
-            </Modal> */}
 
             <Modal isOpen={modalStatus}
                style={{ top: "190px", }}
@@ -240,7 +256,7 @@ export default function ImageDashboard(props) {
                      </div>
                      <div class="modal-body ny">
                         <button type="button" class="btn setloc-" type="submit" data-dismiss="modal" onClick={() => setModal(false)}>No</button>
-                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => addToFavouriteAll(Id,typeData)}>Yes</button>
+                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => addToFavouriteAll(UniqueId, Id,typeData)}>Yes</button>
                      </div>
                   </div>
                </ModalBody>

@@ -11,16 +11,7 @@ export default class CreditHistoryRetailer extends Component {
             modalStatus: false,
 
         }
-    } 
-    submitCreditHistory = () => {
-        if (this.state.mobilenoStatus) {          
-                        // alert('Submit Successfully');
-                        //  window.location.href = "SignupRetailer";
-                        // this.setState({ modalStatus: false })
-                        this.setState({ modalStatus: !this.state.modalStatus });
-        } else { this.setState({ otpStatus: false, mobilenoErrorMessage: "*Please enter Mobileno" }) }
     }
-
 
     render() {
         return (
@@ -49,7 +40,7 @@ export default class CreditHistoryRetailer extends Component {
                                 </div>
                             </div>
                             <div class="sub-recharge">
-                                <button type="button" class="save"  onClick={()=>this.submitCreditHistory()}>Submit</button>
+                                <button type="button" class="save">Submit</button>
                             </div>
                         </div>
                         <ul class="pdf-down">

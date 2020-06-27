@@ -225,8 +225,19 @@ export class MyWishlistEndUser extends Component {
    subCategoryData() {
       // if(this.state.allData.length > 0)
       return this.state.favSubCategoryData.map((xyz, index) => {
-         const { subCategoryId, subCategoryImage, subCategoryName } = xyz
+         // const { subCategoryId, subCategoryImage, subCategoryName } = xyz
          //   console.log('category',categoryImage);
+
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
               <Carousel
@@ -250,14 +261,19 @@ export class MyWishlistEndUser extends Component {
                   <div>
 
                      <ImageDashboard
-                        ImageName={subCategoryName}
+                        ImageName={xyz.subCategoryName}
                         LinkId="/subCategories"
-                        ImageA={subCategoryImage}
-                        heartImage={Imageid.RedHeart}
-                        Id={subCategoryId}
+                        ImageA={xyz.subCategoryImage}
+                        // heartImage={heartStatus}
+                        Id={xyz.subCategoryId}
                         Token={this.props.applicationData.token}
                         typeData={'subCategory'}
                         typePage={'subCategory'}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
+                     
+                        
                         
                      />
 
@@ -271,8 +287,19 @@ export class MyWishlistEndUser extends Component {
    categoryData() {
       // if(this.state.allData.length > 0)
       return this.state.favCategoryData.map((xyz, index) => {
-         const { categoryId, categoryImage, categoryName } = xyz
+         // const { categoryId, categoryImage, categoryName,_id } = xyz
          //   console.log('category',categoryImage);
+
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
                <Carousel
@@ -296,14 +323,18 @@ export class MyWishlistEndUser extends Component {
                   <div>
 
                      <ImageDashboard
-                        ImageName={categoryName}
+                        ImageName={xyz.categoryName}
                         LinkId="/subCategories"
-                        ImageA={categoryImage}
-                        heartImage={Imageid.RedHeart}
-                        Id={categoryId}
+                        ImageA={xyz.categoryImage}
+                        // heartImage={heartStatus}
+                        Id={xyz.categoryId}
                         Token={this.props.applicationData.token}
                         typeData={'category'}
                         typePage={'category'}
+                        UniqueId={xyz._id}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
                      />
 
                   </div>
@@ -317,8 +348,18 @@ export class MyWishlistEndUser extends Component {
    martData() {
       // if(this.state.allData.length > 0)
       return this.state.favMartData.map((xyz, index) => {
-         const { martId, martImage, martName } = xyz
+         // const { martId, martImage, martName ,_id} = xyz
          //   console.log('category',categoryImage);
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
                <Carousel
@@ -341,14 +382,18 @@ export class MyWishlistEndUser extends Component {
                >
                   <div>
                      <ImageDashboard
-                        ImageName={martName}
-                        ImageA={martImage[0]}
-                        heartImage={Imageid.RedHeart}
-                        MartId={martId}
-                        Id={martId}
+                        ImageName={xyz.martName}
+                        ImageA={xyz.martImage[0]}
+                        // heartImage={heartStatus}
+                        MartId={xyz.martId}
+                        Id={xyz.martId}
                         Token={this.props.applicationData.token}
                         typeData={'mart'}
                         typePage={'mart'}
+                        UniqueId={xyz._id}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
                      />
                   </div>
 
@@ -362,8 +407,19 @@ export class MyWishlistEndUser extends Component {
    retailerData() {
       // if(this.state.allData.length > 0)
       return this.state.favRetailerData.map((xyz, index) => {
-         const { martId, martImage, martName } = xyz
+         // const { retailerId, martImage, shopName } = xyz
          //   console.log('category',categoryImage);
+
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
                <Carousel
@@ -387,11 +443,16 @@ export class MyWishlistEndUser extends Component {
                   <div>
 
                      <ImageDashboard
-                        ImageName="TCL E-Mart1"
-                        ImageA={Imageid.Image5}
-                        heartImage={Imageid.RedHeart}
+                        ImageName={xyz.shopName}
+                        ImageA={xyz.retailerImage }
+                        // heartImage={heartStatus}
                         Token={this.props.applicationData.token}
-
+                        typeData={'retailer'}
+                        typePage={'retailer'}
+                        Id={xyz.retailerId}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
                      />
                   </div>
                </Carousel>

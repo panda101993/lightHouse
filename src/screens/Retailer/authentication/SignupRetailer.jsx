@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -180,9 +181,6 @@ export class SignupRetailer extends Component {
                                     "password": this.state.password
                                     }
                                     this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.email}`))
-
-                                    
-                                
                     }
                     else {
                         alert("Please fill all fields")

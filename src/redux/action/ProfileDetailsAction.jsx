@@ -1,26 +1,26 @@
-import { MyCoupon_Data } from './ActionTypes';
+import { RETAILER_PROFILE_ACTION } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 
-export const myCouponData = (credential) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>', credential);
-    // console.log('navigationFunction=>', navigationFunction);
 
-    Apirequest(credential, "/user/getRetailerAndCouponByMart", "POST")
+
+export const retailerProfileAction = (credential) => dispatch => {
+    console.log('SHOW_BIG_MARKER=>', credential);
+   
+
+    Apirequest(credential, "/retailer/profile", "GET",credential)
         .then((resp) => {
-            console.log('resprespMart===>',resp);
-            dispatch({ type: MyCoupon_Data, payload:resp.data.Data})
+            console.log('/retailer/profile===>',resp);
+            // dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
             
             // navigationFunction()
             switch (resp.status) 
             {
-                
-                
                 case (200): {
-                    console.log("responseCode",resp.data.responseCode)
+                    // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
-                    dispatch({ type: MyCoupon_Data, payload:resp.data.Data })
-                    // navigationFunction()
+                    dispatch({ type: RETAILER_PROFILE_ACTION, payload:resp.data.result })
+                    
                     }
                     else if(resp.data.responseCode==402)
                     {
@@ -40,3 +40,9 @@ export const myCouponData = (credential) => dispatch => {
         }
         )
 }
+
+
+
+
+
+

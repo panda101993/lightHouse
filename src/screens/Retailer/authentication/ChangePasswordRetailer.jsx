@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -8,7 +7,7 @@ import { connect } from "react-redux";
 import { validatePassword, validateCFPassword } from '../utils/validation/Validation';
 
 
-export class ChangePasswordEndUser extends Component { 
+export class ChangePasswordRetailer extends Component { 
    constructor(props) {
       super(props)
 
@@ -82,7 +81,7 @@ request=()=>{
                "password":this.state.oldpass,
                "newPassword":this.state.newpass
             }
-            Apirequest(credentials,"/user/changePassword","POST",this.props.applicatonkey.token)
+            Apirequest(credentials,"/retailer/changePassword","POST",this.props.applicatonkey.token)
             .then((resp)=>{
                   switch(resp.status){
                      case 200:{
@@ -105,13 +104,6 @@ request=()=>{
          else{
          alert("Enter all fields")}
       }
-   
-
-
-
-
-   
-
     render() {
         return (
             <div>
@@ -172,4 +164,4 @@ const mapStateToProps = state => {
       
    }
 }
-export default connect(mapStateToProps)(ChangePasswordEndUser);
+export default connect(mapStateToProps)(ChangePasswordRetailer);
