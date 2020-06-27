@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data } from './ActionTypes';
+import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data,LOGOUT_ACTION } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 
 
@@ -41,6 +41,14 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
             console.log("respresp---", err)
         }
         )
+}
+
+export const logoutAction = () => dispatch => {
+    
+    // console.log('navigationFunction=>', navigationFunction);
+    dispatch({ type: LOGOUT_ACTION})
+   
+   
 }
 // export const logoutAction = (credential,navigationFunction) => dispatch => {
 //                     dispatch({ type: "Logout", payload:false })
