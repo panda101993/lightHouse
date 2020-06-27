@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -58,7 +59,7 @@ export class SignupRetailer extends Component {
         //     "long": longitude
         // }
 
-        Apirequest({ "lat": 28.574, "long": 77.1991 }, "/user/getMartsByRetailer", "POST")
+        Apirequest({ "lat": latitude, "long": longitude }, "/user/getMartsByRetailer", "POST")
             .then((resp) => {
                 console.log("getmartsbyret", resp.data.result)
                 switch (resp.status) {
@@ -68,7 +69,7 @@ export class SignupRetailer extends Component {
                             console.log(this.state.datafound.martName)
                         }
                         else if (resp.data.responseCode == 404) {
-                            alert("Data not found")
+                            alert("Location not found")
                         }
                         else if (resp.data.responseCode == 500) {
                             alert("Internal Server Error")
@@ -180,9 +181,6 @@ export class SignupRetailer extends Component {
                                     "password": this.state.password
                                     }
                                     this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.email}`))
-
-                                    
-                                
                     }
                     else {
                         alert("Please fill all fields")

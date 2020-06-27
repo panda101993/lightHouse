@@ -52,7 +52,48 @@ export class MyWishlistEndUser extends Component {
          modalStatus: false,
          favMartData: [],
          favRetailerData: [],
-         favCategoryData: []
+         favCategoryData: [],
+         favSubCategoryData: []
+      }
+   }
+
+
+   getFavSubCategoryWishlist = () => {
+      try {
+
+         console.log('hhhh=>', this.props.applicationData)
+         apiRequest({ "type": "SUBCATEGORY" }, '/user/wishList', 'POST', this.props.applicationData.token)
+            .then((resp) => {
+               console.log('responseSubCategory', resp);
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                              favSubCategoryData: resp.data.result
+                           });
+                        }
+                        //   else if (resp.data.responseCode == 404) {
+                        //      ToasterFunction("info", resp.data.responseMessage);
+
+                        //  }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", resp.data.responseMessage);
+
+                        }
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
+               }
+            });
+
+      } catch (error) {
+         console.log('response===', error);
+         // ToasterFunction("error", "Network error, please contact the administrator");
+
       }
    }
 
@@ -178,15 +219,87 @@ export class MyWishlistEndUser extends Component {
       this.getFavMartWishlist();
       this.getFavRetailerWishlist();
       this.getFavCategoryWishlist();
+      this.getFavSubCategoryWishlist();
 
    }
+   subCategoryData() {
+      // if(this.state.allData.length > 0)
+      return this.state.favSubCategoryData.map((xyz, index) => {
+         // const { subCategoryId, subCategoryImage, subCategoryName } = xyz
+         //   console.log('category',categoryImage);
 
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
+         return (
+            <div>
+              <Carousel
+                        swipeable={true}
+                        draggable={false}
+                        showDots={false}
+                        responsive={responsive}
+                        ssr={true} // means to render carousel on server-side.
+                        infinite={true}
+                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                        autoPlaySpeed={5000000}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        deviceType={this.props.deviceType}
+                        dotListClass="custom-dot-list-style"
+                        itemClass="carousel-item-padding-40-px"
+                     >
+                  <div>
+
+                     <ImageDashboard
+                        ImageName={xyz.subCategoryName}
+                        LinkId="/subCategories"
+                        ImageA={xyz.subCategoryImage}
+                        // heartImage={heartStatus}
+                        Id={xyz.subCategoryId}
+                        Token={this.props.applicationData.token}
+                        typeData={'subCategory'}
+                        typePage={'subCategory'}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
+                     
+                        
+                        
+                     />
+
+                  </div>
+               </Carousel>
+            </div>
+         )
+      })
+   }
 
    categoryData() {
       // if(this.state.allData.length > 0)
       return this.state.favCategoryData.map((xyz, index) => {
-         const { categoryId, categoryImage, categoryName } = xyz
+         // const { categoryId, categoryImage, categoryName,_id } = xyz
          //   console.log('category',categoryImage);
+
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
                <Carousel
@@ -210,14 +323,18 @@ export class MyWishlistEndUser extends Component {
                   <div>
 
                      <ImageDashboard
-                        ImageName={categoryName}
+                        ImageName={xyz.categoryName}
                         LinkId="/subCategories"
-                        ImageA={categoryImage}
-                        heartImage={Imageid.RedHeart}
-                        Id={categoryId}
+                        ImageA={xyz.categoryImage}
+                        // heartImage={heartStatus}
+                        Id={xyz.categoryId}
                         Token={this.props.applicationData.token}
                         typeData={'category'}
                         typePage={'category'}
+                        UniqueId={xyz._id}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
                      />
 
                   </div>
@@ -231,8 +348,18 @@ export class MyWishlistEndUser extends Component {
    martData() {
       // if(this.state.allData.length > 0)
       return this.state.favMartData.map((xyz, index) => {
-         const { martId, martImage, martName } = xyz
+         // const { martId, martImage, martName ,_id} = xyz
          //   console.log('category',categoryImage);
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
                <Carousel
@@ -255,14 +382,18 @@ export class MyWishlistEndUser extends Component {
                >
                   <div>
                      <ImageDashboard
-                        ImageName={martName}
-                        ImageA={martImage[0]}
-                        heartImage={Imageid.RedHeart}
-                        MartId={martId}
-                        Id={martId}
+                        ImageName={xyz.martName}
+                        ImageA={xyz.martImage[0]}
+                        // heartImage={heartStatus}
+                        MartId={xyz.martId}
+                        Id={xyz.martId}
                         Token={this.props.applicationData.token}
                         typeData={'mart'}
                         typePage={'mart'}
+                        UniqueId={xyz._id}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
                      />
                   </div>
 
@@ -276,8 +407,19 @@ export class MyWishlistEndUser extends Component {
    retailerData() {
       // if(this.state.allData.length > 0)
       return this.state.favRetailerData.map((xyz, index) => {
-         const { martId, martImage, martName } = xyz
+         // const { retailerId, martImage, shopName } = xyz
          //   console.log('category',categoryImage);
+
+      //    let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+
+      //   console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      //   console.log('checkData--',heartStatus)
          return (
             <div>
                <Carousel
@@ -301,11 +443,16 @@ export class MyWishlistEndUser extends Component {
                   <div>
 
                      <ImageDashboard
-                        ImageName="TCL E-Mart1"
-                        ImageA={Imageid.Image5}
-                        heartImage={Imageid.RedHeart}
+                        ImageName={xyz.shopName}
+                        ImageA={xyz.retailerImage }
+                        // heartImage={heartStatus}
                         Token={this.props.applicationData.token}
-
+                        typeData={'retailer'}
+                        typePage={'retailer'}
+                        Id={xyz.retailerId}
+                        // HeartData = {heartStatus}
+                        blankHeart={Imageid.heartImage}
+                        redHeart={Imageid.RedHeart}
                      />
                   </div>
                </Carousel>
@@ -350,93 +497,7 @@ export class MyWishlistEndUser extends Component {
                      <h3>Sub categories</h3>
                   </div>
                   <div class="wish-slider">
-                     <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     >
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Bounce Salon & Spa"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Boddy Massage"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="Hair Cutting"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-                        <div>
-
-                           <ImageDashboard
-                              ImageName="TCL E-Mart"
-                              LinkId="/subCategories"
-                              ImageA={Imageid.Image9}
-                              heartImage={Imageid.RedHeart}
-                           />
-                        </div>
-
-
-                     </Carousel>
-
-
+                     {this.subCategoryData()}
                   </div>
                </div>
             </section>

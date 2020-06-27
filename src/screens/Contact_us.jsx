@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -107,6 +108,18 @@ export default class Contact_us extends Component {
          Apirequest(requestData, "/user/contactUs", "POST") 
             .then((resp) => {
                console.log("wxyz==>", resp);
+               switch (resp.status) {
+                  case 200:{
+                     if(resp.data.responseCode==200){
+                     // alert("submitt successfully")
+                     this.setState({ modalStatus: !this.state.modalStatus }) 
+                  }
+               }  
+                     break;
+               
+                  default:
+                     break;
+               }
 
             })
          
