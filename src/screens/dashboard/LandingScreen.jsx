@@ -172,7 +172,7 @@ class componentName extends Component {
                HeartData = {heartStatus}
                blankHeart={Imageid.heartImage}
                redHeart={Imageid.RedHeart}
-               // ReloadApi={this.getmartsbyUserList()}
+               
                
             />
              

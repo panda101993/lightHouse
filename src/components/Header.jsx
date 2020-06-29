@@ -78,7 +78,7 @@ const Header = (props) => {
     let getAddressData = () => {
 
 // Get address from latidude & longitude.
-        Geocode.setApiKey("AIzaSyAfs4xUIDuU2UVdRkbUERjCGGx_dvSWobU");
+        Geocode.setApiKey("AIzaSyC5xm2_oboD4KY1Si7XtasWL0IzjDOshPM");
 
         Geocode.fromLatLng("48.8583701", "2.2922926").then(
             response => {
@@ -91,19 +91,19 @@ const Header = (props) => {
           );
     }
 
-//     let getCoordinateFromAddress = () => {
+    let getCoordinateFromAddress = () => {
         
-//         // Get latidude & longitude from address.
-// Geocode.fromAddress("Eiffel Tower").then(
-//     response => {
-//       const { lat, lng } = response.results[0].geometry.location;
-//       console.log(lat, lng);
-//     },
-//     error => {
-//       console.error(error);
-//     }
-//   );
-//     }
+        // Get latidude & longitude from address.
+Geocode.fromAddress("Eiffel Tower").then(
+    response => {
+      const { lat, lng } = response.results[0].geometry.location;
+      console.log("akkkkkkk",lat, lng);
+    },
+    error => {
+      console.error(error);
+    }
+  );
+    }
 
     let getPopupAddress = () => {
     try {
@@ -197,6 +197,7 @@ setLongitude(position.coords.longitude);
     setModal1(false);
 }
 
+
     
 
     return (
@@ -211,7 +212,7 @@ setLongitude(position.coords.longitude);
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude ,longitude }<i class="" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude + " , " +longitude}<i class="" aria-hidden="true"></i></a>
                                             
                                         
 
