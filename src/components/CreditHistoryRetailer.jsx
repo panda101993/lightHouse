@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Apirequest from '../api/Apirequest';
 import ToasterFunction from '../../src/components/ToasterFunc';
 
-export default class CreditHistoryRetailer extends Component {
+ class CreditHistoryRetailer extends Component {
    
     constructor(props) {
         super(props)
@@ -39,23 +39,17 @@ export default class CreditHistoryRetailer extends Component {
      submitHandler = e => {
       //  e.preventDefault()
         console.log(this.state) 
-        console.log("token====>",this.props.applicationData.token
-
-
-        )
+        console.log("token====>credit",this.props.applicationData.userId  )
         var requestData= {
-           "token":this.props.applicationData.token
-
-
-           ,
+            "retailerId":this.props.applicationData.userId,
              "fromDate": this.state.fromDate,
            "toDate":this.state.toDate,
-           "couponStatus":this.state.couponStatus,
+           
         } 
         console.log("gggggg=>",requestData)
         
         
-        Apirequest(requestData,"/retailer/couponHistory", "POST",this.props.applicationData.token ) 
+        Apirequest(requestData,"retailer/rechargeHsitory", "POST" ) 
             .then((resp) => {
                console.log("wxyz==>", resp);
                // ToasterFunction("info", resp.data.responseMessage);
@@ -90,7 +84,8 @@ export default class CreditHistoryRetailer extends Component {
             .catch(e => { console.log(e) }) 
      }
 
-    render() {
+    render() { 
+        const{toDate ,fromDate} =this.state
         return (
             <div>
 
@@ -105,7 +100,7 @@ export default class CreditHistoryRetailer extends Component {
                                         class="form-control" 
                                         id="" aria-describedby="" 
                                         placeholder="dd/mm/yy" 
-                                        // value={fromDate}
+                                         value={fromDate}
                                        name="fromDate"
                                         onChange={this.changeHandler}
                                         />
@@ -123,7 +118,7 @@ export default class CreditHistoryRetailer extends Component {
                                         id="" aria-describedby="" 
                                         placeholder="dd/mm/yy" 
                                         name="toDate"
-                                        // value={toDate}
+                                         value={toDate}
                                         onChange={this.changeHandler}
                                         />
 
@@ -216,3 +211,12 @@ export default class CreditHistoryRetailer extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.AuthReducer.userData
+         
+    }
+          
+ }
+ export default connect(mapStateToProps)(CreditHistoryRetailer);

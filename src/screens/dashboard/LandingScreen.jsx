@@ -59,6 +59,7 @@ class componentName extends Component {
          allData: []
           
       }
+    
    }
 
    getmartsbyUserList = () =>{
