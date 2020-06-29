@@ -11,7 +11,8 @@ import ApiRequest from '../api/Apirequest';
         this.state = {
 
             modalStatus: false,
-            unitCreditCost: null
+            unitCreditCost: null,
+            rechargeAmount:500,
 
         }
     }
@@ -30,7 +31,7 @@ import ApiRequest from '../api/Apirequest';
                      case (200):
                         {
                            if (resp.data.responseCode == 200) {
-                              ToasterFunction("info", "Data is saved successfully");
+                              
                               console.log("/configuration/configurations/RETAILER", resp.data.result)
                              this.setState({unitCreditCost : resp.data.result.unitCreditCost})
                            }
@@ -57,9 +58,53 @@ import ApiRequest from '../api/Apirequest';
     }
 
 
+payHandler(){
+ 
+     try {
+        ApiRequest({rechargeAmount:this.state.rechargeAmount}, '/retailer/recharge', 'POST', this.props.applicationData.token)
+           .then((resp) => {
+              console.log('/retailer/recharge', resp);
+
+              switch (resp.status) {
+                 case (200):
+                    {
+                       if (resp.data.responseCode == 200) {
+                          ToasterFunction("info", "Recharge successfully");
+                          console.log("/retailer/recharge", resp.data)
+                         
+                       }
+
+                       else if (resp.data.responseCode == 404) {
+                          ToasterFunction("info", "Data not found, internal server error");
+                       }
+                       else if (resp.data.responseCode == 500) {
+                          ToasterFunction("error", "Internal Server Error");
+                       }
+                    }
+                 case (900): {
+                    if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                    }
+                 }
+              }
+
+           })
+     } catch (error) {
+        console.log('errorresponse', error);
+        // ToasterFunction("error", "Network error, please contact the administrator");
+     }
+
+}
 
 
+handleAmountInput = (e) => {
+    // const name = e.target.name;
+    const value = e.target.value;
+    console.log("valueset==>", typeof(parseInt(value)),value)
+    this.setState({rechargeAmount :parseInt(value) })
 
+
+ }
 
 
     render() {
@@ -75,30 +120,32 @@ import ApiRequest from '../api/Apirequest';
                                                         <p class="mi-rec">Minimum Recharge RS 500 in Multiples of Ten</p>
                                                     </div>
                                                     <div class="pay-recharge">
-                                                        <button type="button" class="save" data-toggle="modal" data-target="#paypal">Pay</button>
+                                                        <button 
+                                                        onClick={()=>this.payHandler()}
+                                                        type="button" class="save" data-toggle="modal" data-target="#paypal">Pay</button>
                                                     </div>
                                                 </div>
                                                 <ul class="rdflex">
                                                     <li>
-                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="500" onChange={(event) => this.handleAmountInput(event)} checked />
                                                         <label class="form-check-label exrad" for="exampleRadios1">
                                                             RS 500
                                     </label>
                                                     </li>
                                                     <li>
-                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1" />
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="1000" onChange={(event) => this.handleAmountInput(event)}/>
                                                         <label class="form-check-label exrad" for="exampleRadios1">
                                                             RS 1000
                                     </label>
                                                     </li>
                                                     <li>
-                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1" />
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="1500"  onChange={(event) => this.handleAmountInput(event)}/>
                                                         <label class="form-check-label exrad" for="exampleRadios1">
                                                             RS 1500
                                     </label>
                                                     </li>
                                                     <li>
-                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1" />
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" value="2000"  onChange={(event) => this.handleAmountInput(event)}/>
                                                         <label class="form-check-label exrad" for="exampleRadios1">
                                                             RS 2000
                                     </label>
