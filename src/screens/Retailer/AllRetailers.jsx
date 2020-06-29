@@ -72,7 +72,7 @@ export class AllRetailers extends Component {
     this.state = {
 
       allCoupon: [],
-  
+
     }
   }
 
@@ -83,7 +83,7 @@ export class AllRetailers extends Component {
       console.log('martt----', Id);
       //  apiRequest({martId:Id},'/user/ ','POST')
       this.props.action.myCouponData({ martId: Id })
-      
+
       //  .then((resp)=>{
       //     console.log("responseCoupan",resp)
       //   this.setState({
@@ -99,58 +99,61 @@ export class AllRetailers extends Component {
 
   async componentDidMount() {
     console.log('martt', window.location.pathname);
-     let splitUrl = window.location.pathname.split('/')
+    let splitUrl = window.location.pathname.split('/')
     console.log('martt', splitUrl);
     console.log('martt', splitUrl[2]);
     this.getAllCoupansOfMart(splitUrl[2]);
   }
 
   martData() {
-
+    
     if (this.props.allCouponData !== undefined) {
-      return this.props.allCouponData.map((allCoupon, index) => {
 
-        return (
-          <div>
-            <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsive}
-              ssr={true} // means to render carousel on server-side.
-              infinite={true}
-              // autoPlay={this.props.deviceType !== "mobile" ? true : false}
-              autoPlaySpeed={5000000}
-              keyBoardControl={true}
-              customTransition="all .5"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              //deviceType={this.props.deviceType}
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
-            
+      return <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      //deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+    >
+      {
+        this.props.allCouponData.map((allCoupon, index) => {
 
-                <div class="slicent activa">
-                  {allCoupon.martName}
-                </div>
-              
-      
-            </Carousel>
+          return (
+            <div>
 
-          </div>
-        )
-      })
-    }
 
+
+              <div class="slicent activa">
+                {allCoupon.martName}
+              </div>
+
+
+
+
+            </div>
+          )
+        })
+      }</Carousel>
+  }
   }
 
   martName() {
     if (this.props.allCouponData !== undefined) {
-      
+
       return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
-        console.log("xyzzzz=======",allCoupon.retailerId.users)
+        console.log("xyzzzz=======", allCoupon.retailerId.users)
         return (
           <div>
             <h2 class="mn">  <Link to={`/WebsiteMart/${allCoupon.martId}`}>{allCoupon.martName} </Link></h2>
@@ -160,52 +163,58 @@ export class AllRetailers extends Component {
     }
   }
 
-  
- 
+
+
 
   retailerData() {
     if (this.props.allCouponData !== undefined) {
-      return this.props.allCouponData.map((allCoupon, index) => {
-        console.log("akhtar===",allCoupon.retailerId._id)
+
+
+
+      return <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive1}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+    >
+      
+      
+      {this.props.allCouponData.map((allCoupon, index) => {
+        console.log("akhtar===", allCoupon.retailerId._id)
         let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
 
-        console.log('checkData--',checkData)
+        console.log('checkData--', checkData)
         let heartStatus;
-        if(checkData == -1){
+        if (checkData == -1) {
           heartStatus = false;
-        }else{
-          heartStatus = true ;
+        } else {
+          heartStatus = true;
         }
-        console.log('checkData--',heartStatus)
+        console.log('checkData--', heartStatus)
 
-        
+
 
         return (
           // <div class="top-slider index-top">
           <div>
             {/* <DashboardImageScroll /> */}
-            <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsive1}
-              ssr={true} // means to render carousel on server-side.
-              infinite={true}
-              autoPlay={this.props.deviceType !== "mobile" ? true : false}
-              autoPlaySpeed={5000000}
-              keyBoardControl={true}
-              customTransition="all .5"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              deviceType={this.props.deviceType}
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
+            
               <div>
 
                 <ImageDashboard
-                 
+
                   ImageName={allCoupon.shopName}
                   LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
                   // LinkId={`/AllRetailers/${martId}`}
@@ -221,48 +230,53 @@ export class AllRetailers extends Component {
                   Id={allCoupon.retailerId._id}
                   Token={this.props.applicationData.token}
                   typeData={'retailer'}
-                  HeartData = {heartStatus}
+                  HeartData={heartStatus}
                   blankHeart={Imageid.heartImage}
                   redHeart={Imageid.RedHeart}
-                  // getAllCoupansOfMart = {this.getAllCoupansOfMart(mart_ID)}
+                // getAllCoupansOfMart = {this.getAllCoupansOfMart(mart_ID)}
                 />
 
               </div>
-            </Carousel>
+            
 
           </div>
         )
       })
-    }
+    }</Carousel>
+  }
   }
 
   couponData() {
     // if(this.props.applicationData.length > 0)
-    
+
     if (this.props.allCouponData !== undefined) {
-      return this.props.allCouponData.map((allCoupon, index) => {
+
+      
+      return  <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive1}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+    >
+      
+      {this.props.allCouponData.map((allCoupon, index) => {
         console.log("applicationData--", allCoupon.retailerId.users)
-       
+
         return (
           <div>
-            <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsive1}
-              ssr={true} // means to render carousel on server-side.
-              infinite={true}
-              autoPlay={this.props.deviceType !== "mobile" ? true : false}
-              autoPlaySpeed={5000000}
-              keyBoardControl={true}
-              customTransition="all .5"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              deviceType={this.props.deviceType}
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
+           
               <CouponsImage
                 ImageSrc={allCoupon.image}
                 Title={allCoupon.title}
@@ -280,17 +294,18 @@ export class AllRetailers extends Component {
                 MartName={allCoupon.martName}
                 ShopPhoneNumber={allCoupon.shopPhoneNumber}
                 Restrictions={allCoupon.restrictions}
-                
-                
+
+
 
 
 
               />
-            </Carousel>
+           
           </div>
         )
       })
-    }
+    } </Carousel>
+  }
   }
 
 
@@ -302,16 +317,16 @@ export class AllRetailers extends Component {
           {/* <Header2 /> */}
           <Header4 />
           <section class="second">
-            <div class="container-fluid"> 
+            <div class="container-fluid">
 
-                <div class="slidertop">
-                <section class="center slider"> 
+              <div class="slidertop">
+                <section class="center slider">
 
                   {this.martData()}
-                 </section>
+                </section>
               </div>
             </div>
-          </section> 
+          </section>
           <div class="left-contant">
             <div class="marname">
               {this.martName()}

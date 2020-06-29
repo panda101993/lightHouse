@@ -9,7 +9,7 @@ export default function ImageDashboard(props) {
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
    const [heartStatusNOW, setheartStatusNOW] = useState(props.heartImage)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart} = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart,ReloadApi} = props
    console.log("hello imageAbc ", props)
    console.log("typePage--",typePage)
 
@@ -29,6 +29,7 @@ export default function ImageDashboard(props) {
                          if (resp.data.responseCode == 200) {
                            ToasterFunction("success", resp.data.responseMessage);
                            setheartStatusNOW(!heartStatusNOW)
+                           // ReloadApi();
             
                          }
                           else if (resp.data.responseCode == 404) {
@@ -70,7 +71,7 @@ export default function ImageDashboard(props) {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage )
                               setheartStatusNOW(!heartStatusNOW)
-                              window.location.reload(false);
+                              // () => ReloadApi()
                             
                             }
                              else if (resp.data.responseCode == 404) {
@@ -114,6 +115,7 @@ export default function ImageDashboard(props) {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage);
                               setheartStatusNOW(!heartStatusNOW)
+                              // window.location.reload(false);
                             }
                              else if (resp.data.responseCode == 404) {
                                 ToasterFunction("info", resp.data.responseMessage);
@@ -188,7 +190,9 @@ export default function ImageDashboard(props) {
 
 
    return (
+      
       <>
+      
          <body>
 
             <div class="slider-item">

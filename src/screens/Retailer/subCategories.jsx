@@ -123,27 +123,30 @@ export class subCategories extends Component {
 
    couponCategory(){
       // console.log("applicationData",this.props.applicationData)
-        return this.state.allData.map((allCouponData, index)=>{
+
+        return  <Carousel
+        swipeable={true}
+        draggable={false}
+        showDots={false}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        autoPlay={this.props.deviceType !== "mobile" ? true : false}
+        autoPlaySpeed={5000000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        deviceType={this.props.deviceType}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
+      > 
+        
+        {this.state.allData.map((allCouponData, index)=>{
           return(
             <div>
-              <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={false}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={this.props.deviceType !== "mobile" ? true : false}
-      autoPlaySpeed={5000000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-    > 
+             
     <CouponsImage 
     ImageSrc={allCouponData.image}
     Title={allCouponData.title}
@@ -165,16 +168,35 @@ export class subCategories extends Component {
     
     
     />
-    </Carousel>
+  
             </div>
           )
-        })
-        }
+        }) 
+        } </Carousel>
+      }
 
 
 
    subCategoryData() {
-      return this.state.allData.map((allCouponData, index) => {
+      return <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive1}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+   >
+      { this.state.allData.map((allCouponData, index) => {
          let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
          console.log('checkData--',checkData)
         let heartStatus;
@@ -187,24 +209,7 @@ export class subCategories extends Component {
          //   console.log('category',categoryImage);
          return (
             <div>
-               <Carousel
-                  swipeable={true}
-                  draggable={false}
-                  showDots={false}
-                  responsive={responsive1}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={5000000}
-                  keyBoardControl={true}
-                  customTransition="all .5"
-                  transitionDuration={500}
-                  containerClass="carousel-container"
-                  removeArrowOnDeviceType={["tablet", "mobile"]}
-                  deviceType={this.props.deviceType}
-                  dotListClass="custom-dot-list-style"
-                  itemClass="carousel-item-padding-40-px"
-               >
+               
                   <div>
                      <ImageDashboard
                         ImageName={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.subCategoryName : ''}
@@ -220,35 +225,37 @@ export class subCategories extends Component {
 
                      />
                   </div>
-               </Carousel>
+              
             </div>
          )
       })
+   } </Carousel>
    }
 
 categoryNameList(){
-   return this.state.allData.map((allCouponData, index)=>{
+   return  <Carousel
+   swipeable={true}
+   draggable={false}
+   showDots={false}
+   responsive={responsive}
+   ssr={true} // means to render carousel on server-side.
+   infinite={true}
+   autoPlay={this.props.deviceType !== "mobile" ? true : false}
+   autoPlaySpeed={5000000}
+   keyBoardControl={true}
+   customTransition="all .5"
+   transitionDuration={500}
+   containerClass="carousel-container"
+   removeArrowOnDeviceType={["tablet", "mobile"]}
+   deviceType={this.props.deviceType}
+   dotListClass="custom-dot-list-style"
+   itemClass="carousel-item-padding-40-px"
+>
+   {this.state.allData.map((allCouponData, index)=>{
       //   console.log('category',categoryImage);
          return(
             <div>
-               <Carousel
-                  swipeable={true}
-                  draggable={false}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={5000000}
-                  keyBoardControl={true}
-                  customTransition="all .5"
-                  transitionDuration={500}
-                  containerClass="carousel-container"
-                  removeArrowOnDeviceType={["tablet", "mobile"]}
-                  deviceType={this.props.deviceType}
-                  dotListClass="custom-dot-list-style"
-                  itemClass="carousel-item-padding-40-px"
-               >
+              
 
 
                   <div>
@@ -257,11 +264,12 @@ categoryNameList(){
                   </div>
                   </div>
 
-               </Carousel>
+              
             </div>
          )
       })
 
+} </Carousel>
 }
    render() {
 

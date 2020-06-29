@@ -141,10 +141,7 @@ export class AllCouponsRetailers extends Component {
       }
 
       retailerNamedata(){
-        // console.log("applicationData",this.props.applicationData)
-          return this.state.allData.map((allCouponData, index)=>{
             return(
-              <div>
           <Carousel
                     swipeable={true}
                     draggable={false}
@@ -163,15 +160,18 @@ export class AllCouponsRetailers extends Component {
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
                   >
+                    { this.state.allData.map((allCouponData, index)=>{
+                      return(
                     <div>
                       <div class="slicent activa">
                       {allCouponData.shopName}
                   </div>
                     </div>
+                      )
+                    })
+                  }
                   </Carousel>
-              </div>
             )
-          })
           }
 
           retailerName(){

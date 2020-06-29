@@ -1,13 +1,14 @@
 
-
-
 import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { connect } from "react-redux"; 
+import { bindActionCreators } from 'redux';
+import {logoutAction} from "../redux/action/AuthAction" 
 
 function Header2(props) {
-
+    console.log("creditData==>",props.applicationData.credit)
     // const [modalStatus,setModal] =useState(false)
     const [modalStatus, setModal] = useState(false) 
     const [modalStatusView, setModalView] = useState(false)
@@ -16,7 +17,7 @@ function Header2(props) {
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
-
+// this.props.action.logoutAction()=>this.props.history.push("/"))
     return (
         <div>
             {/* <body> */}
@@ -65,7 +66,7 @@ function Header2(props) {
                                             <DropdownMenu className="dropdown-menu log-menu">
 
                                                 <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
-                                                <DropdownItem tag={Link} to="/" >Signup</DropdownItem>
+                                                <DropdownItem tag={Link} to="/CreateWebpageInitialSignupProcess" >Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
 
@@ -121,7 +122,7 @@ function Header2(props) {
                                 />
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </li> */}
-                                <li class="serch-sec">
+                                {/* <li class="serch-sec">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
                                         <div class="input-group-append">
@@ -130,10 +131,16 @@ function Header2(props) {
                                             </button>
                                         </div>
                                     </div>
-                                </li>
-
+                                </li> */}
+                                    <li class="nav-item dropdown account-drop">
+                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">  */}
+                         <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
+                             Credits Point({props.applicationData.credit}) 
+                             </Link>
+                         {/* </a> */}
+                      </li>
                                 <li class="nav-item dropdown account-drop">
-                                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
+                                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus) }>
                                         {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
                                         {/* My Account */}
                                     Log Out
@@ -143,11 +150,15 @@ function Header2(props) {
                                     <a class="dropdown-item" href="#">MY</a>
                                     <a class="dropdown-item" href="#">My Account</a>
                                 </div> */}
-                                </li>
-                                <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                </li> 
+                                <Link to='/NotificationScreensRetailer' > 
+                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
+                                  </Link>
+                              
+
                                 <li class="prfile">
-                                    <img src={require("../assets/images/new-profile.png")} />
-                                    <p>Kamal</p>
+                                {props.applicationData.shopName}
+                                    <p></p>
                                 </li>
                             </ul>
                         </div>
@@ -172,7 +183,7 @@ function Header2(props) {
                                 />
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </li> */}
-                                <li class="serch-sec">
+                                {/* <li class="serch-sec">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
                                         <div class="input-group-append">
@@ -181,7 +192,15 @@ function Header2(props) {
                                             </button>
                                         </div>
                                     </div>
-                                </li>
+                                </li> */} 
+                                 <li class="nav-item dropdown account-drop">
+                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">
+                             Credits Point({props.applicationData.credit})
+                         </a> */}
+                          <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
+                             Credits Point({props.applicationData.credit}) 
+                             </Link>
+                      </li>
 
                                 <li class="nav-item dropdown account-drop">
                                     <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
@@ -195,10 +214,13 @@ function Header2(props) {
                                     <a class="dropdown-item" href="#">My Account</a>
                                 </div> */}
                                 </li>
-                                <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                {/* <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> */} 
+                                <Link to='/NotificationScreensRetailer' > 
+                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
+                                  </Link>
                                 <li class="prfile">
-                                    <img src={require("../assets/images/new-profile.png")} />
-                                    <p>Kamal</p>
+                                    {/* <img src={require("../assets/images/new-profile.png")} /> */}
+                                    <p>{props.applicationData.shopName}</p>
                                 </li>
                             </ul>
                         </div>
@@ -217,7 +239,8 @@ function Header2(props) {
                     </div> */}
                         <div class="modal-body ok n-yes">
                             <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)}>No</button>
-                            <Link to="SignupRetailer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => setModal(!modalStatus)}>Yes</button></Link>
+                     <Link to="/">      <button type="button" class="btn setloc-btn" type="submit" onClick={() => {setModal(!modalStatus)
+                                        props.action.logoutAction()} }>Yes</button></Link> 
                         </div>
                     </form>
                 </ModalBody>
@@ -240,5 +263,18 @@ function Header2(props) {
         </div>
     )
 }
-
-export default Header2
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.ProfileDetailsReducer.profileData      
+    }
+          
+  }
+  const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ logoutAction }, dispatch)
+    }
+}
+ 
+// export default Header2
+export default connect(mapStateToProps, mapDispatchToProps)(Header2);

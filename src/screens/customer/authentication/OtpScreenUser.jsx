@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -6,6 +7,7 @@ import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks';
 import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Apirequest from '../../../api/Apirequest';
 
 
 
@@ -30,6 +32,9 @@ export default class OtpScreenUser extends Component {
          otpErrorMessage4: "",
          otpStatus4: false,
 
+         temp: this.props.location.pathname.split("/"),
+
+
 
          modalStatus: false,
          // error:"",
@@ -47,7 +52,34 @@ export default class OtpScreenUser extends Component {
                if (this.state.otpStatus4) {
 
                //   alert('Submit Successfully');
-                   window.location.href='/Setting_enduser'
+                  //  window.location.href='/Setting_enduser'
+                  var requestData={
+                     "mobileNumber":this.state.temp[2],
+                     "otp":this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4
+                  }
+                  Apirequest(requestData,"/user/otpVerify","POST")
+                  .then((resp)=>{
+                     switch(resp.status){
+                        case 200:{
+                           if(resp.data.responseCode==200){
+                              this.props.history.push("/Setting_enduser")
+                           }
+                           else if(resp.data.responseCode==402){
+                              alert("Invalid OTP")
+                           }
+                           else if(resp.data.responseCode==404){
+                              alert("This user does not exist")
+                           }
+                           else if(resp.data.responseCode==500){
+                              alert("Internal Server Error")
+                           }
+                        }
+                     }
+                  })
+                  .catch(err => {
+                     console.log("respresp---", err)
+                 }
+                 )
 
                } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -144,6 +176,27 @@ export default class OtpScreenUser extends Component {
 //       }
 //  }
 
+   resendHandler=()=>{
+
+
+      Apirequest({mobileNumber: this.state.temp[2]},"/user/resendOTP","POST")
+      .then((resp=>{
+         switch(resp.status){
+            case 200:{
+               if(resp.data.responseCode==200){
+                  alert("Otp has been sent to your registered mobile number")
+               }
+               else if(resp.data.responseCode==404){
+                  alert("Provided email/mobile number is not registered")
+               }
+               else if(resp.data.responseCode==500){
+                  alert("Internal Server error")
+               }
+            }
+         }
+      }))
+   }
+
    render() {
       return (
          <div>
@@ -218,7 +271,7 @@ export default class OtpScreenUser extends Component {
                                  </div>
 {/* </div> */}
 
-                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}>
+                                 <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() =>this.resendHandler()}>
                                     Resend
                                  </p></Link>
 
