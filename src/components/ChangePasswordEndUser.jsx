@@ -1,4 +1,5 @@
 
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -6,6 +7,7 @@ import Apirequest from "../api/Apirequest"
 // import {loginAction} from "../redux/action/ActionTypes";
 import { connect } from "react-redux";
 import { validatePassword, validateCFPassword } from '../utils/validation/Validation';
+import ToasterFunction from './ToasterFunc';
 
 
 export class ChangePasswordEndUser extends Component { 
@@ -87,23 +89,23 @@ request=()=>{
                   switch(resp.status){
                      case 200:{
                         if(resp.data.responseCode==200){
-                           alert("Your password is updated successfully")
+                           ToasterFunction("success","Your password is updated successfully")
                         }
                         else if(resp.data.responseCode==402){
-                           alert("You have provided an incorrect old password")
+                           ToasterFunction("warn","You have provided an incorrect old password")
                         }
                         else if(resp.data.responseCode==404){
-                           alert("This user does not exist")
+                           ToasterFunction("error","This user does not exist")
                         }
                         else if(resp.data.responseCode==500){
-                           alert("Internal Server error")
+                           ToasterFunction("error","Internal Server error")
                         }
                      }
                   }
             })
          }
          else{
-         alert("Enter all fields")}
+            ToasterFunction("error","Enter all fields")}
       }
    
 

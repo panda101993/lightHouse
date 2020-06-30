@@ -23,8 +23,48 @@ class Step2_retailer extends Component {
          pinCode: "",
          signUpFee: 0,
          gstOnSignUp: 0,
-         totalAmount: 0
+         totalAmount: 0,
+         reviewModalStatus: false
       }
+   }
+
+   componentDidMount(){
+
+      try {
+         ApiRequest({ token: this.props.applicationData.token }, '/retailer/profile', 'GET', this.props.applicationData.token)
+            .then((resp) => {
+               console.log('response====>/retailer/profile', resp,this.props.applicationData.token);
+
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           console.log('response====>/retailer/profile', resp.data.result.retailerStatus==='PENDING REVIEW');
+                           resp.data.result.retailerStatus==='PENDING REVIEW'? this.setState({reviewModalStatus: true}) : this.setState({reviewModalStatus: false})
+                        }
+
+                        
+                        else if (resp.data.responseCode == 404) {
+                           ToasterFunction("info", "Data not found, internal server error");
+                        }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", "Internal Server Error");
+                        }
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
+               }
+
+            })
+      } catch (error) {
+         console.log('errorresponse', error);
+         // ToasterFunction("error", "Network error, please contact the administrator");
+      }
+
+
    }
    handlestate = () => {
       this.setState({
@@ -446,6 +486,29 @@ class Step2_retailer extends Component {
                                        </div>
                                        <div class="modal-body ok">
                                           <button type="button" class="btn setloc-btn" data-dismiss="modal" onClick={() => this.setState({ signUpSuccessModalStatus: !this.state.signUpSuccessModalStatus })} >OK</button>
+                                       </div>
+
+                                       
+                                    
+                                
+                              </div>
+
+
+                           </div>
+                        </ModalBody>
+                     </Modal>
+                     <Modal isOpen={this.state.reviewModalStatus} toggle={this.toggle} style={{ top: "200px", }}>
+                        <ModalBody>
+                           <div>
+                             
+                                
+                                    <div class="modal-content">
+                                       <div class="modal-header locationsethead">
+                                          <h5> Your application is under review ! </h5>
+                                          
+                                       </div>
+                                       <div class="modal-body ok">
+                                          <button type="button" class="btn setloc-btn" data-dismiss="modal" onClick={() => this.setState({ reviewModalStatus: !this.state.reviewModalStatus })} >OK</button>
                                        </div>
 
                                        

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -47,6 +48,7 @@ export default class SignupOtpRetailer extends Component {
 
 
    submitHandler = () => {
+      
       if (this.state.otpStatus) {
          if (this.state.otpStatus2) {
             if (this.state.otpStatus3) {
@@ -61,7 +63,8 @@ export default class SignupOtpRetailer extends Component {
                       switch (resp.status) {
                           case (200): {
                               if (resp.data.responseCode == 200) {
-                                  this.props.history.push("/Setting_retailer")
+                                 //  this.props.history.push("/Setting_retailer/")
+                                  window.location.href = "/Setting_retailer/Step2_retailer";
                                   this.setState({ modalStatus: false })
                               }
                               else if (resp.data.responseCode == 403) {
@@ -168,7 +171,7 @@ export default class SignupOtpRetailer extends Component {
          switch(resp.status){
             case 200:
                if(resp.data.responseCode==200){
-                  alert("Otp has been sent to your registered Email successfully.")
+                  ToasterFunction("sent","Otp has been sent to your registered Email successfully.")
                }
          }
       })

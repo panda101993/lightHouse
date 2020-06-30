@@ -16,10 +16,10 @@ import ToasterFunction from '../../src/components/ToasterFunc';
             modalStatus: false,
             modalStatus1: false,
             couponId :'',
-            fromDate:'',
-            toDate:'',
+            fromDate:"",
+            toDate:"",
             couponStatus:"withdrawn coupon",
-
+            allData:[],
         }
     }
     componentDidMount(){
@@ -42,14 +42,14 @@ import ToasterFunction from '../../src/components/ToasterFunc';
         console.log("token====>credit",this.props.applicationData.userId  )
         var requestData= {
             "retailerId":this.props.applicationData.userId,
-             "fromDate": this.state.fromDate,
+             "fromDate":this.state.fromDate ,
            "toDate":this.state.toDate,
            
         } 
         console.log("gggggg=>",requestData)
         
         
-        Apirequest(requestData,"retailer/rechargeHsitory", "POST" ) 
+        Apirequest(requestData,"/retailer/creditHistory", "POST" ) 
             .then((resp) => {
                console.log("wxyz==>", resp);
                // ToasterFunction("info", resp.data.responseMessage);
@@ -61,8 +61,9 @@ import ToasterFunction from '../../src/components/ToasterFunc';
                         // ToasterFunction("info", resp.data.responseMessage);
                         ToasterFunction("success", resp.data.responseMessage);
                         this.setState({
-                            allData: resp.data.result[0].details
-                         });
+                            allData: resp.data.cuponData.docs
+                         }); 
+                         console.log("All data==>",this.state.allData)
                     }
                      else if (resp.data.responseCode == 404) {
                         ToasterFunction("info", resp.data.responseMessage);
@@ -83,7 +84,17 @@ import ToasterFunction from '../../src/components/ToasterFunc';
          
             .catch(e => { console.log(e) }) 
      }
-
+     dateHandler(dateItem){
+        const d = new Date(dateItem);
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const a = d.getDate()
+        const b = months[d.getMonth()+1]
+        const c = d.getFullYear()
+        const e = a+" "+b+", "+c
+        console.log(e)
+       
+          return( e )
+       }
     render() { 
         const{toDate ,fromDate} =this.state
         return (
@@ -140,66 +151,28 @@ import ToasterFunction from '../../src/components/ToasterFunc';
                                 <button type="button" class="save csv rite">Download CSV</button>
                             </li>
                         </ul>
-                        <div class="main-upi creit">
-                            <div class="upi-elements">
-                                <h5 class="heding-five">29 Jan, 2020</h5>
-                            </div>
-                            <div class="main-upii">
-                                <div class="labelsin">
-                                    <label>10 Credits</label>
-                                    <label>Sign Up Credits</label>
+
+
+                       
+                        {this.state.allData.map((item,index) => {
+                            return(
+                                <div class="main-upi creit">
+                                <div class="upi-elements">
+                                    <h5 class="heding-five">{this.dateHandler(item.createdAt)}</h5>
                                 </div>
-                                <span>CR</span>
-                            </div>
-                        </div>
-                        <div class="main-upi creit">
-                            <div class="upi-elements">
-                                <h5 class="heding-five">22 Jan, 2020</h5>
-                            </div>
-                            <div class="main-upii">
-                                <div class="labelsin">
-                                    <label>10 Credits</label>
-                                    <label>Sign Up Credits</label>
+                                <div class="main-upii">
+                                    <div class="labelsin">
+                                        <label>10 Credits</label>
+                            <label>{item.creditType}</label>
+                                    </div>
+                                    <span>CR</span>
                                 </div>
-                                <span>CR</span>
                             </div>
-                        </div>
-                        <div class="main-upi creit">
-                            <div class="upi-elements">
-                                <h5 class="heding-five">18 Jan, 2020</h5>
-                            </div>
-                            <div class="main-upii">
-                                <div class="labelsin">
-                                    <label>10 Credits</label>
-                                    <label>Sign Up Credits</label>
-                                </div>
-                                <span>CR</span>
-                            </div>
-                        </div>
-                        <div class="main-upi creit">
-                            <div class="upi-elements">
-                                <h5 class="heding-five">28 Jan, 2020</h5>
-                            </div>
-                            <div class="main-upii">
-                                <div class="labelsin">
-                                    <label>10 Credits</label>
-                                    <label>Sign Up Credits</label>
-                                </div>
-                                <span>CR</span>
-                            </div>
-                        </div>
-                        <div class="main-upi creit">
-                            <div class="upi-elements">
-                                <h5 class="heding-five">22 Jan, 2020</h5>
-                            </div>
-                            <div class="main-upii">
-                                <div class="labelsin">
-                                    <label>10 Credits</label>
-                                    <label>Sign Up Credits</label>
-                                </div>
-                                <span>CR</span>
-                            </div>
-                        </div>
+                         )
+                        })
+
+                        }
+                       
                         <div class="back-button">
                             <button type="button" class="save">Back</button>
                         </div>
