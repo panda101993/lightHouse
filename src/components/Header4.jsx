@@ -8,7 +8,10 @@ import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import Cookies from 'universal-cookie';
 import {loginAction} from "../redux/action/AuthAction";
+import { endUserProfileAction } from '../redux/action/EndUserProfileAction';
 import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+
 
 const Header4 = (props) => {
     const [pinCode, setPinCode] = useState("");
@@ -44,90 +47,9 @@ const Header4 = (props) => {
     //set location
     const [latitude,setLatitude] = useState("");
     const [longitude,setLongitude] = useState("");
+    // const [allData, setAllData] = useState([]);
 
-    // let handlePinCode = (event) => {
-    //     setPinCode(event.target.value)
-    //     setPinCodeError(validatePinCode(event.target.value).error);
-    //     setPinCodeStatus(validatePinCode(event.target.value).status);
-    // }
-
-    // let handleProvince = (event) => {
-    //     setProvince(event.target.value);
-    //     setProvinceError(validateProvince(event.target.value).error);
-    //     setProvinceStatus(validateProvince(event.target.value).status);
-    // }
-
-    // let handleCity = (event) => {
-    //     setCity(event.target.value);
-    //     setCityError(validateCity(event.target.value).error);
-    //     setCityStatus(validateCity(event.target.value).status);
-    // }
-
-    // let handleAddress = (event) => {
-    //     setAddress(event.target.value);
-    //     setAddressError(validateAddress(event.target.value).error);
-    //     setAddressStatus(validateAddress(event.target.value).status);
-    // }
-
-
-    // to return list of state 
-    // const ProvinceList = ProvinceJSON.states.map((item, index) => {
-    //     return <option value={item.state} 
-    //     >{item.state}</option>
-        
-    // });
-
-    // let getPopupAddress = () => {
-    // try {
-    //     apiRequest({pinCode:pinCode,state:province,city:city,address:address},'/user/dashboardPopupAddress','POST')
-    //  .then((resp)=>{
-    //      console.log('response==',resp)
-
-    //      switch(resp.status) {
-    //          case(200): {
-    //              if(resp.data.responseCode == 200)
-    //              {
-    //                 ToasterFunction("success", "Location added successfully");
-    //                 //  alert("Location added successfully")
-    //              }
-    //              else if(resp.data.responseCode == 404)
-    //              {
-    //                 ToasterFunction("info", "Location not found");
-    //                 //  alert("Location not found")
-    //              }
-    //              else if(resp.data.responseCode == 500)
-    //              {
-    //                 ToasterFunction("error", "Internal Server Error");
-    //                 //  alert("Internal Server Error")
-    //              }
-    //          }
-    //      }
-
-      
-    //  })   
-    // } catch (error) {
-    //     console.log("responseerror==",error)
-    //     ToasterFunction("error", "Network error, please contact the administrator");
-        
-    // }
-        
-    // }
-
-
-
-    // function validatemain() {
-    //     if (pinCodeStatus) {
-    //         if (provinceStatus) {
-    //             if (cityStatus) {
-    //                 if (addressStatus) {
-    //                     getPopupAddress();
-    //                     // alert(`submit sucsessfully`)
-    //                     setModal1(!modalStatus1)
-    //                 } else { setAddressError("*Please Enter Address") }
-    //             } else { setCityError("*Please Select City") }
-    //         } else { setProvinceError("*Please Select State") }
-    //     } else { setPinCodeError("*Please Enter Pin code") }
-    // }
+  
     useEffect(() => {
         const cookies = new Cookies();
          
@@ -147,14 +69,17 @@ const Header4 = (props) => {
       let getMyProfile = () =>{
         try {
             console.log('profiletoken-',props.applicationData.token);
-            apiRequest({ }, '/user/myProfile', 'GET',props.applicationData.token)
-               .then((resp) => {
-                  console.log('responseheaderforprofile=>', resp);
-                  // console.log('response===>', resp.data.userData);
-                //   this.setState({
-                //      allData: resp.data.result
-                //   });
-               });
+            props.action.endUserProfileAction({ token:props.applicationData.token })
+            // apiRequest({ }, '/user/myProfile', 'GET',props.applicationData.token)
+            //    .then((resp) => {
+            //       console.log('responseheaderforprofile=>', resp);
+            //       this.setState({
+            //          allData: resp.data.result
+            //       });
+            //     setAllData(resp.data.result)
+                
+
+            //    });
    
          } catch (error) {
             console.log('erroresponse==>', error)
@@ -162,6 +87,11 @@ const Header4 = (props) => {
          }
 
       }
+
+    //   let setProfileData = () =>{
+
+    //   }
+
 
     return (
         <div>
@@ -319,84 +249,6 @@ const Header4 = (props) => {
                 </ModalBody>
             </Modal>
 
-            {/* <Modal isOpen={modalStatus1} style={{ top: "25px", marginLeft: "110px" }}>
-                <ModalBody>
-                    <form>
-                        <div class="modal-header">
-                            <ul class="curent-loc">
-                                <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
-                                <li><button type="button" class="btn btn-location">Use my current location</button></li>
-                            </ul>
-                        </div>
-                        <div class="modal-body">
-                            <div class="location-form">
-                                <h3>Enter Your Location Details</h3>
-                                <form>
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlInput1">Pin Code*</label>
-                                        <input type="text"
-                                            value={pinCode}
-                                            onChange={handlePinCode}
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="" />
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="pinCodeError">{pinCodeError}</lable>
-                                    </div>
-
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlSelect1">State*</label>
-                                        <select class="form-control" 
-                                        id="exampleFormControlSelect1" 
-                                        onChange={handleProvince} 
-                                        value={province}>
-                                            <option value="">Select State</option> 
-                                            { ProvinceList}                                         
-                                        </select>  
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="provinceError">{provinceError}</lable>
-                                    </div>
-
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlSelect2">City*</label>                                         
-                                        <select class="form-control"
-                                        id="exampleFormControlInput1"
-                                        onChange={handleCity}
-                                        value={city}>{ProvinceJSON.states
-                                        .filter(({state})=> state == province)
-                                        .map(({districts}) => districts.map((DistrictList) =><option>{DistrictList}</option>))}
-                                            <option value="">Select City</option>
-                                            
-                                        </select>
-                                        
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="cityError">{cityError}</lable>
-                                    </div>
-
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlTextarea1">Address*</label>
-                                        <textarea class="form-control"
-                                            id="exampleFormControlTextarea1" rows="3" 
-                                            value={address} 
-                                            onChange={handleAddress}>
-                                        </textarea>
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="addressError">{addressError}</lable>
-                                    </div>
-
-                                    <div class="dasmodal-save">
-                                        <button type="submit" class="btn btn-primary" onClick={() => validatemain()}>Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </form>
-                </ModalBody>
-            </Modal>  */}
 
 
         </div>
@@ -404,17 +256,32 @@ const Header4 = (props) => {
 }
 
 // export default Header4
-const mapStateToProps = state => {
-    console.log("stateLogin-------", state)
-    return {
-       applicationData: state.AuthReducer.userData,
-       isLoggedIn: state.AuthReducer.isLoggedIn
+// const mapStateToProps = state => {
+//     console.log("stateLogin-------", state)
+//     return {
+//        applicationData: state.AuthReducer.userData
          
-    }
+//     }
           
- }
+//  }
  
  
  
- // export default componentName
- export default connect(mapStateToProps,{loginAction})(Header4);
+//  // export default componentName
+//  export default connect(mapStateToProps,{loginAction})(Header4);
+
+ const mapStateToProps = state => {
+    console.log("stateprofile", state)
+    return {
+    //   allProfileData: state.CouponCodeReducer.userData,
+      applicationData: state.AuthReducer.userData
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      action: bindActionCreators({ endUserProfileAction }, dispatch)
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Header4);

@@ -64,7 +64,7 @@ class componentName extends Component {
 
    getmartsbyUserList = () =>{
       try {
-         console.log('token++++++',this.props.applicationData)
+         // console.log('token++++++',this.props.applicationData)
          if(this.props.applicationData.token){
             const cookies = new Cookies();
          
@@ -73,7 +73,7 @@ class componentName extends Component {
             
             const longitude = cookies.get('longitude')
    
-            console.log('hhhh=>',this.props.applicationData)
+            // console.log('hhhh=>',this.props.applicationData)
             apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
             .then((resp)=>{
             console.log('responseLandingscreen--', resp);
@@ -140,19 +140,19 @@ class componentName extends Component {
       itemClass="carousel-item-padding-40-px"
    >
       { this.state.allData.map((xyz, index)=>{
-         console.log("abcffff",xyz.martUsers)
+         // console.log("abcffff",xyz.martUsers)
          // if (!xyz.martUsers) return null;
          if (xyz.martUsers !== undefined){
          let checkData = xyz.martUsers.indexOf(this.props.applicationData.userId);
          
-         console.log('checkData--',checkData)
+         // console.log('checkData--',checkData)
          let heartStatus;
          if(checkData == -1){
            heartStatus = false;
          }else{
            heartStatus = true ;
          }
-         console.log('checkData--',heartStatus)
+         // console.log('checkData--',heartStatus)
       
       //   console.log('category',categoryImage);
          return(
@@ -224,14 +224,14 @@ class componentName extends Component {
          if(xyz.categoryUsers !== undefined){
          let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
 
-         console.log('checkData--',checkData)
+         // console.log('checkData--',checkData)
          let heartStatus;
          if(checkData == -1){
            heartStatus = false;
          }else{
            heartStatus = true ;
          }
-         console.log('checkData--',heartStatus)
+         // console.log('checkData--',heartStatus)
       //   console.log('category',categoryImage);
          return(
             <div>
@@ -293,7 +293,7 @@ class componentName extends Component {
    }
 }
 const mapStateToProps = state => {
-   console.log("stateLogin-------", state)
+    console.log("stateLogin-------", state)
    return {
       applicationData: state.AuthReducer.userData
         
