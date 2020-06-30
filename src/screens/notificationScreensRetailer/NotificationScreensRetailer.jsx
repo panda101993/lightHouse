@@ -6,9 +6,13 @@ import Footer from '../../components/Footer';
 import { GlobalValidations } from '../../components/GlobalValidations';
 import { GlobalAlertCoupanTitleBox } from '../../components/GlobalAlertCoupanTitleBox';
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
+import { connect } from "react-redux";
+import Apirequest from '../../api/Apirequest';
+import ToasterFunction from '../../components/ToasterFunc';
 
-export default class NotificationScreensRetailer extends Component {
+
+class NotificationScreensRetailer extends Component {
    constructor(props) {
       super(props)
 
@@ -17,6 +21,101 @@ export default class NotificationScreensRetailer extends Component {
          modalStatusResend: false
       }
    }
+    componentDidMount(){
+      this.NotificationList()
+    } 
+    
+     NotificationList = () => {
+      console.log(this.state) 
+      console.log("token====>credit",this.props.applicationData.token  )
+      var requestData= {
+          "token":this.props.applicationData.token 
+         
+      } 
+      console.log("gggggg=>",requestData)
+      
+      
+      Apirequest(requestData ,"/retailer/notificationList", "GET" ) 
+          .then((resp) => {
+             console.log("wxyz==>", resp);
+             // ToasterFunction("info", resp.data.responseMessage);
+          
+             switch (resp.status) {
+              case (200):
+                  {
+                  if (resp.data.responseCode == 200) { 
+                      // ToasterFunction("info", resp.data.responseMessage);
+                      ToasterFunction("success", resp.data.responseMessage);
+                      this.setState({
+                          allData: resp.data.result[0].details
+                       });
+                  }
+                   else if (resp.data.responseCode == 404) {
+                      ToasterFunction("info", resp.data.responseMessage);
+  
+                  }
+                  else if (resp.data.responseCode == 500) {
+                      ToasterFunction("error", resp.data.responseMessage);
+  
+                  }
+              }
+              case (900): {
+                  if (resp.status == 900) {
+                      ToasterFunction("error", "Please check your internet connection")
+                  }
+              }
+          }
+          })
+       
+          .catch(e => { console.log(e) }) 
+
+     } 
+
+     clearAll =() => {
+      console.log(this.state) 
+      console.log("token====>credit",this.props.applicationData.token  )
+      var requestData= {
+          "token":this.props.applicationData.token 
+         
+      } 
+      console.log("gggggg=>",requestData)
+      
+      
+      Apirequest(requestData,"retailer/clearAll", "GET" ) 
+          .then((resp) => {
+             console.log("wxyz==>", resp);
+             // ToasterFunction("info", resp.data.responseMessage);
+          
+             switch (resp.status) {
+              case (200):
+                  {
+                  if (resp.data.responseCode == 200) { 
+                      // ToasterFunction("info", resp.data.responseMessage);
+                      ToasterFunction("success", resp.data.responseMessage);
+                      this.setState({
+                          allData: resp.data.result[0].details
+                       });
+                  }
+                   else if (resp.data.responseCode == 404) {
+                      ToasterFunction("info", resp.data.responseMessage);
+  
+                  }
+                  else if (resp.data.responseCode == 500) {
+                      ToasterFunction("error", resp.data.responseMessage);
+  
+                  }
+              }
+              case (900): {
+                  if (resp.status == 900) {
+                      ToasterFunction("error", "Please check your internet connection")
+                  }
+              }
+          }
+          })
+       
+          .catch(e => { console.log(e) }) 
+
+     }
 
    render() {
       return (
@@ -26,23 +125,31 @@ export default class NotificationScreensRetailer extends Component {
                <Header2 />
 
                <section>
-                  <div class="container-fluid">
-                     <div class="coupn-setting my-5">
-                        <ul>
-                           <li><a href="101-coupon-template.html">Create Coupon</a></li>
-                           <li ><a href="my-coupons-history.html">Manage Coupons</a></li>
-                           <li><a href="109-Manage-one-time%20coupon.html">Single Use Coupon</a></li>
-                           <li><a href="77-settings-retailer.html">Settings</a></li>
-                        </ul>
+                     <div class="container-fluid">
+                        <div class="coupn-setting my-5">
+
+                           <ul>
+                              <li>
+                                 {/* <a href="101-coupon-template.html">Create Coupon</a>  */}
+                                 <Link to="/Coupon_template" >Create Coupon</Link>
+                              </li>
+
+                              <li ><Link to="/MyCoupanHistory" >Manage Coupons</Link></li>
+
+                              <li><Link to='/ManageOnetime' >Single Use Coupon</Link></li>
+                              <li><Link to="/Setting_retailer">Settings</Link></li>
+                           </ul>
+                        </div>
                      </div>
-                  </div>
-               </section>
+                  </section>
                <section>
                   <div class="container-fluid border-with-radius">
                      <div class="container-fluid inner-size">
                         <h3 class="info_c3 chnge-pass notifi">Notifications</h3>
                         <ul class="button_cs sve-can button-shift">
-                           <li><button type="button" class="save0" data-toggle="modal" data-target="#this-coupon">Clear All</button></li>
+                           <li><button type="button" class="save0" data-toggle="modal" data-target="#this-coupon" 
+                           // onClick={this.submitHandler}
+                           onClick ={this.clearAll}>Clear All</button></li>
                         </ul>
                         < GlobalAlertCoupanTitleBox
                            headerName="Alert !"
@@ -50,7 +157,7 @@ export default class NotificationScreensRetailer extends Component {
                            expiryDate=""
                            onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}
                         />
-                        {/* <div class="category_c3 data-bin">
+                        <div class="category_c3 data-bin">
                   <div>
                      <h3>Alert !</h3>
                      <span>Current Credit Balance is too low. Please recharge . </span>
@@ -58,8 +165,8 @@ export default class NotificationScreensRetailer extends Component {
                   <div class="tras-dust" data-target="#delnotification" data-toggle="modal">
                      <i class="fa fa-trash" aria-hidden="true"  onClick={() => this.setState({ modalStatus: !this.state.modalStatus})}></i>
                   </div>
-               </div> */}
-                        {/* <div class="category_c3 data-bin">
+               </div>
+                        <div class="category_c3 data-bin">
                            <div>
                               <h3>Alert !</h3>
                               <span>Your coupons will not display on  this platform because your credit balance has fallan below zero.</span>
@@ -67,7 +174,7 @@ export default class NotificationScreensRetailer extends Component {
                            <div class="tras-dust" data-target="#delnotification" data-toggle="modal">
                               <i class="fa fa-trash" aria-hidden="true" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })}></i>
                            </div>
-                        </div> */}
+                        </div>
                         < GlobalAlertCoupanTitleBox
                            headerName="Alert !"
                            bodyText="Your coupons will not display on  this platform because your credit balance has fallan below zero."
@@ -302,3 +409,13 @@ export default class NotificationScreensRetailer extends Component {
 
 
 
+
+const mapStateToProps = state => {
+   console.log("stateLogin-------", state)
+   return {
+      applicationData: state.AuthReducer.userData
+        
+   }
+         
+}
+export default connect(mapStateToProps)(NotificationScreensRetailer);

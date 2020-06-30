@@ -1,10 +1,11 @@
+// 
 import React, { Component } from 'react'
 import Footer from '../../components/Footer';
 import { Link, Switch } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
 
 import { validateOtp, validateMobileNo, validateDialCode } from '../../utils/validation/Validation';
-import Header2 from '../../components/Header2';
+import Header from '../../components/Header';
 import CountriesJSON from '../../utils/JSON/country.json';
 import apiRequest from '../../api/Apirequest';
 import ToasterFunction from '../../components/ToasterFunc';
@@ -52,8 +53,46 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                     if (this.state.otpStatus4) {
 
                         // alert('Submit Successfully');
-                        window.location.href = "SignupRetailer";
-                        this.setState({ modalStatus: false })
+                        // window.location.href = "SignupRetailer";
+                        // this.setState({ modalStatus: false })
+                        try{
+                            apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
+                            .then((resp) => {
+                                console.log("response", resp)
+                                switch (resp.status) {
+                                    case (200): {
+                                        if (resp.data.responseCode == 200) {
+                                            this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
+                                            this.setState({ modalStatus: false })
+                                        }
+                                        else if (resp.data.responseCode == 403) {
+                                            ToasterFunction("info", "This Mobile number already exists");
+            
+                                            this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                                        }
+                                        else if (resp.data.responseCode == 404) {
+                                            ToasterFunction("info", "This Mobile number already exists");
+            
+                                        }
+                                        else if (resp.data.responseCode == 500) {
+                                            ToasterFunction("error", "Internal Server Error");
+            
+                                        }
+                                    }
+                                    break
+                                    case (900): {
+                                        if (resp.status == 900) {
+                                            ToasterFunction("error", "Please check your internet connection")
+                                        }
+                                    }
+                                }
+                            })
+                    } catch (error) {
+                        console.log("response", error)
+                        ToasterFunction("error", "Network error, please contact the administrator");
+            
+                    }
+    
 
 
 
@@ -119,8 +158,22 @@ export default class CreateWebpageInitialSignupProcess extends Component {
                                 this.setState({ modalStatus: !this.state.modalStatus });
 
                             }
+                            else if (resp.data.responseCode == 402) {
+                                ToasterFunction("Already Signedup","Need login");
+                                this.props.history.push("/LoginRetailer")
+
+                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                            }
+                            else if (resp.data.responseCode == 400) {
+                                ToasterFunction("OTP sent","Mobile OTP Verification needed");
+                                this.setState({ modalStatus: !this.state.modalStatus });
+                                // this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
+
+                                this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
+                            }
                             else if (resp.data.responseCode == 403) {
-                                ToasterFunction("info", "This Mobile number already exists");
+                                ToasterFunction("exist","Mobile Number already exists.Please Signup");
+                                this.props.history.push(`/SignupRetailer/${this.state.mobileno}`)
 
                                 this.setState({ dialCodeStatus: !this.state.dialCodeStatus })
                             }
@@ -133,6 +186,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
 
                             }
                         }
+                        break
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")
@@ -169,7 +223,7 @@ export default class CreateWebpageInitialSignupProcess extends Component {
             <div>
                 <body>
                     {/* <Header2 /> */}
-                    <Header2 />
+                    <Header />
                     <section class="bg-form">
                         <div class="cover-forgot bg-whiteform">
                             <h1>Join Us:</h1>

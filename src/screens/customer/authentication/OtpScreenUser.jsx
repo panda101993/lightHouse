@@ -1,4 +1,5 @@
 
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -8,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { validateOtp } from '../../../utils/validation/Validation';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Apirequest from '../../../api/Apirequest';
+import ToasterFunction from '../../../components/ToasterFunc';
 
 
 
@@ -65,13 +67,13 @@ export default class OtpScreenUser extends Component {
                               this.props.history.push("/Setting_enduser")
                            }
                            else if(resp.data.responseCode==402){
-                              alert("Invalid OTP")
+                              ToasterFunction("invalid","Invalid OTP")
                            }
                            else if(resp.data.responseCode==404){
-                              alert("This user does not exist")
+                              ToasterFunction("not exist","This user does not exist")
                            }
                            else if(resp.data.responseCode==500){
-                              alert("Internal Server Error")
+                              ToasterFunction("error","Internal Server Error")
                            }
                         }
                      }
@@ -184,14 +186,18 @@ export default class OtpScreenUser extends Component {
          switch(resp.status){
             case 200:{
                if(resp.data.responseCode==200){
-                  alert("Otp has been sent to your registered mobile number")
+                  ToasterFunction("otp","Otp has been sent to your registered mobile number")
                }
                else if(resp.data.responseCode==404){
-                  alert("Provided email/mobile number is not registered")
+                  ToasterFunction("error","Provided email/mobile number is not registered")
                }
                else if(resp.data.responseCode==500){
-                  alert("Internal Server error")
+                  ToasterFunction("error","Internal Server error")
                }
+            }
+            break
+            default:{
+               alert("Error")
             }
          }
       }))

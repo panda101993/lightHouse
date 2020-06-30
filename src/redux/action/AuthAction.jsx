@@ -1,6 +1,6 @@
-import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data } from './ActionTypes';
+import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data,LOGOUT_ACTION } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
-
+import ToasterFunction from "../../components/ToasterFunc"
 
 
 export const loginAction = (credential,navigationFunction) => dispatch => {
@@ -27,7 +27,15 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
                     else if(resp.data.responseCode==402)
                     {
                         // console.log("Invalid credentials")
-                        alert("Invalid credentials")
+                        ToasterFunction("invalid","Invalid credentials")
+                    }
+                    else if(resp.data.responseCode==404)
+                    {
+                        // console.log("Invalid credentials")
+                        ToasterFunction("error","Provided email/mobile number is not registered")
+                    }
+                    else if(resp.data.responseCode==500){
+                        ToasterFunction("error","Internal Server Error")
                     }
                 }
                     break
@@ -42,12 +50,20 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
         }
         )
 }
+
+
+
+export const logoutAction = () => dispatch => {
+    
+    // console.log('navigationFunction=>', navigationFunction);
+    dispatch({ type: LOGOUT_ACTION})
+   
+   
+}
 // export const logoutAction = (credential,navigationFunction) => dispatch => {
 //                     dispatch({ type: "Logout", payload:false })
 //                     navigationFunction()
 // }
-
-
 
 
 export const signupAction = (credential, navigationFunction) => dispatch => {
@@ -70,7 +86,12 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
                     else if(resp.data.responseCode==404)
                     {
                         // console.log("Invalid credentials")
-                        alert("This Email/Mobile number already exists")
+                        ToasterFunction("exist","This Email/Mobile number already exists")
+                    }
+                    else if(resp.data.responseCode==500)
+                    {
+                        // console.log("Invalid credentials")
+                        ToasterFunction("error","Internal Server Error")
                     }
                 }
                     break
@@ -108,17 +129,17 @@ export const loginActionRetailer = (credential,navigationFunction) => dispatch =
                     else if(resp.data.responseCode==402)
                     {
                         // console.log("Invalid credentials")
-                        alert("Invalid credentials")
+                        ToasterFunction("Err","Invalid credentials")
                     }
                     else if(resp.data.responseCode==404)
                     {
                         // console.log("Invalid credentials")
-                        alert("No data found")
+                        ToasterFunction("Err","Provided email/mobile number is not registered")
                     }
                     else if(resp.data.responseCode==500)
                     {
                         // console.log("Invalid credentials")
-                        alert("Internal Server Error")
+                        ToasterFunction("Err","Internal Server Error")
                     }
                 }
                     break
@@ -133,6 +154,9 @@ export const loginActionRetailer = (credential,navigationFunction) => dispatch =
         }
         )
 }
+
+
+
 
 export const signupActionRetailer = (credential, navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>Signup', credential);
@@ -153,7 +177,12 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
                     else if(resp.data.responseCode==404)
                     {
                         // console.log("Invalid credentials")
-                        alert("This Email/Mobile number already exists")
+                        ToasterFunction("exist","This Email/Mobile number already exists")
+                    }
+                    else if(resp.data.responseCode==500)
+                    {
+                        // console.log("Invalid credentials")
+                        ToasterFunction("Err","Internal Server Error")
                     }
                 }
                     break
@@ -170,7 +199,6 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
         )
 
 }
-
 
 
 
