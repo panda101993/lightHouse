@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ToasterFunction from '../components/ToasterFunc';
 import ApiRequest from '../api/Apirequest';
+import PreviewWebpageRetailer from '../components/PreviewWebpageRetailer'
 export default class CreateWebpage extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-
+            PreviewWebpageRetailerStatus:false,
             modalStatus: false,
-            name:"5678",
-            martName:"1234"
+            
+            
+            ShopNumber:"540",
+            FloorNumber:"8",
+            MartName:"VIshal",
+            MartAddress:"Patna",
+            ShopName:"Vishal_mega_mart",
+
 
         }
     }
@@ -26,12 +33,12 @@ console.log("componentDidMount====>")
     "retailerId" : "5eeb69d78f89e2137e0e52eb",
     "basicInformation" : [ 
         {
-            "shopName" : "Vishal mega mart",
-            "shopNumber" : "540",
-            "floorNumber" : "8",
+            "shopName" : this.state.ShopName,
+            "shopNumber" : this.state.ShopNumber,
+            "floorNumber" :this.state.FloorNumber,
             "shopPhoneNumber" : "787878787878",
-            "martName" : "VIshal",
-            "martAddress" : "Patna"
+            "martName" : this.state.MartName,
+            "martAddress" : this.state.MartAddress
         }
     ],
     "aboutUs" : "lorem ipsum dolor sit amet",
@@ -148,7 +155,7 @@ console.log("obj==>",obj)
 
     render() {
         return (
-            <div>
+            this.state.PreviewWebpageRetailerStatus ? <PreviewWebpageRetailer ShopNumber={this.state.ShopNumber}  FloorNumber={this.state.FloorNumber} MartName={this.state.MartName} MartAddress={this.state.MartAddress}  ShopName={this.state.shopName} />: <div>
                 
                 <div class="tab-pane fade show active" id="v-pills-webpage" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                     <div class="name_c3">
@@ -697,7 +704,7 @@ console.log("obj==>",obj)
                             <div class="name_c3">
                                 <ul class="button_cs">
                                     <a href="77-settings-retailer.html"> <li class="cancel_c3"><button class="save" data-toggle="modal" data-target="#exampleModal">Cancel</button></li></a>
-                                    <Link to={`/Setting_retailer/PreviewWebpageRetailer`}><li class="cancel_c3"><button  class="save" data-toggle="modal" data-target="#">Preview</button></li></Link>
+                                    <li button onClick={()=>{this.setState({PreviewWebpageRetailerStatus: true})}} class="cancel_c3"><button  class="save" data-toggle="modal" data-target="#">Preview</button></li>
                                     <li><button onClick={()=>{this.handleSave()}} type="button" class="save" data-toggle="modal" data-target="#thanks-for">Save</button></li>
                                 </ul>
                             </div>
@@ -705,6 +712,7 @@ console.log("obj==>",obj)
                     </div>
                 </div>
             </div>
+        
         )
     }
 }
