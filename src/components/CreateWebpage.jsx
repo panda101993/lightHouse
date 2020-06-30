@@ -145,6 +145,7 @@ console.log("obj==>",obj)
      console.log('hitting====>/retailer/websites');
 }
 
+
     render() {
         return (
             <div>
@@ -696,6 +697,7 @@ console.log("obj==>",obj)
                             <div class="name_c3">
                                 <ul class="button_cs">
                                     <a href="77-settings-retailer.html"> <li class="cancel_c3"><button class="save" data-toggle="modal" data-target="#exampleModal">Cancel</button></li></a>
+                                    <Link to={`/Setting_retailer/PreviewWebpageRetailer`}><li class="cancel_c3"><button  class="save" data-toggle="modal" data-target="#">Preview</button></li></Link>
                                     <li><button onClick={()=>{this.handleSave()}} type="button" class="save" data-toggle="modal" data-target="#thanks-for">Save</button></li>
                                 </ul>
                             </div>
