@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -6,6 +6,9 @@ import { validatePinCode, validateProvince, validateCity, validateAddress } from
 import ProvinceJSON from '../utils/JSON/province.json';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
+import Cookies from 'universal-cookie';
+import {loginAction} from "../redux/action/AuthAction";
+import { connect } from "react-redux";
 
 const Header4 = (props) => {
     const [pinCode, setPinCode] = useState("");
@@ -38,90 +41,127 @@ const Header4 = (props) => {
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
     const toggle2 = () => setDropdownOpen2(prevState => !prevState);
 
-    let handlePinCode = (event) => {
-        setPinCode(event.target.value)
-        setPinCodeError(validatePinCode(event.target.value).error);
-        setPinCodeStatus(validatePinCode(event.target.value).status);
-    }
+    //set location
+    const [latitude,setLatitude] = useState("");
+    const [longitude,setLongitude] = useState("");
 
-    let handleProvince = (event) => {
-        setProvince(event.target.value);
-        setProvinceError(validateProvince(event.target.value).error);
-        setProvinceStatus(validateProvince(event.target.value).status);
-    }
+    // let handlePinCode = (event) => {
+    //     setPinCode(event.target.value)
+    //     setPinCodeError(validatePinCode(event.target.value).error);
+    //     setPinCodeStatus(validatePinCode(event.target.value).status);
+    // }
 
-    let handleCity = (event) => {
-        setCity(event.target.value);
-        setCityError(validateCity(event.target.value).error);
-        setCityStatus(validateCity(event.target.value).status);
-    }
+    // let handleProvince = (event) => {
+    //     setProvince(event.target.value);
+    //     setProvinceError(validateProvince(event.target.value).error);
+    //     setProvinceStatus(validateProvince(event.target.value).status);
+    // }
 
-    let handleAddress = (event) => {
-        setAddress(event.target.value);
-        setAddressError(validateAddress(event.target.value).error);
-        setAddressStatus(validateAddress(event.target.value).status);
-    }
+    // let handleCity = (event) => {
+    //     setCity(event.target.value);
+    //     setCityError(validateCity(event.target.value).error);
+    //     setCityStatus(validateCity(event.target.value).status);
+    // }
+
+    // let handleAddress = (event) => {
+    //     setAddress(event.target.value);
+    //     setAddressError(validateAddress(event.target.value).error);
+    //     setAddressStatus(validateAddress(event.target.value).status);
+    // }
 
 
     // to return list of state 
-    const ProvinceList = ProvinceJSON.states.map((item, index) => {
-        return <option value={item.state} 
-        >{item.state}</option>
+    // const ProvinceList = ProvinceJSON.states.map((item, index) => {
+    //     return <option value={item.state} 
+    //     >{item.state}</option>
         
-    });
+    // });
 
-    let getPopupAddress = () => {
-    try {
-        apiRequest({pinCode:pinCode,state:province,city:city,address:address},'/user/dashboardPopupAddress','POST')
-     .then((resp)=>{
-         console.log('response==',resp)
+    // let getPopupAddress = () => {
+    // try {
+    //     apiRequest({pinCode:pinCode,state:province,city:city,address:address},'/user/dashboardPopupAddress','POST')
+    //  .then((resp)=>{
+    //      console.log('response==',resp)
 
-         switch(resp.status) {
-             case(200): {
-                 if(resp.data.responseCode == 200)
-                 {
-                    ToasterFunction("success", "Location added successfully");
-                    //  alert("Location added successfully")
-                 }
-                 else if(resp.data.responseCode == 404)
-                 {
-                    ToasterFunction("info", "Location not found");
-                    //  alert("Location not found")
-                 }
-                 else if(resp.data.responseCode == 500)
-                 {
-                    ToasterFunction("error", "Internal Server Error");
-                    //  alert("Internal Server Error")
-                 }
-             }
-         }
+    //      switch(resp.status) {
+    //          case(200): {
+    //              if(resp.data.responseCode == 200)
+    //              {
+    //                 ToasterFunction("success", "Location added successfully");
+    //                 //  alert("Location added successfully")
+    //              }
+    //              else if(resp.data.responseCode == 404)
+    //              {
+    //                 ToasterFunction("info", "Location not found");
+    //                 //  alert("Location not found")
+    //              }
+    //              else if(resp.data.responseCode == 500)
+    //              {
+    //                 ToasterFunction("error", "Internal Server Error");
+    //                 //  alert("Internal Server Error")
+    //              }
+    //          }
+    //      }
 
       
-     })   
-    } catch (error) {
-        console.log("responseerror==",error)
-        ToasterFunction("error", "Network error, please contact the administrator");
+    //  })   
+    // } catch (error) {
+    //     console.log("responseerror==",error)
+    //     ToasterFunction("error", "Network error, please contact the administrator");
         
-    }
+    // }
         
-    }
+    // }
 
 
 
-    function validatemain() {
-        if (pinCodeStatus) {
-            if (provinceStatus) {
-                if (cityStatus) {
-                    if (addressStatus) {
-                        getPopupAddress();
-                        // alert(`submit sucsessfully`)
-                        setModal1(!modalStatus1)
-                    } else { setAddressError("*Please Enter Address") }
-                } else { setCityError("*Please Select City") }
-            } else { setProvinceError("*Please Select State") }
-        } else { setPinCodeError("*Please Enter Pin code") }
-    }
+    // function validatemain() {
+    //     if (pinCodeStatus) {
+    //         if (provinceStatus) {
+    //             if (cityStatus) {
+    //                 if (addressStatus) {
+    //                     getPopupAddress();
+    //                     // alert(`submit sucsessfully`)
+    //                     setModal1(!modalStatus1)
+    //                 } else { setAddressError("*Please Enter Address") }
+    //             } else { setCityError("*Please Select City") }
+    //         } else { setProvinceError("*Please Select State") }
+    //     } else { setPinCodeError("*Please Enter Pin code") }
+    // }
+    useEffect(() => {
+        const cookies = new Cookies();
+         
+        const latitude = cookies.get('latitude')
 
+        
+        const longitude = cookies.get('longitude')
+
+        // console.log("long",longitude)
+        // console.log("latt",latitude)
+        setLatitude(latitude);
+        setLongitude(longitude);
+        getMyProfile();
+
+      });
+
+      let getMyProfile = () =>{
+        try {
+            console.log('profiletoken-',props.applicationData.token);
+            apiRequest({ }, '/user/myProfile', 'GET',props.applicationData.token)
+               .then((resp) => {
+                  console.log('responseheaderforprofile=>', resp);
+                  // console.log('response===>', resp.data.userData);
+                //   this.setState({
+                //      allData: resp.data.result
+                //   });
+               });
+   
+         } catch (error) {
+            console.log('erroresponse==>', error)
+   
+         }
+
+      }
 
     return (
         <div>
@@ -135,7 +175,8 @@ const Header4 = (props) => {
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                        {/* <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a> */}
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " +longitude}<i class="" aria-hidden="true"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -212,7 +253,7 @@ const Header4 = (props) => {
                                     <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                                     <li class="prfile">
                                         <img src={require("../assets/images/new-profile.png")} />
-                                        <p>Kamal</p>
+                                        <p>kamal</p>
                                     </li>
                                 </ul>
                             </div>
@@ -257,7 +298,7 @@ const Header4 = (props) => {
                                     <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                                     <li class="prfile">
                                         <img src={require("../assets/images/new-profile.png")} />
-                                        <p>Kamal</p>
+                                        <p>kamal</p>
                                     </li>
                                 </ul>
                             </div>
@@ -278,7 +319,7 @@ const Header4 = (props) => {
                 </ModalBody>
             </Modal>
 
-            <Modal isOpen={modalStatus1} style={{ top: "25px", marginLeft: "110px" }}>
+            {/* <Modal isOpen={modalStatus1} style={{ top: "25px", marginLeft: "110px" }}>
                 <ModalBody>
                     <form>
                         <div class="modal-header">
@@ -327,7 +368,7 @@ const Header4 = (props) => {
                                         .filter(({state})=> state == province)
                                         .map(({districts}) => districts.map((DistrictList) =><option>{DistrictList}</option>))}
                                             <option value="">Select City</option>
-                                            {/* { DistrictList } */}
+                                            
                                         </select>
                                         
                                     </div>
@@ -355,11 +396,25 @@ const Header4 = (props) => {
                         </div>
                     </form>
                 </ModalBody>
-            </Modal>
+            </Modal>  */}
 
 
         </div>
     )
 }
 
-export default Header4
+// export default Header4
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+    return {
+       applicationData: state.AuthReducer.userData,
+       isLoggedIn: state.AuthReducer.isLoggedIn
+         
+    }
+          
+ }
+ 
+ 
+ 
+ // export default componentName
+ export default connect(mapStateToProps,{loginAction})(Header4);

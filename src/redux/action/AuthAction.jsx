@@ -63,7 +63,7 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
 
     Apirequest(credential, "/user/signUp", "POST")
         .then((resp) => {
-            console.log('respSSresp===>',resp);
+            console.log('responseSignup===>',resp);
             dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
 
             switch (resp.status) {
