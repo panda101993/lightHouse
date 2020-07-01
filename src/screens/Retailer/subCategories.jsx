@@ -144,6 +144,7 @@ export class subCategories extends Component {
       > 
         
         {this.state.allData.map((allCouponData, index)=>{
+           console.log("allCouponDataakhtar",allCouponData)
           return(
             <div>
              

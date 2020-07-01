@@ -94,6 +94,7 @@ export class ItemList extends Component {
    couponSubCategory() {
       // console.log("applicationData",this.props.applicationData)
       return this.state.allData.map((allCouponData, index) => {
+         console.log("allCouponDataakht",allCouponData)
          return (
             <div>
                <CouponsImage

@@ -93,6 +93,7 @@ export class AllCouponsRetailers extends Component {
   couponRetailer(){
     // console.log("applicationData",this.props.applicationData)
       return this.state.allData.map((allCouponData, index)=>{
+        console.log("allCouponDataakhtar",allCouponData)
         return(
           <div>
             {/* <Carousel

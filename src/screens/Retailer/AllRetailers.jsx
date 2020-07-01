@@ -272,8 +272,12 @@ export class AllRetailers extends Component {
     >
       
       {this.props.allCouponData.map((allCoupon, index) => {
-        console.log("applicationData--", allCoupon.retailerId.users)
-        console.log("applicationDataakh--", allCoupon)
+        // console.log("applicationData--", allCoupon.retailerId.users)
+        if(!allCoupon.retailerId.address)return null;
+        if(!allCoupon.retailerId.city)return null;
+        if(!allCoupon.retailerId.pinCode)return null;
+        if(!allCoupon.retailerId.state)return null;
+        // console.log("applicationDataakh--", allCoupon.retailerId.city)
 
         return (
           <div>
@@ -299,11 +303,6 @@ export class AllRetailers extends Component {
                 City={allCoupon.retailerId.city}
                 PinCode={allCoupon.retailerId.pinCode}
                 State={allCoupon.retailerId.state}
-
-
-
-
-
               />
            
           </div>

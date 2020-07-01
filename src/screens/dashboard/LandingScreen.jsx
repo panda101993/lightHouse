@@ -117,16 +117,7 @@ class componentName extends Component {
       try {
           console.log('profiletoken-',this.props.applicationData.token);
           this.props.action.endUserProfileAction({ token:this.props.applicationData.token })
-          // apiRequest({ }, '/user/myProfile', 'GET',props.applicationData.token)
-          //    .then((resp) => {
-          //       console.log('responseheaderforprofile=>', resp);
-          //       this.setState({
-          //          allData: resp.data.result
-          //       });
-          //     setAllData(resp.data.result)
-              
-
-          //    });
+         
  
        } catch (error) {
           console.log('erroresponse==>', error)
