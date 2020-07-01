@@ -15,6 +15,7 @@ import Apirequest from "../../../api/Apirequest";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { retailerProfileAction } from "../../../redux/action/ProfileDetailsAction";
+import { getTemplate } from '../../../utils/SVG';
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -129,7 +130,7 @@ class Coupon_template extends Component {
                 dotListClass="slider-item"
                 itemClass="carousel-item-padding-40-px"
               >
-                {this.state.couponTemplateList.map((item, index) => {
+                {/* {this.state.couponTemplateList.map((item, index) => {
                   console.log("couponTemplate_item==>", item)
                   return (
                     <div>
@@ -145,6 +146,14 @@ class Coupon_template extends Component {
                       </div>
                     </div>
                   )
+                })
+                } */}
+                {this.state.couponTemplateList.map((item, index) => {
+                  return (
+                    <Link to={`/CreateCouponform/${index}`} >
+                    {getTemplate(index,{name:index})}
+                    </Link>
+                    )
                 })
                 }
               </Carousel>
