@@ -101,11 +101,11 @@ import {
         setLatitude(latitude);
         setLongitude(longitude);
       // window.location.href = "https://www.google.com/maps/dir/";
-      window.open(`https://www.google.com/maps/dir/'${latitude},${longitude}'/Gorakhpur`, '_blank');
+      window.open(`https://www.google.com/maps/dir/'${latitude},${longitude}'/${props.Address},${props.City}`, '_blank');
       // window.open({`https://www.google.com/maps/dir/${latitude,longitude}`}, '_blank');
       // https://www.google.com/maps/dir/'26.1317471,83.5339765'/Gorakhpur
       // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
-
+      setModal1(false)
       
    }
    
