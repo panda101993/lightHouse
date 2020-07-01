@@ -2,15 +2,10 @@ import React, { useState,useEffect } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { validatePinCode, validateProvince, validateCity, validateAddress } from '../utils/validation/Validation';
-import ProvinceJSON from '../utils/JSON/province.json';
-import apiRequest from '../api/Apirequest';
-import ToasterFunction from '../components/ToasterFunc';
 import Cookies from 'universal-cookie';
-import {loginAction} from "../redux/action/AuthAction";
 import { endUserProfileAction } from '../redux/action/EndUserProfileAction';
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+
 
 
 const Header4 = (props) => {
@@ -62,37 +57,10 @@ const Header4 = (props) => {
         // console.log("latt",latitude)
         setLatitude(latitude);
         setLongitude(longitude);
-        getMyProfile();
 
       });
 
-      let getMyProfile = () =>{
-        try {
-            console.log('profiletoken-',props.applicationData.token);
-            props.action.endUserProfileAction({ token:props.applicationData.token })
-            // apiRequest({ }, '/user/myProfile', 'GET',props.applicationData.token)
-            //    .then((resp) => {
-            //       console.log('responseheaderforprofile=>', resp);
-            //       this.setState({
-            //          allData: resp.data.result
-            //       });
-            //     setAllData(resp.data.result)
-                
-
-            //    });
-   
-         } catch (error) {
-            console.log('erroresponse==>', error)
-   
-         }
-
-      }
-
-    //   let setProfileData = () =>{
-
-    //   }
-
-
+  
     return (
         <div>
             <header >
@@ -228,7 +196,7 @@ const Header4 = (props) => {
                                     <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                                     <li class="prfile">
                                         <img src={require("../assets/images/new-profile.png")} />
-                                        <p>kamal</p>
+                                        <p>{props.endUserProfileData.firstName}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -255,33 +223,16 @@ const Header4 = (props) => {
     )
 }
 
-// export default Header4
-// const mapStateToProps = state => {
-//     console.log("stateLogin-------", state)
-//     return {
-//        applicationData: state.AuthReducer.userData
-         
-//     }
-          
-//  }
- 
- 
- 
-//  // export default componentName
-//  export default connect(mapStateToProps,{loginAction})(Header4);
 
- const mapStateToProps = state => {
-    console.log("stateprofile", state)
-    return {
-    //   allProfileData: state.CouponCodeReducer.userData,
-      applicationData: state.AuthReducer.userData
-    }
-  }
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      action: bindActionCreators({ endUserProfileAction }, dispatch)
-    }
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Header4);
+const mapStateToProps = state => {
+    // console.log("stateLogin-------", state)
+   return {
+      
+    endUserProfileData: state.EndUserProfileReducer.endUserProfileData 
+   }
+         
+}
+
+
+
+export default connect(mapStateToProps,{endUserProfileAction})(Header4);

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
+import Cookies from 'universal-cookie';
 import {
    EmailShareButton,
    FacebookShareButton,
@@ -45,10 +46,12 @@ import {
    const [modalStatus, setModal] = useState(false);   
    const [modalStatusImage, setModal1] = useState(false);
    const [modalStatusBackImage,setModal2] = useState(false);
+   const [latitude,setLatitude] = useState("");
+   const [longitude,setLongitude] = useState("");
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
       CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
-      FloorNumber,MartName,ShopPhoneNumber,Restrictions,HeartData,} = props
+      FloorNumber,MartName,ShopPhoneNumber,Restrictions,Address,City,PinCode,State} = props
 
    console.log("props==", props)
 
@@ -86,6 +89,24 @@ import {
   
       }
       setModal1(false)
+   }
+
+   let navigateToShop = () =>{
+      const cookies = new Cookies();
+         
+        const latitude = cookies.get('latitude')  
+        const longitude = cookies.get('longitude')
+        console.log("longCoupon",longitude)
+        console.log("latt",latitude)
+        setLatitude(latitude);
+        setLongitude(longitude);
+      // window.location.href = "https://www.google.com/maps/dir/";
+      window.open(`https://www.google.com/maps/dir/'${latitude},${longitude}'/Gorakhpur`, '_blank');
+      // window.open({`https://www.google.com/maps/dir/${latitude,longitude}`}, '_blank');
+      // https://www.google.com/maps/dir/'26.1317471,83.5339765'/Gorakhpur
+      // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+
+      
    }
    
       return (
@@ -277,7 +298,7 @@ import {
                      {/* <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#delcoup" onClick={() => setModal1(modalStatusImage)} >Delete</button> */}
                      <button type="button" class="btn setloc-ap cl" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#nosee" onClick={() => addToFavourite(CouponId)}  >Add to Favourite</button>
                      <button type="button" class="btn setloc-ap" data-dismiss="modal" data-toggle="modal" data-target="#" onclick="window.location.href = '65-all-coupons -retailer.html';" onClick={() => setModal1(false)} >Call Shop</button>
-                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onclick="window.location.href = '65-all-coupons -retailer.html';" onClick={() => setModal1(false)} >Navigate to Shop</button>
+                     <button type="button" class="btn setloc-ap" type="submit" data-dismiss="modal" onclick="window.location.href = '65-all-coupons -retailer.html';" onClick={() => navigateToShop()} >Navigate to Shop</button>
                   </div>
                </ModalBody>
             </Modal>

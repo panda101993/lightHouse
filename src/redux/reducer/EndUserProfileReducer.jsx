@@ -1,7 +1,10 @@
 import { ENDUSER_PROFILE_ACTION } from '../action/ActionTypes';
 
 const initialState = {
-    
+    endUserProfileData:{
+        credit:0,
+        shopName:''
+    }
 }
 
 export const EndUserProfileReducer = (state = initialState, action) => {

@@ -273,6 +273,7 @@ export class AllRetailers extends Component {
       
       {this.props.allCouponData.map((allCoupon, index) => {
         console.log("applicationData--", allCoupon.retailerId.users)
+        console.log("applicationDataakh--", allCoupon)
 
         return (
           <div>
@@ -294,6 +295,10 @@ export class AllRetailers extends Component {
                 MartName={allCoupon.martName}
                 ShopPhoneNumber={allCoupon.shopPhoneNumber}
                 Restrictions={allCoupon.restrictions}
+                Address={allCoupon.retailerId.address}
+                City={allCoupon.retailerId.city}
+                PinCode={allCoupon.retailerId.pinCode}
+                State={allCoupon.retailerId.state}
 
 
 
@@ -399,7 +404,7 @@ export class AllRetailers extends Component {
 // export default AllRetailers
 
 const mapStateToProps = state => {
-  console.log("stateabc", state)
+  console.log("stateabc", state) 
   return {
     allCouponData: state.CouponCodeReducer.userData,
     applicationData: state.AuthReducer.userData

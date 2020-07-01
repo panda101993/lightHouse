@@ -19,6 +19,8 @@ import {loginAction} from "../../redux/action/AuthAction";
 import { connect } from "react-redux";
 import Cookies from 'universal-cookie';
 import ToasterFunction from '../../components/ToasterFunc';
+import { endUserProfileAction } from '../../redux/action/EndUserProfileAction';
+import { bindActionCreators } from 'redux';
 
 const responsive = {
    desktop: {
@@ -111,9 +113,32 @@ class componentName extends Component {
       }
    }
 
+   getMyProfile = () =>{
+      try {
+          console.log('profiletoken-',this.props.applicationData.token);
+          this.props.action.endUserProfileAction({ token:this.props.applicationData.token })
+          // apiRequest({ }, '/user/myProfile', 'GET',props.applicationData.token)
+          //    .then((resp) => {
+          //       console.log('responseheaderforprofile=>', resp);
+          //       this.setState({
+          //          allData: resp.data.result
+          //       });
+          //     setAllData(resp.data.result)
+              
+
+          //    });
+ 
+       } catch (error) {
+          console.log('erroresponse==>', error)
+ 
+       }
+
+    }
+
    async componentDidMount() {
 
    this.getmartsbyUserList();
+   this. getMyProfile();
    
    }
 
@@ -249,6 +274,7 @@ class componentName extends Component {
                      HeartData = {heartStatus}
                      blankHeart={Imageid.heartImage}
                      redHeart={Imageid.RedHeart}
+                     ReloadApi={()=>this.getmartsbyUserList()}
                      
                   />
               
@@ -292,16 +318,20 @@ class componentName extends Component {
       )
    }
 }
+
+
 const mapStateToProps = state => {
-    console.log("stateLogin-------", state)
+   // console.log("stateabc", state)
    return {
-      applicationData: state.AuthReducer.userData
-        
+     applicationData: state.AuthReducer.userData,
+     endUserProfileData: state.EndUserProfileReducer.endUserProfileData
    }
-         
-}
-
-
-
-// export default componentName
-export default connect(mapStateToProps,{loginAction})(componentName);
+ }
+ 
+ const mapDispatchToProps = dispatch => {
+   return {
+     action: bindActionCreators({ endUserProfileAction }, dispatch)
+   }
+ }
+ 
+ export default connect(mapStateToProps, mapDispatchToProps)(componentName);

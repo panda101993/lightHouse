@@ -4,11 +4,11 @@ import apiRequest from '../../api/Apirequest';
 
 
 export const endUserProfileAction = (credential) => dispatch => {
-    console.log('endUserProfileAction=>', credential);
+    // console.log('endUserProfileAction=>', credential.token);
    
 
     // Apirequest({} ,"/user/myProfile", "GET",credential)
-    apiRequest(credential, '/user/myProfile', 'GET',credential)
+    apiRequest({}, '/user/myProfile', 'GET',credential.token)
         .then((resp) => {
             console.log('responseheaderforprofile=>',resp);
             // dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
@@ -20,6 +20,7 @@ export const endUserProfileAction = (credential) => dispatch => {
                     // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
+                        console.log("ENDUSER_PROFILE_ACTION",resp.data.result)
                     dispatch({ type: ENDUSER_PROFILE_ACTION, payload:resp.data.result })
                     
                     }
