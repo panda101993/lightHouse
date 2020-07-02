@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import React, { Component } from 'react'
 import Footer from '../../../components/Footer'
 import Header from '../../../components/Header'
 import Carousel from 'react-multi-carousel'
@@ -28,6 +27,11 @@ export class CreateCouponform extends Component {
 
       }
    }
+   toggleState = (stateName) => {
+      stateName.map(item => {
+         this.setState({ [`${item}`]: !this.state[`${item}`] }, () => console.log("as", this.state))
+      })
+   }
 
    render() {
       return (
@@ -52,29 +56,21 @@ export class CreateCouponform extends Component {
                      <div class="name_c3">
                         <div class="offer-in-circle">
                            {getTemplate(Number(this.props.match.params.id), { name: "asd" })}
-
-                           {/* <img src={ImageId.Image1}
-                              // src="images/greatcircle.png" 
-                              class="circle-plus" /> */}
                            <div class="plus-circle">
                               <i class="fa fa-plus-circle" aria-hidden="true"></i>
                            </div>
                         </div>
-                        <span class="name">
-                           <label>Title:</label>
+                        <span class="name"><label>Title:</label>
                            <p><input type="text" class="form-control" placeholder="Great Deal " /></p>
                         </span>
-                        <span class="name">
-                           <label>Coupon Code :</label>
+                        <span class="name"><label>Coupon Code :</label>
                            <p><input type="text" class="form-control" placeholder="Coupon Code" /></p>
                         </span>
-                        <span class="name">
-                           <label>Discount % :</label>
+                        <span class="name"><label>Discount % :</label>
                            <p><input type="text" class="form-control" placeholder="Discount %" /></p>
                         </span>
                         <span class="name">
-                           <div class="about-usicon">
-                              <label class="label">Shop Phone Number :</label>
+                           <div class="about-usicon"><label class="label">Shop Phone Number :</label>
                               <img src="images/about-us-icon-png-12.png" />
                            </div>
                            <div class="selil">
@@ -97,8 +93,7 @@ export class CreateCouponform extends Component {
                               </div>
                            </div>
                         </span>
-                        <span class="name">
-                           <label>Expiry Date :</label>
+                        <span class="name"><label>Expiry Date :</label>
                            <p>
                               <div class="ins-cale">
                                  <input type="date" class="form-control" />
@@ -106,8 +101,7 @@ export class CreateCouponform extends Component {
                               </div>
                            </p>
                         </span>
-                        <span class="name">
-                           <label>Restrictions :</label>
+                        <span class="name"><label>Restrictions :</label>
                            <p><input type="text" class="form-control" placeholder="Restrictions :" /></p>
                         </span>
                         <h3 class="enregbus coupon-apply">Coupon Apply on :</h3>
@@ -116,8 +110,7 @@ export class CreateCouponform extends Component {
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
-                                    Catgeory :
-                     </label>
+                                    Catgeory :</label>
                               </span>
                               <p>
                                  <select class="form-control">
@@ -131,8 +124,7 @@ export class CreateCouponform extends Component {
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
-                                    Sub-Category :
-                     </label>
+                                    Sub-Category :</label>
                               </span>
                               <p>
                                  <select class="form-control">
@@ -146,8 +138,7 @@ export class CreateCouponform extends Component {
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
-                                    Item Type :
-                     </label>
+                                    Item Type :</label>
                               </span>
                               <p>
                                  <select class="form-control">
@@ -161,8 +152,7 @@ export class CreateCouponform extends Component {
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
-                                    Brand :
-                     </label>
+                                    Brand :</label>
                               </span>
                               <p>
                                  <select class="form-control">
@@ -176,8 +166,7 @@ export class CreateCouponform extends Component {
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
-                                    Item Name :
-                     </label>
+                                    Item Name :</label>
                               </span>
                               <p>
                                  <select class="form-control">
@@ -192,14 +181,12 @@ export class CreateCouponform extends Component {
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       Yes
-                      </label>
+                                       Yes</label>
                                  </div>
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       No
-                       </label>
+                                       No</label>
                                  </div>
                               </div>
                               <p class="mt-3 mb-1">Inside Mart Notifications:</p>
@@ -207,20 +194,17 @@ export class CreateCouponform extends Component {
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       Target All
-                      </label>
+                                       Target All</label>
                                  </div>
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       Only Based on Wishlist
-                       </label>
+                                       Only Based on Wishlist</label>
                                  </div>
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       None
-                       </label>
+                                       None</label>
                                  </div>
                               </div>
                               <p class="mt-3 mb-1">Outside Mart Notifications:</p>
@@ -229,32 +213,27 @@ export class CreateCouponform extends Component {
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       Target All
-                      </label>
+                                       Target All</label>
                                  </div>
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       Only Based on Wishlist
-                       </label>
+                                       Only Based on Wishlist</label>
                                  </div>
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
                                     <label class="form-check-label" for="exampleRadios1">
-                                       None
-                       </label>
+                                       None</label>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <div class="two-buttonsec mt-5">
-                           {/* <a href="101-coupon-template.html"> */}
                            <Link to="/Coupon_template" class="active"  >
                               <button type="button" class="btn btn-modal">Cancel</button>
                            </Link>
-                           {/* </a> */}
                            <button type="button" class="btn btn-modal active" data-toggle="modal"
-                              data-target="#great-deal1" data-dismiss="modal" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Preview</button>
+                              data-target="#great-deal1" data-dismiss="modal" onClick={() => this.toggleState(["modalStatus"])} >Preview</button>
                         </div>
                      </div>
                   </div>
@@ -267,64 +246,49 @@ export class CreateCouponform extends Component {
                         <div class="modal-body bumoffer">
                            <div class="mainoffer">
                               <img src={ImageId.Image2}
-                                 //src="images/burger1.png"  
                                  class="bur-img" />
                               <h5><a href="60-Website(Retailer)%20.html">Burger King</a></h5>
                               <h6><a href="61-Website-(Mart-Page%20)%20.html">GIP Mall</a></h6>
-
-                              {/* <!-- <div class="cover-share">
-                        <a data-toggle="modal" data-target="#icon" data-dismiss="modal"> <img src="images/arrow back.png" class="ba"></a>
-                     </div> --> */}
                            </div>
                            <div class="modal-body ny">
-                              {/* <a href="101-coupon-template.html">  */}
-                              <Link to='/Coupon_template'  >   <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#" onClick={() => this.setState({ modalStatus: !this.state.modalStatus })} >Cancel</button>  </Link>
-                              {/* </a> */}
-                              <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#coup-success" onClick={() => this.setState({ modalStatus: !this.state.modalStatus, modalStatusSucess: !this.state.modalStatusSucess })} >Save</button>
+                              <Link to='/Coupon_template'  >   <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#" onClick={() => this.toggleState(["modalStatus"])} >Cancel</button>  </Link>
+                              <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#coup-success" onClick={() => this.toggleState(["modalStatus", "modalStatusSucess"])} >Save</button>
                               <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#prev"
-                                 onClick={() => this.setState({ modalStatus: !this.state.modalStatus, modalStatusLink: !this.state.modalStatusLink })} >Submit</button>
+                                 onClick={() => this.toggleState(["modalStatus", "modalStatusLink"])} >Submit</button>
                            </div>
                         </div>
                      </div>
-
                   </ModalBody>
                </Modal>
 
                <Modal isOpen={this.state.modalStatusSucess} toggle={this.toggle}
-                  // style={{ top: "110px", left: "100px" }} 
                   style={{ top: "190px", }}
                >
                   <ModalBody>
-
                      <div class="modal-header locationsethead">
                         <h5>Your Coupon has been saved successfully!</h5>
                      </div>
                      <div class="modal-body ok">
-                        {/* <a href="my-coupons-history.html"> */}
                         <Link to='/MyCoupanHistory' >
                            <button type="button" class="btn setloc-btn">OK</button>
                         </Link>
-                        {/* </a>  */}
                      </div>
                   </ModalBody>
                </Modal>
-
                <Modal isOpen={this.state.modalStatusLink} toggle={this.toggle} style={{ top: "190px", }} >
                   <ModalBody>
                      <div class="modal-header locationsethead adminis">
                         <h5>Thanks for  submiting the coupon. Administrator will
                            verify and will update you soon !
-                  </h5>
+                        </h5>
                      </div>
                      <div class="coupon-url">
                         <h6>Here is your link of the coupon :-<a href="https://couponhu78.com">https://couponhu78.com</a></h6>
                      </div>
                      <div class="modal-body ok">
-                        {/* <a href="101-coupon-template.html"> */}
                         <Link to='/Coupon_template' >
                            <button class="btn setloc-btn" type="submit" data-toggle="modal" data-target="#">OK</button>
                         </Link>
-                        {/* </a>  */}
                      </div>
 
                   </ModalBody>
