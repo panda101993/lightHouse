@@ -9,6 +9,9 @@ import CreateCoupon from '../../../components/CreateCoupon'
 import CoupontempleteImage from '../../../components/CoupontempleteImage'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getTemplate } from '../../../utils/SVG'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { getRetailerCategory } from "../../../utils/API_Utils/apiUtils"
 
 const ImageId = {
    Image1: require("../../../assets/images/greatcircle.png"),
@@ -19,33 +22,65 @@ const ImageId = {
 export class CreateCouponform extends Component {
    constructor(props) {
       super(props)
-
       this.state = {
          modalStatus: false,
          modalStatusSucess: false,
-         modalStatusLink: false
-
+         modalStatusLink: false,
+         Category: false,
+         SubCategory: false,
+         ItemCategory: false,
+         Brand: false,
+         ItemName: false,
+         OTC_STATE: false,
+         OTC_STATE: false,
+         INSIDE_MART:null,
+         // INSIDE_MART_TARGET_ALL: false,
+         // INSIDE_MART_WISH_BASED: false,
+         // INSIDE_MART_NONE: false,
+         OUTSIDE_MART_TARGET_ALL: false,
+         OUTSIDE_MART_WISH_BASED: false,
+         OUTSIDE_MART_NONE: false,
       }
    }
    toggleState = (stateName) => {
       stateName.map(item => {
          this.setState({ [`${item}`]: !this.state[`${item}`] }, () => console.log("as", this.state))
+         if (item === "modalStatus") {
+            let formData = {
+
+            }
+         }
       })
    }
-
+   valueHandler = (type, e) => {
+      e.preventDefault();
+      if (type === "image") {
+         this.setState({ [type]: URL.createObjectURL(e.target.files[0]) })
+      }
+      else {
+         this.setState({ [type]: e.target.value }, () => console.log("state=>", this.state))
+      }
+   }
+   handleRadio = (e) => {
+      e.preventDefault();
+      // console.log(">>>>>>",e.target)
+      this.setState({ [e.target.name]: e.target.value }, () =>this.forceUpdate())
+   }
+   componentDidMount() {
+      // getRetailerCategory()
+   }
    render() {
       return (
          <div>
             <body>
                <Header2 />
-               {console.log("props????", this.props.match.params.id)}
                <section>
                   <section>
                      <div class="container-fluid">
                         <div class="coupn-setting my-5">
                            <ul>
                               <li><Link to="/Coupon_template" class="active"  >Create Coupon</Link></li>
-                              <li ><Link to="/MyCoupanHistory" >Manage Coupons</Link></li>
+                              <li><Link to="/MyCoupanHistory" >Manage Coupons</Link></li>
                               <li><Link to='/ManageOnetime'   >Single Use Coupon</Link></li>
                               <li><Link to="/Setting_retailer">Settings</Link></li>
                            </ul>
@@ -55,23 +90,26 @@ export class CreateCouponform extends Component {
                   <div class="container border-box">
                      <div class="name_c3">
                         <div class="offer-in-circle">
-                           {getTemplate(Number(this.props.match.params.id), { name: "asd" })}
+                           {getTemplate(Number(this.props.match.params.id), this.state)}
+                           <input onChange={this.handleFileSelect} style={{ display: "none" }} type="file" accept="image/*" />
                            <div class="plus-circle">
                               <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                              <div>
+                                 <input type="file" onChange={e => this.valueHandler("image", e)} />
+                              </div>
                            </div>
                         </div>
                         <span class="name"><label>Title:</label>
-                           <p><input type="text" class="form-control" placeholder="Great Deal " /></p>
+                           <p><input type="text" class="form-control" placeholder="Great Deal" value={this.state.title} onChange={e => this.valueHandler("title", e)} /></p>
                         </span>
                         <span class="name"><label>Coupon Code :</label>
-                           <p><input type="text" class="form-control" placeholder="Coupon Code" /></p>
+                           <p><input type="text" class="form-control" placeholder="Coupon Code" value={this.state.couponCode} onChange={e => this.valueHandler("couponCode", e)} /></p>
                         </span>
                         <span class="name"><label>Discount % :</label>
-                           <p><input type="text" class="form-control" placeholder="Discount %" /></p>
+                           <p><input type="text" class="form-control" placeholder="Discount %" value={this.state.discount} onChange={e => this.valueHandler("discount", e)} /></p>
                         </span>
                         <span class="name">
                            <div class="about-usicon"><label class="label">Shop Phone Number :</label>
-                              <img src="images/about-us-icon-png-12.png" />
                            </div>
                            <div class="selil">
                               <div class="row">
@@ -79,15 +117,16 @@ export class CreateCouponform extends Component {
                                     <ul class="select_s3">
                                        <li>
                                           <select class="form-control _exmple">
-                                             <option>+91</option>
-                                             <option>2</option>
+                                             <option value={"+91"}>+91</option>
+                                             <option onChange={e => this.valueHandler("title", e)}>2</option>
                                           </select>
                                        </li>
                                     </ul>
                                  </div>
                                  <div class="col-md-10">
                                     <ul class="select_s34">
-                                       <li><input type="text" class="form-control" placeholder="9650225013" /></li>
+                                       <li><input type="tel" class="form-control" placeholder="9650225013" value={this.state.phoneNumber} onChange={e => this.valueHandler("phoneNumber", e)} />
+                                       </li>
                                     </ul>
                                  </div>
                               </div>
@@ -96,81 +135,111 @@ export class CreateCouponform extends Component {
                         <span class="name"><label>Expiry Date :</label>
                            <p>
                               <div class="ins-cale">
-                                 <input type="date" class="form-control" />
+                                 <input type="date" class="form-control" value={this.state.expiryDate} onChange={e => this.valueHandler("expiryDate", e)} />
                                  <i class="fa fa-calendar" aria-hidden="true"></i>
                               </div>
                            </p>
                         </span>
                         <span class="name"><label>Restrictions :</label>
-                           <p><input type="text" class="form-control" placeholder="Restrictions :" /></p>
+                           <p><input type="text" class="form-control" placeholder="Restrictions :" value={this.state.restrictions} onChange={e => this.valueHandler("restrictions", e)} /></p>
                         </span>
                         <h3 class="enregbus coupon-apply">Coupon Apply on :</h3>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                           <input class="form-check-input" type="radio" name="Category" value="Category" checked={this.state.Category ? true : false}
+                              onClick={this.handleRadio}
+                           />
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
                                     Catgeory :</label>
                               </span>
                               <p>
-                                 <select class="form-control">
-                                    <option>Category Name</option>
+                                 <select class="form-control" onChange={e => this.valueHandler("category", e)}>
+                                    <option >Category Name</option>
+                                    <option value={"Category 1"}>Category A</option>
+                                    <option value={"Category 2"}>Category B</option>
+                                    <option value={"Category 3"}>Category C</option>
+                                    <option value={"Category 4"}>Category D</option>
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                           <input class="form-check-input" type="radio" name="SubCategory" value="SubCategory" checked={this.state.SubCategory ? true : false}
+                              onClick={this.handleRadio}
+                           />
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
-                                    Sub-Category :</label>
+                                    Sub Category Name :</label>
                               </span>
                               <p>
-                                 <select class="form-control">
-                                    <option>Sub-Category Name</option>
+                                 <select class="form-control" onChange={e => this.valueHandler("subCategory", e)}>
+                                    <option >Sub-Category Name</option>
+                                    <option value={"Sub-Category 1"}>Sub-Category 1</option>
+                                    <option value={"Sub-Category 2"}>Sub-Category 2</option>
+                                    <option value={"Sub-Category 3"}>Sub-Category 3</option>
+                                    <option value={"Sub-Category 4"}>Sub-Category 4</option>
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                           <input class="form-check-input" type="radio" name="ItemCategory" value="ItemCategory" checked={this.state.ItemCategory ? true : false}
+                              onClick={this.handleRadio}
+                           />
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
                                     Item Type :</label>
                               </span>
                               <p>
-                                 <select class="form-control">
-                                    <option>Item Type</option>
+                                 <select class="form-control" onChange={e => this.valueHandler("itemType", e)}>
+                                    <option >Item Type</option>
+                                    <option value={"Item Type 1"}>Item Type 1</option>
+                                    <option value={"Item Type 2"}>Item Type 2</option>
+                                    <option value={"Item Type 3"}>Item Type 3</option>
+                                    <option value={"Item Type 4"}>Item Type 4</option>
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                           <input class="form-check-input" type="radio" name="Brand" value="Brand" checked={this.state.Brand ? true : false}
+                              onClick={this.handleRadio}
+                           />
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
                                     Brand :</label>
                               </span>
                               <p>
-                                 <select class="form-control">
-                                    <option>Brand Name</option>
+                                 <select class="form-control" onChange={e => this.valueHandler("Brand", e)}>
+                                    <option >Brand Name</option>
+                                    <option value={"Brand Name 1"}>Brand Name 1</option>
+                                    <option value={"Brand Name 2"}>Brand Name 2</option>
+                                    <option value={"Brand Name 3"}>Brand Name 3</option>
+                                    <option value={"Brand Name 4"}>Brand Name 4</option>
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                           <input class="form-check-input" type="radio" name="ItemName" value="ItemName" checked={this.state.ItemName ? true : false}
+                              onClick={this.handleRadio}
+                           />
                            <div class="bullet-padding">
                               <span class="name">
                                  <label class="form-check-label mar" for="exampleRadios1">
                                     Item Name :</label>
                               </span>
                               <p>
-                                 <select class="form-control">
-                                    <option>Item Name</option>
+                                 <select class="form-control" onChange={e => this.valueHandler("itemName", e)}>
+                                    <option >Item Name</option>
+                                    <option value={"Item Name 1"}>Item Name 1</option>
+                                    <option value={"Item Name 2"}>Item Name 2</option>
+                                    <option value={"Item Name 3"}>Item Name 3</option>
+                                    <option value={"Item Name 4"}>Item Name 4</option>
                                  </select>
                               </p>
                            </div>
@@ -179,31 +248,41 @@ export class CreateCouponform extends Component {
                               <div class="custom-radio">
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="OTC" id="OTC_TRUE" value="true" checked={this.state.OTC_STATE ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="OTC_TRUE">
                                        Yes</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="OTC" id="OTC_FALSE" value="false" checked={this.state.OTC_STATE ? true : true}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="OTC_FALSE">
                                        No</label>
                                  </div>
                               </div>
                               <p class="mt-3 mb-1">Inside Mart Notifications:</p>
                               <div class="custom-radio">
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_TARGET_ALL" value="INSIDE_MART_TARGET_ALL" checked={this.state.INSIDE_MART==="INSIDE_MART_TARGET_ALL" ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="INSIDE_MART">
                                        Target All</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_WISH_BASED" value="INSIDE_MART_WISH_BASED" checked={this.state.INSIDE_MART==="INSIDE_MART_WISH_BASED" ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="INSIDE_MART">
                                        Only Based on Wishlist</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_NONE" value="INSIDE_MART_NONE" checked={this.state.INSIDE_MART==="INSIDE_MART_NONE" ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="INSIDE_MART">
                                        None</label>
                                  </div>
                               </div>
@@ -211,18 +290,24 @@ export class CreateCouponform extends Component {
                               <div class="custom-radio">
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART_TARGET_ALL" id="OUTSIDE_MART_TARGET_ALL" value="OUTSIDE_MART_TARGET_ALL" checked={this.state.OUTSIDE_MART_TARGET_ALL ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="OUTSIDE_MART_TARGET_ALL">
                                        Target All</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART_WISH_BASED" id="OUTSIDE_MART_WISH_BASED" value="OUTSIDE_MART_WISH_BASED" checked={this.state.OUTSIDE_MART_WISH_BASED ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="OUTSIDE_MART_WISH_BASED">
                                        Only Based on Wishlist</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART_NONE" id="OUTSIDE_MART_NONE" value="OUTSIDE_MART_NONE" checked={this.state.OUTSIDE_MART_NONE ? true : false}
+                                       onClick={this.handleRadio}
+                                    />
+                                    <label class="form-check-label" for="OUTSIDE_MART_NONE">
                                        None</label>
                                  </div>
                               </div>
@@ -240,8 +325,6 @@ export class CreateCouponform extends Component {
                </section>
                <Modal isOpen={this.state.modalStatus} toggle={this.toggle} style={{ top: "190px", }}>
                   <ModalBody>
-
-
                      <div class="modal-content offer">
                         <div class="modal-body bumoffer">
                            <div class="mainoffer">
@@ -300,4 +383,16 @@ export class CreateCouponform extends Component {
    }
 }
 
-export default CreateCouponform
+const mapStateToProps = state => {
+   console.log("stateLogin-------", state)
+   return {
+      token: state.AuthReducer.userData.token
+   }
+
+}
+const mapDispatchToProps = dispatch => {
+   return {
+      action: bindActionCreators({}, dispatch)
+   }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCouponform);

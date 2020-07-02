@@ -34,20 +34,6 @@ const responsive = {
   },
 };
 
-const Imageid = {
-  Image1: require("../../../assets/images/Template-1.png"),
-}
-
-
-const CreateCoupon1 = () =>
-  <div>
-    <CreateCoupon />
-  </div>;
-const Coupontemplete = () =>
-  <div>
-    <CoupontempleteImage />
-  </div>;
-
 class Coupon_template extends Component {
   constructor(props) {
     super(props)
@@ -63,17 +49,12 @@ class Coupon_template extends Component {
     let obj = {}
     Apirequest(obj, "/admin/couponTemplateList", "POST")
       .then((resp) => {
-        console.log('respresp===>', resp);
-        // navigationFunction()
         switch (resp.status) {
           case (200): {
-            // console.log("responseCode",resp.data.responseCode)
             if (resp.data.responseCode == 200) {
-              console.log("coupantemplateAPI===>", resp.data.result)
               this.setState({ couponTemplateList: resp.data.result })
             }
             else if (resp.data.responseCode == 402) {
-              // console.log("Invalid credentials")
               alert("Invalid credentials")
             }
           }
@@ -151,9 +132,9 @@ class Coupon_template extends Component {
                 {this.state.couponTemplateList.map((item, index) => {
                   return (
                     <Link to={`/CreateCouponform/${index}`} >
-                    {getTemplate(index,{name:index})}
+                      {getTemplate(index, { name: index })}
                     </Link>
-                    )
+                  )
                 })
                 }
               </Carousel>

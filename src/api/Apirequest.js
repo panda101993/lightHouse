@@ -21,6 +21,8 @@ export default function apiRequest(variables, method, apiMethod, token, id) {
             },
             body: JSON.stringify(variables)         
         }
+        console.log("hitting=>",siteUrl + method, init,token);
+        
     return fetch(siteUrl + method, init)
         .then(res => res.json()
             .then(data => {
