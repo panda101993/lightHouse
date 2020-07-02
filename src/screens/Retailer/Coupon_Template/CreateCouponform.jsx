@@ -26,20 +26,14 @@ export class CreateCouponform extends Component {
          modalStatus: false,
          modalStatusSucess: false,
          modalStatusLink: false,
-         Category: false,
-         SubCategory: false,
-         ItemCategory: false,
-         Brand: false,
-         ItemName: false,
-         OTC_STATE: false,
-         OTC_STATE: false,
-         INSIDE_MART:null,
-         // INSIDE_MART_TARGET_ALL: false,
-         // INSIDE_MART_WISH_BASED: false,
-         // INSIDE_MART_NONE: false,
-         OUTSIDE_MART_TARGET_ALL: false,
-         OUTSIDE_MART_WISH_BASED: false,
-         OUTSIDE_MART_NONE: false,
+         categoryState: false,
+         subCategoryState: false,
+         itemTypeState: false,
+         brandState: false,
+         itemNameState: false,
+         OTC: "OTC_TRUE",
+         INSIDE_MART: null,
+         OUTSIDE_MART: null
       }
    }
    toggleState = (stateName) => {
@@ -47,8 +41,25 @@ export class CreateCouponform extends Component {
          this.setState({ [`${item}`]: !this.state[`${item}`] }, () => console.log("as", this.state))
          if (item === "modalStatus") {
             let formData = {
-
+               INSIDE_MART: this.state.INSIDE_MART,
+               OTC: this.state.OTC,
+               OUTSIDE_MART: this.state.OUTSIDE_MART,
+               brandName: this.state.brand,
+               categoryId: this.state.category,
+               couponCode: this.state.couponCode,
+               discount: this.state.discount,
+               ExpiryDate: this.state.expiryDate,
+               itemName: this.state.itemName,
+               itemType: this.state.itemType,
+               shopPhoneNumber: this.state.phoneNumber,
+               restrictions: this.state.restrictions,
+               image: this.state.image,
+               tiltle: this.state.title,
+               couponAppliedOn:"",
+               shopName:"",
+               floorNumber:"",
             }
+            console.log("form",formData)
          }
       })
    }
@@ -58,17 +69,22 @@ export class CreateCouponform extends Component {
          this.setState({ [type]: URL.createObjectURL(e.target.files[0]) })
       }
       else {
-         this.setState({ [type]: e.target.value }, () => console.log("state=>", this.state))
+         this.setState({ [type]: e.target.value })
       }
    }
    handleRadio = (e) => {
-      e.preventDefault();
-      // console.log(">>>>>>",e.target)
-      this.setState({ [e.target.name]: e.target.value }, () =>this.forceUpdate())
+      this.setState({ [e.target.name]: e.target.value })
    }
+
+   handleApplyFilters = (e) => {
+      let val = e.target.name.split("State")[0]
+      this.setState({ [e.target.name]: !this.state[e.target.name] }, () => this.state[val] ? this.setState({ [`${val}`]: null }) : null)
+   }
+
    componentDidMount() {
       // getRetailerCategory()
    }
+
    render() {
       return (
          <div>
@@ -145,8 +161,10 @@ export class CreateCouponform extends Component {
                         </span>
                         <h3 class="enregbus coupon-apply">Coupon Apply on :</h3>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="Category" value="Category" checked={this.state.Category ? true : false}
-                              onClick={this.handleRadio}
+                           <input class="form-check-input" type="radio" name="categoryState"
+                              value="categoryState"
+                              checked={!this.state.categoryState ? true : false}
+                              onClick={this.handleApplyFilters}
                            />
                            <div class="bullet-padding">
                               <span class="name">
@@ -156,17 +174,24 @@ export class CreateCouponform extends Component {
                               <p>
                                  <select class="form-control" onChange={e => this.valueHandler("category", e)}>
                                     <option >Category Name</option>
-                                    <option value={"Category 1"}>Category A</option>
-                                    <option value={"Category 2"}>Category B</option>
-                                    <option value={"Category 3"}>Category C</option>
-                                    <option value={"Category 4"}>Category D</option>
+                                    {!this.state.categoryState ?
+                                       <>
+                                          <option value={"Category 1"} disabled={this.state.categoryState}>Category A</option>
+                                          <option value={"Category 2"} disabled={this.state.categoryState}>Category B</option>
+                                          <option value={"Category 3"} disabled={this.state.categoryState}>Category C</option>
+                                          <option value={"Category 4"} disabled={this.state.categoryState}>Category D</option>
+                                       </>
+                                       : <></>
+                                    }
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="SubCategory" value="SubCategory" checked={this.state.SubCategory ? true : false}
-                              onClick={this.handleRadio}
+                           <input class="form-check-input" type="radio" name="subCategoryState"
+                              value="subCategoryState"
+                              checked={!this.state.subCategoryState ? true : false}
+                              onClick={this.handleApplyFilters}
                            />
                            <div class="bullet-padding">
                               <span class="name">
@@ -176,17 +201,24 @@ export class CreateCouponform extends Component {
                               <p>
                                  <select class="form-control" onChange={e => this.valueHandler("subCategory", e)}>
                                     <option >Sub-Category Name</option>
-                                    <option value={"Sub-Category 1"}>Sub-Category 1</option>
-                                    <option value={"Sub-Category 2"}>Sub-Category 2</option>
-                                    <option value={"Sub-Category 3"}>Sub-Category 3</option>
-                                    <option value={"Sub-Category 4"}>Sub-Category 4</option>
+                                    {!this.state.subCategoryState ?
+                                       <>
+                                          <option value={"Sub-Category 1"} disabled={this.state.subCategoryState}>Sub-Category 1</option>
+                                          <option value={"Sub-Category 2"} disabled={this.state.subCategoryState}>Sub-Category 2</option>
+                                          <option value={"Sub-Category 3"} disabled={this.state.subCategoryState}>Sub-Category 3</option>
+                                          <option value={"Sub-Category 4"} disabled={this.state.subCategoryState}>Sub-Category 4</option>
+                                       </>
+                                       : <></>
+                                    }
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="ItemCategory" value="ItemCategory" checked={this.state.ItemCategory ? true : false}
-                              onClick={this.handleRadio}
+                           <input class="form-check-input" type="radio" name="itemTypeState"
+                              value="itemTypeState"
+                              checked={!this.state.itemTypeState ? true : false}
+                              onClick={this.handleApplyFilters}
                            />
                            <div class="bullet-padding">
                               <span class="name">
@@ -196,17 +228,24 @@ export class CreateCouponform extends Component {
                               <p>
                                  <select class="form-control" onChange={e => this.valueHandler("itemType", e)}>
                                     <option >Item Type</option>
-                                    <option value={"Item Type 1"}>Item Type 1</option>
-                                    <option value={"Item Type 2"}>Item Type 2</option>
-                                    <option value={"Item Type 3"}>Item Type 3</option>
-                                    <option value={"Item Type 4"}>Item Type 4</option>
+                                    {!this.state.itemTypeState ?
+                                       <>
+                                          <option value={"Item Type 1"} disabled={this.state.itemTypeState}>Item Type 1</option>
+                                          <option value={"Item Type 2"} disabled={this.state.itemTypeState}>Item Type 2</option>
+                                          <option value={"Item Type 3"} disabled={this.state.itemTypeState}>Item Type 3</option>
+                                          <option value={"Item Type 4"} disabled={this.state.itemTypeState}>Item Type 4</option>
+                                       </>
+                                       : <></>
+                                    }
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="Brand" value="Brand" checked={this.state.Brand ? true : false}
-                              onClick={this.handleRadio}
+                           <input class="form-check-input" type="radio" name="brandState"
+                              value="brandState"
+                              checked={!this.state.brandState ? true : false}
+                              onClick={this.handleApplyFilters}
                            />
                            <div class="bullet-padding">
                               <span class="name">
@@ -214,19 +253,26 @@ export class CreateCouponform extends Component {
                                     Brand :</label>
                               </span>
                               <p>
-                                 <select class="form-control" onChange={e => this.valueHandler("Brand", e)}>
+                                 <select class="form-control" onChange={e => this.valueHandler("brand", e)}>
                                     <option >Brand Name</option>
-                                    <option value={"Brand Name 1"}>Brand Name 1</option>
-                                    <option value={"Brand Name 2"}>Brand Name 2</option>
-                                    <option value={"Brand Name 3"}>Brand Name 3</option>
-                                    <option value={"Brand Name 4"}>Brand Name 4</option>
+                                    {!this.state.brandState ?
+                                       <>
+                                          <option value={"Brand Name 1"} disabled={this.state.brandState}>Brand Name 1</option>
+                                          <option value={"Brand Name 2"} disabled={this.state.brandState}>Brand Name 2</option>
+                                          <option value={"Brand Name 3"} disabled={this.state.brandState}>Brand Name 3</option>
+                                          <option value={"Brand Name 4"} disabled={this.state.brandState}>Brand Name 4</option>
+                                       </>
+                                       : <></>
+                                    }
                                  </select>
                               </p>
                            </div>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="ItemName" value="ItemName" checked={this.state.ItemName ? true : false}
-                              onClick={this.handleRadio}
+                           <input class="form-check-input" type="radio" name="itemNameState"
+                              value="itemNameState"
+                              checked={!this.state.itemNameState ? true : false}
+                              onClick={this.handleApplyFilters}
                            />
                            <div class="bullet-padding">
                               <span class="name">
@@ -236,10 +282,15 @@ export class CreateCouponform extends Component {
                               <p>
                                  <select class="form-control" onChange={e => this.valueHandler("itemName", e)}>
                                     <option >Item Name</option>
-                                    <option value={"Item Name 1"}>Item Name 1</option>
-                                    <option value={"Item Name 2"}>Item Name 2</option>
-                                    <option value={"Item Name 3"}>Item Name 3</option>
-                                    <option value={"Item Name 4"}>Item Name 4</option>
+                                    {!this.state.brandState ?
+                                       <>
+                                          <option value={"Item Name 1"} disabled={this.state.itemNameState}>Item Name 1</option>
+                                          <option value={"Item Name 2"} disabled={this.state.itemNameState}>Item Name 2</option>
+                                          <option value={"Item Name 3"} disabled={this.state.itemNameState}>Item Name 3</option>
+                                          <option value={"Item Name 4"} disabled={this.state.itemNameState}>Item Name 4</option>
+                                       </>
+                                       : <></>
+                                    }
                                  </select>
                               </p>
                            </div>
@@ -248,14 +299,18 @@ export class CreateCouponform extends Component {
                               <div class="custom-radio">
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="OTC" id="OTC_TRUE" value="true" checked={this.state.OTC_STATE ? true : false}
+                                    <input class="form-check-input" type="radio" name="OTC" id="OTC_TRUE"
+                                       value="OTC_TRUE"
+                                       checked={this.state.OTC === "OTC_TRUE" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="OTC_TRUE">
                                        Yes</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="OTC" id="OTC_FALSE" value="false" checked={this.state.OTC_STATE ? true : true}
+                                    <input class="form-check-input" type="radio" name="OTC" id="OTC_FALSE"
+                                       value="OTC_FALSE"
+                                       checked={this.state.OTC === "OTC_FALSE" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="OTC_FALSE">
@@ -265,21 +320,27 @@ export class CreateCouponform extends Component {
                               <p class="mt-3 mb-1">Inside Mart Notifications:</p>
                               <div class="custom-radio">
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_TARGET_ALL" value="INSIDE_MART_TARGET_ALL" checked={this.state.INSIDE_MART==="INSIDE_MART_TARGET_ALL" ? true : false}
+                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_TARGET_ALL"
+                                       value="INSIDE_MART_TARGET_ALL"
+                                       checked={this.state.INSIDE_MART === "INSIDE_MART_TARGET_ALL" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="INSIDE_MART">
                                        Target All</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_WISH_BASED" value="INSIDE_MART_WISH_BASED" checked={this.state.INSIDE_MART==="INSIDE_MART_WISH_BASED" ? true : false}
+                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_WISH_BASED"
+                                       value="INSIDE_MART_WISH_BASED"
+                                       checked={this.state.INSIDE_MART === "INSIDE_MART_WISH_BASED" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="INSIDE_MART">
                                        Only Based on Wishlist</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_NONE" value="INSIDE_MART_NONE" checked={this.state.INSIDE_MART==="INSIDE_MART_NONE" ? true : false}
+                                    <input class="form-check-input" type="radio" name="INSIDE_MART" id="INSIDE_MART_NONE"
+                                       value="INSIDE_MART_NONE"
+                                       checked={this.state.INSIDE_MART === "INSIDE_MART_NONE" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="INSIDE_MART">
@@ -290,21 +351,27 @@ export class CreateCouponform extends Component {
                               <div class="custom-radio">
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART_TARGET_ALL" id="OUTSIDE_MART_TARGET_ALL" value="OUTSIDE_MART_TARGET_ALL" checked={this.state.OUTSIDE_MART_TARGET_ALL ? true : false}
+                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART" id="OUTSIDE_MART_TARGET_ALL"
+                                       value="OUTSIDE_MART_TARGET_ALL"
+                                       checked={this.state.OUTSIDE_MART === "OUTSIDE_MART_TARGET_ALL" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="OUTSIDE_MART_TARGET_ALL">
                                        Target All</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART_WISH_BASED" id="OUTSIDE_MART_WISH_BASED" value="OUTSIDE_MART_WISH_BASED" checked={this.state.OUTSIDE_MART_WISH_BASED ? true : false}
+                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART" id="OUTSIDE_MART_WISH_BASED"
+                                       value="OUTSIDE_MART_WISH_BASED"
+                                       checked={this.state.OUTSIDE_MART === "OUTSIDE_MART_WISH_BASED" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="OUTSIDE_MART_WISH_BASED">
                                        Only Based on Wishlist</label>
                                  </div>
                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART_NONE" id="OUTSIDE_MART_NONE" value="OUTSIDE_MART_NONE" checked={this.state.OUTSIDE_MART_NONE ? true : false}
+                                    <input class="form-check-input" type="radio" name="OUTSIDE_MART" id="OUTSIDE_MART_NONE"
+                                       value="OUTSIDE_MART_NONE"
+                                       checked={this.state.OUTSIDE_MART === "OUTSIDE_MART_NONE" ? true : false}
                                        onClick={this.handleRadio}
                                     />
                                     <label class="form-check-label" for="OUTSIDE_MART_NONE">
@@ -384,7 +451,6 @@ export class CreateCouponform extends Component {
 }
 
 const mapStateToProps = state => {
-   console.log("stateLogin-------", state)
    return {
       token: state.AuthReducer.userData.token
    }
