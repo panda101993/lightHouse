@@ -80,7 +80,7 @@ export class AllRetailers extends Component {
     try {
 
 
-      console.log('martt----', Id);
+      // console.log('martt----', Id);
       //  apiRequest({martId:Id},'/user/ ','POST')
       this.props.action.myCouponData({ martId: Id })
 
@@ -91,17 +91,17 @@ export class AllRetailers extends Component {
       //  });
       //  })
     } catch (error) {
-      console.log("responseError", error)
+      // console.log("responseError", error)
 
     }
 
   }
 
   async componentDidMount() {
-    console.log('martt', window.location.pathname);
+    //  console.log('martt', window.location.pathname);
     let splitUrl = window.location.pathname.split('/')
-    console.log('martt', splitUrl);
-    console.log('martt', splitUrl[2]);
+    // console.log('martt', splitUrl);
+    // console.log('martt', splitUrl[2]);
     this.getAllCoupansOfMart(splitUrl[2]);
   }
 
@@ -153,7 +153,7 @@ export class AllRetailers extends Component {
     if (this.props.allCouponData !== undefined) {
 
       return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
-        console.log("xyzzzz=======", allCoupon.retailerId.users)
+        // console.log("xyzzzz=======", allCoupon.retailerId.users)
         return (
           <div>
             <h2 class="mn">  <Link to={`/WebsiteMart/${allCoupon.martId}`}>{allCoupon.martName} </Link></h2>
@@ -192,17 +192,17 @@ export class AllRetailers extends Component {
       
       
       {this.props.allCouponData.map((allCoupon, index) => {
-        console.log("akhtar===", allCoupon.retailerId._id)
+        // console.log("akhtar===", allCoupon.retailerId._id)
         let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
 
-        console.log('checkData--', checkData)
+        // console.log('checkData--', checkData)
         let heartStatus;
         if (checkData == -1) {
           heartStatus = false;
         } else {
           heartStatus = true;
         }
-        console.log('checkData--', heartStatus)
+        // console.log('checkData--', heartStatus)
 
 
 

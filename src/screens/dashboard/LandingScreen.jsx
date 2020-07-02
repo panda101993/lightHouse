@@ -107,7 +107,7 @@ class componentName extends Component {
         
          
       } catch (error) {
-         console.log('response===', error);
+         // console.log('response===', error);
          ToasterFunction("error", "Network error, please contact the administrator");
          
       }
@@ -120,7 +120,7 @@ class componentName extends Component {
          
  
        } catch (error) {
-          console.log('erroresponse==>', error)
+         //  console.log('erroresponse==>', error)
  
        }
 
@@ -129,7 +129,7 @@ class componentName extends Component {
    async componentDidMount() {
 
    this.getmartsbyUserList();
-   this. getMyProfile();
+   this.getMyProfile();
    
    }
 

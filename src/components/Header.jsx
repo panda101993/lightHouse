@@ -134,7 +134,7 @@ Geocode.fromAddress("Eiffel Tower").then(
       
      })   
     } catch (error) {
-        console.log("responseerror==",error)
+        // console.log("responseerror==",error)
         ToasterFunction("error", "Network error, please contact the administrator");
         
     }
@@ -164,9 +164,9 @@ setModal1(true)
 
       useEffect(() => {
         navigator.geolocation.getCurrentPosition(function(position) {
-            console.log("position",position);
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude); 
+            // console.log("position",position);
+            // console.log("Latitude is :", position.coords.latitude);
+            // console.log("Longitude is :", position.coords.longitude); 
             const cookies = new Cookies();
 cookies.set('latitude',position.coords.latitude, { path: '/' }); 
 cookies.set('longitude', position.coords.longitude, { path: '/' }); 
@@ -185,9 +185,9 @@ setLongitude(position.coords.longitude);
 
 let getCurrentLocation =() =>{
     navigator.geolocation.getCurrentPosition(function(position) {
-        console.log("position",position);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude); 
+        // console.log("position",position);
+        // console.log("Latitude is :", position.coords.latitude);
+        //  console.log("Longitude is :", position.coords.longitude); 
         setShowLocationTitle(false);
 setLatitude(position.coords.latitude);
 setLongitude(position.coords.longitude);
