@@ -34,7 +34,8 @@ export class CreateCouponform extends Component {
          itemNameState: false,
          OTC: "OTC_TRUE",
          INSIDE_MART: "INSIDE_MART_TARGET_ALL",
-         OUTSIDE_MART: "OUTSIDE_MART_TARGET_ALL"
+         OUTSIDE_MART: "OUTSIDE_MART_TARGET_ALL",
+         categoryList: []
       }
    }
    toggleState = (stateName) => {
@@ -64,6 +65,20 @@ export class CreateCouponform extends Component {
          }
       })
    }
+   getNextDropdownData =async (e,type) => {
+      console.log("type, e",e)
+      switch (type) {
+         case ("category"): {
+            let formData={
+                  "categoryId":e,
+                  "retailerId":this.props.userId
+            }
+            let  data= await getRetailerSubCategory(this.props.token,formData)
+            console.log("??????",data)
+
+         }
+      }
+   }
    valueHandler = (type, e) => {
       e.preventDefault();
       if (type === "image") {
@@ -71,7 +86,7 @@ export class CreateCouponform extends Component {
       }
       else {
          this.handleValidation(e.target.value, type)
-         this.setState({ [type]: e.target.value })
+         this.setState({ [type]: e.target.value }, () => this.getNextDropdownData(this.state[`${type}`],type))
       }
    }
    handleRadio = (e) => {
@@ -91,10 +106,10 @@ export class CreateCouponform extends Component {
             this.setState({ [`${type}Error`]: data.error, [`${type}Status`]: data.status })
             break
          case ("discount"):
-            if(value>0  && value<100){
+            if (value > 0 && value < 100) {
                this.setState({ [`${type}Error`]: true, [`${type}Status`]: "" })
             }
-            else{
+            else {
                this.setState({ [`${type}Error`]: false, [`${type}Status`]: "Please enter a valid discount!" })
             }
             break
@@ -105,7 +120,7 @@ export class CreateCouponform extends Component {
       }
    }
 
-   getActive(){
+   getActive() {
       if (this.state.couponCodeStatus === false, this.state.discountStatus === false, this.state.expiryDateStatus === false, this.state.phoneNumberStatus === false,
          this.state.restrictionsStatus === false, this.state.subCategoryState === false, this.state.titleStatus === false) {
          return true
@@ -113,10 +128,10 @@ export class CreateCouponform extends Component {
       else {
          return false
       }
-   }   
-   componentDidMount() {
-      // getRetailerCategory(this.props.token)
-      // getRetailerSubCategory(this.props.token)
+   }
+   componentDidMount = async () => {
+      let categoryList = await getRetailerCategory(this.props.token)
+      this.setState({ categoryList: categoryList }, () => console.log(">>>>>>>>", this.state))
    }
 
    render() {
@@ -210,10 +225,9 @@ export class CreateCouponform extends Component {
                                     <option >Category Name</option>
                                     {!this.state.categoryState ?
                                        <>
-                                          <option value={"Category 1"} disabled={this.state.categoryState}>Category A</option>
-                                          <option value={"Category 2"} disabled={this.state.categoryState}>Category B</option>
-                                          <option value={"Category 3"} disabled={this.state.categoryState}>Category C</option>
-                                          <option value={"Category 4"} disabled={this.state.categoryState}>Category D</option>
+                                          {this.state.categoryList.map(item =>
+                                             <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
+                                          )}
                                        </>
                                        : <></>
                                     }
@@ -483,7 +497,8 @@ export class CreateCouponform extends Component {
 
 const mapStateToProps = state => {
    return {
-      token: state.AuthReducer.userData.token
+      token: state.AuthReducer.userData.token,
+      userId: state.AuthReducer.userData.userId
    }
 
 }
