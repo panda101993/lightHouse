@@ -3,11 +3,14 @@ import Footer from '../../../components/Footer'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';   
 import  CouponsImage from '../../../components/CouponsImage'
+import Header from '../../../components/Header';
 import Header4 from '../../../components/Header4';
 import { Link } from 'react-router-dom';
 import ToasterFunction from '../../../components/ToasterFunc';
 import apiRequest from '../../../api/Apirequest';
 import Cookies from 'universal-cookie';
+import {loginAction} from "../../../redux/action/AuthAction";
+import { connect } from "react-redux";
 
 const responsive = {
   desktop: {
@@ -35,34 +38,36 @@ export class CouponsBySearch extends Component {
   
     this.state = {
 
-      allData:[]
+      allData:[],
+      isLoggedIn:""
        
     }
   }
 
 
-getSearchAllByLocation = (search) => {
+getSearchAllByLocation = (SearchId) => {
     try {
+        console.log("searcgjjjjj",SearchId)
         const cookies = new Cookies();
 
         const latitude = cookies.get('latitude')
         const longitude = cookies.get('longitude')
-        console.log("akhtarrr",latitude)
-        console.log("akhtarrr",search)
+        // console.log("akhtarrr",latitude)
+        // console.log("akhtarrr",search)
 
-        apiRequest({ lat: latitude, long: longitude, search: search }, '/user/searchAllByLocation', 'POST',)
+        apiRequest({ lat:latitude, long:longitude, search:SearchId }, '/user/searchAllByLocation', 'POST',)
             .then((resp) => {
                 console.log('responseSearch--', resp);
                 switch (resp.status) {
                     case (200):
                         {
                             if (resp.data.responseCode == 200) {
-                                //   this.setState({
-                                //       allData: resp.data.result[0].details
-                                //    });
+                                  this.setState({
+                                      allData: resp.data.result
+                                   });
                             }
                             else if (resp.data.responseCode == 404) {
-                                ToasterFunction("info", resp.data.responseMessage);
+                                // ToasterFunction("info", resp.data.responseMessage);
 
                             }
                             else if (resp.data.responseCode == 500) {
@@ -91,99 +96,56 @@ getSearchAllByLocation = (search) => {
 
 
   async componentDidMount() { 
-    console.log('retailer',window.location.pathname);
+    console.log('search',window.location.pathname);
     let splitUrl = window.location.pathname.split('/')
-    console.log('retailer',splitUrl);
-    console.log('retailer',splitUrl[2]);
+    console.log('search',splitUrl);
+    console.log('search',splitUrl[2]);
+    console.log("isLoggedIn",splitUrl[3])
    this.getSearchAllByLocation(splitUrl[2]);
+   this.setState({isLoggedIn:splitUrl[3]});
+//    this.getSearchAllByLocation();
   }
   
 
-//   couponRetailer(){
-//       return this.state.allData.map((allCouponData, index)=>{
-//         console.log("allCouponDataakhtar",allCouponData)
-//         return(
-//           <div>
+  couponsdata(){
+      return this.state.allData.map((allCouponData, index)=>{
+        console.log("allCouponDataakhtar",allCouponData)
+        return(
+          <div>
     
-//   <CouponsImage 
-//   ImageSrc={allCouponData.image}
-//   Title={allCouponData.title}
-//   CouponCode={allCouponData.couponCode}
-//   Discount={allCouponData.discount}
-//   ItemName={allCouponData.itemName}
-//   ExpiryDate={allCouponData.ExpiryDate}
-//   CouponId={allCouponData._id}
-//   CouponToken={this.props.applicationData.token}
-//   CouponAppliedOn={allCouponData.couponAppliedOn}
-//   OneTimeCoupon={allCouponData.oneTimeCoupon}
-//   ShopName={allCouponData.shopName}
-//   ShopNumber={allCouponData.retailerId.shopNumber}
-//   FloorNumber={allCouponData.floorNumber}
-//   MartName={allCouponData.martName}
-//   ShopPhoneNumber={allCouponData.shopPhoneNumber}
-//   Restrictions={allCouponData.restrictions}
+  <CouponsImage 
+  ImageSrc={allCouponData.image}
+  Title={allCouponData.title}
+  CouponCode={allCouponData.couponCode}
+  Discount={allCouponData.discount}
+  ItemName={allCouponData.itemName}
+  ExpiryDate={allCouponData.ExpiryDate}
+  CouponId={allCouponData._id}
+  CouponToken={this.props.applicationData.token}
+  CouponAppliedOn={allCouponData.couponAppliedOn}
+  OneTimeCoupon={allCouponData.oneTimeCoupon}
+  ShopName={allCouponData.shopName}
+  ShopNumber={allCouponData.retailerId.shopNumber}
+  FloorNumber={allCouponData.floorNumber}
+  MartName={allCouponData.martName}
+  ShopPhoneNumber={allCouponData.shopPhoneNumber}
+  Restrictions={allCouponData.restrictions}
+  />
   
-  
-  
-//   />
-  
-//           </div>
-//         )
-//       })
-//       }
-
-    //   retailerNamedata(){
-    //         return(
-    //       <Carousel
-    //                 swipeable={true}
-    //                 draggable={false}
-    //                 showDots={false}
-    //                 responsive={responsive}
-    //                 ssr={true} // means to render carousel on server-side.
-    //                 infinite={true}
-    //                 autoPlay={this.props.deviceType !== "mobile" ? true : false}
-    //                 autoPlaySpeed={5000000}
-    //                 keyBoardControl={true}
-    //                 customTransition="all .5"
-    //                 transitionDuration={500}
-    //                 containerClass="carousel-container"
-    //                 removeArrowOnDeviceType={["tablet", "mobile"]}
-    //                 deviceType={this.props.deviceType}
-    //                 dotListClass="custom-dot-list-style"
-    //                 itemClass="carousel-item-padding-40-px"
-    //               >
-    //                 { this.state.allData.map((allCouponData, index)=>{
-    //                   return(
-    //                 <div>
-    //                   <div class="slicent activa">
-    //                   {allCouponData.shopName}
-    //               </div>
-    //                 </div>
-    //                   )
-    //                 })
-    //               }
-    //               </Carousel>
-    //         )
-    //       }
-
-        //   retailerName(){
-        //     // console.log("applicationData",this.props.applicationData)
-        //       return this.state.allData.slice(0,1).map((allCouponData, index)=>{
-        //         return(
-        //           <div>
-        //     <h2 class="mn"><Link to={`/WebsiteRetailer/${allCouponData.retailerId}`}>{allCouponData.shopName}</Link></h2>
-        //           </div>
-        //         )
-        //       })
-        //       }
+          </div>
+        )
+      })
+      }
       
   
     render() {
         return (
             <div> 
                 <body> 
-                {/* <Header2 />  */} 
-                <Header4 />
+               { 
+               this.state.isLoggedIn ? <Header4 /> :
+                <Header />
+                }
                 <section class="second">
          <div class="container-fluid">
 
@@ -243,22 +205,11 @@ getSearchAllByLocation = (search) => {
                 <div class="slid-margin">
   
                   <div class="row mar-bottom">
-                    {/* {this.couponRetailer()} */}
-                        {/* <CouponsImage /> */}
-                      {/* <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage /> */}
+                    {this.couponsdata().length > 0 ? 
+                        this.couponsdata() 
+                        : 
+                        <div><h1>Data not found!!</h1></div>}
                   </div>
-  
-                 
-  
-                  {/* <div class="row mar-bottom">
-                        <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage />
-                  </div> */}
-  
                 </div>
   
               </div>
@@ -274,5 +225,19 @@ getSearchAllByLocation = (search) => {
     }
 }
 
- export default CouponsBySearch;
+//  export default CouponsBySearch;
+ const mapStateToProps = state => {
+    console.log("state-------", state)
+    return {
+       applicationData: state.AuthReducer.userData
+         
+    }
+          
+  }
+  
+  
+  
+  // export default componentName
+  export default connect(mapStateToProps,{loginAction})(CouponsBySearch);
+  
 

@@ -27,6 +27,7 @@ const Header4 = (props) => {
     const [address, setAddress] = useState("");
     const [addressError, setAddressError] = useState("");
     const [addressStatus, setAddressStatus] = useState(false);
+    const [search, setSearch] = useState("");
 
     const [modalStatus, setModal] = useState(false);
     const [modalStatus1, setModal1] = useState(false);
@@ -43,6 +44,15 @@ const Header4 = (props) => {
     const [latitude,setLatitude] = useState("");
     const [longitude,setLongitude] = useState("");
     // const [allData, setAllData] = useState([]);
+
+    let handleSearch = (event) => {
+        setSearch(event.target.value);
+
+    }
+
+    let navigateButton = () =>{
+        window.location.href = `/couponsBySearch/${search}/${props.isLoggedIn}`
+    }
 
   
     useEffect(() => {
@@ -170,9 +180,14 @@ const Header4 = (props) => {
 
                                     <li class="serch-sec">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
+                                            <input type="text" 
+                                              value={search}
+                                              onChange={handleSearch}
+                                              class="form-control"
+                                              placeholder="Search by Mart, Retailer, Category, Sub category, Item type, Brand" />
+                                              {/* placeholder="Search by Title, Product/Service name etc" /> */}
                                             <div class="input-group-append">
-                                                <button class="btn btn-seach" type="button">
+                                                <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
@@ -225,10 +240,11 @@ const Header4 = (props) => {
 
 
 const mapStateToProps = state => {
-    // console.log("stateLogin-------", state)
+    console.log("stateLogin-------", state)
    return {
       
-    endUserProfileData: state.EndUserProfileReducer.endUserProfileData 
+    endUserProfileData: state.EndUserProfileReducer.endUserProfileData,
+    isLoggedIn:state.AuthReducer.isLoggedIn
    }
          
 }

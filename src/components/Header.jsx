@@ -70,6 +70,7 @@ const Header = (props) => {
 
     let handleSearch = (event) => {
         setSearch(event.target.value);
+
     }
 
 
@@ -206,9 +207,10 @@ const Header = (props) => {
         setModal1(false);
     }
 
+    
     let navigateButton = () =>{
-    window.location.href = `/couponsBySearch/${search}`
-    }
+            window.location.href = `/couponsBySearch/${search}`
+        }
 
 
 
@@ -333,7 +335,7 @@ const Header = (props) => {
                                             {/* placeholder="Search by Title, Product/Service name etc" /> */}
                                             <div class="input-group-append">
                                               
-                                               <button class="btn btn-seach" type="button" onClick={() => navigateButton()}>
+                                               <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
                                                  <i class="fa fa-search"></i>
                                                 </button>
                                                 
