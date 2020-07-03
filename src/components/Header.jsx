@@ -28,6 +28,7 @@ const Header = (props) => {
     const [address, setAddress] = useState("");
     const [addressError, setAddressError] = useState("");
     const [addressStatus, setAddressStatus] = useState(false);
+    const [search, setSearch] = useState("");
 
     const [modalStatus, setModal] = useState(false);
     const [modalStatus1, setModal1] = useState(false);
@@ -65,6 +66,10 @@ const Header = (props) => {
         setAddress(event.target.value);
         setAddressError(validateAddress(event.target.value).error);
         setAddressStatus(validateAddress(event.target.value).status);
+    }
+
+    let handleSearch = (event) => {
+        setSearch(event.target.value);
     }
 
 
@@ -162,26 +167,77 @@ setModal(false)
 setModal1(true)
     }
 
-      useEffect(() => {
-        navigator.geolocation.getCurrentPosition(function(position) {
+
+    const getSearchAllByLocation = () => {
+        try {
+            const cookies = new Cookies();
+
+            const latitude = cookies.get('latitude')
+            const longitude = cookies.get('longitude')
+            console.log("akhtarrr",latitude)
+            console.log("akhtarrr",search)
+
+            apiRequest({ lat: latitude, long: longitude, search: search }, '/user/searchAllByLocation', 'POST',)
+                .then((resp) => {
+                    console.log('responseSearch--', resp);
+                    switch (resp.status) {
+                        case (200):
+                            {
+                                if (resp.data.responseCode == 200) {
+                                    //   this.setState({
+                                    //       allData: resp.data.result[0].details
+                                    //    });
+                                }
+                                else if (resp.data.responseCode == 404) {
+                                    ToasterFunction("info", resp.data.responseMessage);
+
+                                }
+                                else if (resp.data.responseCode == 500) {
+                                    ToasterFunction("error", resp.data.responseMessage);
+
+                                }
+                            }
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
+                            }
+                        }
+                    }
+                });
+
+
+
+        } catch (error) {
+            // console.log('response===', error);
+            ToasterFunction("error", "Network error, please contact the administrator");
+
+        }
+
+    }
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(function (position) {
             // console.log("position",position);
             // console.log("Latitude is :", position.coords.latitude);
             // console.log("Longitude is :", position.coords.longitude); 
             const cookies = new Cookies();
-cookies.set('latitude',position.coords.latitude, { path: '/' }); 
-cookies.set('longitude', position.coords.longitude, { path: '/' }); 
-setShowLocationTitle(false);
-setLatitude(position.coords.latitude);
-setLongitude(position.coords.longitude);
+            cookies.set('latitude', position.coords.latitude, { path: '/' });
+            cookies.set('longitude', position.coords.longitude, { path: '/' });
+            setShowLocationTitle(false);
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
 
-          },
-          function(error){
-              setModal(true);
-          }
-          );
-          
+        },
+            function (error) {
+                setModal(true);
+            }
+        );
 
-      }, []);
+
+
+    }, []);
+
+
 
 let getCurrentLocation =() =>{
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -312,9 +368,13 @@ setLongitude(position.coords.longitude);
 
                                     <li class="serch-sec">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
+                                            <input type="text"
+                                             value={search}
+                                             onChange={handleSearch}
+                                             class="form-control" 
+                                             placeholder="Search by Title, Product/Service name etc" />
                                             <div class="input-group-append">
-                                                <button class="btn btn-seach" type="button">
+                                                <button class="btn btn-seach" type="button"  onClick={()=> getSearchAllByLocation()}>
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
