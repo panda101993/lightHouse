@@ -239,3 +239,17 @@ export function validateCFPassword(cfpassword,password) {
     return { status: true, error: "" };
   }
 }
+/* To handle Form validation*/
+export function validateForm(name) {
+  var nameRegex = /^[a-zA-Z ]+$/;
+  var name = name.trim();
+  if (name == "" || name == undefined || name == null) {
+    return { status: false, error: "*Please fill this field." };
+  } else if (!nameRegex.test(name)) {
+    return { status: false, error: "*Please enter atleast 2 characters." };
+  } else if (name.length < 2) {
+    return { status: false, error: "*Please enter atleast 2 characters." };
+  } else {
+    return { status: true, error: "" };
+  }
+}

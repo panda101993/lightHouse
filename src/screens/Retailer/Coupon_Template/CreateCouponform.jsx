@@ -11,7 +11,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getTemplate } from '../../../utils/SVG'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getRetailerCategory } from "../../../utils/API_Utils/apiUtils"
+import { getRetailerCategory, getRetailerSubCategory } from "../../../utils/API_Utils/apiUtils"
+import { validateForm, validateMobileNo } from '../../../utils/validation/Validation'
 
 const ImageId = {
    Image1: require("../../../assets/images/greatcircle.png"),
@@ -32,8 +33,8 @@ export class CreateCouponform extends Component {
          brandState: false,
          itemNameState: false,
          OTC: "OTC_TRUE",
-         INSIDE_MART: null,
-         OUTSIDE_MART: null
+         INSIDE_MART: "INSIDE_MART_TARGET_ALL",
+         OUTSIDE_MART: "OUTSIDE_MART_TARGET_ALL"
       }
    }
    toggleState = (stateName) => {
@@ -54,12 +55,12 @@ export class CreateCouponform extends Component {
                shopPhoneNumber: this.state.phoneNumber,
                restrictions: this.state.restrictions,
                image: this.state.image,
-               tiltle: this.state.title,
-               couponAppliedOn:"",
-               shopName:"",
-               floorNumber:"",
+               title: this.state.title,
+               couponAppliedOn: "",
+               shopName: "",
+               floorNumber: "",
             }
-            console.log("form",formData)
+            console.log("form", formData)
          }
       })
    }
@@ -69,6 +70,7 @@ export class CreateCouponform extends Component {
          this.setState({ [type]: URL.createObjectURL(e.target.files[0]) })
       }
       else {
+         this.handleValidation(e.target.value, type)
          this.setState({ [type]: e.target.value })
       }
    }
@@ -81,8 +83,40 @@ export class CreateCouponform extends Component {
       this.setState({ [e.target.name]: !this.state[e.target.name] }, () => this.state[val] ? this.setState({ [`${val}`]: null }) : null)
    }
 
+   handleValidation = (value, type) => {
+      // console.log("type", type, value)
+      switch (type) {
+         case ("phoneNumber"):
+            var data = validateMobileNo(value)
+            this.setState({ [`${type}Error`]: data.error, [`${type}Status`]: data.status })
+            break
+         case ("discount"):
+            if(value>0  && value<100){
+               this.setState({ [`${type}Error`]: true, [`${type}Status`]: "" })
+            }
+            else{
+               this.setState({ [`${type}Error`]: false, [`${type}Status`]: "Please enter a valid discount!" })
+            }
+            break
+         default: {
+            var data = validateForm(value)
+            this.setState({ [`${type}Error`]: data.error, [`${type}Status`]: data.status })
+         }
+      }
+   }
+
+   getActive(){
+      if (this.state.couponCodeStatus === false, this.state.discountStatus === false, this.state.expiryDateStatus === false, this.state.phoneNumberStatus === false,
+         this.state.restrictionsStatus === false, this.state.subCategoryState === false, this.state.titleStatus === false) {
+         return true
+      }
+      else {
+         return false
+      }
+   }   
    componentDidMount() {
-      // getRetailerCategory()
+      // getRetailerCategory(this.props.token)
+      // getRetailerSubCategory(this.props.token)
    }
 
    render() {
@@ -116,13 +150,13 @@ export class CreateCouponform extends Component {
                            </div>
                         </div>
                         <span class="name"><label>Title:</label>
-                           <p><input type="text" class="form-control" placeholder="Great Deal" value={this.state.title} onChange={e => this.valueHandler("title", e)} /></p>
+                           <p><input type="text" class="form-control" name="title" placeholder="Great Deal" value={this.state.title} onChange={e => this.valueHandler("title", e)} /></p>
                         </span>
                         <span class="name"><label>Coupon Code :</label>
-                           <p><input type="text" class="form-control" placeholder="Coupon Code" value={this.state.couponCode} onChange={e => this.valueHandler("couponCode", e)} /></p>
+                           <p><input type="text" class="form-control" name="couponCode" placeholder="Coupon Code" value={this.state.couponCode} onChange={e => this.valueHandler("couponCode", e)} /></p>
                         </span>
                         <span class="name"><label>Discount % :</label>
-                           <p><input type="text" class="form-control" placeholder="Discount %" value={this.state.discount} onChange={e => this.valueHandler("discount", e)} /></p>
+                           <p><input type="text" class="form-control" name="discount" placeholder="Discount %" value={this.state.discount} onChange={e => this.valueHandler("discount", e)} /></p>
                         </span>
                         <span class="name">
                            <div class="about-usicon"><label class="label">Shop Phone Number :</label>
@@ -395,13 +429,10 @@ export class CreateCouponform extends Component {
                      <div class="modal-content offer">
                         <div class="modal-body bumoffer">
                            <div class="mainoffer">
-                              <img src={ImageId.Image2}
-                                 class="bur-img" />
-                              <h5><a href="60-Website(Retailer)%20.html">Burger King</a></h5>
-                              <h6><a href="61-Website-(Mart-Page%20)%20.html">GIP Mall</a></h6>
+                              {getTemplate(Number(this.props.match.params.id), this.state)}
                            </div>
                            <div class="modal-body ny">
-                              <Link to='/Coupon_template'  >   <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#" onClick={() => this.toggleState(["modalStatus"])} >Cancel</button>  </Link>
+                              <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#" onClick={() => this.toggleState(["modalStatus"])} >Cancel</button>
                               <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#coup-success" onClick={() => this.toggleState(["modalStatus", "modalStatusSucess"])} >Save</button>
                               <button type="button" class="btn btn-modal" data-dismiss="modal" data-toggle="modal" data-target="#prev"
                                  onClick={() => this.toggleState(["modalStatus", "modalStatusLink"])} >Submit</button>

@@ -2,11 +2,11 @@ import apiRequest from "../../api/Apirequest";
 
 export const getRetailerCategory=(token)=>{
     console.log()
-     apiRequest({},"/retailer/getCategoriesByRetailer","POST",token)
+     apiRequest({},"/retailer/getCategoriesByRetailer","GET",token)
     .then((res)=>{
         console.log("response for  category Lidt",res)
 
-    })
+    }).catch(err=>console.log("aaaaaa",err))
 }
 
 export const getRetailerSubCategory=(token)=>{
