@@ -123,11 +123,11 @@ getSearchAllByLocation = (SearchId) => {
   CouponId={allCouponData._id}
   CouponToken={this.props.applicationData.token}
   CouponAppliedOn={allCouponData.couponAppliedOn}
-  OneTimeCoupon={allCouponData.oneTimeCoupon}
+//   OneTimeCoupon={allCouponData.oneTimeCoupon}
   ShopName={allCouponData.shopName}
-  ShopNumber={allCouponData.retailerId.shopNumber}
+//   ShopNumber={allCouponData.retailerId.shopNumber}
   FloorNumber={allCouponData.floorNumber}
-  MartName={allCouponData.martName}
+//   MartName={allCouponData.martName}
   ShopPhoneNumber={allCouponData.shopPhoneNumber}
   Restrictions={allCouponData.restrictions}
   />

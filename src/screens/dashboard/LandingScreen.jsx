@@ -201,19 +201,19 @@ class componentName extends Component {
 
 
 
-   productServiceType(){
-      return this.state.allData.slice(0,1 ).map((xyz, index)=>{
-         const {productServiceType} = xyz
-         return(
-            <div>
-         <h5 class="product-herd">{productServiceType}</h5>
-         </div>
-         )
+   // productServiceType(){
+   //    return this.state.allData.map((xyz, index)=>{
+   //       const {productServiceType} = xyz
+   //       return(
+   //          <div>
+   //       <h5 class="product-herd">{productServiceType}</h5>
+   //       </div>
+   //       )
          
-      })
-   }
+   //    })
+   // }
 
-   categoryData(){
+   servicesByCategoryData(){
       // if(this.state.allData.length > 0)
       return(
           <Carousel
@@ -235,7 +235,7 @@ class componentName extends Component {
                   itemClass="carousel-item-padding-40-px"
                >
       {
-       this.state.allData.map((xyz, index)=>{
+       this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index)=>{
          // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
          if(xyz.categoryUsers !== undefined){
          let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
@@ -265,7 +265,7 @@ class componentName extends Component {
                      HeartData = {heartStatus}
                      blankHeart={Imageid.heartImage}
                      redHeart={Imageid.RedHeart}
-                     ReloadApi={()=>this.getmartsbyUserList()}
+                     ProductServiceType={xyz.productServiceType}
                      
                   />
               
@@ -276,6 +276,71 @@ class componentName extends Component {
    </Carousel>
       )
    }
+
+   productsByCategoryData(){
+      // if(this.state.allData.length > 0)
+      return(
+          <Carousel
+                  swipeable={true}
+                  draggable={false}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={5000000}
+                  keyBoardControl={true}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+               >
+      {
+       this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index)=>{
+         // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
+         if(xyz.categoryUsers !== undefined){
+         let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
+
+         // console.log('checkData--',checkData)
+         let heartStatus;
+         if(checkData == -1){
+           heartStatus = false;
+         }else{
+           heartStatus = true ;
+         }
+         // console.log('checkData--',heartStatus)
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+               
+                  <ImageDashboard
+                     ImageName={xyz.categoryName}
+                     LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                     ImageA={xyz.categoryImage}
+                     heartImage={heartStatus}
+                     CategoryId={xyz.categoryId}
+                     Id={xyz.categoryId}
+                     Token={this.props.applicationData.token}
+                     typeData = {'category'}
+                     UniqueId={xyz._id}
+                     HeartData = {heartStatus}
+                     blankHeart={Imageid.heartImage}
+                     redHeart={Imageid.RedHeart}
+                     ProductServiceType={xyz.productServiceType}
+                     
+                  />
+              
+            </div>
+         )}
+      })
+   }
+   </Carousel>
+      )
+   }
+   
    
   
 
@@ -297,9 +362,15 @@ class componentName extends Component {
                   <LandingTopicName HeaderName="Categories" />
 
                   <div class="container-fluid">
-                     {this.productServiceType()}
-                  {this.categoryData()}
-
+                     {/* {this.productServiceType()} */}
+                     <div>
+                        <h5 class="product-herd">SERVICES</h5>
+                     </div>
+                     {this.servicesByCategoryData()}
+                     <div>
+                        <h5 style={{marginTop:40}} class="product-herd">PRODUCTS</h5>
+                     </div>
+                     {this.productsByCategoryData()}
                   </div>
                </section>
                <Footer />
