@@ -348,13 +348,41 @@ export class AllRetailers extends Component {
                       <li><button type="button" class="save0 s-1" data-toggle="modal" data-target="#this-coupon">Clear All</button></li>
                     </ul>
                     <div class="check-padd-bottom">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                      {/* <div class="form-check"> */}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" /> */}
                         <label class="form-check-label" for="exampleCheck1">Category Name</label>
+                        {/* </div> */}
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Category A</label>
+                        </div>
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Category B</label>
+                        </div>
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Category C</label>
                       </div>
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Category D</label>
+                      </div>
+                      {/* <div class="form-check"> */}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" /> */}
                         <label class="form-check-label" for="exampleCheck1">Sub-Category Name</label>
+                      {/* </div> */}
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Sub-Category A</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Sub-Category B</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Sub-Category C</label>
                       </div>
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
