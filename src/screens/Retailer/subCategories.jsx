@@ -200,12 +200,18 @@ export class subCategories extends Component {
       { this.state.allData.map((allCouponData, index) => {
          let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
          // console.log('checkData--',checkData)
-        let heartStatus;
-        if(checkData == -1){
-          heartStatus = false;
-        }else{
-          heartStatus = true ;
-        }
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      let heartStatus;
+         if(checkData == -1){
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
+         }
       //   console.log('checkData--',heartStatus)
          //   console.log('category',categoryImage);
          return (

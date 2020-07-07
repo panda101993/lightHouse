@@ -9,7 +9,7 @@ export default function ImageDashboard(props) {
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
    const [heartStatusNOW, setheartStatusNOW] = useState(props.heartImage)
-   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart,ProductServiceType} = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart,reloadApi} = props
    // console.log("hello imageAbc ", props)
    // console.log("typePage--",typePage)
 
@@ -29,7 +29,7 @@ export default function ImageDashboard(props) {
                          if (resp.data.responseCode == 200) {
                            ToasterFunction("success", resp.data.responseMessage);
                            setheartStatusNOW(!heartStatusNOW)
-                           // props.ReloadApi;
+                           // props.reloadApi
             
                          }
                           else if (resp.data.responseCode == 404) {
@@ -114,6 +114,7 @@ export default function ImageDashboard(props) {
                             if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage);
                               setheartStatusNOW(!heartStatusNOW)
+                             props.reloadApi()
                               // window.location.reload(false);
                             }
                              else if (resp.data.responseCode == 404) {
@@ -226,10 +227,11 @@ export default function ImageDashboard(props) {
                      <a data-toggle="modal" data-target="#coup-rmv-success" >
 
                         <img
-                           src={heartStatusNOW==true?redHeart:blankHeart}
+                           // src={heartStatusNOW==true?redHeart:blankHeart}
+                           src={heartImage}
 
                            onClick={() => {
-                              console.log("heartImage==>",heartStatusNOW)
+                              // console.log("heartImage==>",heartStatusNOW)
                              
                              
                               typePage

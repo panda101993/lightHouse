@@ -255,14 +255,14 @@ export class MyWishlistEndUser extends Component {
                            ImageName={xyz.subCategoryName}
                            LinkId="/subCategories"
                            ImageA={xyz.subCategoryImage}
-                           // heartImage={heartStatus}
+                           heartImage={Imageid.RedHeart}
                            Id={xyz.subCategoryId}
                            Token={this.props.applicationData.token}
                            typeData={'subCategory'}
                            typePage={'subCategory'}
                            // HeartData = {heartStatus}
-                           blankHeart={Imageid.heartImage}
-                           redHeart={Imageid.RedHeart}
+                           // blankHeart={Imageid.heartImage}
+                           // redHeart={Imageid.RedHeart}
 
                         />
                      </div>
@@ -302,15 +302,16 @@ export class MyWishlistEndUser extends Component {
                               ImageName={xyz.categoryName}
                               LinkId="/subCategories"
                               ImageA={xyz.categoryImage}
-                              // heartImage={heartStatus}
+                              heartImage={Imageid.RedHeart}
                               Id={xyz.categoryId}
                               Token={this.props.applicationData.token}
                               typeData={'category'}
                               typePage={'category'}
                               UniqueId={xyz._id}
                               // HeartData = {heartStatus}
-                              blankHeart={Imageid.heartImage}
-                              redHeart={Imageid.RedHeart}
+                              // blankHeart={Imageid.heartImage}
+                              // redHeart={Imageid.RedHeart}
+                              reloadApi={this.getFavCategoryWishlist}
                            />
 
                         </div>
@@ -350,7 +351,7 @@ export class MyWishlistEndUser extends Component {
                         <ImageDashboard
                            ImageName={xyz.martName}
                            ImageA={xyz.martImage[0]}
-                           // heartImage={heartStatus}
+                           heartImage={Imageid.RedHeart}
                            MartId={xyz.martId}
                            Id={xyz.martId}
                            Token={this.props.applicationData.token}
@@ -358,8 +359,8 @@ export class MyWishlistEndUser extends Component {
                            typePage={'mart'}
                            UniqueId={xyz._id}
                            // HeartData = {heartStatus}
-                           blankHeart={Imageid.heartImage}
-                           redHeart={Imageid.RedHeart}
+                           // blankHeart={Imageid.heartImage}
+                           // redHeart={Imageid.RedHeart}
                         />
                      </div>
                   )
@@ -398,14 +399,14 @@ export class MyWishlistEndUser extends Component {
                         <ImageDashboard
                            ImageName={xyz.shopName}
                            ImageA={xyz.retailerImage}
-                           // heartImage={heartStatus}
+                           heartImage={Imageid.RedHeart}
                            Token={this.props.applicationData.token}
                            typeData={'retailer'}
                            typePage={'retailer'}
                            Id={xyz.retailerId}
                            // HeartData = {heartStatus}
-                           blankHeart={Imageid.heartImage}
-                           redHeart={Imageid.RedHeart}
+                           // blankHeart={Imageid.heartImage}
+                           // redHeart={Imageid.RedHeart}
                         />
                      </div>
                   )

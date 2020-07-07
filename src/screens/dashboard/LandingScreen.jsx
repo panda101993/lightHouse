@@ -162,15 +162,18 @@ class componentName extends Component {
          let checkData = xyz.martUsers.indexOf(this.props.applicationData.userId);
          
          // console.log('checkData--',checkData)
+         // let heartStatus;
+         // if(checkData == -1){
+         //   heartStatus = false;
+         // }else{
+         //   heartStatus = true ;
+         // }
          let heartStatus;
          if(checkData == -1){
-           heartStatus = false;
-         }else{
-           heartStatus = true ;
-         }
-         // console.log('checkData--',heartStatus)
-      
-      //   console.log('category',categoryImage);
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
+         };
          return(
             <div>
                
@@ -188,6 +191,7 @@ class componentName extends Component {
                HeartData = {heartStatus}
                blankHeart={Imageid.heartImage}
                redHeart={Imageid.RedHeart}
+               reloadApi={this.getmartsbyUserList}
                
                
             />
@@ -240,15 +244,15 @@ class componentName extends Component {
          if(xyz.categoryUsers !== undefined){
          let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
 
-         // console.log('checkData--',checkData)
+         console.log('checkData--',checkData)
+         
+
          let heartStatus;
          if(checkData == -1){
-           heartStatus = false;
-         }else{
-           heartStatus = true ;
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
          }
-         // console.log('checkData--',heartStatus)
-      //   console.log('category',categoryImage);
          return(
             <div>
                
@@ -263,9 +267,10 @@ class componentName extends Component {
                      typeData = {'category'}
                      UniqueId={xyz._id}
                      HeartData = {heartStatus}
-                     blankHeart={Imageid.heartImage}
-                     redHeart={Imageid.RedHeart}
+                     // blankHeart={Imageid.heartImage}
+                     // redHeart={Imageid.RedHeart}
                      ProductServiceType={xyz.productServiceType}
+                     reloadApi={this.getmartsbyUserList}
                      
                   />
               
@@ -304,15 +309,18 @@ class componentName extends Component {
          if(xyz.categoryUsers !== undefined){
          let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
 
-         // console.log('checkData--',checkData)
+         // let heartStatus;
+         // if(checkData == -1){
+         //   heartStatus = false;
+         // }else{
+         //   heartStatus = true ;
+         // }
          let heartStatus;
          if(checkData == -1){
-           heartStatus = false;
-         }else{
-           heartStatus = true ;
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
          }
-         // console.log('checkData--',heartStatus)
-      //   console.log('category',categoryImage);
          return(
             <div>
                
@@ -330,6 +338,7 @@ class componentName extends Component {
                      blankHeart={Imageid.heartImage}
                      redHeart={Imageid.RedHeart}
                      ProductServiceType={xyz.productServiceType}
+                     reloadApi={this.getmartsbyUserList}
                      
                   />
               
