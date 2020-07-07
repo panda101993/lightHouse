@@ -402,7 +402,6 @@ class CreateWebpage extends Component {
                                                 <li><input
                                                     name="mobileno"
                                                     onChange={(event) => this.handleInput(event)}
-
                                                     type="text" class="form-control" placeholder="9650225013" /></li>
                                             </ul>
                                         </div>
