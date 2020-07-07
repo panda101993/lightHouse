@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 
+# ignore this for production and local statging as well
 /package-lock.json
 
 # testing
