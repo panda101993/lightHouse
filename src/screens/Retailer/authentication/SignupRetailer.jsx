@@ -1,4 +1,5 @@
 
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -11,6 +12,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { TumblrShareButton } from 'react-share';
 import { validateEmail, validatePassword, validateCFPassword } from '../../../utils/validation/Validation';
+import ToasterFunction from "../../../components/ToasterFunc"
 
 export class SignupRetailer extends Component {
     constructor(props) {
@@ -59,7 +61,7 @@ export class SignupRetailer extends Component {
         //     "long": longitude
         // }
 
-        Apirequest({ "lat": latitude, "long": longitude }, "/user/getMartsByRetailer", "POST")
+        Apirequest({ "lat": 28.574, "long": 77.1991 }, "/user/getMartsByRetailer", "POST")
             .then((resp) => {
                 console.log("getmartsbyret", resp.data.result)
                 switch (resp.status) {
@@ -69,10 +71,10 @@ export class SignupRetailer extends Component {
                             console.log(this.state.datafound.martName)
                         }
                         else if (resp.data.responseCode == 404) {
-                            alert("Location not found")
+                            ToasterFunction("data err","Mart not found")
                         }
                         else if (resp.data.responseCode == 500) {
-                            alert("Internal Server Error")
+                            ToasterFunction("Err","Internal Server Error")
                         }
                         break;
                     case 900:{
@@ -183,12 +185,12 @@ export class SignupRetailer extends Component {
                                     this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.email}`))
                     }
                     else {
-                        alert("Please fill all fields")
+                        ToasterFunction("fill","Please fill all fields")
                     }
                     
                 }
                 else{
-                    alert("Accept Terms and conditions")
+                    ToasterFunction("accept","Accept Terms and conditions")
                 }
                 
         }

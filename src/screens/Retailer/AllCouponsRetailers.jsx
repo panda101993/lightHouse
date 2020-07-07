@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header2 from '../../components/Header2'
 import Footer from '../../components/Footer'
@@ -93,7 +94,6 @@ export class AllCouponsRetailers extends Component {
   couponRetailer(){
     // console.log("applicationData",this.props.applicationData)
       return this.state.allData.map((allCouponData, index)=>{
-        console.log("allCouponDataakhtar",allCouponData)
         return(
           <div>
             {/* <Carousel

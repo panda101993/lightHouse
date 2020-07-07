@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
+import ToasterFunction from '../components/ToasterFunc';
+import ApiRequest from '../api/Apirequest';
 export default class CreateWebpage extends Component {
     constructor(props) {
         super(props)
@@ -9,9 +10,141 @@ export default class CreateWebpage extends Component {
         this.state = {
 
             modalStatus: false,
+            name:"5678",
+            martName:"1234"
 
         }
     }
+handleSave(){
+console.log("componentDidMount====>")
+
+  let obj =  {
+	"webSiteImages" : [ 
+        "https://res.cloudinary.com/dl2d0v5hy/image/upload/v1588158718/d3wsy67jfiei5huxn6j5.jpg"
+    ],
+    "status" : "ACTIVE",
+    "retailerId" : "5eeb69d78f89e2137e0e52eb",
+    "basicInformation" : [ 
+        {
+            "shopName" : "Vishal mega mart",
+            "shopNumber" : "540",
+            "floorNumber" : "8",
+            "shopPhoneNumber" : "787878787878",
+            "martName" : "VIshal",
+            "martAddress" : "Patna"
+        }
+    ],
+    "aboutUs" : "lorem ipsum dolor sit amet",
+    "shopTiming" : [ 
+        {
+            "sunday" : [ 
+                {
+                    "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ],
+            "monday" : [ 
+                {
+                                       "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ],
+            "tuesday" : [ 
+                {
+                                        "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ],
+            "wednesday" : [ 
+                {
+                                        "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ],
+            "thursday" : [ 
+                {
+                                        "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ],
+            "friday" : [ 
+                {
+                                        "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ],
+            "saturday" : [ 
+                {
+                                        "startTime" : "8:00 AM",
+                    "endTime" : "8:00 PM",
+                    "closeDay" : true
+                }
+            ]
+        }
+    ],
+    "productServiceDetails" : [ 
+        {
+           
+            "categoryId" : "5e8fa54d532d1e0e3d0217cf",
+            "subCategoryId" : "5e89d98e2ec5db299d01f53b",
+            "itemType" : "SHOES",
+            "brand" : "NIKE",
+            "itemName" : "AIR",
+            "price" : "INR 20000"
+        }, 
+        {
+         
+            "categoryId" : "5e8fa54d532d1e0e3d0217cf",
+            "subCategoryId" :"5ea930689ab143186bf93acb",
+            "itemType" : "SHOES",
+            "brand" : "NIKE",
+            "itemName" : "AIR",
+            "price" : "INR 20000"
+        }
+    ]}
+console.log("obj==>",obj)
+    try {
+        ApiRequest(obj, '/retailer/websites', 'POST', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjQyOTc4ODRlMjQyMDdiZTY1MWYwMSIsImlhdCI6MTU5MzQ5NzIzMywiZXhwIjoxNTkzNTgzNjMzfQ.tSGQ_S7HJmdM83ajdETn-4xVdZtYSd_hZ10e64XfbdU")
+           .then((resp) => {
+              console.log('response====>/retailer/websites', resp);
+
+              switch (resp.status) {
+                 case (200):
+                    {
+                       if (resp.data.responseCode == 200) {
+                        console.log('response====>/retailer/websites', resp);
+                        ToasterFunction("info", resp.data.responseMessage);
+
+                       }
+
+                       else if (resp.data.responseCode == 404) {
+                          ToasterFunction("info", "Data not found, internal server error");
+                       }
+                       else if (resp.data.responseCode == 500) {
+                          ToasterFunction("error", "Internal Server Error");
+                       }
+                    }
+                 case (900): {
+                    if (resp.status == 900) {
+                       ToasterFunction("error", "Please check your internet connection")
+                    }
+                 }
+              }
+
+           })
+     } catch (error) {
+        console.log('errorresponse', error);
+         ToasterFunction("error", "Network error, please contact the administrator");
+     }
+     console.log('hitting====>/retailer/websites');
+}
+
 
     render() {
         return (
@@ -564,8 +697,8 @@ export default class CreateWebpage extends Component {
                             <div class="name_c3">
                                 <ul class="button_cs">
                                     <a href="77-settings-retailer.html"> <li class="cancel_c3"><button class="save" data-toggle="modal" data-target="#exampleModal">Cancel</button></li></a>
-                                    <a href="77-settings-retailer2.html">   <li class="cancel_c3"><button class="save" data-toggle="modal" data-target="#">Preview</button></li></a>
-                                    <li><button type="button" class="save" data-toggle="modal" data-target="#thanks-for">Save</button></li>
+                                    <Link to={`/Setting_retailer/PreviewWebpageRetailer`}><li class="cancel_c3"><button  class="save" data-toggle="modal" data-target="#">Preview</button></li></Link>
+                                    <li><button onClick={()=>{this.handleSave()}} type="button" class="save" data-toggle="modal" data-target="#thanks-for">Save</button></li>
                                 </ul>
                             </div>
                         </div>

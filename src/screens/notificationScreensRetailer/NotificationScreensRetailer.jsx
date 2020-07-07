@@ -35,7 +35,7 @@ class NotificationScreensRetailer extends Component {
       console.log("gggggg=>",requestData)
       
       
-      Apirequest(requestData,"retailer/creditHistory", "POST" ) 
+      Apirequest(requestData ,"/retailer/notificationList", "GET" ) 
           .then((resp) => {
              console.log("wxyz==>", resp);
              // ToasterFunction("info", resp.data.responseMessage);
@@ -81,7 +81,7 @@ class NotificationScreensRetailer extends Component {
       console.log("gggggg=>",requestData)
       
       
-      Apirequest(requestData,"retailer/clearAll", "POST" ) 
+      Apirequest(requestData,"retailer/clearAll", "GET" ) 
           .then((resp) => {
              console.log("wxyz==>", resp);
              // ToasterFunction("info", resp.data.responseMessage);

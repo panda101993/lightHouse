@@ -1,7 +1,4 @@
-
-
 // akhtar code here 
-
 import React, { Component } from 'react'
 import Header2 from "../../../components/Header2"
 import Footer from "../../../components/Footer";
@@ -23,8 +20,8 @@ import Step2_retailer from '../../../components/Step2_retailer';
 
 const ManageGeneralInfo = () => 
 <div>
-    {/* <ManageInfoRetailer />  */}
-    <Step2_retailer /> 
+    <ManageInfoRetailer /> 
+    {/* <Step2_retailer />  */}
     
 </div>;
 
@@ -131,9 +128,11 @@ export default class Setting_retailer extends Component {
                                         <Switch>
                                             <Route exact={true} path={`${path}/`}  component={ManageGeneralInfo} />
                                             <Route  exact={true} path={`${path}/ManageGeneralInfo`} exact component={ManageGeneralInfo} />
+                                            <Route  exact={true} path={`${path}/Step2_retailer`} component={Step2_retailer} />
                                             <Route  exact={true} path={`${path}/MyReferralCode`} component={MyReferralCode} />
                                             <Route  exact={true} path={`${path}/ChangePassword`} component={ChangePassword} />
                                             <Route  exact={true} path={`${path}/ManageWebpage`} component={ManageWebpage} />
+                                            <Route  exact={true} path={`${path}/PreviewWebpageRetailer`} component={PreviewWebpageRetailer} />
                                             <Route   exact={true} path={`${path}/MyCredits`} component={MyCredits} />
                                             <Route exact={true} path={`${path}/MyCreditHistory`} component={MyCreditHistory} />
                                             <Route  exact={true} path={`${path}/Recharge`} component={Recharge} />
