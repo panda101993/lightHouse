@@ -105,7 +105,7 @@ export class subCategories extends Component {
                }
             })
       } catch (error) {
-         console.log('errorresponse', error)
+         // console.log('errorresponse', error)
          // ToasterFunction("error", "Network error, please contact the administrator");
 
       }
@@ -113,11 +113,11 @@ export class subCategories extends Component {
    }
 
    async componentDidMount() {
-      console.log('category', window.location.pathname);
+      // console.log('category', window.location.pathname);
       let splitUrl = window.location.pathname.split('/')
-      console.log('category', splitUrl);
-      console.log('category', splitUrl[2]);
-      console.log('category', splitUrl[3]);
+      // console.log('category', splitUrl);
+      // console.log('category', splitUrl[2]);
+      // console.log('category', splitUrl[3]);
       this.getSubCategoryAndCouponByCategory(splitUrl[2], splitUrl[3]);
    }
 
@@ -144,6 +144,7 @@ export class subCategories extends Component {
       > 
         
         {this.state.allData.map((allCouponData, index)=>{
+         //   console.log("allCouponDataakhtar",allCouponData)
           return(
             <div>
              
@@ -198,14 +199,20 @@ export class subCategories extends Component {
    >
       { this.state.allData.map((allCouponData, index) => {
          let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
-         console.log('checkData--',checkData)
-        let heartStatus;
-        if(checkData == -1){
-          heartStatus = false;
-        }else{
-          heartStatus = true ;
-        }
-        console.log('checkData--',heartStatus)
+         // console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      let heartStatus;
+         if(checkData == -1){
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
+         }
+      //   console.log('checkData--',heartStatus)
          //   console.log('category',categoryImage);
          return (
             <div>

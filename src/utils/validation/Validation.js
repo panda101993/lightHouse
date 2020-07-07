@@ -134,7 +134,7 @@ export function requirePassword(password) {
 
 export function validateOtp(value) {
   
-   
+    console.log("validate===>", value)
     var otpRegex = /^\d{1}$/;
     //   otp = otp.trim();
     if (value == "" || value == undefined || value == null) {
@@ -147,7 +147,7 @@ export function validateOtp(value) {
  }
 
  export function validatePinCode(value) {
-  
+  console.log("validate===>", value)
   let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -163,7 +163,7 @@ export function validateOtp(value) {
 
 
 export function validateProvince(value) {
-  
+  console.log("validateProvince===>", value)
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -178,7 +178,7 @@ export function validateProvince(value) {
 }
 
 export function validateCity(value) {
-  
+  console.log("validateCity===>", value)
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -193,7 +193,7 @@ export function validateCity(value) {
 }
 
 export function validateAddress(value) {
- 
+  console.log("validateAddress===>", value)
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -208,7 +208,7 @@ export function validateAddress(value) {
 }
 
 export function validateDialCode(value) {
- 
+  console.log("validateDialCode===>", value)
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {

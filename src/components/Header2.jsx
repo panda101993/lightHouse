@@ -1,11 +1,11 @@
-
-import React, { useState } from 'react'
+import React, { useState, useEffect  } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from "react-redux"; 
 import { bindActionCreators } from 'redux';
-import {logoutAction} from "../redux/action/AuthAction" 
+import {logoutAction} from "../redux/action/AuthAction";
+import Cookies from 'universal-cookie';
 
 function Header2(props) {
     console.log("creditData==>",props.applicationData.credit)
@@ -17,6 +17,20 @@ function Header2(props) {
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
+    const [latitude,setLatitude] = useState("");
+    const [longitude,setLongitude] = useState("");
+
+    useEffect(() => {
+        const cookies = new Cookies();        
+        const latitude = cookies.get('latitude')       
+        const longitude = cookies.get('longitude')
+
+        // console.log("long",longitude)
+        // console.log("latt",latitude)
+        setLatitude(latitude);
+        setLongitude(longitude);
+
+      });
 // this.props.action.logoutAction()=>this.props.history.push("/"))
     return (
         <div>
@@ -31,7 +45,7 @@ function Header2(props) {
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " +longitude}<i class="" aria-hidden="true"></i></a>
                                         {/* <select class="custom-select" id="inputGroupSelect01" data-toggle="modal" data-target="#locationsetmodal">
                                             <option selected>Choose location</option>
                                             <option value="1">New Delhi</option>

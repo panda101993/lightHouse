@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -19,7 +19,7 @@ const Header = (props) => {
     const [provinceError, setProvinceError] = useState("");
     const [provinceStatus, setProvinceStatus] = useState(false);
 
-    
+
 
     const [city, setCity] = useState("");
     const [cityError, setCityError] = useState("");
@@ -28,6 +28,7 @@ const Header = (props) => {
     const [address, setAddress] = useState("");
     const [addressError, setAddressError] = useState("");
     const [addressStatus, setAddressStatus] = useState(false);
+    const [search, setSearch] = useState("");
 
     const [modalStatus, setModal] = useState(false);
     const [modalStatus1, setModal1] = useState(false);
@@ -36,7 +37,7 @@ const Header = (props) => {
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
     const [dropdownOpen2, setDropdownOpen2] = useState(false);
     const [latitude, setLatitude] = useState('');
-    const [longitude,setLongitude] = useState('');
+    const [longitude, setLongitude] = useState('');
     const [showLocationTitle, setShowLocationTitle] = useState(true)
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -67,82 +68,85 @@ const Header = (props) => {
         setAddressStatus(validateAddress(event.target.value).status);
     }
 
+    let handleSearch = (event) => {
+        setSearch(event.target.value);
+
+    }
+
 
     // to return list of state 
     const ProvinceList = ProvinceJSON.states.map((item, index) => {
-        return <option value={item.state} 
+        return <option value={item.state}
         >{item.state}</option>
-        
+
     });
 
     let getAddressData = () => {
 
-// Get address from latidude & longitude.
-        Geocode.setApiKey("AIzaSyAfs4xUIDuU2UVdRkbUERjCGGx_dvSWobU");
+        // Get address from latidude & longitude.
+        Geocode.setApiKey("AIzaSyC5xm2_oboD4KY1Si7XtasWL0IzjDOshPM");
 
         Geocode.fromLatLng("48.8583701", "2.2922926").then(
             response => {
-              const address = response.results[0].formatted_address;
-              console.log("getaddressdata",address);
+                const address = response.results[0].formatted_address;
+                console.log("getaddressdata", address);
             },
             error => {
-              console.error(error);
+                console.error(error);
             }
-          );
+        );
     }
 
-//     let getCoordinateFromAddress = () => {
-        
-//         // Get latidude & longitude from address.
-// Geocode.fromAddress("Eiffel Tower").then(
-//     response => {
-//       const { lat, lng } = response.results[0].geometry.location;
-//       console.log(lat, lng);
-//     },
-//     error => {
-//       console.error(error);
-//     }
-//   );
-//     }
+    let getCoordinateFromAddress = () => {
+
+        // Get latidude & longitude from address.
+        Geocode.fromAddress("Eiffel Tower").then(
+            response => {
+                const { lat, lng } = response.results[0].geometry.location;
+                console.log("akkkkkkk", lat, lng);
+            },
+            error => {
+                console.error(error);
+            }
+        );
+    }
+
 
     let getPopupAddress = () => {
-    try {
-        apiRequest({pinCode:pinCode,state:province,city:city,address:address},'/user/dashboardPopupAddress','POST')
-     .then((resp)=>{
-         console.log('response==',resp)
+        try {
+            apiRequest({ pinCode: pinCode, state: province, city: city, address: address }, '/user/dashboardPopupAddress', 'POST')
+                .then((resp) => {
+                    console.log('response==', resp)
 
-         switch(resp.status) {
-             case(200): {
-                 if(resp.data.responseCode == 200)
-                 {
-                    ToasterFunction("success", "Location added successfully");
-                    //  alert("Location added successfully")
-                 }
-                 else if(resp.data.responseCode == 404)
-                 {
-                    ToasterFunction("info", "Location not found");
-                    //  alert("Location not found")
-                 }
-                 else if(resp.data.responseCode == 500)
-                 {
-                    ToasterFunction("error", "Internal Server Error");
-                    //  alert("Internal Server Error")
-                 }
-             }
-         }
+                    switch (resp.status) {
+                        case (200): {
+                            if (resp.data.responseCode == 200) {
+                                ToasterFunction("success", "Location added successfully");
+                                //  alert("Location added successfully")
+                            }
+                            else if (resp.data.responseCode == 404) {
+                                ToasterFunction("info", "Location not found");
+                                //  alert("Location not found")
+                            }
+                            else if (resp.data.responseCode == 500) {
+                                ToasterFunction("error", "Internal Server Error");
+                                //  alert("Internal Server Error")
+                            }
+                        }
+                    }
 
-      
-     })   
-    } catch (error) {
-        console.log("responseerror==",error)
-        ToasterFunction("error", "Network error, please contact the administrator");
-        
-    }
-        
+
+                })
+        } catch (error) {
+            // console.log("responseerror==",error)
+            ToasterFunction("error", "Network error, please contact the administrator");
+
+        }
+
     }
 
     function validatemain() {
-        
+
         if (pinCodeStatus) {
             if (provinceStatus) {
                 if (cityStatus) {
@@ -155,49 +159,61 @@ const Header = (props) => {
             } else { setProvinceError("*Please Select State") }
         } else { setPinCodeError("*Please Enter Pin code") }
     }
-    
-    const handleModal = () =>{
-//    console.log("abcd");
-setModal(false)
-setModal1(true)
+
+    const handleModal = () => {
+        //    console.log("abcd");
+        setModal(false)
+        setModal1(true)
     }
 
-      useEffect(() => {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            console.log("position",position);
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude); 
+
+
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // console.log("position",position);
+            // console.log("Latitude is :", position.coords.latitude);
+            // console.log("Longitude is :", position.coords.longitude); 
             const cookies = new Cookies();
-cookies.set('latitude',position.coords.latitude, { path: '/' }); 
-cookies.set('longitude', position.coords.longitude, { path: '/' }); 
-setShowLocationTitle(false);
-setLatitude(position.coords.latitude);
-setLongitude(position.coords.longitude);
+            cookies.set('latitude', position.coords.latitude, { path: '/' });
+            cookies.set('longitude', position.coords.longitude, { path: '/' });
+            setShowLocationTitle(false);
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
 
-          },
-          function(error){
-              setModal(true);
-          }
-          );
-          
+        },
+            function (error) {
+                setModal(true);
+            }
+        );
 
-      }, []);
 
-let getCurrentLocation =() =>{
-    navigator.geolocation.getCurrentPosition(function(position) {
-        console.log("position",position);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude); 
-        setShowLocationTitle(false);
-setLatitude(position.coords.latitude);
-setLongitude(position.coords.longitude);
+
+    }, []);
+
+
+
+    let getCurrentLocation = () => {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // console.log("position",position);
+            // console.log("Latitude is :", position.coords.latitude);
+            //  console.log("Longitude is :", position.coords.longitude); 
+            setShowLocationTitle(false);
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+        }
+
+        );
+        setModal1(false);
     }
-    
-    );
-    setModal1(false);
-}
 
     
+    let navigateButton = () =>{
+            window.location.href = `/couponsBySearch/${search}`
+        }
+
+
+
 
     return (
         <div>
@@ -211,12 +227,12 @@ setLongitude(position.coords.longitude);
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude ,longitude }<i class="" aria-hidden="true"></i></a>
-                                            
-                                        
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
 
-                                            
-                                        </li>
+
+
+
+                                    </li>
                                 </ul>
                             </div>
                             <div class="left-top">
@@ -275,7 +291,7 @@ setLongitude(position.coords.longitude);
                                         </div>
                                     </li> */}
 
-                                    {/* <li class="nav-item dropdown account-drop">
+                                {/* <li class="nav-item dropdown account-drop">
                                         <Dropdown isOpen={dropdownOpen2} toggle={toggle2} >
                                             <DropdownToggle caret>
                                                 My Account
@@ -289,8 +305,8 @@ setLongitude(position.coords.longitude);
                                         </Dropdown>
 
                                     </li> */}
-                                    {/* <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> */}
-                                    {/* <li class="prfile">
+                                {/* <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> */}
+                                {/* <li class="prfile">
                                         <img src={require("../assets/images/new-profile.png")} />
                                         <p>Kamal</p>
                                     </li> */}
@@ -311,15 +327,22 @@ setLongitude(position.coords.longitude);
 
                                     <li class="serch-sec">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
+                                            <input type="text"
+                                                value={search}
+                                                onChange={handleSearch}
+                                                class="form-control"
+                                                placeholder="Search by Mart, Retailer, Category, Sub category, Item type, Brand" />
+                                            {/* placeholder="Search by Title, Product/Service name etc" /> */}
                                             <div class="input-group-append">
-                                                <button class="btn btn-seach" type="button">
-                                                    <i class="fa fa-search"></i>
+                                              
+                                               <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
+                                                 <i class="fa fa-search"></i>
                                                 </button>
+                                                
                                             </div>
-                                         </div>
+                                        </div>
                                     </li>
-{/* 
+                                    {/* 
                                     <li class="nav-item dropdown account-drop">
                                         <Dropdown isOpen={dropdownOpen2} toggle={toggle2} >
                                             <DropdownToggle caret>
@@ -364,7 +387,7 @@ setLongitude(position.coords.longitude);
                         <div class="modal-header">
                             <ul class="curent-loc">
                                 <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
-                                <li><button type="button" class="btn btn-location" onClick={() =>getCurrentLocation() }>Use my current location</button></li>
+                                <li><button type="button" class="btn btn-location" onClick={() => getCurrentLocation()}>Use my current location</button></li>
                             </ul>
                         </div>
                         <div class="modal-body">
@@ -386,30 +409,30 @@ setLongitude(position.coords.longitude);
 
                                     <div class="form-group dash-form">
                                         <label for="exampleFormControlSelect1">State*</label>
-                                        <select class="form-control" 
-                                        id="exampleFormControlSelect1" 
-                                        onChange={handleProvince} 
-                                        value={province}>
-                                            <option value="">Select State</option> 
-                                            { ProvinceList}                                         
-                                        </select>  
+                                        <select class="form-control"
+                                            id="exampleFormControlSelect1"
+                                            onChange={handleProvince}
+                                            value={province}>
+                                            <option value="">Select State</option>
+                                            {ProvinceList}
+                                        </select>
                                     </div>
                                     <div style={{ color: 'red' }}>
                                         <lable forhtml="provinceError">{provinceError}</lable>
                                     </div>
 
                                     <div class="form-group dash-form">
-                                        <label for="exampleFormControlSelect2">City*</label>                                         
+                                        <label for="exampleFormControlSelect2">City*</label>
                                         <select class="form-control"
-                                        id="exampleFormControlInput1"
-                                        onChange={handleCity}
-                                        value={city}>{ProvinceJSON.states
-                                        .filter(({state})=> state == province)
-                                        .map(({districts}) => districts.map((DistrictList) =><option>{DistrictList}</option>))}
+                                            id="exampleFormControlInput1"
+                                            onChange={handleCity}
+                                            value={city}>{ProvinceJSON.states
+                                                .filter(({ state }) => state == province)
+                                                .map(({ districts }) => districts.map((DistrictList) => <option>{DistrictList}</option>))}
                                             <option value="">Select City</option>
                                             {/* { DistrictList } */}
                                         </select>
-                                        
+
                                     </div>
                                     <div style={{ color: 'red' }}>
                                         <lable forhtml="cityError">{cityError}</lable>
@@ -418,8 +441,8 @@ setLongitude(position.coords.longitude);
                                     <div class="form-group dash-form">
                                         <label for="exampleFormControlTextarea1">Address*</label>
                                         <textarea class="form-control"
-                                            id="exampleFormControlTextarea1" rows="3" 
-                                            value={address} 
+                                            id="exampleFormControlTextarea1" rows="3"
+                                            value={address}
                                             onChange={handleAddress}>
                                         </textarea>
                                     </div>

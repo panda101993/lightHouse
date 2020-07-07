@@ -16,6 +16,7 @@ import ResetPassword from '../screens/customer/authentication/Resetpassword';
 import SignupOtp from '../screens/customer/authentication/SignupOtp';
 import OTPScreen from '../screens/customer/authentication/Otp';
 import Mywishlist from '../screens/customer/settings/Mywishlist';
+import CouponsBySearch from '../screens/customer/couponsBySearch/CouponsBySearch';
 //import ForgotpasswordRetailer from '../screens/Retailer/authentication/ForgotpasswordOtpRetailer'; 
 import ForgotpasswordRetailer from "../screens/Retailer/authentication/ForgotpasswordRetailer" ;
 
@@ -87,7 +88,7 @@ export default class Navigation extends Component {
                     <Route path="/LoginRetailer" component= {LoginRetailer} />
                     <Route path='/SignupOtp' component= {SignupOtpRetailer} />
                     <Route path='/OtpScreenRetailer' component= {OtpScreenRetailer} />
-                    
+                    <Route path='/CouponsBySearch' component= {CouponsBySearch} />
                     {/* settings EndUser */}
                    {/* <Route path="/SettingEndUser"  component ={SettingEndUser } /> */}
                      <Route path='/Setting_enduser' component={Setting_enduser} />

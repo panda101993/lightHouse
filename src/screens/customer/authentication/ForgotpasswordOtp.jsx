@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -7,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { validateOtp, validateMobileNo } from '../../../utils/validation/Validation';
 import Apirequest from "../../../api/Apirequest"
+import ToasterFunction from '../../../components/ToasterFunc';
 
 export default class ForgotPasswordOtp extends Component {
     constructor(props) {
@@ -37,6 +39,7 @@ export default class ForgotPasswordOtp extends Component {
             mobilenoStatus: false,
 
 
+            temp: this.props.location.pathname.split("/")
 
             //   modalStatus: false,
             //   modalStatusResend: false
@@ -73,8 +76,40 @@ export default class ForgotPasswordOtp extends Component {
                     if (this.state.otpStatus4) {
 
                         // alert('Submit Successfully');
-                        window.location.href = "/Resetpassword"
+                        // window.location.href = "/Resetpassword"
                         //    this.setState({ modalStatus: false })
+                        var credentials = {
+                            "mobileNumber": this.state.temp[2],
+                            "otp": this.state.otp+this.state.otp2+this.state.otp3+this.state.otp4
+                         }
+                         Apirequest(credentials, "/user/otpVerify", "POST")
+                         .then((resp) => {
+                            // console.log("resenddddd",resp)
+                            // console.log("otpppp", resp.data)
+                            switch (resp.status) {
+                               case 200: {
+                                  if (resp.data.responseCode == 200) {
+                                     // alert("Otp has been sent to your registered mobile number")
+                                    //  window.location.href = '/Resetpassword'
+                                    this.props.history.push("/Resetpassword")
+                                    
+                                  }
+                                  else if (resp.data.responseCode == 404) {
+                                     ToasterFunction("err","This user does not exist.")
+                                  }
+                                  else if (resp.data.responseCode == 500) {
+                                    ToasterFunction("err","Internal Server error")
+                                  }
+                               }
+                                  break;
+                               default:
+                                  console.log("default err", resp.data.error)
+                            }
+                         })
+                         .catch(err => {
+                            console.log("respresp---", err)
+                        }
+                        )
 
 
 
@@ -110,6 +145,38 @@ export default class ForgotPasswordOtp extends Component {
     //         }
     //         )
     // }
+
+    resendHandler = () => {
+        var credentials={
+            "mobileNumber": this.state.temp[2]
+        }
+        // console.log(this.state.temp[2])
+        Apirequest(credentials,"/user/resendOTP","POST")
+        .then((resp)=>{
+            // console.log("resenddddd",resp)
+            console.log("otpppp",resp.data.result)
+            switch(resp.status){
+                case 200: {
+                   if(resp.data.responseCode==200)
+                   {
+                    ToasterFunction("resend","Otp has been sent to your registered mobile number")
+                   }
+                   else if(resp.data.responseCode==404)
+                   {
+                    ToasterFunction("err","Provided email/mobile number is not registered")
+                   }
+                   else if(resp.data.responseCode==500)
+                   {
+                    ToasterFunction("err","Internal Server error")
+                   }
+                }
+                break;
+                default:
+                   console.log("default err",resp.data.error)
+             }
+        })
+    }
+
 
     render() {
         return (

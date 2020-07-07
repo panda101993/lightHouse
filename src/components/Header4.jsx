@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { validatePinCode, validateProvince, validateCity, validateAddress } from '../utils/validation/Validation';
-import ProvinceJSON from '../utils/JSON/province.json';
-import apiRequest from '../api/Apirequest';
-import ToasterFunction from '../components/ToasterFunc';
+import Cookies from 'universal-cookie';
+import { endUserProfileAction } from '../redux/action/EndUserProfileAction';
+import { connect } from "react-redux";
+
+
 
 const Header4 = (props) => {
     const [pinCode, setPinCode] = useState("");
@@ -26,6 +27,7 @@ const Header4 = (props) => {
     const [address, setAddress] = useState("");
     const [addressError, setAddressError] = useState("");
     const [addressStatus, setAddressStatus] = useState(false);
+    const [search, setSearch] = useState("");
 
     const [modalStatus, setModal] = useState(false);
     const [modalStatus1, setModal1] = useState(false);
@@ -38,91 +40,37 @@ const Header4 = (props) => {
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
     const toggle2 = () => setDropdownOpen2(prevState => !prevState);
 
-    let handlePinCode = (event) => {
-        setPinCode(event.target.value)
-        setPinCodeError(validatePinCode(event.target.value).error);
-        setPinCodeStatus(validatePinCode(event.target.value).status);
+    //set location
+    const [latitude,setLatitude] = useState("");
+    const [longitude,setLongitude] = useState("");
+    // const [allData, setAllData] = useState([]);
+
+    let handleSearch = (event) => {
+        setSearch(event.target.value);
+
     }
 
-    let handleProvince = (event) => {
-        setProvince(event.target.value);
-        setProvinceError(validateProvince(event.target.value).error);
-        setProvinceStatus(validateProvince(event.target.value).status);
+    let navigateButton = () =>{
+        window.location.href = `/couponsBySearch/${search}/${props.isLoggedIn}`
     }
 
-    let handleCity = (event) => {
-        setCity(event.target.value);
-        setCityError(validateCity(event.target.value).error);
-        setCityStatus(validateCity(event.target.value).status);
-    }
+  
+    useEffect(() => {
+        const cookies = new Cookies();
+         
+        const latitude = cookies.get('latitude')
 
-    let handleAddress = (event) => {
-        setAddress(event.target.value);
-        setAddressError(validateAddress(event.target.value).error);
-        setAddressStatus(validateAddress(event.target.value).status);
-    }
-
-
-    // to return list of state 
-    const ProvinceList = ProvinceJSON.states.map((item, index) => {
-        return <option value={item.state} 
-        >{item.state}</option>
         
-    });
+        const longitude = cookies.get('longitude')
 
-    let getPopupAddress = () => {
-    try {
-        apiRequest({pinCode:pinCode,state:province,city:city,address:address},'/user/dashboardPopupAddress','POST')
-     .then((resp)=>{
-         console.log('response==',resp)
+        // console.log("long",longitude)
+        // console.log("latt",latitude)
+        setLatitude(latitude);
+        setLongitude(longitude);
 
-         switch(resp.status) {
-             case(200): {
-                 if(resp.data.responseCode == 200)
-                 {
-                    ToasterFunction("success", "Location added successfully");
-                    //  alert("Location added successfully")
-                 }
-                 else if(resp.data.responseCode == 404)
-                 {
-                    ToasterFunction("info", "Location not found");
-                    //  alert("Location not found")
-                 }
-                 else if(resp.data.responseCode == 500)
-                 {
-                    ToasterFunction("error", "Internal Server Error");
-                    //  alert("Internal Server Error")
-                 }
-             }
-         }
+      });
 
-      
-     })   
-    } catch (error) {
-        console.log("responseerror==",error)
-        ToasterFunction("error", "Network error, please contact the administrator");
-        
-    }
-        
-    }
-
-
-
-    function validatemain() {
-        if (pinCodeStatus) {
-            if (provinceStatus) {
-                if (cityStatus) {
-                    if (addressStatus) {
-                        getPopupAddress();
-                        // alert(`submit sucsessfully`)
-                        setModal1(!modalStatus1)
-                    } else { setAddressError("*Please Enter Address") }
-                } else { setCityError("*Please Select City") }
-            } else { setProvinceError("*Please Select State") }
-        } else { setPinCodeError("*Please Enter Pin code") }
-    }
-
-
+  
     return (
         <div>
             <header >
@@ -135,7 +83,8 @@ const Header4 = (props) => {
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                        {/* <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a> */}
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " +longitude}<i class="" aria-hidden="true"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -212,7 +161,7 @@ const Header4 = (props) => {
                                     <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                                     <li class="prfile">
                                         <img src={require("../assets/images/new-profile.png")} />
-                                        <p>Kamal</p>
+                                        <p>kamal</p>
                                     </li>
                                 </ul>
                             </div>
@@ -231,9 +180,14 @@ const Header4 = (props) => {
 
                                     <li class="serch-sec">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
+                                            <input type="text" 
+                                              value={search}
+                                              onChange={handleSearch}
+                                              class="form-control"
+                                              placeholder="Search by Mart, Retailer, Category, Sub category, Item type, Brand" />
+                                              {/* placeholder="Search by Title, Product/Service name etc" /> */}
                                             <div class="input-group-append">
-                                                <button class="btn btn-seach" type="button">
+                                                <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
@@ -257,7 +211,7 @@ const Header4 = (props) => {
                                     <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
                                     <li class="prfile">
                                         <img src={require("../assets/images/new-profile.png")} />
-                                        <p>Kamal</p>
+                                        <p>{props.endUserProfileData.firstName}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -278,88 +232,23 @@ const Header4 = (props) => {
                 </ModalBody>
             </Modal>
 
-            <Modal isOpen={modalStatus1} style={{ top: "25px", marginLeft: "110px" }}>
-                <ModalBody>
-                    <form>
-                        <div class="modal-header">
-                            <ul class="curent-loc">
-                                <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
-                                <li><button type="button" class="btn btn-location">Use my current location</button></li>
-                            </ul>
-                        </div>
-                        <div class="modal-body">
-                            <div class="location-form">
-                                <h3>Enter Your Location Details</h3>
-                                <form>
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlInput1">Pin Code*</label>
-                                        <input type="text"
-                                            value={pinCode}
-                                            onChange={handlePinCode}
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="" />
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="pinCodeError">{pinCodeError}</lable>
-                                    </div>
-
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlSelect1">State*</label>
-                                        <select class="form-control" 
-                                        id="exampleFormControlSelect1" 
-                                        onChange={handleProvince} 
-                                        value={province}>
-                                            <option value="">Select State</option> 
-                                            { ProvinceList}                                         
-                                        </select>  
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="provinceError">{provinceError}</lable>
-                                    </div>
-
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlSelect2">City*</label>                                         
-                                        <select class="form-control"
-                                        id="exampleFormControlInput1"
-                                        onChange={handleCity}
-                                        value={city}>{ProvinceJSON.states
-                                        .filter(({state})=> state == province)
-                                        .map(({districts}) => districts.map((DistrictList) =><option>{DistrictList}</option>))}
-                                            <option value="">Select City</option>
-                                            {/* { DistrictList } */}
-                                        </select>
-                                        
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="cityError">{cityError}</lable>
-                                    </div>
-
-                                    <div class="form-group dash-form">
-                                        <label for="exampleFormControlTextarea1">Address*</label>
-                                        <textarea class="form-control"
-                                            id="exampleFormControlTextarea1" rows="3" 
-                                            value={address} 
-                                            onChange={handleAddress}>
-                                        </textarea>
-                                    </div>
-                                    <div style={{ color: 'red' }}>
-                                        <lable forhtml="addressError">{addressError}</lable>
-                                    </div>
-
-                                    <div class="dasmodal-save">
-                                        <button type="submit" class="btn btn-primary" onClick={() => validatemain()}>Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </form>
-                </ModalBody>
-            </Modal>
 
 
         </div>
     )
 }
 
-export default Header4
+
+const mapStateToProps = state => {
+    console.log("stateLogin-------", state)
+   return {
+      
+    endUserProfileData: state.EndUserProfileReducer.endUserProfileData,
+    isLoggedIn:state.AuthReducer.isLoggedIn
+   }
+         
+}
+
+
+
+export default connect(mapStateToProps,{endUserProfileAction})(Header4);

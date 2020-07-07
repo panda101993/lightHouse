@@ -15,7 +15,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Header from '../../components/Header'
 import apiRequest from '../../api/Apirequest';
-import {loginAction} from "../../redux/action/AuthAction";
+import { loginAction } from "../../redux/action/AuthAction";
 import { connect } from "react-redux";
 import Cookies from 'universal-cookie';
 import ToasterFunction from '../../components/ToasterFunc';
@@ -54,179 +54,222 @@ const Imageid = {
 class componentName extends Component {
    constructor(props) {
       super(props)
-   
+
       this.state = {
          allData: [],
-          
+
       }
-    
+
    }
 
-   getmartsbyUserList = () =>{
+   getmartsbyUserList = () => {
       try {
-        const cookies = new Cookies();
-        console.log(cookies.get('latitude'));
-        const latitude = cookies.get('latitude')
+         const cookies = new Cookies();
+         console.log(cookies.get('latitude'));
+         const latitude = cookies.get('latitude')
 
-        console.log(cookies.get('longitude'));
-        const longitude = cookies.get('longitude')
+         console.log(cookies.get('longitude'));
+         const longitude = cookies.get('longitude')
 
-        //  console.log('hhhh=>',this.props.applicationData)
-         apiRequest({lat:latitude, long:longitude},'/user/getMartsByUser','POST')
-         .then((resp)=>{
-         console.log('response', resp);
-         switch (resp.status) {
-            case (200):
-                {
-                if (resp.data.responseCode == 200) {
-                    this.setState({
-                        allData: resp.data.result[0].details
-                     });
-                }
-                 else if (resp.data.responseCode == 404) {
-                    ToasterFunction("info", "Data not found, internal server error");
+         //  console.log('hhhh=>',this.props.applicationData)
+         apiRequest({ lat: latitude, long: longitude }, '/user/getMartsByUser', 'POST')
+            .then((resp) => {
+               console.log('response', resp);
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                              allData: resp.data.result[0].details
+                           });
+                        }
+                        else if (resp.data.responseCode == 404) {
+                           ToasterFunction("info", "Data not found, internal server error");
 
-                }
-                else if (resp.data.responseCode == 500) {
-                    ToasterFunction("error", "Internal Server Error");
+                        }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", "Internal Server Error");
 
-                }
-            }
-            case (900): {
-                if (resp.status == 900) {
-                    ToasterFunction("error", "Please check your internet connection")
-                }
-            }
-        }
-        
-      });
-         
+                        }
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
+               }
+
+            });
+
       } catch (error) {
          console.log('response===', error);
          ToasterFunction("error", "Network error, please contact the administrator");
-         
+
       }
    }
 
    async componentDidMount() {
 
-   this.getmartsbyUserList();
-   
+      this.getmartsbyUserList();
+
    }
 
-   martData(){
-      // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
-         const {martId,martImage,martName} = xyz
-      //   console.log('category',categoryImage);
-         return(
-            <div class="container-fluid">
-               <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlaySpeed={5000000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                     >
-            <ImageDashboard          
-               ImageName={martName}
-               LinkId="/AllRetailers"
-               ImageA={martImage}
-               heartImage={Imageid.RedHeart}
-               MartId={martId}
-            />
-             </Carousel>
-         </div>
-         )
-      })
+   martData() {
+      return (
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {this.state.allData.map((xyz, index) => {
+               return (
+                  <div>
+                     <ImageDashboard
+                        ImageName={xyz.martName}
+                        // LinkId="/AllRetailers"
+                        ImageA={xyz.martImage}
+                        heartImage={Imageid.RedHeart}
+                        MartId={xyz.martId}
+                     />
+                  </div>)
+            })
+            }</Carousel>
+      )
    }
 
 
-   productServiceType(){
-      return this.state.allData.slice(0,1).map((xyz, index)=>{
-         const {productServiceType} = xyz
-         return(
-            <div>
-         <h5 class="product-herd">{productServiceType}</h5>
-         </div>
-         )
-         
-      })
+   // productServiceType() {
+   //    return this.state.allData.slice(0, 1).map((xyz, index) => {
+   //       const { productServiceType } = xyz
+   //       return (
+   //          <div>
+   //             <h5 class="product-herd">{productServiceType}</h5>
+   //          </div>
+   //       )
+
+   //    })
+   // }
+
+   servicesByCategoryData() {
+      return (
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index) => {
+               return (
+                  <div>
+                     <ImageDashboard
+                        ImageName={xyz.categoryName}
+                        // LinkId="/subCategories"
+                        ImageA={xyz.categoryImage}
+                        heartImage={Imageid.RedHeart}
+                     />
+                  </div>
+               )
+            })
+            }
+         </Carousel>
+      )
    }
 
-   categoryData(){
-      // if(this.state.allData.length > 0)
-      return this.state.allData.map((xyz, index)=>{
-         const {categoryId, categoryImage,categoryName,productServiceType} = xyz
-      //   console.log('category',categoryImage);
-         return(
-            // <div class="container-fluid">
-              <div>  
-               <Carousel
-                  swipeable={true}
-                  draggable={false}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={5000000}
-                  keyBoardControl={true}
-                  customTransition="all .5"
-                  transitionDuration={500}
-                  containerClass="carousel-container"
-                  removeArrowOnDeviceType={["tablet", "mobile"]}
-                  deviceType={this.props.deviceType}
-                  dotListClass="custom-dot-list-style"
-                  itemClass="carousel-item-padding-40-px"
-               >
-                  <ImageDashboard
-                     ImageName={categoryName}
-                     LinkId="/subCategories"
-                     ImageA={categoryImage}
-                     heartImage={Imageid.RedHeart}
-                     
-                  />
-               </Carousel>
-            </div>
-         )
-      })
+
+   productsByCategoryData() {
+      return (
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index) => {
+               return (
+                  <div>
+                     <ImageDashboard
+                        ImageName={xyz.categoryName}
+                        // LinkId="/subCategories"
+                        ImageA={xyz.categoryImage}
+                        heartImage={Imageid.RedHeart}
+                     />
+                  </div>
+               )
+            })
+            }
+         </Carousel>
+      )
    }
 
- 
-   
-  
 
-   
+
+
+
+
    render() {
       return (
 
-         
+
 
          <>
             <body>
-               <Header/>
+               <Header />
                <section class="second">
                   <LandingTopicName HeaderName="Marts" />
-                  {this.martData()}
+                  <div class="container-fluid">
+                     {this.martData()}
+                  </div>
 
                   <LandingTopicName HeaderName="Categories" />
 
-                   <div class="container-fluid"> 
-                  {this.productServiceType()}
-                  {this.categoryData()}
-                   </div>
+                  <div class="container-fluid">
+                     {/* {this.productServiceType()} */}
+                     <div>
+                        <h5 class="product-herd">SERVICES</h5>
+                     </div>
+                     {this.servicesByCategoryData()}
+                     <div>
+                        <h5 style={{marginTop:40}} class="product-herd">PRODUCTS</h5>
+                     </div>
+                     {this.productsByCategoryData()}
+                  </div>
                </section>
                <Footer />
             </body>

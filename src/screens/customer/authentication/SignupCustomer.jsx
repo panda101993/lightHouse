@@ -1,4 +1,5 @@
 
+
 import React, { Component } from 'react'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -8,6 +9,7 @@ import { signupAction } from "../../../redux/action/AuthAction"
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import {validateName, validatePassword, validateCFPassword, validateMobileNo } from '../../../utils/validation/Validation';
+import ToasterFunction from '../../../components/ToasterFunc';
 
 
 export class SignupCustomer extends Component {
@@ -56,11 +58,11 @@ export class SignupCustomer extends Component {
 
         }
         else {
-            alert("Enter all Fields")
+            ToasterFunction("error","Enter all Fields")
         }
     }
     else{
-        alert("Accept Terms and Conditions")
+        ToasterFunction("accept","Accept Terms and Conditions")
     }
 }
 
