@@ -2,12 +2,12 @@ import { MyCoupon_Data } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 
 export const myCouponData = (credential) => dispatch => {
-    console.log('SHOW_BIG_MARKER=>', credential);
+    // console.log('SHOW_BIG_MARKER=>', credential);
     // console.log('navigationFunction=>', navigationFunction);
 
     Apirequest(credential, "/user/getRetailerAndCouponByMart", "POST")
         .then((resp) => {
-            console.log('resprespMart===>',resp);
+            // console.log('resprespMart===>',resp);
             dispatch({ type: MyCoupon_Data, payload:resp.data.Data})
             
             // navigationFunction()
@@ -16,7 +16,7 @@ export const myCouponData = (credential) => dispatch => {
                 
                 
                 case (200): {
-                    console.log("responseCode",resp.data.responseCode)
+                    // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
                     dispatch({ type: MyCoupon_Data, payload:resp.data.Data })
