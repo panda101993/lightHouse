@@ -122,7 +122,7 @@ export default class Navigation extends Component {
                     <Route path='/FAQs' component= {FAQs}/>
                   
                   <Route path='/Coupon_template' component={Coupon_template} /> 
-                  <Route path='/CreateCouponform' component={CreateCouponform} />  
+                  <Route path='/CreateCouponform/:id' component={CreateCouponform} />  
 
 
                   <Route path='/MyCoupanHistory' component={MyCoupanHistory} />  
