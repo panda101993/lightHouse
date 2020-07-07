@@ -104,9 +104,9 @@ function Header2(props) {
                 </div> 
             {modalStatusView  ?  <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html">
+                        <Link class="navbar-brand" to="/">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
-                        </a>
+                        </Link>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" 
                          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                             aria-expanded="true" aria-label="Toggle navigation"  onClick={() => setModalView(!modalStatusView)} >
@@ -165,9 +165,9 @@ function Header2(props) {
                     </nav>
                 </div>   :  <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html">
+                        <Link class="navbar-brand" to="/">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
-                        </a>
+                        </Link>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" 
                          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                             aria-expanded="false" aria-label="Toggle navigation"  onClick={() => setModalView(!modalStatusView)} >
