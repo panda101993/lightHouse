@@ -19,12 +19,10 @@ import PreviewWebpageRetailer from "../../../components/PreviewWebpageRetailer";
 import { Switch, Route, NavLink  ,Link} from "react-router-dom";
 import Step2_retailer from '../../../components/Step2_retailer';
 
-
-
 const ManageGeneralInfo = () => 
 <div>
-    {/* <ManageInfoRetailer />  */}
-    <Step2_retailer /> 
+    <ManageInfoRetailer /> 
+    {/* <Step2_retailer />  */}
     
 </div>;
 
@@ -134,6 +132,7 @@ export default class Setting_retailer extends Component {
                                             <Route  exact={true} path={`${path}/MyReferralCode`} component={MyReferralCode} />
                                             <Route  exact={true} path={`${path}/ChangePassword`} component={ChangePassword} />
                                             <Route  exact={true} path={`${path}/ManageWebpage`} component={ManageWebpage} />
+                                            {/* <Route  exact={true} path={`${path}/PreviewWebpageRetailer`} component={PreviewWebpageRetailer} /> */}
                                             <Route   exact={true} path={`${path}/MyCredits`} component={MyCredits} />
                                             <Route exact={true} path={`${path}/MyCreditHistory`} component={MyCreditHistory} />
                                             <Route  exact={true} path={`${path}/Recharge`} component={Recharge} />

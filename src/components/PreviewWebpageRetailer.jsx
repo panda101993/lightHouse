@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom';
 
 
 export default class PreviewWebpageRetailer extends Component {
-   
+ constructor(props) {
+   super(props)
+ 
+   this.state = {
+      
+   };
+ };
 
     render() {
         return (
@@ -19,19 +25,19 @@ export default class PreviewWebpageRetailer extends Component {
                                 <h5>Basic Information</h5>
                                 <div class="information">
                                     <ul class="shop">
-                                        <li>Shop Name : &nbsp &nbsp </li>
-                                        <li>Shop Number : &nbsp &nbsp </li>
-                                        <li>Floor Number : &nbsp &nbsp </li>
-                                        <li>Mart Name &nbsp : &nbsp &nbsp </li>
-                                        <li>Mart Address: &nbsp &nbsp </li>
+                                        <li>Shop Name : {this.props.ShopName} </li>
+                                        <li>Shop Number :  {this.props.ShopNumber}</li>
+                                        <li>Floor Number :  {this.props.FloorNumber}</li>
+                                        <li>Mart Name : {this.props.MartName} </li>
+                                        <li>Mart Address:  {this.props.MartAddress}</li>
                                     </ul>
-                                    <ul class="mart">
-                                        <li>Shop Name</li>
-                                        <li>123456789</li>
-                                        <li>2</li>
-                                        <li>Mart Name</li>
-                                        <li>Okhla Phase 1 , D -115, New Delhi</li>
-                                    </ul>
+                                    {/* <ul class="mart">
+                                        <li>{this.props.ShopName}</li>
+                                        <li>{this.props.ShopNumber}</li>
+                                        <li>{this.props.FloorNumber}</li>
+                                        <li>{this.props.MartName}</li>
+                                        <li>{this.props.MartAddress}</li>
+                                    </ul> */}
                                 </div>
                             </div>
                             <div class="about-us">
@@ -209,7 +215,7 @@ export default class PreviewWebpageRetailer extends Component {
                             </div>
                         </div>
                         <div class="back-button">
-                            <a href="113-create webpage.html"> <button type="button" class="save">Edit</button> </a>
+                            <a href="/Setting_retailer/ManageWebpage"> <button type="button" class="save">Edit</button> </a>
                         </div>
                     </section>
                 </div>

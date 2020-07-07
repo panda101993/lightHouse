@@ -59,25 +59,6 @@ export function validatePassword(password) {
   }
 }
 
-export function validateCFPassword(cfpassword,password) {
-  // var passwordRegex = /^ (?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-  // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-  password = password.trim();
-
-  if (password == "" || password == undefined || password == null) {
-    return { status: false, error: "*Please enter the password." };
-  } else if (cfpassword!==password) {
-    return { status: false, error: "*Please enter matching password" };
-  }
-  // else if (password.length < 8) {
-  //     return { status: false, error: "Password must contain atleast 8 character."}
-  // }
-  else {
-    return { status: true, error: "" };
-  }
-}
-
-
 /* To validate Mobile No. */
 
 export function validateMobileNo(mobileNo) {
@@ -130,7 +111,7 @@ export function validateEmailMobile(email) {
     return { status: true, error: "" };
   } else {
     //    return { status: true, error: '' };
-    return { status: false, error: "Please enter valid Mobile/ Email Address." };
+    return { status: false, error: "Please enter valid Email Address." };
   }
 }
 /* To Handle email mobile validation on Login */
@@ -153,7 +134,7 @@ export function requirePassword(password) {
 
 export function validateOtp(value) {
   
-    console.log("validate===>", value)
+   
     var otpRegex = /^\d{1}$/;
     //   otp = otp.trim();
     if (value == "" || value == undefined || value == null) {
@@ -166,7 +147,7 @@ export function validateOtp(value) {
  }
 
  export function validatePinCode(value) {
-  console.log("validate===>", value)
+  
   let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -182,7 +163,7 @@ export function validateOtp(value) {
 
 
 export function validateProvince(value) {
-  console.log("validateProvince===>", value)
+  
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -197,7 +178,7 @@ export function validateProvince(value) {
 }
 
 export function validateCity(value) {
-  console.log("validateCity===>", value)
+  
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -212,7 +193,7 @@ export function validateCity(value) {
 }
 
 export function validateAddress(value) {
-  console.log("validateAddress===>", value)
+ 
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -227,7 +208,7 @@ export function validateAddress(value) {
 }
 
 export function validateDialCode(value) {
-  console.log("validateDialCode===>", value)
+ 
   // let pinCodeRegex = /^[1-9][0-9]{5}$/;
   // email = email.trim();
   if (value == "" || value == undefined || value == null) {
@@ -238,5 +219,23 @@ export function validateDialCode(value) {
   // }
   else {
       return { status: true, error: '', height: 0 };
+  }
+}
+
+export function validateCFPassword(cfpassword,password) {
+  // var passwordRegex = /^ (?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+  // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+  password = password.trim();
+
+  if (password == "" || password == undefined || password == null) {
+    return { status: false, error: "*Please enter the password." };
+  } else if (cfpassword!==password) {
+    return { status: false, error: "*Please enter matching password" };
+  }
+  // else if (password.length < 8) {
+  //     return { status: false, error: "Password must contain atleast 8 character."}
+  // }
+  else {
+    return { status: true, error: "" };
   }
 }

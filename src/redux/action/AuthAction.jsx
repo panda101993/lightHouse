@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data } from './ActionTypes';
+import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data,LOGOUT_ACTION } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 
 
@@ -42,10 +42,19 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
         }
         )
 }
+
+export const logoutAction = () => dispatch => {
+    
+    // console.log('navigationFunction=>', navigationFunction);
+    dispatch({ type: LOGOUT_ACTION})
+   
+   
+}
 // export const logoutAction = (credential,navigationFunction) => dispatch => {
 //                     dispatch({ type: "Logout", payload:false })
 //                     navigationFunction()
 // }
+
 
 
 
@@ -54,7 +63,8 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
 
     Apirequest(credential, "/user/signUp", "POST")
         .then((resp) => {
-            dispatch({ type: SIGNUP_ACTION, payload: credential })
+            console.log('respSSresp===>',resp);
+            dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
 
             switch (resp.status) {
                 
@@ -62,7 +72,7 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
                     // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
                     {
-                        dispatch({ type: SIGNUP_ACTION, payload: credential })
+                        dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
                     navigationFunction()
                     }
                     else if(resp.data.responseCode==404)

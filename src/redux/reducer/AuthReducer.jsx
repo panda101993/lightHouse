@@ -1,4 +1,4 @@
-import { LOGIN_ACTION ,SIGNUP_ACTION ,} from '../action/ActionTypes';
+import { LOGIN_ACTION ,SIGNUP_ACTION ,LOGOUT_ACTION} from '../action/ActionTypes';
 
 
 const initialState = {
@@ -15,7 +15,7 @@ export const AuthReducer = (state = initialState, action) => {
                 
             }
         break
-        case("Logout"):{
+        case LOGOUT_ACTION:{
             return {
                 ...state,
                 isLoggedIn:false,

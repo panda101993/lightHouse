@@ -154,7 +154,7 @@ class componentName extends Component {
 
 
    productServiceType(){
-      return this.state.allData.slice(0,2).map((xyz, index)=>{
+      return this.state.allData.slice(0,1).map((xyz, index)=>{
          const {productServiceType} = xyz
          return(
             <div>

@@ -1,11 +1,11 @@
 
-
-
 import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from "react-redux"; 
+import { bindActionCreators } from 'redux';
+import {logoutAction} from "../redux/action/AuthAction" 
 
 function Header2(props) {
     console.log("creditData==>",props.applicationData.credit)
@@ -17,7 +17,7 @@ function Header2(props) {
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
-
+// this.props.action.logoutAction()=>this.props.history.push("/"))
     return (
         <div>
             {/* <body> */}
@@ -140,7 +140,7 @@ function Header2(props) {
                          {/* </a> */}
                       </li>
                                 <li class="nav-item dropdown account-drop">
-                                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
+                                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus) }>
                                         {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
                                         {/* My Account */}
                                     Log Out
@@ -220,7 +220,7 @@ function Header2(props) {
                                   </Link>
                                 <li class="prfile">
                                     {/* <img src={require("../assets/images/new-profile.png")} /> */}
-                                    <p>Kamal</p>
+                                    <p>{props.applicationData.shopName}</p>
                                 </li>
                             </ul>
                         </div>
@@ -239,7 +239,8 @@ function Header2(props) {
                     </div> */}
                         <div class="modal-body ok n-yes">
                             <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)}>No</button>
-                            <Link to="SignupRetailer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => setModal(!modalStatus)}>Yes</button></Link>
+                     <Link to="/">      <button type="button" class="btn setloc-btn" type="submit" onClick={() => {setModal(!modalStatus)
+                                        props.action.logoutAction()} }>Yes</button></Link> 
                         </div>
                     </form>
                 </ModalBody>
@@ -269,6 +270,11 @@ const mapStateToProps = state => {
     }
           
   }
+  const mapDispatchToProps = dispatch => {
+    return {
+        action: bindActionCreators({ logoutAction }, dispatch)
+    }
+}
  
 // export default Header2
-export default connect(mapStateToProps)(Header2);
+export default connect(mapStateToProps, mapDispatchToProps)(Header2);
