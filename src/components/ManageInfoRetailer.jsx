@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -35,7 +40,7 @@ class ManageInfoRetailer extends Component {
             otpErrorMessage4: "",
             otpStatus4: false,
 
-            mobileno: "",
+            c: "",
             mobilenoErrorMessage: "",
             mobilenoStatus: false,
 
@@ -43,9 +48,11 @@ class ManageInfoRetailer extends Component {
             mobilenoErrorMessage1: "",
             mobilenoStatus1: false,
 
-
+            verifiedMobile:false,
+            verifiedMobile1:false,
+            respOTP:"",
             modalStatus: false,
-            modalStatusResend: false,
+            modalStatus1: false,
             shopName:"",
             shopNumber:"",
             floorNumber:"",
@@ -68,7 +75,7 @@ class ManageInfoRetailer extends Component {
         
     }
 
-    submitHandler = () => {
+    submitOTPHandler = (type) => {
         if (this.state.otpStatus) {
             if (this.state.otpStatus2) {
                 if (this.state.otpStatus3) {
@@ -76,10 +83,18 @@ class ManageInfoRetailer extends Component {
 
                         // alert('Submit Successfully');
                         // window.location.href = "SignupRetailer";
-                        this.setState({ modalStatusResend: false })
-                        this.setState({ modalStatus: false })
-
-                        
+                        let userOTP=this.state.otp+""+this.state.otp2+""+this.state.otp3+""+this.state.otp4
+                       
+                        if (this.state.respOTP===parseInt(userOTP)){
+                            this.setState({ modalStatus1: false })
+                            this.setState({ modalStatus: false })
+                            ToasterFunction("info", "Verified successfully");
+                            type==="mobileno"? this.setState({ verifiedMobile: true }):this.setState({ verifiedMobile1: true })
+                        }
+                        else{
+                            
+                            ToasterFunction("error", "OTP doesn't match");
+                        }
                     } else { this.setState({ otpStatus4: false, otpErrorMessage: "*Please enter OTP" }) }
                 } else { this.setState({ otpStatus3: false, otpErrorMessage: "*Please enter OTP" }) }
             } else { this.setState({ otpStatus2: false, otpErrorMessage: "*Please enter OTP" }) }
@@ -90,7 +105,7 @@ class ManageInfoRetailer extends Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value })
-        console.log("valueset==>", value)
+        
         if (name == "otp") {
             this.state.otpErrorMessage = validateOtp(value).error;
             this.state.otpStatus = validateOtp(value).status;
@@ -113,7 +128,7 @@ class ManageInfoRetailer extends Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value })
-        console.log("valueset==>", value)
+       
 
         this.state.mobilenoErrorMessage = validateMobileNo(value).error;
         this.state.mobilenoStatus = validateMobileNo(value).status;
@@ -124,93 +139,35 @@ class ManageInfoRetailer extends Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value })
-        console.log("valueset==>", value)
+    
 
         this.state.mobilenoErrorMessage1 = validateMobileNo(value).error;
         this.state.mobilenoStatus1 = validateMobileNo(value).status;
 
     }
 
-    handleShopNameInput = (e) => {
+    handleInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-       
+        this.setState({ [name]: value })     
     }
-    handleShopNumberInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-      
-    }
-
-    handlefloorNumberInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-       
-    }
-
-    handleRegisteredBusinessNameInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-     
-    }
-    handleRegisteredBusinessAddressInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-    }
-    handlePinCodeInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-      
-    }
-    handleAddressInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
-    }
-    handleGSTINInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value })
-        console.log("valueset==>", value)
-
    
-    }
 
 
 
     mobileOTPHandler() {
-
+        
         try {
-            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
+            ApiRequest({ "mobileNumber":this.state.mobileno }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
                 .then((resp) => {
-                    console.log('responseOTP====>', resp);
+                 
 
                     switch (resp.status) {
                         case (200):
                             {
                                 if (resp.data.responseCode == 200) {
                                       this.setState({ modalStatus: !this.state.modalStatus });
-                                      
+                              this.setState({respOTP : resp.data.result})       
                                     ToasterFunction("info", "OTP sent Successfully");
                                 }
 
@@ -236,18 +193,18 @@ class ManageInfoRetailer extends Component {
 
     }
     mobileOTPHandler1() {
-
+       
         try {
-            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
+            ApiRequest({ "mobileNumber":this.state.mobileno1 }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
                 .then((resp) => {
-                    console.log('responseOTP====>', resp);
+                   
 
                     switch (resp.status) {
                         case (200):
                             {
                                 if (resp.data.responseCode == 200) {
-                                      this.setState({ modalStatus: !this.state.modalStatus });
-                                    
+                                      this.setState({ modalStatus1: !this.state.modalStatus1 });
+                                      this.setState({respOTP : resp.data.result})      
                                     ToasterFunction("info", "OTP sent Successfully");
                                 }
 
@@ -272,6 +229,41 @@ class ManageInfoRetailer extends Component {
         }
 
     }
+    resendOTPHandler(mobileno) {
+        console.log(mobileno)
+                try {
+                    ApiRequest({ "mobileNumber":mobileno }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
+                        .then((resp) => {
+                            
+        
+                            switch (resp.status) {
+                                case (200):
+                                    {
+                                        if (resp.data.responseCode == 200) {
+                                            ToasterFunction("info", " Resend OTP Successful");
+                                            this.setState({respOTP : resp.data.result})      
+                                        }
+        
+                                        else if (resp.data.responseCode == 404) {
+                                            ToasterFunction("info", "Data not found, internal server error");
+                                        }
+                                        else if (resp.data.responseCode == 500) {
+                                            ToasterFunction("error", "Internal Server Error");
+                                        }
+                                    }
+                                case (900): {
+                                    if (resp.status == 900) {
+                                        ToasterFunction("error", "Please check your internet connection")
+                                    }
+                                }
+                            }
+        
+                        })
+                } catch (error) {
+                    console.log('errorresponse', error);
+                    // ToasterFunction("error", "Network error, please contact the administrator");
+                }
+            }
 
     submitmobilenoHandler = () => {
         if (this.state.mobilenoStatus) {
@@ -290,46 +282,17 @@ class ManageInfoRetailer extends Component {
             // alert('Submit Successfully');
             //  window.location.href = "SignupRetailer";
             // this.setState({ modalStatus: false })
-             
-            
         } else { this.setState({ otpStatus: false, mobilenoErrorMessage1: "*Please enter Mobileno" }) }
     }
-    resendOTPHandler() {
 
-        try {
-            ApiRequest({ "mobileNumber":"7979862051" }, '/retailer/verifyMobile', 'POST',this.props.applicationData.token)
-                .then((resp) => {
-                    console.log('responseOTP====>', resp);
+    
 
-                    switch (resp.status) {
-                        case (200):
-                            {
-                                if (resp.data.responseCode == 200) {
-                                    this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-                                    ToasterFunction("info", "OTP Resend Successful");
-                                }
 
-                                else if (resp.data.responseCode == 404) {
-                                    ToasterFunction("info", "Data not found, internal server error");
-                                }
-                                else if (resp.data.responseCode == 500) {
-                                    ToasterFunction("error", "Internal Server Error");
-                                }
-                            }
-                        case (900): {
-                            if (resp.status == 900) {
-                                ToasterFunction("error", "Please check your internet connection")
-                            }
-                        }
-                    }
+   
 
-                })
-        } catch (error) {
-            console.log('errorresponse', error);
-            // ToasterFunction("error", "Network error, please contact the administrator");
-        }
 
-    }
+
+    
     handleUploadFile(FileObject) {
         
         let file = null;
@@ -337,8 +300,7 @@ class ManageInfoRetailer extends Component {
         fileReader.readAsDataURL(FileObject)
         fileReader.onload = function(fileLoadedEvent) {
             file = fileLoadedEvent.target.result;
-            // Print data in console
-            console.log(file);
+        
             file64 = file
             
         };  
@@ -350,7 +312,7 @@ class ManageInfoRetailer extends Component {
 
     saveButtonHandler() {
 
-  console.log("file64=====>",file64)
+
 
        let obj = {
         shopName:this.state.shopName,
@@ -367,18 +329,15 @@ class ManageInfoRetailer extends Component {
         address:"Isapur",
        }
 
-        console.log("retailer/manage=====>",obj)
         try {
             ApiRequest( obj , '/retailer/manage', 'PUT',this.props.applicationData.token)
                .then((resp) => {
-                  console.log('response====>/retailer/manage', resp);
-
                   switch (resp.status) {
                      case (200):
                          {
                            if (resp.data.responseCode == 200) {
-                            this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })
-                            ToasterFunction("info", "OTP sent Successfully");
+                           
+                            ToasterFunction("info", "Data Saved");
                         }
 
                            else if (resp.data.responseCode == 404) {
@@ -418,7 +377,7 @@ class ManageInfoRetailer extends Component {
                         <span class="name">
                             <label>Shop Name*</label>
                             <p><input name="shopName" 
-                             onChange={(event) => this.handleShopNameInput(event)}
+                             onChange={(event) => this.handleInput(event)}
                             type="text" class="form-control"
                             placeholder="Shop name" /></p>
                         </span>
@@ -430,7 +389,7 @@ class ManageInfoRetailer extends Component {
                                         <li>
                                             <input 
                                             name="shopNumber" 
-                                            onChange={(event) => this.handleShopNumberInput(event)}
+                                            onChange={(event) => this.handleInput(event)}
                                             type="text" class="form-control" placeholder="Shop number" />
                                         </li>
                                     </ul>
@@ -439,7 +398,7 @@ class ManageInfoRetailer extends Component {
                                     <label>Floor Number*</label>
                                     <ul class="select">
                                         <li><input name="floorNumber" 
-                                            onChange={(event) => this.handlefloorNumberInput(event)} 
+                                            onChange={(event) => this.handleInput(event)} 
                                             type="text" class="form-control" placeholder="9" /></li>
                                     </ul>
                                 </div>
@@ -472,7 +431,7 @@ class ManageInfoRetailer extends Component {
                                     <div class="green-verify">
                                         <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
                                             onClick={() => this.submitmobilenoHandler()}
-                                        >verify</button>
+        >{this.state.verifiedMobile?`verified`:`verify`}</button>
                                     </div>
                                 </div>
 
@@ -504,7 +463,7 @@ class ManageInfoRetailer extends Component {
                                     <div class="green-verify">
                                         <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
                                             onClick={() => this.submitmobilenoHandler1()}
-                                        >verify</button>
+                                        >{this.state.verifiedMobile1?`verified`:`verify`}</button>
                                     </div>
                                 </div>
                             </div>
@@ -518,19 +477,19 @@ class ManageInfoRetailer extends Component {
                             <label> Email id for Managing Coupons and Getting Communications From LH</label>
                             <p><input 
                             name="email" 
-                            onChange={(event) => this.handleEmailInput(event)} 
+                            onChange={(event) => this.handleInput(event)} 
                           type="text" class="form-control" placeholder="bhaswti2526@gmail.com" /></p>
                         </span>
                         <span class="name">
                             <label>Registered Business Name *</label>
                             <p><input name="registeredBusinessName" 
-                            onChange={(event) => this.handleRegisteredBusinessNameInput(event)} 
+                            onChange={(event) => this.handleInput(event)} 
      type="text" class="form-control" placeholder="Business Name " /></p>
                         </span>
                         <span class="name">
                             <label> Registered Business Address*</label>
                             <p><input name="registeredBusinessAddress" 
-                            onChange={(event) => this.handleRegisteredBusinessAddressInput(event)} 
+                            onChange={(event) => this.handleInput(event)} 
      type="text" class="form-control" placeholder="New Delhi  " /></p>
                         </span>
                         <div class="address">
@@ -538,7 +497,7 @@ class ManageInfoRetailer extends Component {
                             <span class="name">
                                 <label>Pin Code*</label>
                                 <input name="pinCode" 
-                            onChange={(event) => this.handlePinCodeInput(event)} 
+                            onChange={(event) => this.handleInput(event)} 
      type="text" class="form-control" placeholder="110025" />
                             </span>
                             <span class="name">
@@ -557,13 +516,13 @@ class ManageInfoRetailer extends Component {
                                 <label>Address*</label>
                                 <textarea 
                                 name="address" 
-                                onChange={(event) => this.handleAddressInput(event)} 
+                                onChange={(event) => this.handleInput(event)} 
                                 class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Okhla phase 1 , D115"></textarea>
                             </span>
                             <span class="name">
                                 <label>GSTIN *</label>
                                 <input  name="GSTIN" 
-                                onChange={(event) => this.handleGSTINInput(event)} 
+                                onChange={(event) => this.handleInput(event)} 
                              type="text" class="form-control" placeholder="123456789" />
                             </span>
                             <span class="name">
@@ -658,7 +617,7 @@ class ManageInfoRetailer extends Component {
                                                             </label>
                                                         </div>
                                                         {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTPHandler()}>
+                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTPHandler(this.state.mobileno)}>
                                                             Resend
                                                      </p></Link>
                                                     </div>
@@ -666,21 +625,17 @@ class ManageInfoRetailer extends Component {
                                                 <div class="modalsumit">
                                                     {/* <a href="25-signup-user.html"> */}
                                                     {/* <Link to="SignupRetailer"> */}
-                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
+                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitOTPHandler("mobileno")}>SUBMIT</button>
                                                     {/* </Link> */}
                                                     {/* </a> */}
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-
-
-
                                 </form>
                             </ModalBody>
                         </Modal>
-
-                        <Modal isOpen={this.state.modalStatusResend} toggle={this.toggle} style={{ top: "190px", }}>
+                        <Modal isOpen={this.state.modalStatus1} toggle={this.toggle} style={{ top: "190px", }}>
                         <ModalBody>
                                 <form>
                                     <div class="modal-body">
@@ -740,7 +695,7 @@ class ManageInfoRetailer extends Component {
                                                             </label>
                                                         </div>
                                                         {/* <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#otpmodal" onClick={() => this.setState({ modalStatusResend: !this.state.modalStatusResend, modalStatus: !this.state.modalStatus })}>Resend</a> */}
-                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTPHandler()}>
+                                                        <Link><p style={{ textAlign: "end", color: "#123abd" }} onClick={() => this.resendOTPHandler(this.state.mobileno1)}>
                                                             Resend
                                                      </p></Link>
                                                     </div>
@@ -748,16 +703,13 @@ class ManageInfoRetailer extends Component {
                                                 <div class="modalsumit">
                                                     {/* <a href="25-signup-user.html"> */}
                                                     {/* <Link to="SignupRetailer"> */}
-                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitHandler()}>SUBMIT</button>
+                                                    <button type="button" class="btn btn-theme mb-4" data-toggle="modal" data-target="#otpmodal-2" onClick={() => this.submitOTPHandler("mobile1")}>SUBMIT</button>
                                                     {/* </Link> */}
                                                     {/* </a> */}
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-
-
-
                                 </form>
                             </ModalBody>
                         </Modal>
@@ -770,7 +722,7 @@ class ManageInfoRetailer extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("stateLogin-------", state)
+   
     return {
         applicationData: state.AuthReducer.userData
 
@@ -785,4 +737,8 @@ const mapDispatchToProps = dispatch => {
 
 // export default componentName
 export default connect(mapStateToProps, mapDispatchToProps)(ManageInfoRetailer);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 

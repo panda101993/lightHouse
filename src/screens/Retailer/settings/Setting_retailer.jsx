@@ -20,8 +20,8 @@ import Step2_retailer from '../../../components/Step2_retailer';
 
 const ManageGeneralInfo = () => 
 <div>
-    {/* <ManageInfoRetailer />  */}
-    <Step2_retailer /> 
+    <ManageInfoRetailer /> 
+    {/* <Step2_retailer />  */}
     
 </div>;
 

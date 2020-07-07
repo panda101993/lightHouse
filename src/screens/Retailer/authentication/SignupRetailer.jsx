@@ -6,7 +6,7 @@ import { GlobalValidations } from '../../../components/GlobalValidations';
 import { Link } from 'react-router-dom';
 import Apirequest from "../../../api/Apirequest"
 import Cookies from "universal-cookie"
-import {signupActionRetailer} from "../../../redux/action/AuthAction"
+import { signupActionRetailer } from "../../../redux/action/AuthAction"
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { TumblrShareButton } from 'react-share';
@@ -24,22 +24,22 @@ export class SignupRetailer extends Component {
             shopNameStatus: false,
 
             shopNumber: "",
-            shopNumStatus:false,
+            shopNumStatus: false,
 
             floorNumber: "",
-            floorStatus:false,
+            floorStatus: false,
 
             email: "",
-            emailErrorMessage:null,
-            emailErrorStatus:null,
+            emailErrorMessage: null,
+            emailErrorStatus: null,
 
             password: "",
-            passwordErrorMessage:null,
-            passwordErrorStatus:null,
+            passwordErrorMessage: null,
+            passwordErrorStatus: null,
 
             cfPassword: "",
-            cfpasswordErrorMessage:null,
-            cfpasswordErrorStatus:null,
+            cfpasswordErrorMessage: null,
+            cfpasswordErrorStatus: null,
 
             termsAndPrivacy: false,
             temp: this.props.location.pathname.split("/")
@@ -70,18 +70,18 @@ export class SignupRetailer extends Component {
                             console.log(this.state.datafound.martName)
                         }
                         else if (resp.data.responseCode == 404) {
-                            ToasterFunction("data err","Mart not found")
+                            ToasterFunction("data err", "Mart not found")
                         }
                         else if (resp.data.responseCode == 500) {
-                            ToasterFunction("Err","Internal Server Error")
+                            ToasterFunction("Err", "Internal Server Error")
                         }
                         break;
-                    case 900:{
+                    case 900: {
                         // alert("check your internet")
                         console.log("check your server")
                     }
-                    break;
-                    default:{
+                        break;
+                    default: {
                         alert(resp.data)
                     }
                 }
@@ -98,7 +98,7 @@ export class SignupRetailer extends Component {
     // }
     handleInput = (e, type) => {
         // console.log("abcd", this.state.selectedvalue)
-        console.log("temp----",this.state.temp)
+        console.log("temp----", this.state.temp)
         switch (type) {
             case "shopname":
                 {
@@ -118,7 +118,7 @@ export class SignupRetailer extends Component {
             case "email":
                 {
                     this.setState({ email: e.target.value }, () => this.handleValidation("email")
-                     )
+                    )
                 }
                 break
             case "password":
@@ -155,51 +155,51 @@ export class SignupRetailer extends Component {
                 console.log("email", edata)
                 this.setState({ emailErrorMessage: edata.error, emailErrorStatus: edata.status }, () => console.log("errore", this.state))
                 break
-                case ("cfpassword"):
-                    var cfdata = validateCFPassword(this.state.cfPassword,this.state.password)
-                    console.log("this is data of pass", cfdata)
-                    this.setState({ cfpasswordErrorMessage: cfdata.error, cfpasswordErrorStatus: cfdata.status }, () => console.log("errore", this.state))
+            case ("cfpassword"):
+                var cfdata = validateCFPassword(this.state.cfPassword, this.state.password)
+                console.log("this is data of pass", cfdata)
+                this.setState({ cfpasswordErrorMessage: cfdata.error, cfpasswordErrorStatus: cfdata.status }, () => console.log("errore", this.state))
         }
     }
 
-    handleSignup=()=>{
-        if(this.state.termsAndPrivacy){
-            if(this.state.shopNameStatus && 
-                this.state.shopNumStatus && 
-                this.state.floorStatus && 
+    handleSignup = () => {
+        if (this.state.termsAndPrivacy) {
+            if (this.state.shopNameStatus &&
+                this.state.shopNumStatus &&
+                this.state.floorStatus &&
                 this.state.emailErrorStatus &&
                 this.state.passwordErrorStatus &&
-                this.state.cfpasswordErrorStatus){
-                    // console.log("selectedvalue",this.state.selectedvalue)
-                    // this.state.temp[2]
-                                    var Sdata={
-                                    "mobileNumber": this.state.temp[2],
-                                    "martId":this.state.selectedvalue,
-                                    "shopName":this.state.shopName,
-                                    "shopNumber": this.state.shopNumber,
-                                    "floorNumber": this.state.floorNumber,
-                                    "email": this.state.email,
-                                    "password": this.state.password
-                                    }
-                                    this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.email}`))
-                    }
-                    else {
-                        ToasterFunction("fill","Please fill all fields")
-                    }
-                    
+                this.state.cfpasswordErrorStatus) {
+                // console.log("selectedvalue",this.state.selectedvalue)
+                // this.state.temp[2]
+                var Sdata = {
+                    "mobileNumber": this.state.temp[2],
+                    "martId": this.state.selectedvalue,
+                    "shopName": this.state.shopName,
+                    "shopNumber": this.state.shopNumber,
+                    "floorNumber": this.state.floorNumber,
+                    "email": this.state.email,
+                    "password": this.state.password
                 }
-                else{
-                    ToasterFunction("accept","Accept Terms and conditions")
-                }
-                
+                this.props.action.signupActionRetailer(Sdata, () => this.props.history.push(`/SignupOtp/${this.state.email}`))
+            }
+            else {
+                ToasterFunction("fill", "Please fill all fields")
+            }
+
+        }
+        else {
+            ToasterFunction("accept", "Accept Terms and conditions")
         }
 
-        handleTermsCondition=()=>{
-            this.setState({
-                 termsAndPrivacy: !this.state.termsAndPrivacy
-            })
-        }
-    
+    }
+
+    handleTermsCondition = () => {
+        this.setState({
+            termsAndPrivacy: !this.state.termsAndPrivacy
+        })
+    }
+
 
 
 
@@ -220,7 +220,7 @@ export class SignupRetailer extends Component {
                                     <div class="form-group">
                                         <label>Mart Name*</label>
                                         <select id="inputState" class="form-control"
-                                        onChange={(e) => this.setState({ selectedvalue: e.target.value }
+                                            onChange={(e) => this.setState({ selectedvalue: e.target.value }
                                             )}
                                         >
                                             <option selected>Mart name</option>
@@ -242,13 +242,13 @@ export class SignupRetailer extends Component {
                                         <div class="form-group col-md-6">
                                             <label >Shop Number*</label>
                                             <input type="text" class="form-control shpnm" placeholder="Shop Number"
-                                            onChange={(e) => this.handleInput(e, "shopNo")}
+                                                onChange={(e) => this.handleInput(e, "shopNo")}
                                             />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Floor Number*</label>
                                             <input type="text" class="form-control shpnm" placeholder="2"
-                                            onChange={(e) => this.handleInput(e, "floorNo")}
+                                                onChange={(e) => this.handleInput(e, "floorNo")}
                                             />
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@ export class SignupRetailer extends Component {
                                     <div class="eimanaging">
                                         Email id for Managing Coupons and Getting Communications From LH *
                   </div>
-                  <GlobalValidations
+                                    <GlobalValidations
                                         divClass="form-group"
                                         label="Email*"
                                         labelClass=""
@@ -299,12 +299,12 @@ export class SignupRetailer extends Component {
                                     />
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input"
-                                        onChange={()=>this.handleTermsCondition()}
+                                            onChange={() => this.handleTermsCondition()}
                                         />
                                         <label class="form-check-label agree">I agree to <a data-toggle="modal" data-target="#termscondtions"> <Link to="/TermsCondition" > Terms and Conditions</Link></a> </label>
                                     </div>
                                     <button type="button" class="btn btn-theme"
-                                    onClick={()=>this.handleSignup()}
+                                        onClick={() => this.handleSignup()}
                                     >SIGNUP</button>
                                     <div class="have-an">
                                         <p>Already Have an account? <Link to="/LoginRetailer">Login</Link></p>

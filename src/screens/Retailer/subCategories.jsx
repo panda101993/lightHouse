@@ -125,6 +125,7 @@ export class subCategories extends Component {
    couponCategory() {
       // console.log("applicationData",this.props.applicationData)
 
+<<<<<<< HEAD
       return <Carousel
          swipeable={true}
          draggable={false}
@@ -176,11 +177,65 @@ export class subCategories extends Component {
          })
          } </Carousel>
    }
+=======
+        return  <Carousel
+        swipeable={true}
+        draggable={false}
+        showDots={false}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        autoPlay={this.props.deviceType !== "mobile" ? true : false}
+        autoPlaySpeed={5000000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        deviceType={this.props.deviceType}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
+      > 
+        
+        {this.state.allData.map((allCouponData, index)=>{
+         //   console.log("allCouponDataakhtar",allCouponData)
+          return(
+            <div>
+             
+    <CouponsImage 
+    ImageSrc={allCouponData.image}
+    Title={allCouponData.title}
+    CouponCode={allCouponData.couponCode}
+    Discount={allCouponData.discount}
+    ItemName={allCouponData.itemName}
+    ExpiryDate={allCouponData.ExpiryDate}
+    CouponId={allCouponData._id}
+    CouponToken={this.props.applicationData.token}
+    CouponAppliedOn={allCouponData.couponAppliedOn}
+    OneTimeCoupon={allCouponData.oneTimeCoupon}
+    ShopName={allCouponData.shopName}
+    // ShopNumber={allCouponData.retailerId.shopNumber}
+    FloorNumber={allCouponData.floorNumber}
+    MartName={allCouponData.martName}
+    ShopPhoneNumber={allCouponData.shopPhoneNumber}
+    Restrictions={allCouponData.restrictions}
+    
+    
+    
+    />
+  
+            </div>
+          )
+        }) 
+        } </Carousel>
+      }
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 
 
 
    subCategoryData() {
       return <Carousel
+<<<<<<< HEAD
          swipeable={true}
          draggable={false}
          showDots={false}
@@ -211,6 +266,45 @@ export class subCategories extends Component {
             return (
                <div>
 
+=======
+      swipeable={true}
+      draggable={false}
+      showDots={false}
+      responsive={responsive1}
+      ssr={true} // means to render carousel on server-side.
+      infinite={true}
+      autoPlay={this.props.deviceType !== "mobile" ? true : false}
+      autoPlaySpeed={5000000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      deviceType={this.props.deviceType}
+      dotListClass="custom-dot-list-style"
+      itemClass="carousel-item-padding-40-px"
+   >
+      { this.state.allData.map((allCouponData, index) => {
+         let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
+         // console.log('checkData--',checkData)
+      //   let heartStatus;
+      //   if(checkData == -1){
+      //     heartStatus = false;
+      //   }else{
+      //     heartStatus = true ;
+      //   }
+      let heartStatus;
+         if(checkData == -1){
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
+         }
+      //   console.log('checkData--',heartStatus)
+         //   console.log('category',categoryImage);
+         return (
+            <div>
+               
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                   <div>
                      <ImageDashboard
                         ImageName={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.subCategoryName : ''}
@@ -233,6 +327,7 @@ export class subCategories extends Component {
          } </Carousel>
    }
 
+<<<<<<< HEAD
    categoryNameList() {
       return <Carousel
          swipeable={true}
@@ -256,6 +351,34 @@ export class subCategories extends Component {
             //   console.log('category',categoryImage);
             return (
                <div>
+=======
+categoryNameList(){
+   return  <Carousel
+   swipeable={true}
+   draggable={false}
+   showDots={false}
+   responsive={responsive}
+   ssr={true} // means to render carousel on server-side.
+   infinite={true}
+   autoPlay={this.props.deviceType !== "mobile" ? true : false}
+   autoPlaySpeed={5000000}
+   keyBoardControl={true}
+   customTransition="all .5"
+   transitionDuration={500}
+   containerClass="carousel-container"
+   removeArrowOnDeviceType={["tablet", "mobile"]}
+   deviceType={this.props.deviceType}
+   dotListClass="custom-dot-list-style"
+   itemClass="carousel-item-padding-40-px"
+>
+   {this.state.allData.map((allCouponData, index)=>{
+      //   console.log('category',categoryImage);
+         return(
+            <div>
+              
+
+
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                   <div>
                      <div class="slicent activa">
                         {allCouponData ? allCouponData.categoryName : ''}
