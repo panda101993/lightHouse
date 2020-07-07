@@ -132,12 +132,7 @@ export default class Setting_retailer extends Component {
                                             <Route  exact={true} path={`${path}/MyReferralCode`} component={MyReferralCode} />
                                             <Route  exact={true} path={`${path}/ChangePassword`} component={ChangePassword} />
                                             <Route  exact={true} path={`${path}/ManageWebpage`} component={ManageWebpage} />
-<<<<<<< HEAD
                                             {/* <Route  exact={true} path={`${path}/PreviewWebpageRetailer`} component={PreviewWebpageRetailer} /> */}
-=======
-                                
-                                            <Route  exact={true} path={`${path}/PreviewWebpageRetailer`} component={PreviewWebpageRetailer} />
->>>>>>> 513530b2f3cc0c1a974f5337305fbbcc254aaabc
                                             <Route   exact={true} path={`${path}/MyCredits`} component={MyCredits} />
                                             <Route exact={true} path={`${path}/MyCreditHistory`} component={MyCreditHistory} />
                                             <Route  exact={true} path={`${path}/Recharge`} component={Recharge} />
