@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import Footer from '../../components/Footer'
 import LandingTopicName from '../../components/LandingTopicName'
@@ -152,19 +151,19 @@ class componentName extends Component {
    }
 
 
-   productServiceType() {
-      return this.state.allData.slice(0, 1).map((xyz, index) => {
-         const { productServiceType } = xyz
-         return (
-            <div>
-               <h5 class="product-herd">{productServiceType}</h5>
-            </div>
-         )
+   // productServiceType() {
+   //    return this.state.allData.slice(0, 1).map((xyz, index) => {
+   //       const { productServiceType } = xyz
+   //       return (
+   //          <div>
+   //             <h5 class="product-herd">{productServiceType}</h5>
+   //          </div>
+   //       )
 
-      })
-   }
+   //    })
+   // }
 
-   categoryData() {
+   servicesByCategoryData() {
       return (
          <Carousel
             swipeable={true}
@@ -184,7 +183,45 @@ class componentName extends Component {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
          >
-            {this.state.allData.map((xyz, index) => {
+            {this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index) => {
+               return (
+                  <div>
+                     <ImageDashboard
+                        ImageName={xyz.categoryName}
+                        // LinkId="/subCategories"
+                        ImageA={xyz.categoryImage}
+                        heartImage={Imageid.RedHeart}
+                     />
+                  </div>
+               )
+            })
+            }
+         </Carousel>
+      )
+   }
+
+
+   productsByCategoryData() {
+      return (
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index) => {
                return (
                   <div>
                      <ImageDashboard
@@ -223,8 +260,15 @@ class componentName extends Component {
                   <LandingTopicName HeaderName="Categories" />
 
                   <div class="container-fluid">
-                     {this.productServiceType()}
-                     {this.categoryData()}
+                     {/* {this.productServiceType()} */}
+                     <div>
+                        <h5 class="product-herd">SERVICES</h5>
+                     </div>
+                     {this.servicesByCategoryData()}
+                     <div>
+                        <h5 style={{marginTop:40}} class="product-herd">PRODUCTS</h5>
+                     </div>
+                     {this.productsByCategoryData()}
                   </div>
                </section>
                <Footer />

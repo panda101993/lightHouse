@@ -131,7 +131,7 @@ export class CreateCouponform extends Component {
    }
    componentDidMount = async () => {
       let categoryList = await getRetailerCategory(this.props.token)
-      this.setState({ categoryList: categoryList }, () => console.log(">>>>>>>>", this.state))
+      this.setState({ categoryList: categoryList })
    }
 
    render() {

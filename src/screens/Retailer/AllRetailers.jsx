@@ -80,7 +80,7 @@ export class AllRetailers extends Component {
     try {
 
 
-      console.log('martt----', Id);
+      // console.log('martt----', Id);
       //  apiRequest({martId:Id},'/user/ ','POST')
       this.props.action.myCouponData({ martId: Id })
 
@@ -91,17 +91,17 @@ export class AllRetailers extends Component {
       //  });
       //  })
     } catch (error) {
-      console.log("responseError", error)
+      // console.log("responseError", error)
 
     }
 
   }
 
   async componentDidMount() {
-    console.log('martt', window.location.pathname);
+    //  console.log('martt', window.location.pathname);
     let splitUrl = window.location.pathname.split('/')
-    console.log('martt', splitUrl);
-    console.log('martt', splitUrl[2]);
+    // console.log('martt', splitUrl);
+    // console.log('martt', splitUrl[2]);
     this.getAllCoupansOfMart(splitUrl[2]);
   }
 
@@ -149,11 +149,16 @@ export class AllRetailers extends Component {
   }
   }
 
+
+  filterData(id){
+    console.log("idddd",id)
+  }
+
   martName() {
     if (this.props.allCouponData !== undefined) {
 
       return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
-        console.log("xyzzzz=======", allCoupon.retailerId.users)
+        // console.log("xyzzzz=======", allCoupon.retailerId.users)
         return (
           <div>
             <h2 class="mn">  <Link to={`/WebsiteMart/${allCoupon.martId}`}>{allCoupon.martName} </Link></h2>
@@ -162,8 +167,61 @@ export class AllRetailers extends Component {
       })
     }
   }
+  categoryList() {
+    if (this.props.allCouponData !== undefined) {
 
+      return this.props.allCouponData.map((allCoupon, index) => {
+        return (
+          <div>
+           <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />        
+            <label class="form-check-label" for="exampleCheck1">{allCoupon.categoryName}</label>
+          </div>
+        )
+      })
+    }
+  }
 
+  subCategoryList() {
+    if (this.props.allCouponData !== undefined) {
+
+      return this.props.allCouponData.map((allCoupon, index) => {
+        return (
+          <div>
+          <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />
+        <label class="form-check-label" for="exampleCheck1">{allCoupon.subCategoryName}</label>
+          </div>
+        )
+      })
+    }
+  }
+
+  itemTypeList() {
+    if (this.props.allCouponData !== undefined) {
+
+      return this.props.allCouponData.map((allCoupon, index) => {
+        return (
+          <div>
+          <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />
+        <label class="form-check-label" for="exampleCheck1">{allCoupon.itemType}</label>
+          </div>
+        )
+      })
+    }
+  }
+
+  brandNameList() {
+    if (this.props.allCouponData !== undefined) {
+
+      return this.props.allCouponData.map((allCoupon, index) => {
+        return (
+          <div>
+          <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />
+        <label class="form-check-label" for="exampleCheck1">{allCoupon.brandName}</label>
+          </div>
+        )
+      })
+    }
+  }
 
 
   retailerData() {
@@ -192,17 +250,23 @@ export class AllRetailers extends Component {
       
       
       {this.props.allCouponData.map((allCoupon, index) => {
-        console.log("akhtar===", allCoupon.retailerId._id)
+        // console.log("akhtar===", allCoupon.retailerId._id)
         let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
 
-        console.log('checkData--', checkData)
+        // console.log('checkData--', checkData)
+        // let heartStatus;
+        // if (checkData == -1) {
+        //   heartStatus = false;
+        // } else {
+        //   heartStatus = true;
+        // }
         let heartStatus;
-        if (checkData == -1) {
-          heartStatus = false;
-        } else {
-          heartStatus = true;
-        }
-        console.log('checkData--', heartStatus)
+         if(checkData == -1){
+           heartStatus = Imageid.heartImage;         
+         }else{            
+           heartStatus = Imageid.RedHeart ;
+         }
+        // console.log('checkData--', heartStatus)
 
 
 
@@ -272,7 +336,12 @@ export class AllRetailers extends Component {
     >
       
       {this.props.allCouponData.map((allCoupon, index) => {
-        console.log("applicationData--", allCoupon.retailerId.users)
+        // console.log("applicationData--", allCoupon.retailerId.users)
+        if(!allCoupon.retailerId.address)return null;
+        if(!allCoupon.retailerId.city)return null;
+        if(!allCoupon.retailerId.pinCode)return null;
+        if(!allCoupon.retailerId.state)return null;
+        // console.log("applicationDataakh--", allCoupon.retailerId.city)
 
         return (
           <div>
@@ -294,11 +363,10 @@ export class AllRetailers extends Component {
                 MartName={allCoupon.martName}
                 ShopPhoneNumber={allCoupon.shopPhoneNumber}
                 Restrictions={allCoupon.restrictions}
-
-
-
-
-
+                Address={allCoupon.retailerId.address}
+                City={allCoupon.retailerId.city}
+                PinCode={allCoupon.retailerId.pinCode}
+                State={allCoupon.retailerId.state}
               />
            
           </div>
@@ -344,22 +412,43 @@ export class AllRetailers extends Component {
                       <li><button type="button" class="save0 s-1" data-toggle="modal" data-target="#this-coupon">Clear All</button></li>
                     </ul>
                     <div class="check-padd-bottom">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                      {/* <div class="form-check"> */}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" /> */}
                         <label class="form-check-label" for="exampleCheck1">Category Name</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        {/* </div> */}
+                        <div class="form-check">
+                          {this.categoryList()}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Category A</label> */}
+                        </div>
+                      
+                      {/* <div class="form-check"> */}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" /> */}
                         <label class="form-check-label" for="exampleCheck1">Sub-Category Name</label>
-                      </div>
+                      {/* </div> */}
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        {this.subCategoryList()}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Sub-Category A</label> */}
+                      </div>
+                      {/* <div class="form-check"> */}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" /> */}
                         <label class="form-check-label" for="exampleCheck1">Item Type</label>
+                        <div class="form-check">
+                        {this.itemTypeList()}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Sub-Category A</label> */}
                       </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                      {/* </div> */}
+                      {/* <div class="form-check"> */}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" /> */}
                         <label class="form-check-label" for="exampleCheck1">Brand</label>
+                        <div class="form-check">
+                        {this.brandNameList()}
+                        {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                        <label class="form-check-label" for="exampleCheck1">Sub-Category A</label> */}
                       </div>
+                      {/* </div> */}
                     </div>
                   </div>
                 </div>
@@ -399,7 +488,7 @@ export class AllRetailers extends Component {
 // export default AllRetailers
 
 const mapStateToProps = state => {
-  console.log("stateabc", state)
+  console.log("stateabc", state) 
   return {
     allCouponData: state.CouponCodeReducer.userData,
     applicationData: state.AuthReducer.userData
