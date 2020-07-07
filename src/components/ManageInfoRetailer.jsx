@@ -785,15 +785,4 @@ const mapDispatchToProps = dispatch => {
 
 // export default componentName
 export default connect(mapStateToProps, mapDispatchToProps)(ManageInfoRetailer);
-// <<<<<<< HEAD
-// const mapSateToProps = state => {
-//     console.log("change state", state)
-//     return {
-//         applicationkey: state.AuthReducer.userData
-//     }
-// }
-// export default connect(mapSateToProps, { loginAction })(ManageInfoRetailer);
-
-// =======
-// >>>>>>> 542a0596fd65c3351774d55bb1506619019389ac
 

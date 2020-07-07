@@ -91,6 +91,7 @@ class componentName extends Component {
                            ToasterFunction("error", "Internal Server Error");
 
                         }
+                        break;
                      }
                   case (900): {
                      if (resp.status == 900) {
@@ -266,7 +267,7 @@ class componentName extends Component {
                      </div>
                      {this.servicesByCategoryData()}
                      <div>
-                        <h5 style={{marginTop:40}} class="product-herd">PRODUCTS</h5>
+                        <h5 style={{ marginTop: 40 }} class="product-herd">PRODUCTS</h5>
                      </div>
                      {this.productsByCategoryData()}
                   </div>

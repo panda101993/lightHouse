@@ -27,7 +27,7 @@ import { connect } from "react-redux";
         <h3 class="info_c3">My Referral Code</h3>
         <div class="name_c301">
             <div class="light">
-                Brand Name
+                {/* Brand Name */}
                             </div>
             <div class="maincred ref">
                 <div class="mycredit ref">

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { Modal, ModalBody } from "reactstrap";
 import ApiRequest from '../api/Apirequest';
@@ -51,6 +50,7 @@ class Step2_retailer extends Component {
                            ToasterFunction("error", "Internal Server Error");
                         }
                      }
+                     break;
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")

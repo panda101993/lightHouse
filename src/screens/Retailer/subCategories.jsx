@@ -68,7 +68,7 @@ export class subCategories extends Component {
       this.state = {
 
          allData: [],
-         subCategory:[]
+         subCategory: []
 
       }
    }
@@ -77,14 +77,14 @@ export class subCategories extends Component {
       try {
          apiRequest({ categoryId: categoryId, martId: martId }, '/user/getSubCategoryAndCouponByCategory', 'POST')
             .then((resp) => {
-               console.log('responseCategorycoupon',resp);
+               console.log('responseCategorycoupon', resp);
                switch (resp.status) {
                   case (200):
                      {
                         if (resp.data.responseCode == 200) {
                            this.setState({
                               allData: resp.data.Data
-                            
+
                            });
                            // console.log("subCategory---",resp.data.DatasubCategoryId)
                         }
@@ -97,6 +97,7 @@ export class subCategories extends Component {
 
                         }
                      }
+                     break;
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")
@@ -121,102 +122,95 @@ export class subCategories extends Component {
       this.getSubCategoryAndCouponByCategory(splitUrl[2], splitUrl[3]);
    }
 
-   couponCategory(){
+   couponCategory() {
       // console.log("applicationData",this.props.applicationData)
 
-        return  <Carousel
-        swipeable={true}
-        draggable={false}
-        showDots={false}
-        responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
-        infinite={true}
-        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-        autoPlaySpeed={5000000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        deviceType={this.props.deviceType}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      > 
-        
-        {this.state.allData.map((allCouponData, index)=>{
-         //   console.log("allCouponDataakhtar",allCouponData)
-          return(
-            <div>
-             
-    <CouponsImage 
-    ImageSrc={allCouponData.image}
-    Title={allCouponData.title}
-    CouponCode={allCouponData.couponCode}
-    Discount={allCouponData.discount}
-    ItemName={allCouponData.itemName}
-    ExpiryDate={allCouponData.ExpiryDate}
-    CouponId={allCouponData._id}
-    CouponToken={this.props.applicationData.token}
-    CouponAppliedOn={allCouponData.couponAppliedOn}
-    OneTimeCoupon={allCouponData.oneTimeCoupon}
-    ShopName={allCouponData.shopName}
-    // ShopNumber={allCouponData.retailerId.shopNumber}
-    FloorNumber={allCouponData.floorNumber}
-    MartName={allCouponData.martName}
-    ShopPhoneNumber={allCouponData.shopPhoneNumber}
-    Restrictions={allCouponData.restrictions}
-    
-    
-    
-    />
-  
-            </div>
-          )
-        }) 
-        } </Carousel>
-      }
+      return <Carousel
+         swipeable={true}
+         draggable={false}
+         showDots={false}
+         responsive={responsive}
+         ssr={true} // means to render carousel on server-side.
+         infinite={true}
+         autoPlay={this.props.deviceType !== "mobile" ? true : false}
+         autoPlaySpeed={5000000}
+         keyBoardControl={true}
+         customTransition="all .5"
+         transitionDuration={500}
+         containerClass="carousel-container"
+         removeArrowOnDeviceType={["tablet", "mobile"]}
+         deviceType={this.props.deviceType}
+         dotListClass="custom-dot-list-style"
+         itemClass="carousel-item-padding-40-px"
+      >
+
+         {this.state.allData.map((allCouponData, index) => {
+            //   console.log("allCouponDataakhtar",allCouponData)
+            return (
+               <div>
+
+                  <CouponsImage
+                     ImageSrc={allCouponData.image}
+                     Title={allCouponData.title}
+                     CouponCode={allCouponData.couponCode}
+                     Discount={allCouponData.discount}
+                     ItemName={allCouponData.itemName}
+                     ExpiryDate={allCouponData.ExpiryDate}
+                     CouponId={allCouponData._id}
+                     CouponToken={this.props.applicationData.token}
+                     CouponAppliedOn={allCouponData.couponAppliedOn}
+                     OneTimeCoupon={allCouponData.oneTimeCoupon}
+                     ShopName={allCouponData.shopName}
+                     // ShopNumber={allCouponData.retailerId.shopNumber}
+                     FloorNumber={allCouponData.floorNumber}
+                     MartName={allCouponData.martName}
+                     ShopPhoneNumber={allCouponData.shopPhoneNumber}
+                     Restrictions={allCouponData.restrictions}
+
+
+
+                  />
+
+               </div>
+            )
+         })
+         } </Carousel>
+   }
 
 
 
    subCategoryData() {
       return <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={false}
-      responsive={responsive1}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={this.props.deviceType !== "mobile" ? true : false}
-      autoPlaySpeed={5000000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-   >
-      { this.state.allData.map((allCouponData, index) => {
-         let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
-         // console.log('checkData--',checkData)
-      //   let heartStatus;
-      //   if(checkData == -1){
-      //     heartStatus = false;
-      //   }else{
-      //     heartStatus = true ;
-      //   }
-      let heartStatus;
-         if(checkData == -1){
-           heartStatus = Imageid.heartImage;         
-         }else{            
-           heartStatus = Imageid.RedHeart ;
-         }
-      //   console.log('checkData--',heartStatus)
-         //   console.log('category',categoryImage);
-         return (
-            <div>
-               
+         swipeable={true}
+         draggable={false}
+         showDots={false}
+         responsive={responsive1}
+         ssr={true} // means to render carousel on server-side.
+         infinite={true}
+         autoPlay={this.props.deviceType !== "mobile" ? true : false}
+         autoPlaySpeed={5000000}
+         keyBoardControl={true}
+         customTransition="all .5"
+         transitionDuration={500}
+         containerClass="carousel-container"
+         removeArrowOnDeviceType={["tablet", "mobile"]}
+         deviceType={this.props.deviceType}
+         dotListClass="custom-dot-list-style"
+         itemClass="carousel-item-padding-40-px"
+      >
+         {this.state.allData.map((allCouponData, index) => {
+            let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
+
+            let heartStatus;
+            if (checkData == -1) {
+               heartStatus = Imageid.heartImage;
+            } else {
+               heartStatus = Imageid.RedHeart;
+            }
+
+            return (
+               <div>
+
                   <div>
                      <ImageDashboard
                         ImageName={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.subCategoryName : ''}
@@ -226,58 +220,54 @@ export class subCategories extends Component {
                         Id={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId._id : ''}
                         Token={this.props.applicationData.token}
                         typeData={'subCategory'}
-                        HeartData = {heartStatus}
+                        HeartData={heartStatus}
                         blankHeart={Imageid.heartImage}
                         redHeart={Imageid.RedHeart}
 
                      />
                   </div>
-              
-            </div>
-         )
-      })
-   } </Carousel>
+
+               </div>
+            )
+         })
+         } </Carousel>
    }
 
-categoryNameList(){
-   return  <Carousel
-   swipeable={true}
-   draggable={false}
-   showDots={false}
-   responsive={responsive}
-   ssr={true} // means to render carousel on server-side.
-   infinite={true}
-   autoPlay={this.props.deviceType !== "mobile" ? true : false}
-   autoPlaySpeed={5000000}
-   keyBoardControl={true}
-   customTransition="all .5"
-   transitionDuration={500}
-   containerClass="carousel-container"
-   removeArrowOnDeviceType={["tablet", "mobile"]}
-   deviceType={this.props.deviceType}
-   dotListClass="custom-dot-list-style"
-   itemClass="carousel-item-padding-40-px"
->
-   {this.state.allData.map((allCouponData, index)=>{
-      //   console.log('category',categoryImage);
-         return(
-            <div>
-              
-
-
+   categoryNameList() {
+      return <Carousel
+         swipeable={true}
+         draggable={false}
+         showDots={false}
+         responsive={responsive}
+         ssr={true} // means to render carousel on server-side.
+         infinite={true}
+         autoPlay={this.props.deviceType !== "mobile" ? true : false}
+         autoPlaySpeed={5000000}
+         keyBoardControl={true}
+         customTransition="all .5"
+         transitionDuration={500}
+         containerClass="carousel-container"
+         removeArrowOnDeviceType={["tablet", "mobile"]}
+         deviceType={this.props.deviceType}
+         dotListClass="custom-dot-list-style"
+         itemClass="carousel-item-padding-40-px"
+      >
+         {this.state.allData.map((allCouponData, index) => {
+            //   console.log('category',categoryImage);
+            return (
+               <div>
                   <div>
                      <div class="slicent activa">
                         {allCouponData ? allCouponData.categoryName : ''}
+                     </div>
                   </div>
-                  </div>
+               </div>
+            )
+         })
 
-              
-            </div>
-         )
-      })
-
-} </Carousel>
-}
+         } </Carousel>
+   }
+   
    render() {
 
       return (
@@ -529,8 +519,8 @@ categoryNameList(){
                               {/* <CatogriesScroll /> */}
                               {/* </div> */}
                               {this.subCategoryData()}
-                          
-                                 {/* <div>
+
+                              {/* <div>
 
                                     <ImageDashboard
                                        ImageName="Bounce Salon & Spa"

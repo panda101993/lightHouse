@@ -10,6 +10,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux";
 import Apirequest from '../../api/Apirequest';
 import ToasterFunction from '../../components/ToasterFunc';
+import { readlink } from 'fs/promises';
 
 
 class NotificationScreensRetailer extends Component {
@@ -58,6 +59,7 @@ class NotificationScreensRetailer extends Component {
                       ToasterFunction("error", resp.data.responseMessage);
   
                   }
+                  break;
               }
               case (900): {
                   if (resp.status == 900) {
@@ -104,6 +106,7 @@ class NotificationScreensRetailer extends Component {
                       ToasterFunction("error", resp.data.responseMessage);
   
                   }
+                  break;
               }
               case (900): {
                   if (resp.status == 900) {

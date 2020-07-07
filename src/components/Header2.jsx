@@ -1,28 +1,28 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { connect } from "react-redux"; 
+import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import {logoutAction} from "../redux/action/AuthAction";
+import { logoutAction } from "../redux/action/AuthAction";
 import Cookies from 'universal-cookie';
 
 function Header2(props) {
-    console.log("creditData==>",props.applicationData.credit)
+    console.log("creditData==>", props.applicationData.credit)
     // const [modalStatus,setModal] =useState(false)
-    const [modalStatus, setModal] = useState(false) 
+    const [modalStatus, setModal] = useState(false)
     const [modalStatusView, setModalView] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
-    const [latitude,setLatitude] = useState("");
-    const [longitude,setLongitude] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
 
     useEffect(() => {
-        const cookies = new Cookies();        
-        const latitude = cookies.get('latitude')       
+        const cookies = new Cookies();
+        const latitude = cookies.get('latitude')
         const longitude = cookies.get('longitude')
 
         // console.log("long",longitude)
@@ -30,8 +30,8 @@ function Header2(props) {
         setLatitude(latitude);
         setLongitude(longitude);
 
-      });
-// this.props.action.logoutAction()=>this.props.history.push("/"))
+    });
+    // this.props.action.logoutAction()=>this.props.history.push("/"))
     return (
         <div>
             {/* <body> */}
@@ -45,7 +45,7 @@ function Header2(props) {
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " +longitude}<i class="" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
                                         {/* <select class="custom-select" id="inputGroupSelect01" data-toggle="modal" data-target="#locationsetmodal">
                                             <option selected>Choose location</option>
                                             <option value="1">New Delhi</option>
@@ -101,29 +101,29 @@ function Header2(props) {
                                         {/* </div> */}
                                         {/* </select>  */}
                                         <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
-      <DropdownToggle caret>
-        Enduser
+                                            <DropdownToggle caret>
+                                                Enduser
         </DropdownToggle>
-      <DropdownMenu className="dropdown-menu log-menu" >
-    
-        <DropdownItem tag={Link} to="/LoginCustomer">Login</DropdownItem>
-        <DropdownItem tag={Link} to="/SignupCustomer">Signup</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+                                            <DropdownMenu className="dropdown-menu log-menu" >
+
+                                                <DropdownItem tag={Link} to="/LoginCustomer">Login</DropdownItem>
+                                                <DropdownItem tag={Link} to="/SignupCustomer">Signup</DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
                                     </li>
                                 </ul>
                             </div>
                         </nav>
                     </div>
-                </div> 
-            {modalStatusView  ?  <div class="container-fluid">
+                </div>
+                {modalStatusView ? <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand" href="index.html">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
                         </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                            aria-expanded="true" aria-label="Toggle navigation"  onClick={() => setModalView(!modalStatusView)} >
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="true" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)} >
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse show" id="navbarSupportedContent">
@@ -146,76 +146,13 @@ function Header2(props) {
                                         </div>
                                     </div>
                                 </li> */}
-                                    <li class="nav-item dropdown account-drop">
-                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">  */}
-                         <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
-                             Credits Point({props.applicationData.credit}) 
-                             </Link>
-                         {/* </a> */}
-                      </li>
                                 <li class="nav-item dropdown account-drop">
-                                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus) }>
-                                        {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
-                                        {/* My Account */}
-                                    Log Out
-                                    {/* </a> */}
-                                    </a>
-                                    {/* <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">MY</a>
-                                    <a class="dropdown-item" href="#">My Account</a>
-                                </div> */}
-                                </li> 
-                                <Link to='/NotificationScreensRetailer' > 
-                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
-                                  </Link>
-                              
-
-                                <li class="prfile">
-                                {props.applicationData.shopName}
-                                    <p></p>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>   :  <div class="container-fluid">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html">
-                            <img class="logo" src={require("../assets/images/Logo.png")} />
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                            aria-expanded="false" aria-label="Toggle navigation"  onClick={() => setModalView(!modalStatusView)} >
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto custom-nav">
-                                {/* <li class="serch-sec">
-                                <input class="form-control"
-                                    type="search"
-                                    placeholder="Search by Title, Product/Service name etc"
-                                    aria-label="Search"
-                                />
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </li> */}
-                                {/* <li class="serch-sec">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
-                                        <div class="input-group-append">
-                                            <button class="btn btn-seach" type="button">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li> */} 
-                                 <li class="nav-item dropdown account-drop">
-                         {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">
-                             Credits Point({props.applicationData.credit})
-                         </a> */}
-                          <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
-                             Credits Point({props.applicationData.credit}) 
+                                    {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">  */}
+                                    <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
+                                        Credits Point({props.applicationData.credit})
                              </Link>
-                      </li>
-
+                                    {/* </a> */}
+                                </li>
                                 <li class="nav-item dropdown account-drop">
                                     <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
                                         {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
@@ -228,19 +165,82 @@ function Header2(props) {
                                     <a class="dropdown-item" href="#">My Account</a>
                                 </div> */}
                                 </li>
-                                {/* <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> */} 
-                                <Link to='/NotificationScreensRetailer' > 
-                                 <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> 
-                                  </Link>
+                                <Link to='/NotificationScreensRetailer' >
+                                    <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                </Link>
+
+
                                 <li class="prfile">
-                                    {/* <img src={require("../assets/images/new-profile.png")} /> */}
-                                    <p>{props.applicationData.shopName}</p>
+                                    {props.applicationData.shopName}
+                                    <p></p>
                                 </li>
                             </ul>
                         </div>
                     </nav>
-                </div>  }     
-               
+                </div> : <div class="container-fluid">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <a class="navbar-brand" href="index.html">
+                                <img class="logo" src={require("../assets/images/Logo.png")} />
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)} >
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto custom-nav">
+                                    {/* <li class="serch-sec">
+                                <input class="form-control"
+                                    type="search"
+                                    placeholder="Search by Title, Product/Service name etc"
+                                    aria-label="Search"
+                                />
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </li> */}
+                                    {/* <li class="serch-sec">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search by Title, Product/Service name etc" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-seach" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li> */}
+                                    <li class="nav-item dropdown account-drop">
+                                        {/* <a class="nav-link py-0" id="navbarDropdown" href="77-settings-retailer1.html">
+                             Credits Point({props.applicationData.credit})
+                         </a> */}
+                                        <Link class="nav-link py-0" id="navbarDropdown" to='/Setting_retailer/MyCredits'>
+                                            Credits Point({props.applicationData.credit})
+                             </Link>
+                                    </li>
+
+                                    <li class="nav-item dropdown account-drop">
+                                        <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => setModal(!modalStatus)}>
+                                            {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> */}
+                                            {/* My Account */}
+                                    Log Out
+                                    {/* </a> */}
+                                        </a>
+                                        {/* <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">MY</a>
+                                    <a class="dropdown-item" href="#">My Account</a>
+                                </div> */}
+                                    </li>
+                                    {/* <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li> */}
+                                    <Link to='/NotificationScreensRetailer' >
+                                        <li class="notification-icon"><i class="fa fa-bell" aria-hidden="true"></i></li>
+                                    </Link>
+                                    <li class="prfile">
+                                        {/* <img src={require("../assets/images/new-profile.png")} /> */}
+                                        <p>{props.applicationData.shopName}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>}
+
             </header>
             <Modal isOpen={modalStatus} style={{ top: "190px", }}>
                 <ModalBody>
@@ -253,8 +253,10 @@ function Header2(props) {
                     </div> */}
                         <div class="modal-body ok n-yes">
                             <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)}>No</button>
-                     <Link to="/">      <button type="button" class="btn setloc-btn" type="submit" onClick={() => {setModal(!modalStatus)
-                                        props.action.logoutAction()} }>Yes</button></Link> 
+                            <Link to="/">      <button type="button" class="btn setloc-btn" type="submit" onClick={() => {
+                                setModal(!modalStatus)
+                                props.action.logoutAction()
+                            }}>Yes</button></Link>
                         </div>
                     </form>
                 </ModalBody>
@@ -280,15 +282,15 @@ function Header2(props) {
 const mapStateToProps = state => {
     console.log("stateLogin-------", state)
     return {
-       applicationData: state.ProfileDetailsReducer.profileData      
+        applicationData: state.ProfileDetailsReducer.profileData
     }
-          
-  }
-  const mapDispatchToProps = dispatch => {
+
+}
+const mapDispatchToProps = dispatch => {
     return {
         action: bindActionCreators({ logoutAction }, dispatch)
     }
 }
- 
+
 // export default Header2
 export default connect(mapStateToProps, mapDispatchToProps)(Header2);
