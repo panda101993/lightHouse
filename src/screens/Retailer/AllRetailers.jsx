@@ -146,69 +146,70 @@ export class AllRetailers extends Component {
   filterData(id){
 
     console.log("idddd",id)
-    if (this.props.allCouponData !== undefined) {
+    // window.location.href = `/couponsBySearch/${id}`
+  //   if (this.props.allCouponData !== undefined) {
 
       
-      return  <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={false}
-      responsive={responsive1}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={this.props.deviceType !== "mobile" ? true : false}
-      autoPlaySpeed={5000000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-    >
+  //     return  <Carousel
+  //     swipeable={true}
+  //     draggable={false}
+  //     showDots={false}
+  //     responsive={responsive1}
+  //     ssr={true} // means to render carousel on server-side.
+  //     infinite={true}
+  //     autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  //     autoPlaySpeed={5000000}
+  //     keyBoardControl={true}
+  //     customTransition="all .5"
+  //     transitionDuration={500}
+  //     containerClass="carousel-container"
+  //     removeArrowOnDeviceType={["tablet", "mobile"]}
+  //     deviceType={this.props.deviceType}
+  //     dotListClass="custom-dot-list-style"
+  //     itemClass="carousel-item-padding-40-px"
+  //   >
       
-      {this.props.allCouponData.filter(allCouponData => allCouponData.categoryId== id).map((allCoupon, index) => {
-        console.log("filtersss--", allCoupon.image)
-        // if(!allCoupon.retailerId.address)return null;
-        // if(!allCoupon.retailerId.city)return null;
-        // if(!allCoupon.retailerId.pinCode)return null;
-        // if(!allCoupon.retailerId.state)return null;
-        // console.log("applicationDataakh--", allCoupon.retailerId.city)
+  //     {this.props.allCouponData.filter(allCouponData => allCouponData.categoryId== id).map((allCoupon, index) => {
+  //       console.log("filtersss--", allCoupon)
+  //       if(!allCoupon.retailerId.address)return null;
+  //       if(!allCoupon.retailerId.city)return null;
+  //       if(!allCoupon.retailerId.pinCode)return null;
+  //       if(!allCoupon.retailerId.state)return null;
+  //       console.log("applicationDataakh--", allCoupon.retailerId.city)
 
-        return (
-          <div>
-            <h1>hiiiiiiiii</h1>
+  //       return (
+  //         <div>
+  //           <h1>hiiiiiiiii</h1>
            
-              {/* <CouponsImage
-                ImageSrc={allCoupon.image}
-                Title={allCoupon.title}
-                CouponCode={allCoupon.couponCode}
-                Discount={allCoupon.discount}
-                ItemName={allCoupon.itemName}
-                ExpiryDate={allCoupon.ExpiryDate}
-                CouponId={allCoupon._id}
-                CouponToken={this.props.applicationData.token}
-                CouponAppliedOn={allCoupon.couponAppliedOn}
-                OneTimeCoupon={allCoupon.oneTimeCoupon}
-                ShopName={allCoupon.shopName}
-                ShopNumber={allCoupon.retailerId.shopNumber}
-                FloorNumber={allCoupon.floorNumber}
-                MartName={allCoupon.martName}
-                ShopPhoneNumber={allCoupon.shopPhoneNumber}
-                Restrictions={allCoupon.restrictions}
-                Address={allCoupon.retailerId.address}
-                City={allCoupon.retailerId.city}
-                PinCode={allCoupon.retailerId.pinCode}
-                State={allCoupon.retailerId.state}
-              /> */}
+  //             <CouponsImage
+  //               ImageSrc={allCoupon.image}
+  //               Title={allCoupon.title}
+  //               CouponCode={allCoupon.couponCode}
+  //               Discount={allCoupon.discount}
+  //               ItemName={allCoupon.itemName}
+  //               ExpiryDate={allCoupon.ExpiryDate}
+  //               CouponId={allCoupon._id}
+  //               CouponToken={this.props.applicationData.token}
+  //               CouponAppliedOn={allCoupon.couponAppliedOn}
+  //               OneTimeCoupon={allCoupon.oneTimeCoupon}
+  //               ShopName={allCoupon.shopName}
+  //               ShopNumber={allCoupon.retailerId.shopNumber}
+  //               FloorNumber={allCoupon.floorNumber}
+  //               MartName={allCoupon.martName}
+  //               ShopPhoneNumber={allCoupon.shopPhoneNumber}
+  //               Restrictions={allCoupon.restrictions}
+  //               Address={allCoupon.retailerId.address}
+  //               City={allCoupon.retailerId.city}
+  //               PinCode={allCoupon.retailerId.pinCode}
+  //               State={allCoupon.retailerId.state}
+  //             />
            
-          </div>
-        )
-      })
-    } 
-    </Carousel>
-  }
+  //         </div>
+  //       )
+  //     })
+  //   } 
+  //   </Carousel>
+  // }
   }
 
   martName() {
@@ -525,8 +526,8 @@ export class AllRetailers extends Component {
                     </div>
                     <div class="landing-slider">
                       <div class="cover-slidersection">
-                        {/* {this.couponData()} */}
-                        {this.filterData()}
+                        {this.couponData()}
+                        {/* {this.filterData()} */}
 
                       </div>
                     </div>

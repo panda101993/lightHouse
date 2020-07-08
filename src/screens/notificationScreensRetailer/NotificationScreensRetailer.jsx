@@ -10,7 +10,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux";
 import Apirequest from '../../api/Apirequest';
 import ToasterFunction from '../../components/ToasterFunc';
-import { readlink } from 'fs/promises';
+// import { readlink } from 'fs/promises';
 
 
 class NotificationScreensRetailer extends Component {

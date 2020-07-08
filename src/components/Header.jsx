@@ -119,24 +119,32 @@ const Header = (props) => {
                     console.log('response==', resp)
 
                     switch (resp.status) {
-                        case (200): {
+                        case (200): 
+                        {
                             if (resp.data.responseCode == 200) {
-                                ToasterFunction("success", "Location added successfully");
+                                ToasterFunction("success", resp.data.responseMessage);
                                 //  alert("Location added successfully")
                             }
                             else if (resp.data.responseCode == 404) {
-                                ToasterFunction("info", "Location not found");
+                                ToasterFunction("info", resp.data.responseMessage);
                                 //  alert("Location not found")
                             }
                             else if (resp.data.responseCode == 500) {
-                                ToasterFunction("error", "Internal Server Error");
+                                ToasterFunction("error", resp.data.responseMessage);
                                 //  alert("Internal Server Error")
+                            }
+                        }
+                        break;
+                        case (900): {
+                            if (resp.status == 900) {
+                                ToasterFunction("error", "Please check your internet connection")
                             }
                         }
                     }
 
 
-                })
+                });
+                
         } catch (error) {
             // console.log("responseerror==",error)
             ToasterFunction("error", "Network error, please contact the administrator");

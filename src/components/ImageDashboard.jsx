@@ -9,51 +9,21 @@ export default function ImageDashboard(props) {
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
    const [heartStatusNOW, setheartStatusNOW] = useState(props.heartImage)
-<<<<<<< HEAD
-   const { ImageName, ImageA, LinkId, heartImage, MartId, Token, RetailerId, Id, UniqueId, typeData, typePage, blankHeart, redHeart, reloadApi } = props
-=======
    const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart,reloadApi} = props
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
    // console.log("hello imageAbc ", props)
    // console.log("typePage--",typePage)
 
 
-<<<<<<< HEAD
-
-   const addToFavouriteAll = (UniqueId, Id, typeData) => {
-      // console.log('Id------',Id);
-      // console.log("UniqueId===",UniqueId)
-      if (typeData == 'mart') {
-=======
    const  addToFavouriteAll = (UniqueId,Id,typeData) => {
       // console.log('Id------',Id);
       // console.log("UniqueId===",UniqueId)
        if(typeData == 'mart'){
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
          try {
             apiRequest({ uniqueId: UniqueId, martId: Id }, '/user/wishListMarts', 'POST', props.Token)
                .then((resp) => {
                   console.log('responsemartadded', resp);
                   switch (resp.status) {
                      case (200):
-<<<<<<< HEAD
-                        {
-                           if (resp.data.responseCode == 200) {
-                              ToasterFunction("success", resp.data.responseMessage);
-                              setheartStatusNOW(!heartStatusNOW)
-                              // props.reloadApi
-
-                           }
-                           else if (resp.data.responseCode == 404) {
-                              ToasterFunction("info", resp.data.responseMessage);
-
-                           }
-                           else if (resp.data.responseCode == 500) {
-                              ToasterFunction("error", resp.data.responseMessage);
-
-                           }
-                        }
-=======
                          {
                          if (resp.data.responseCode == 200) {
                            ToasterFunction("success", resp.data.responseMessage);
@@ -70,7 +40,7 @@ export default function ImageDashboard(props) {
          
                          }
                      }
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
+                     break;
                      case (900): {
                         if (resp.status == 900) {
                            ToasterFunction("error", "Please check your internet connection")
@@ -112,6 +82,7 @@ export default function ImageDashboard(props) {
 
                            }
                         }
+                        break;
 
                      case (900): {
                         if (resp.status == 900) {
@@ -129,24 +100,6 @@ export default function ImageDashboard(props) {
          // window.location.reload(false);
       }
 
-      else if (typeData == 'category') {
-         try {
-            // console.log("categoryid",Id)
-            // console.log("categoryiiiid",UniqueId)
-            // console.log("categoryid---",props.Token)
-
-<<<<<<< HEAD
-            apiRequest({ uniqueId: UniqueId, categoryId: Id }, '/user/wishListCategories', 'POST', props.Token)
-               .then((resp) => {
-                  console.log('responsrcategoryadded', resp);
-                  switch (resp.status) {
-                     case (200):
-                        {
-                           if (resp.data.responseCode == 200) {
-                              ToasterFunction("success", resp.data.responseMessage);
-                              setheartStatusNOW(!heartStatusNOW)
-                              props.reloadApi()
-=======
          else if(typeData == 'category') {
             try {
                // console.log("categoryid",Id)
@@ -163,7 +116,6 @@ export default function ImageDashboard(props) {
                               ToasterFunction("success", resp.data.responseMessage);
                               setheartStatusNOW(!heartStatusNOW)
                              props.reloadApi()
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                               // window.location.reload(false);
                            }
                            else if (resp.data.responseCode == 404) {
@@ -175,6 +127,7 @@ export default function ImageDashboard(props) {
 
                            }
                         }
+                        break;
                      case (900): {
                         if (resp.status == 900) {
                            ToasterFunction("error", "Please check your internet connection")
@@ -216,6 +169,7 @@ export default function ImageDashboard(props) {
 
                            }
                         }
+                        break;
                      case (900): {
                         if (resp.status == 900) {
                            ToasterFunction("error", "Please check your internet connection")
@@ -279,12 +233,9 @@ export default function ImageDashboard(props) {
                            // src={heartStatusNOW==true?redHeart:blankHeart}
                            src={heartImage}
                            onClick={() => {
-<<<<<<< HEAD
-=======
                               // console.log("heartImage==>",heartStatusNOW)
                              
                              
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                               typePage
                                  ?
                                  setModal(true)

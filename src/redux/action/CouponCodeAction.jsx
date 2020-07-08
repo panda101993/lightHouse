@@ -12,9 +12,7 @@ export const myCouponData = (credential) => dispatch => {
             
             // navigationFunction()
             switch (resp.status) 
-            {
-                
-                
+            {              
                 case (200): {
                     // console.log("responseCode",resp.data.responseCode)
                     if(resp.data.responseCode==200)
@@ -28,7 +26,7 @@ export const myCouponData = (credential) => dispatch => {
                         alert("Invalid credentials")
                     }
                 }
-                    break
+                    break;
                 default: {
                     alert(resp.data.error)
                 }

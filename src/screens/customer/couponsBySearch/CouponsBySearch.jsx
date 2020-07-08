@@ -75,6 +75,7 @@ getSearchAllByLocation = (SearchId) => {
 
                             }
                         }
+                        break;
                     case (900): {
                         if (resp.status == 900) {
                             ToasterFunction("error", resp.data)

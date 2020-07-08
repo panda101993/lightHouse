@@ -34,21 +34,21 @@ export class WebsiteRetailer extends Component {
             });
 
       } catch (error) {
-         console.log('erroresponse==>', error)
+         // console.log('erroresponse==>', error)
 
       }
 
    }
    async componentDidMount() {
-      console.log('RetailerId', window.location.pathname);
+      // console.log('RetailerId', window.location.pathname);
       let splitUrl = window.location.pathname.split('/')
-      console.log('RetailerId', splitUrl);
-      console.log('RetailerId', splitUrl[2]);
+      // console.log('RetailerId', splitUrl);
+      // console.log('RetailerId', splitUrl[2]);
       this.getWebsiteByRetailer(splitUrl[2]);
    }
 
    websiteRetailerImage() {
-      console.log("alldata---",this.state.allData.webSiteImages)
+      // console.log("alldata---",this.state.allData.webSiteImages)
           if (this.state.allData.webSiteImages !== undefined)
             return this.state.allData.webSiteImages.map((xyz, index) => {
                // const { webSiteImages } = xyz
@@ -67,7 +67,7 @@ export class WebsiteRetailer extends Component {
       //  console.log("alldataaaa---",this.state.allData)
        if (this.state.allData.basicInformation !== undefined)
       return this.state.allData.basicInformation.map((basicInformation, index) => {
-         console.log('abcd==',this.state.allData.retailerId)
+         // console.log('abcd==',this.state.allData.retailerId)
          let retailerId = this.state.allData.retailerId;
          return (
             <div>
@@ -182,10 +182,10 @@ export class WebsiteRetailer extends Component {
    }
 
    productServiceDetails() {
-      console.log("alldataaaa---",this.state.allData.productServiceDetails)
+      // console.log("alldataaaa---",this.state.allData.productServiceDetails)
        if (!this.state.allData.productServiceDetails) return null;
       return this.state.allData.productServiceDetails.map((productServiceDetails, index) => {
-       console.log("productServiceDetails--",productServiceDetails)
+      //  console.log("productServiceDetails--",productServiceDetails)
             return (
                <div class="product">
                         {/* <h1>Product Service Details</h1> */}

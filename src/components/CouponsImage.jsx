@@ -51,11 +51,7 @@ import {
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
       CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
-<<<<<<< HEAD
       FloorNumber,MartName,ShopPhoneNumber,Restrictions,Address,City,PinCode,State, HeartData} = props
-=======
-      FloorNumber,MartName,ShopPhoneNumber,Restrictions,Address,City,PinCode,State} = props
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 
    console.log("props==", props)
 
@@ -80,6 +76,7 @@ import {
       
                       }
                   }
+                  break;
                   case (900): {
                       if (resp.status == 900) {
                           ToasterFunction("error", "Please check your internet connection")
