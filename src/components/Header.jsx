@@ -133,7 +133,7 @@ const Header = (props) => {
                                 //  alert("Internal Server Error")
                             }
                         }
-                        break;
+                            break;
                         default: return;
                     }
                 })
@@ -201,7 +201,12 @@ const Header = (props) => {
             setShowLocationTitle(false);
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
-        }
+        },
+            function (error) {
+                console.log("location_error=>",error);
+                ToasterFunction('info', 'You have denied location access to this website. Please manually allow the location access from the browser.');
+                // setModal(true);
+            }
 
         );
         setModal1(false);
@@ -228,10 +233,6 @@ const Header = (props) => {
                                     </li>
                                     <li>
                                         <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
-
-
-
-
                                     </li>
                                 </ul>
                             </div>
@@ -271,9 +272,9 @@ const Header = (props) => {
                 {modalStatusView ?
                     <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)}>
                                 <span class="navbar-toggler-icon"></span>
@@ -315,9 +316,9 @@ const Header = (props) => {
                         </nav>
                     </div> : <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)}>
                                 <span class="navbar-toggler-icon"></span>

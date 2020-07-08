@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React, { useState, useEffect } from 'react'
+import { Modal, ModalBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Cookies from 'universal-cookie';
@@ -9,28 +9,28 @@ import { connect } from "react-redux";
 
 
 const Header4 = (props) => {
-    const [pinCode, setPinCode] = useState("");
-    const [pinCodeError, setPinCodeError] = useState("");
-    const [pinCodeStatus, setPinCodeStatus] = useState(false);
+    // const [pinCode, setPinCode] = useState("");
+    // const [pinCodeError, setPinCodeError] = useState("");
+    // const [pinCodeStatus, setPinCodeStatus] = useState(false);
 
 
-    const [province, setProvince] = useState("");
-    const [provinceError, setProvinceError] = useState("");
-    const [provinceStatus, setProvinceStatus] = useState(false);
+    // const [province, setProvince] = useState("");
+    // const [provinceError, setProvinceError] = useState("");
+    // const [provinceStatus, setProvinceStatus] = useState(false);
 
-    
 
-    const [city, setCity] = useState("");
-    const [cityError, setCityError] = useState("");
-    const [cityStatus, setCityStatus] = useState("");
 
-    const [address, setAddress] = useState("");
-    const [addressError, setAddressError] = useState("");
-    const [addressStatus, setAddressStatus] = useState(false);
+    // const [city, setCity] = useState("");
+    // const [cityError, setCityError] = useState("");
+    // const [cityStatus, setCityStatus] = useState("");
+
+    // const [address, setAddress] = useState("");
+    // const [addressError, setAddressError] = useState("");
+    // const [addressStatus, setAddressStatus] = useState(false);
     const [search, setSearch] = useState("");
 
     const [modalStatus, setModal] = useState(false);
-    const [modalStatus1, setModal1] = useState(false);
+    // const [modalStatus1, setModal1] = useState(false);
     const [modalStatusView, setModalView] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
@@ -41,8 +41,8 @@ const Header4 = (props) => {
     const toggle2 = () => setDropdownOpen2(prevState => !prevState);
 
     //set location
-    const [latitude,setLatitude] = useState("");
-    const [longitude,setLongitude] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     // const [allData, setAllData] = useState([]);
 
     let handleSearch = (event) => {
@@ -50,27 +50,19 @@ const Header4 = (props) => {
 
     }
 
-    let navigateButton = () =>{
+    let navigateButton = () => {
         window.location.href = `/couponsBySearch/${search}/${props.isLoggedIn}`
     }
 
-  
     useEffect(() => {
         const cookies = new Cookies();
-         
-        const latitude = cookies.get('latitude')
+        const lat = cookies.get('latitude')
+        const long = cookies.get('longitude')
+        setLatitude(lat);
+        setLongitude(long);
+    });
 
-        
-        const longitude = cookies.get('longitude')
 
-        // console.log("long",longitude)
-        // console.log("latt",latitude)
-        setLatitude(latitude);
-        setLongitude(longitude);
-
-      });
-
-  
     return (
         <div>
             <header >
@@ -84,7 +76,7 @@ const Header4 = (props) => {
                                     </li>
                                     <li>
                                         {/* <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>Choose location <i class="fa fa-angle-down" aria-hidden="true"></i></a> */}
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " +longitude}<i class="" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -124,9 +116,9 @@ const Header4 = (props) => {
                 {modalStatusView ?
                     <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)}>
                                 <span class="navbar-toggler-icon"></span>
@@ -168,9 +160,9 @@ const Header4 = (props) => {
                         </nav>
                     </div> : <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)}>
                                 <span class="navbar-toggler-icon"></span>
@@ -180,12 +172,12 @@ const Header4 = (props) => {
 
                                     <li class="serch-sec">
                                         <div class="input-group">
-                                            <input type="text" 
-                                              value={search}
-                                              onChange={handleSearch}
-                                              class="form-control"
-                                              placeholder="Search by Mart, Retailer, Category, Sub category, Item type, Brand" />
-                                              {/* placeholder="Search by Title, Product/Service name etc" /> */}
+                                            <input type="text"
+                                                value={search}
+                                                onChange={handleSearch}
+                                                class="form-control"
+                                                placeholder="Search by Mart, Retailer, Category, Sub category, Item type, Brand" />
+                                            {/* placeholder="Search by Title, Product/Service name etc" /> */}
                                             <div class="input-group-append">
                                                 <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
                                                     <i class="fa fa-search"></i>
@@ -241,14 +233,14 @@ const Header4 = (props) => {
 
 const mapStateToProps = state => {
     console.log("stateLogin-------", state)
-   return {
-      
-    endUserProfileData: state.EndUserProfileReducer.endUserProfileData,
-    isLoggedIn:state.AuthReducer.isLoggedIn
-   }
-         
+    return {
+
+        endUserProfileData: state.EndUserProfileReducer.endUserProfileData,
+        isLoggedIn: state.AuthReducer.isLoggedIn
+    }
+
 }
 
 
 
-export default connect(mapStateToProps,{endUserProfileAction})(Header4);
+export default connect(mapStateToProps, { endUserProfileAction })(Header4);

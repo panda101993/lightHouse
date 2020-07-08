@@ -82,7 +82,7 @@ export class SignupRetailer extends Component {
                     }
                         break;
                     default: {
-                        alert(resp.data)
+                        // alert(resp.data)
                     }
                 }
             })

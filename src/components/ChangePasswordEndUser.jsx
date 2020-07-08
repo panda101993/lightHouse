@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Apirequest from "../api/Apirequest"
 // import {loginAction} from "../redux/action/ActionTypes";
 import { connect } from "react-redux";
@@ -67,12 +62,12 @@ handleValidation(key) {
        //     break
 
        case ("newpass"):
-           var data = validatePassword(this.state.newpass)
+           let data = validatePassword(this.state.newpass)
            console.log("this is data of pass", data)
            this.setState({ newpassErrormsg: data.error, newpassStatus: data.status }, () => console.log("errore", this.state))
            break
        case ("cnfpass"):
-           var data = validateCFPassword(this.state.cnfpass,this.state.newpass)
+            data = validateCFPassword(this.state.cnfpass,this.state.newpass)
            this.setState({ cnfpassErrormsg: data.error, cnfpassStatus: data.status }, () => console.log("errore", this.state))
            
            break

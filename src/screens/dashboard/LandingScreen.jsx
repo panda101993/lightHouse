@@ -2,20 +2,20 @@ import React, { Component } from 'react'
 import Footer from '../../components/Footer'
 import LandingTopicName from '../../components/LandingTopicName'
 import ImageDashboard from '../../components/ImageDashboard'
-import CouponsImage from '../../components/CouponsImage'
-import HeaderLandingScreen from '../../components/HeaderLandingScreen'
-import WishlistImageComponent from '../../components/WishlistImageComponent'
-import ViewCouponRetailer from '../../components/ViewCouponRetailer'
-import CouponImageSetting from '../../components/CouponImageSetting'
-import DashboardImageScroll from './DashboardImageScroll'
-import DashboardProductImage from '../../components/DashboardProductImage'
-import CouponsScrollPupup from '../../components/CouponsScrollPupup'
-import CatogriesScroll from '../../components/CatogriesScroll'
+// import CouponsImage from '../../components/CouponsImage'
+// import HeaderLandingScreen from '../../components/HeaderLandingScreen'
+// import WishlistImageComponent from '../../components/WishlistImageComponent'
+// import ViewCouponRetailer from '../../components/ViewCouponRetailer'
+// import CouponImageSetting from '../../components/CouponImageSetting'
+// import DashboardImageScroll from './DashboardImageScroll'
+// import DashboardProductImage from '../../components/DashboardProductImage'
+// import CouponsScrollPupup from '../../components/CouponsScrollPupup'
+// import CatogriesScroll from '../../components/CatogriesScroll'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Header4 from '../../components/Header4'
 import apiRequest from '../../api/Apirequest'
-import {loginAction} from "../../redux/action/AuthAction";
+// import {loginAction} from "../../redux/action/AuthAction";
 import { connect } from "react-redux";
 import Cookies from 'universal-cookie';
 import ToasterFunction from '../../components/ToasterFunc';
@@ -76,34 +76,70 @@ class componentName extends Component {
             const longitude = cookies.get('longitude')
    
             // console.log('hhhh=>',this.props.applicationData)
+         //    apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
+         //    .then((resp)=>{
+         //    console.log('responseLandingscreen--', resp);
+         //    switch (resp.status) {
+         //       case (200):
+         //           {
+         //           if (resp.data.responseCode == 200) {
+         //               this.setState({
+         //                   allData: resp.data.result[0].details
+         //                });
+         //           }
+         //            else if (resp.data.responseCode == 404) {
+         //               ToasterFunction("info", resp.data.responseMessage);
+   
+         //           }
+         //           else if (resp.data.responseCode == 500) {
+         //               ToasterFunction("error", resp.data.responseMessage);
+   
+         //           }
+         //       }
+         //       break;
+         //       case (900): {
+         //           if (resp.status == 900) {
+         //               ToasterFunction("error", "Please check your internet connection")
+         //           }
+         //       }
+         //   }
+         // });
+
+         if((latitude!=null || latitude!=undefined) && (longitude!=null && latitude!=undefined)){
             apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
-            .then((resp)=>{
-            console.log('responseLandingscreen--', resp);
-            switch (resp.status) {
-               case (200):
-                   {
-                   if (resp.data.responseCode == 200) {
-                       this.setState({
-                           allData: resp.data.result[0].details
-                        });
-                   }
-                    else if (resp.data.responseCode == 404) {
-                       ToasterFunction("info", resp.data.responseMessage);
-   
-                   }
-                   else if (resp.data.responseCode == 500) {
-                       ToasterFunction("error", resp.data.responseMessage);
-   
-                   }
+            .then((resp) => {
+               console.log('response', resp);
+               switch (resp.status) {
+                  case (200):
+                     {
+                        if (resp.data.responseCode == 200) {
+                           this.setState({
+                              allData: resp.data.result[0].details
+                           });
+                        }
+                        else if (resp.data.responseCode == 404) {
+                           ToasterFunction("info", resp.data.responseMessage);
+
+                        }
+                        else if (resp.data.responseCode == 500) {
+                           ToasterFunction("error", resp.data.responseMessage);
+
+                        }
+                        break;
+                     }
+                  case (900): {
+                     if (resp.status == 900) {
+                        ToasterFunction("error", "Please check your internet connection")
+                     }
+                  }
                }
-               break;
-               case (900): {
-                   if (resp.status == 900) {
-                       ToasterFunction("error", "Please check your internet connection")
-                   }
-               }
-           }
-         });
+
+            })
+            .catch(err=>{
+               console.log(err);
+            })
+         }
+
          }
         
          
@@ -174,7 +210,7 @@ class componentName extends Component {
            heartStatus = Imageid.heartImage;         
          }else{            
            heartStatus = Imageid.RedHeart ;
-         };
+         }
          return(
             <div>
                

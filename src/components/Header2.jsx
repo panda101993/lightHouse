@@ -1,18 +1,10 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react'
-=======
-import React, { useState, useEffect  } from 'react'
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-<<<<<<< HEAD
 import { logoutAction } from "../redux/action/AuthAction";
-=======
-import {logoutAction} from "../redux/action/AuthAction";
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 import Cookies from 'universal-cookie';
 
 function Header2(props) {
@@ -25,31 +17,21 @@ function Header2(props) {
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
-<<<<<<< HEAD
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
-=======
-    const [latitude,setLatitude] = useState("");
-    const [longitude,setLongitude] = useState("");
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 
     useEffect(() => {
         const cookies = new Cookies();
-        const latitude = cookies.get('latitude')
-        const longitude = cookies.get('longitude')
+        let lat = cookies.get('latitude')
+        let long = cookies.get('longitude')
 
         // console.log("long",longitude)
         // console.log("latt",latitude)
-        setLatitude(latitude);
-        setLongitude(longitude);
+        setLatitude(lat);
+        setLongitude(long);
 
-<<<<<<< HEAD
     });
     // this.props.action.logoutAction()=>this.props.history.push("/"))
-=======
-      });
-// this.props.action.logoutAction()=>this.props.history.push("/"))
->>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
     return (
         <div>
             {/* <body> */}
@@ -136,9 +118,9 @@ function Header2(props) {
                 </div>
                 {modalStatusView ? <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html">
+                        <Link class="navbar-brand" to="/">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
-                        </a>
+                        </Link>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="true" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)} >
@@ -197,9 +179,9 @@ function Header2(props) {
                     </nav>
                 </div> : <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)} >

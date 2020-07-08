@@ -1,15 +1,14 @@
 
 import React, { Component } from 'react'
 import Footer from '../../../components/Footer'
-import Header from '../../../components/Header'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css';
-import ImageDashboard from '../../../components/ImageDashboard'
-import { Switch, Route, Link } from "react-router-dom";
+// import ImageDashboard from '../../../components/ImageDashboard'
+import {Link } from "react-router-dom";
 import Header2 from '../../../components/Header2'
-import CreateCoupon from '../../../components/CreateCoupon'
-import CoupontempleteImage from '../../../components/CoupontempleteImage'
-import Header3 from '../../../components/Header3';
+// import CreateCoupon from '../../../components/CreateCoupon'
+// import CoupontempleteImage from '../../../components/CoupontempleteImage'
+// import Header3 from '../../../components/Header3';
 import Apirequest from "../../../api/Apirequest";
 
 import { connect } from "react-redux";
@@ -44,7 +43,7 @@ class Coupon_template extends Component {
   }
 
   componentDidMount() {
-    const { token, userId } = this.props.applicationData
+    const { token } = this.props.applicationData
     this.props.action.retailerProfileAction(token)
     let obj = {}
     Apirequest(obj, "/admin/couponTemplateList", "POST")
@@ -60,7 +59,7 @@ class Coupon_template extends Component {
           }
             break
           default: {
-            alert(resp.data.error)
+            // alert(resp.data.error)
           }
         }
       }
@@ -71,7 +70,7 @@ class Coupon_template extends Component {
       )
   }
   render() {
-    const { path } = this.props.match;
+    // const { path } = this.props.match;
     return (
       <div>
         <body>
