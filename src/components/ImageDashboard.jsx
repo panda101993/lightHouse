@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {  Modal, ModalBody } from 'reactstrap';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 
 export default function ImageDashboard(props) {
-   const [count, setCount] = useState(false)
+   // const [count, setCount] = useState(false)
    const [modalStatus, setModal] = useState(false)
-   const [modalStatus1, setModal1] = useState(false)
+   // const [modalStatus1, setModal1] = useState(false)
    const [heartStatusNOW, setheartStatusNOW] = useState(props.heartImage)
-   const { ImageName, ImageA, LinkId, heartImage, MartId, Token, RetailerId, Id, UniqueId, typeData, typePage, blankHeart, redHeart, reloadApi } = props
+   const { ImageName, ImageA, LinkId, heartImage, MartId,  RetailerId, Id, UniqueId, typeData, typePage } = props;
    // console.log("hello imageAbc ", props)
    // console.log("typePage--",typePage)
 

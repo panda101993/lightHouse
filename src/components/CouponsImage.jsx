@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Link } from 'react-router-dom';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import Cookies from 'universal-cookie';
@@ -8,30 +8,30 @@ import {
    EmailShareButton,
    FacebookShareButton,
    InstapaperShareButton,
-   LineShareButton,
-   LinkedinShareButton,
-   LivejournalShareButton,
-   MailruShareButton,
-   OKShareButton,
-   PinterestShareButton,
-   PocketShareButton,
-   RedditShareButton,
+   // LineShareButton,
+   // LinkedinShareButton,
+   // LivejournalShareButton,
+   // MailruShareButton,
+   // OKShareButton,
+   // PinterestShareButton,
+   // PocketShareButton,
+   // RedditShareButton,
    TelegramShareButton,
-   TumblrShareButton,
+   // TumblrShareButton,
    TwitterShareButton,
-   ViberShareButton,
-   VKShareButton,
+   // ViberShareButton,
+   // VKShareButton,
    WhatsappShareButton,
-   WorkplaceShareButton,
+   // WorkplaceShareButton,
 } from "react-share";
 
 import {
-   FacebookShareCount,
-   OKShareCount,
-   PinterestShareCount,
-   RedditShareCount,
-   TumblrShareCount,
-   VKShareCount,
+   // FacebookShareCount,
+   // OKShareCount,
+   // PinterestShareCount,
+   // RedditShareCount,
+   // TumblrShareCount,
+   // VKShareCount,
    WhatsappIcon,
    TwitterIcon,
    InstapaperIcon,
@@ -43,20 +43,20 @@ import {
 
 
    export default function CouponsImage(props) {
-   const [modalStatus, setModal] = useState(false);   
+   // const [modalStatus, setModal] = useState(false);   
    const [modalStatusImage, setModal1] = useState(false);
    const [modalStatusBackImage,setModal2] = useState(false);
    const [latitude,setLatitude] = useState("");
    const [longitude,setLongitude] = useState("");
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
-      CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
-      FloorNumber,MartName,ShopPhoneNumber,Restrictions,Address,City,PinCode,State, HeartData} = props
+      CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
+      FloorNumber,MartName,ShopPhoneNumber,Restrictions} = props
 
    console.log("props==", props)
 
    const  addToFavourite = (CouponId) => {
-      console.log("CouponId---",CouponId)
+      // console.log("CouponId---",CouponId)
       try {
          apiRequest({ couponId:CouponId }, '/user/saveMyCoupon', 'POST', props.CouponToken)
             .then((resp) => {
@@ -76,6 +76,7 @@ import {
       
                       }
                   }
+                  break;
                   case (900): {
                       if (resp.status == 900) {
                           ToasterFunction("error", "Please check your internet connection")

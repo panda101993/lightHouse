@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {  Modal,  ModalBody } from 'reactstrap';
 import { connect } from "react-redux";
 
-import { validateOtp, validateMobileNo } from '../utils/validation/Validation';
+import { validateOtp } from '../utils/validation/Validation';
 export class ManageInfoEndUser extends Component {
    constructor(props) {
       super(props)

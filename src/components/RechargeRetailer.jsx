@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Link } from 'react-router-dom';
+// import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux";
 import ToasterFunction from '../components/ToasterFunc';
 import ApiRequest from '../api/Apirequest';

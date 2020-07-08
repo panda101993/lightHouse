@@ -1,7 +1,6 @@
-
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
+// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux"; 
  class ReferralCodeRetailer extends Component {
     constructor(props) {
@@ -12,7 +11,7 @@ import { connect } from "react-redux";
             modalStatus: false,
            
         }
-    } 
+    }
     componentDidMount(){
         
         console.log("qrcodeeeee====>",this.props.applicationData)

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Link } from 'react-router-dom';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import apiRequest from '../api/Apirequest';
-import {loginAction} from "../redux/action/AuthAction";
+// import {loginAction} from "../redux/action/AuthAction";
 import { connect } from "react-redux";
 import ToasterFunction from '../components/ToasterFunc';
 import { myCouponData } from '../redux/action/CouponCodeAction';
@@ -12,30 +12,30 @@ import {
    EmailShareButton,
    FacebookShareButton,
    InstapaperShareButton,
-   LineShareButton,
-   LinkedinShareButton,
-   LivejournalShareButton,
-   MailruShareButton,
-   OKShareButton,
-   PinterestShareButton,
-   PocketShareButton,
-   RedditShareButton,
+   // LineShareButton,
+   // LinkedinShareButton,
+   // LivejournalShareButton,
+   // MailruShareButton,
+   // OKShareButton,
+   // PinterestShareButton,
+   // PocketShareButton,
+   // RedditShareButton,
    TelegramShareButton,
-   TumblrShareButton,
+   // TumblrShareButton,
    TwitterShareButton,
-   ViberShareButton,
-   VKShareButton,
+   // ViberShareButton,
+   // VKShareButton,
    WhatsappShareButton,
-   WorkplaceShareButton,
+   // WorkplaceShareButton,
 } from "react-share";
 
 import {
-   FacebookShareCount,
-   OKShareCount,
-   PinterestShareCount,
-   RedditShareCount,
-   TumblrShareCount,
-   VKShareCount,
+   // FacebookShareCount,
+   // OKShareCount,
+   // PinterestShareCount,
+   // RedditShareCount,
+   // TumblrShareCount,
+   // VKShareCount,
    WhatsappIcon,
    TwitterIcon,
    InstapaperIcon,
@@ -105,6 +105,7 @@ class CouponImageSetting extends Component {
       
                       }
                   }
+                  break;
                   case (900): {
                       if (resp.status == 900) {
                           ToasterFunction("error", "Please check your internet connection")
@@ -145,6 +146,7 @@ class CouponImageSetting extends Component {
       
                       }
                   }
+                  break;
                   case (900): {
                       if (resp.status == 900) {
                           ToasterFunction("error", "Please check your internet connection")
