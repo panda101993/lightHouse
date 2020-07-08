@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
 import React, { Component } from 'react'
 import { Modal, ModalBody } from "reactstrap";
 import ApiRequest from '../api/Apirequest';
@@ -51,6 +54,7 @@ class Step2_retailer extends Component {
                            ToasterFunction("error", "Internal Server Error");
                         }
                      }
+                     break;
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")

@@ -132,16 +132,9 @@ export class AllRetailers extends Component {
 
           return (
             <div>
-
-
-
               <div class="slicent activa">
                 {allCoupon.martName}
               </div>
-
-
-
-
             </div>
           )
         })

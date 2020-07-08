@@ -9,22 +9,51 @@ export default function ImageDashboard(props) {
    const [modalStatus, setModal] = useState(false)
    const [modalStatus1, setModal1] = useState(false)
    const [heartStatusNOW, setheartStatusNOW] = useState(props.heartImage)
+<<<<<<< HEAD
+   const { ImageName, ImageA, LinkId, heartImage, MartId, Token, RetailerId, Id, UniqueId, typeData, typePage, blankHeart, redHeart, reloadApi } = props
+=======
    const { ImageName, ImageA, LinkId, heartImage, MartId,Token,RetailerId,Id,UniqueId,typeData,typePage,blankHeart,redHeart,reloadApi} = props
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
    // console.log("hello imageAbc ", props)
    // console.log("typePage--",typePage)
 
-  
 
+<<<<<<< HEAD
+
+   const addToFavouriteAll = (UniqueId, Id, typeData) => {
+      // console.log('Id------',Id);
+      // console.log("UniqueId===",UniqueId)
+      if (typeData == 'mart') {
+=======
    const  addToFavouriteAll = (UniqueId,Id,typeData) => {
       // console.log('Id------',Id);
       // console.log("UniqueId===",UniqueId)
        if(typeData == 'mart'){
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
          try {
-            apiRequest({uniqueId:UniqueId,martId:Id }, '/user/wishListMarts', 'POST', props.Token)
+            apiRequest({ uniqueId: UniqueId, martId: Id }, '/user/wishListMarts', 'POST', props.Token)
                .then((resp) => {
-                console.log('responsemartadded', resp);
+                  console.log('responsemartadded', resp);
                   switch (resp.status) {
                      case (200):
+<<<<<<< HEAD
+                        {
+                           if (resp.data.responseCode == 200) {
+                              ToasterFunction("success", resp.data.responseMessage);
+                              setheartStatusNOW(!heartStatusNOW)
+                              // props.reloadApi
+
+                           }
+                           else if (resp.data.responseCode == 404) {
+                              ToasterFunction("info", resp.data.responseMessage);
+
+                           }
+                           else if (resp.data.responseCode == 500) {
+                              ToasterFunction("error", resp.data.responseMessage);
+
+                           }
+                        }
+=======
                          {
                          if (resp.data.responseCode == 200) {
                            ToasterFunction("success", resp.data.responseMessage);
@@ -41,64 +70,83 @@ export default function ImageDashboard(props) {
          
                          }
                      }
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                      case (900): {
-                         if (resp.status == 900) {
-                             ToasterFunction("error", "Please check your internet connection")
-                         }
+                        if (resp.status == 900) {
+                           ToasterFunction("error", "Please check your internet connection")
+                        }
                      }
-                 }
+                  }
                })
          } catch (error) {
             console.log('errorresponse', error)
             ToasterFunction("error", "Network error, please contact the administrator");
-     
+
          }
          setModal(false)
          // window.location.reload();
 
-         }
-         else if(typeData == 'retailer'){
-            try {
-               console.log("retailerid",Id)
-               console.log("retailerid---",props.Token)
-               
-               apiRequest({ retailerId:Id }, '/user/wishListRetailers', 'POST', props.Token)
-                  .then((resp) => {
-                     console.log('responseretaileradded', resp);
-                     switch (resp.status) {
-                        case (200):
-                            {
-                            if (resp.data.responseCode == 200) {
-                              ToasterFunction("success", resp.data.responseMessage )
-                              setheartStatusNOW(!heartStatusNOW)
-                            
-                            }
-                             else if (resp.data.responseCode == 404) {
-                                ToasterFunction("info", resp.data.responseMessage);
-            
-                            }
-                            else if (resp.data.responseCode == 500) {
-                                ToasterFunction("error", resp.data.responseMessage);
-            
-                            }
-                        }
-                     
-                        case (900): {
-                            if (resp.status == 900) {
-                                ToasterFunction("error", "Please check your internet connection")
-                            }
-                        }
-                    }
-                  })
-            } catch (error) {
-               console.log('errorresponse', error)
-               ToasterFunction("error", "Network error, please contact the administrator");
-        
-            }
-            setModal(false)
-            // window.location.reload(false);
-         }
+      }
+      else if (typeData == 'retailer') {
+         try {
+            console.log("retailerid", Id)
+            console.log("retailerid---", props.Token)
 
+            apiRequest({ retailerId: Id }, '/user/wishListRetailers', 'POST', props.Token)
+               .then((resp) => {
+                  console.log('responseretaileradded', resp);
+                  switch (resp.status) {
+                     case (200):
+                        {
+                           if (resp.data.responseCode == 200) {
+                              ToasterFunction("success", resp.data.responseMessage)
+                              setheartStatusNOW(!heartStatusNOW)
+
+                           }
+                           else if (resp.data.responseCode == 404) {
+                              ToasterFunction("info", resp.data.responseMessage);
+
+                           }
+                           else if (resp.data.responseCode == 500) {
+                              ToasterFunction("error", resp.data.responseMessage);
+
+                           }
+                        }
+
+                     case (900): {
+                        if (resp.status == 900) {
+                           ToasterFunction("error", "Please check your internet connection")
+                        }
+                     }
+                  }
+               })
+         } catch (error) {
+            console.log('errorresponse', error)
+            ToasterFunction("error", "Network error, please contact the administrator");
+
+         }
+         setModal(false)
+         // window.location.reload(false);
+      }
+
+      else if (typeData == 'category') {
+         try {
+            // console.log("categoryid",Id)
+            // console.log("categoryiiiid",UniqueId)
+            // console.log("categoryid---",props.Token)
+
+<<<<<<< HEAD
+            apiRequest({ uniqueId: UniqueId, categoryId: Id }, '/user/wishListCategories', 'POST', props.Token)
+               .then((resp) => {
+                  console.log('responsrcategoryadded', resp);
+                  switch (resp.status) {
+                     case (200):
+                        {
+                           if (resp.data.responseCode == 200) {
+                              ToasterFunction("success", resp.data.responseMessage);
+                              setheartStatusNOW(!heartStatusNOW)
+                              props.reloadApi()
+=======
          else if(typeData == 'category') {
             try {
                // console.log("categoryid",Id)
@@ -115,78 +163,79 @@ export default function ImageDashboard(props) {
                               ToasterFunction("success", resp.data.responseMessage);
                               setheartStatusNOW(!heartStatusNOW)
                              props.reloadApi()
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                               // window.location.reload(false);
-                            }
-                             else if (resp.data.responseCode == 404) {
-                                ToasterFunction("info", resp.data.responseMessage);
-            
-                            }
-                            else if (resp.data.responseCode == 500) {
-                                ToasterFunction("error", resp.data.responseMessage);
-            
-                            }
+                           }
+                           else if (resp.data.responseCode == 404) {
+                              ToasterFunction("info", resp.data.responseMessage);
+
+                           }
+                           else if (resp.data.responseCode == 500) {
+                              ToasterFunction("error", resp.data.responseMessage);
+
+                           }
                         }
-                        case (900): {
-                            if (resp.status == 900) {
-                                ToasterFunction("error", "Please check your internet connection")
-                            }
+                     case (900): {
+                        if (resp.status == 900) {
+                           ToasterFunction("error", "Please check your internet connection")
                         }
-                    }
-                  })
-            } catch (error) {
-               console.log('errorresponse', error)
-               ToasterFunction("error", "Network error, please contact the administrator");
-        
-            }
-            setModal(false)
-            // window.location.reload(false);
+                     }
+                  }
+               })
+         } catch (error) {
+            console.log('errorresponse', error)
+            ToasterFunction("error", "Network error, please contact the administrator");
+
          }
-         else if(typeData == 'subCategory') {
-            try {
-               console.log("subCategory",Id)
-               console.log("subCategory---",props.Token)
-               
-               apiRequest({ subCategoryId :Id }, '/user/wishListSubCategories', 'POST', props.Token)
-                  .then((resp) => {
-                     console.log('responseSubcategoryadded', resp);
-                     switch (resp.status) {
-                        case (200):
-                            {
-                            if (resp.data.responseCode == 200) {
+         setModal(false)
+         // window.location.reload(false);
+      }
+      else if (typeData == 'subCategory') {
+         try {
+            console.log("subCategory", Id)
+            console.log("subCategory---", props.Token)
+
+            apiRequest({ subCategoryId: Id }, '/user/wishListSubCategories', 'POST', props.Token)
+               .then((resp) => {
+                  console.log('responseSubcategoryadded', resp);
+                  switch (resp.status) {
+                     case (200):
+                        {
+                           if (resp.data.responseCode == 200) {
                               ToasterFunction("success", resp.data.responseMessage);
                               setheartStatusNOW(!heartStatusNOW)
-                            
-                              
-                            }
-                             else if (resp.data.responseCode == 404) {
-                                ToasterFunction("info", resp.data.responseMessage);
-            
-                            }
-                            else if (resp.data.responseCode == 500) {
-                                ToasterFunction("error", resp.data.responseMessage);
-            
-                            }
+
+
+                           }
+                           else if (resp.data.responseCode == 404) {
+                              ToasterFunction("info", resp.data.responseMessage);
+
+                           }
+                           else if (resp.data.responseCode == 500) {
+                              ToasterFunction("error", resp.data.responseMessage);
+
+                           }
                         }
-                        case (900): {
-                            if (resp.status == 900) {
-                                ToasterFunction("error", "Please check your internet connection")
-                            }
+                     case (900): {
+                        if (resp.status == 900) {
+                           ToasterFunction("error", "Please check your internet connection")
                         }
-                    }
-                  })
-            } catch (error) {
-               console.log('errorresponse', error)
-               ToasterFunction("error", "Network error, please contact the administrator");
-        
-            }
-            setModal(false)
-            // window.location.reload(false);
+                     }
+                  }
+               })
+         } catch (error) {
+            console.log('errorresponse', error)
+            ToasterFunction("error", "Network error, please contact the administrator");
+
          }
-         
-      
-      
+         setModal(false)
+         // window.location.reload(false);
+      }
+
+
+
    }
-   
+
 
 
    return (
@@ -202,26 +251,26 @@ export default function ImageDashboard(props) {
                         data-toggle="modal" data-target="#wishlist" />
                   </Link>
                   {
-                  typeData == 'mart'
-                  ?
-                  <Link to={`/WebsiteMart/${MartId}`}>
-                     <div class="tcl00">
-                        <p> {ImageName} </p>
-                     </div>
-                  </Link>
-                  : 
-                  typeData == 'retailer'
-                  ?
-                  <Link to={`/WebsiteRetailer/${RetailerId}`}>
-                     <div class="tcl00">
-                        <p> {ImageName} </p>
-                     </div>
-                  </Link>
-                  :
-                  <div class="tcl00">
-                        <p> {ImageName} </p>
-                     </div>
-                     }
+                     typeData == 'mart'
+                        ?
+                        <Link to={`/WebsiteMart/${MartId}`}>
+                           <div class="tcl00">
+                              <p> {ImageName} </p>
+                           </div>
+                        </Link>
+                        :
+                        typeData == 'retailer'
+                           ?
+                           <Link to={`/WebsiteRetailer/${RetailerId}`}>
+                              <div class="tcl00">
+                                 <p> {ImageName} </p>
+                              </div>
+                           </Link>
+                           :
+                           <div class="tcl00">
+                              <p> {ImageName} </p>
+                           </div>
+                  }
 
                   <div class="heart">
                      <a data-toggle="modal" data-target="#coup-rmv-success" >
@@ -229,17 +278,18 @@ export default function ImageDashboard(props) {
                         <img
                            // src={heartStatusNOW==true?redHeart:blankHeart}
                            src={heartImage}
-
                            onClick={() => {
+<<<<<<< HEAD
+=======
                               // console.log("heartImage==>",heartStatusNOW)
                              
                              
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                               typePage
                                  ?
                                  setModal(true)
                                  :
                                  addToFavouriteAll(UniqueId, Id, typeData)
-
                            }
 
                            }
@@ -259,7 +309,7 @@ export default function ImageDashboard(props) {
                      </div>
                      <div class="modal-body ny">
                         <button type="button" class="btn setloc-" type="submit" data-dismiss="modal" onClick={() => setModal(false)}>No</button>
-                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => addToFavouriteAll(UniqueId, Id,typeData)}>Yes</button>
+                        <button type="button" class="btn setloc-btn" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#rmvwish" onClick={() => addToFavouriteAll(UniqueId, Id, typeData)}>Yes</button>
                      </div>
                   </div>
                </ModalBody>

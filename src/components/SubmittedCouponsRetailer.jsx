@@ -85,6 +85,7 @@ import ToasterFunction from '../../src/components/ToasterFunc';
     
                     }
                 }
+                break;
                 case (900): {
                     if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")

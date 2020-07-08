@@ -38,10 +38,6 @@ export class ItemList extends Component {
          allData: []
       }
    }
-
-
-
-
    getCouponByMartSubCategory = (subCategoryId, categoryId, martId) => {
       try {
          apiRequest({ subCategoryId: subCategoryId, categoryId: categoryId, martId: martId }, '/user/getCouponByMartSubCategory', 'POST')
@@ -53,7 +49,10 @@ export class ItemList extends Component {
                         if (resp.data.responseCode == 200) {
                            this.setState({
                               allData: resp.data.Data
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
                            });
                            // console.log("subCategory---",resp.data.DatasubCategoryId)
                         }
@@ -66,6 +65,7 @@ export class ItemList extends Component {
 
                         }
                      }
+                     break;
                   case (900): {
                      if (resp.status == 900) {
                         ToasterFunction("error", "Please check your internet connection")
@@ -80,7 +80,10 @@ export class ItemList extends Component {
       }
 
    }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7a838c46eb79e2089f4d27e012d1f41ba98fd5ed
    async componentDidMount() {
       console.log('subCategoryCoupon', window.location.pathname);
       let splitUrl = window.location.pathname.split('/')
