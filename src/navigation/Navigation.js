@@ -73,7 +73,6 @@ export default class Navigation extends Component {
         return (
             <Router>
                 <div> 
-                
                     {/* <Route exact path="/" component= {SignupCustomer} /> */} 
                     <Route exact path="/" component= {LandingScreenGuestUser} />
                     <Route exact path="/CreateWebpageInitialSignupProcess" component= {CreateWebpageInitialSignupProcess} />
@@ -83,7 +82,6 @@ export default class Navigation extends Component {
                     <Route path="/LoginCustomer" component= {LoginCustomer} />
                     <Route path="/OtpScreenUser" component= {OtpScreenUser} />
                     <Route path="/Otp" component= {OTPScreen} />
-
                     <Route path="/SignupRetailer" component= {SignupRetailer} />
                     <Route path="/LoginRetailer" component= {LoginRetailer} />
                     <Route path='/SignupOtp' component= {SignupOtpRetailer} />
