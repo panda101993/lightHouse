@@ -50,8 +50,8 @@ import {
    const [longitude,setLongitude] = useState("");
 
    const {Title,CouponCode,Discount,ItemName,ExpiryDate,ImageSrc,CouponId,
-      CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
-      FloorNumber,MartName,ShopPhoneNumber,Restrictions} = props
+      CouponToken,CouponAppliedOn,OneTimeCoupon,ShopName,ShopNumber,
+      FloorNumber,MartName,ShopPhoneNumber,Restrictions,Address,City,PinCode,State} = props
 
    console.log("props==", props)
 

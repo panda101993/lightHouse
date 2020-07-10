@@ -223,14 +223,14 @@ export class CreateCouponform extends Component {
                               <p>
                                  <select class="form-control" onChange={e => this.valueHandler("category", e)}>
                                     <option >Category Name</option>
-                                    {!this.state.categoryState ?
+                                    {/* {!this.state.categoryState ?
                                        <>
                                           {this.state.categoryList.map(item =>
                                              <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
                                           )}
                                        </>
                                        : <></>
-                                    }
+                                    } */}
                                  </select>
                               </p>
                            </div>

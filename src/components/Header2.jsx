@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Modal, ModalBody } from 'reactstrap';
+import React, { useState, useEffect  } from 'react'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { logoutAction } from "../redux/action/AuthAction";
+import {logoutAction} from "../redux/action/AuthAction";
 import Cookies from 'universal-cookie';
 
 function Header2(props) {
@@ -17,8 +17,8 @@ function Header2(props) {
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
-    const [latitude, setLatitude] = useState("");
-    const [longitude, setLongitude] = useState("");
+    const [latitude,setLatitude] = useState("");
+    const [longitude,setLongitude] = useState("");
 
     useEffect(() => {
         const cookies = new Cookies();
@@ -30,8 +30,8 @@ function Header2(props) {
         setLatitude(lat);
         setLongitude(long);
 
-    });
-    // this.props.action.logoutAction()=>this.props.history.push("/"))
+      });
+// this.props.action.logoutAction()=>this.props.history.push("/"))
     return (
         <div>
             {/* <body> */}
