@@ -19,7 +19,7 @@ body {
 }
 
 body {
-    padding-top: 55px;
+    padding-top: 70px;
 }
 .topContainer{
     text-align: center;
@@ -177,6 +177,7 @@ ul.right-sideloctn li .custom-select option:active {
 footer.footer {
     background: #123abd;
     padding: 30px 0px;
+    margin-top: 50px;
 }
 
 img.logo {
@@ -383,6 +384,7 @@ ul.foter li {
     width: 100%;
     padding: 0px 15px;
     position: relative;
+    height: 250px;
 }
 
 .slick-next:before {
@@ -1855,9 +1857,11 @@ span.re_cs3 a {
     position: left;
     margin: 0 auto;
     border: 1px solid #dedbdb;
-    height: 100%;
+    height: auto;
     min-height: 40px;
-    position: relative;
+    bottom: 0;
+    position: absolute;
+    right: 5%;
 }
 
 .react-multi-carousel-item body {
@@ -2207,6 +2211,8 @@ button.btn.setloc- {
 
 .mainoffer {
     position: relative;
+    width: 100%;
+    height: 280px;
 }
 
 p.rest {
@@ -2770,7 +2776,7 @@ i.fa.fa-calendar.fa-calendar1 {
 .preview-section button.btn.btn-three {
     width: 100%;
     text-transform: capitalize;
-    max-width: 100px;
+    max-width: 90px;
     font-size: 14px;
     text-align: center;
     font-weight: 400;
@@ -3351,6 +3357,7 @@ ul.button_cs.sve-can.button-shift.all-clr button.save0.s-1 {
 }
 img.bur-img {
     width: 100%;
+    height: 100%;
 }
 li.user-icon i.fa.fa-user {
     font-size: 25px;
@@ -3805,6 +3812,14 @@ span.colr-change {
 
 
 @media(max-width: 1440px) {
+    .preview-section button {
+        max-width: 90px;
+        width: 90px;
+    }
+    .preview-section button {
+        max-width: 90px !important;
+        margin-right: 4px !important;
+    }
     section.how-work {
         min-height: 593px !important;
     }
@@ -3876,6 +3891,9 @@ span.colr-change {
         padding-left: 5%;
         word-wrap: break-word;
         font-size: 12px;
+    }
+    .main-copnatbs li.nav-item {
+        border-right: 1px solid #c9c9c9;
     }
     .second-slidcont ul li:nth-child(odd) {
         text-align: right;
@@ -4047,7 +4065,7 @@ span.colr-change {
         padding-left: 11px;
     }
     .cover-laging {
-        max-width: 90%;
+        max-width: 100%;
         margin: 40px auto;
         padding: 20px 20px;
     }
@@ -4381,4 +4399,93 @@ label.validation-hint {
         margin-bottom: 10px !important;
     }
 
+}
+.react-multiple-carousel__arrow {
+    z-index: 9 !important;
+}
+.shopfloor div {
+    width: 49%;
+}
+.graph img {
+    width: 100%;
+}
+
+@media(max-width:768px){
+    h3.info_c3 {
+        font-size: 20px;
+    }
+    .name_c3 {
+        max-width: 500px;
+        margin: 30px;
+    }
+    .manage {
+        max-width: 100%;
+    }
+    .main-end {
+        padding: 15px;
+    }
+    ul.pdf-down {
+        padding: 28px 15px;
+    }
+    .main-upi {
+        width: 100%;
+        max-width: 95%;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+    .graph {
+        padding: 15px;
+    }
+    ul.coupion-choice {
+        width: 100%;
+        max-width: 95%;
+        margin: auto;
+    }
+    .privacy-policy h1 {
+        font-size: 22px;
+    }
+}
+
+@media(max-width:767px){
+    .container-fluid.border-with-radius.img-slic {
+        margin-top: 50px;
+        padding: 15px;
+    }
+    .coupn-setting ul li {
+        margin-bottom: 20px;
+    }
+    .coupn-setting ul li:after {
+        right: -34px;
+    }
+    .mainoffer {
+        height: 220px;
+    }
+    .modal-body.ny a button {
+        width: 100%;
+        max-width: 100% !important;
+    }
+    .modal-body.ny a {
+        width: 43%;
+    }
+    .frm-end {
+        width: 100%;
+    }
+    .name_c301 {
+        padding: 20px;
+    }
+    .five-pay-flex {
+        display: block;
+    }
+    .fivehundred {
+        width: 100%;
+    }
+    .fivehundred p:before {
+        width: 90%;
+    }
+    .main-upi {
+        display: block;
+    }
+    ul.coupion-choice {
+        max-width: 100%;
+    }
 }
