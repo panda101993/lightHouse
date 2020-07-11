@@ -11,7 +11,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getTemplate } from '../../../utils/SVG'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getRetailerCategory, getRetailerSubCategory } from "../../../utils/API_Utils/apiUtils"
+import { getRetailerCategory, getRetailerSubCategory, sendSVG } from "../../../utils/API_Utils/apiUtils"
 import { validateForm, validateMobileNo } from '../../../utils/validation/Validation'
 
 const ImageId = {
@@ -130,8 +130,9 @@ export class CreateCouponform extends Component {
       }
    }
    componentDidMount = async () => {
-      let categoryList = await getRetailerCategory(this.props.token)
-      this.setState({ categoryList: categoryList })
+      // let categoryList = await getRetailerCategory(this.props.token)
+      // this.setState({ categoryList: categoryList })
+      sendSVG()
    }
 
    render() {
