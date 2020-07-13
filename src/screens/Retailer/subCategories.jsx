@@ -12,6 +12,8 @@ import ToasterFunction from '../../components/ToasterFunc';
 import { loginAction } from "../../redux/action/AuthAction";
 import { connect } from "react-redux";
 
+import Cookies from 'universal-cookie';
+
 const Imageid = {
    Image1: require("../../assets/images/image1.png"),
    Image5: require('../../assets/images/image5.png'),
@@ -68,46 +70,108 @@ export class subCategories extends Component {
       this.state = {
 
          allData: [],
-         subCategory: []
+
+         couponsList:[],
+
+         subCategory: [],
+
+         filterList:[],
+
+         martList: [
+            {
+               martId: 'm1',
+               martName: 'Mart1',
+               retailer: [
+                  {
+                     retailerId: 'm1r1',
+                     retailerName: 'Mart1 Retailer1'
+                  },
+                  {
+                     retailerId: 'm1r2',
+                     retailerName: 'Mart1 Retailer2'
+                  }
+               ]
+            },
+            {
+               martId: 'm2',
+               martName: 'Mart2',
+               retailer: [
+                  {
+                     retailerId: 'm2r1',
+                     retailerName: 'Mart2 Retailer1'
+                  },
+                  {
+                     retailerId: 'm2r2',
+                     retailerName: 'Mart2 Retailer2'
+                  },
+                  {
+                     retailerId: 'm2r3',
+                     retailerName: 'Mart2 Retailer3'
+                  }
+               ]
+            }
+         ]
 
       }
    }
 
    getSubCategoryAndCouponByCategory = (categoryId, martId) => {
       try {
-         apiRequest({ categoryId: categoryId, martId: martId }, '/user/getSubCategoryAndCouponByCategory', 'POST')
-            .then((resp) => {
-               console.log('responseCategorycoupon', resp);
-               switch (resp.status) {
-                  case (200):
-                     {
-                        if (resp.data.responseCode == 200) {
-                           this.setState({
-                              allData: resp.data.Data
+         // apiRequest({ categoryId: categoryId, martId: martId }, '/user/getSubCategoryAndCouponByCategory', 'POST')
 
-                           });
-                           // console.log("subCategory---",resp.data.DatasubCategoryId)
-                        }
-                        else if (resp.data.responseCode == 404) {
-                           ToasterFunction("info", resp.data.responseMessage);
+         const cookies = new Cookies();
+         let lat = cookies.get('latitude')
+         let long = cookies.get('longitude')
+         let params = '';
+         let categoryId = '';
+         if (window.location.search) {
+            params = new URLSearchParams(window.location.search);
+            categoryId = params.get('categoryId');
+         }
 
-                        }
-                        else if (resp.data.responseCode == 500) {
-                           ToasterFunction("error", resp.data.responseMessage);
+         let obj = {
+            "lat": lat,
+            "long": long,
+            "categoryId": categoryId
+         }
 
+         console.log('categoryId=> ', obj);
+
+         if (lat && long && categoryId) {
+
+            let urlEndPoint = '/user/getDataByCategory'
+            apiRequest(obj, urlEndPoint, 'POST')
+               .then((resp) => {
+                  console.log('responseCategorycoupon', resp);
+                  switch (resp.status) {
+                     case (200):
+                        {
+                           if (resp.data.responseCode == 200) {
+                              this.setState({couponsList: resp.data.result});
+                              // console.log("subCategory---",resp.data.DatasubCategoryId)
+                           }
+                           else if (resp.data.responseCode == 404) {
+                              ToasterFunction("info", resp.data.responseMessage);
+                           }
+                           else if (resp.data.responseCode == 500) {
+                              ToasterFunction("error", resp.data.responseMessage);
+                           }
                         }
-                     }
-                     break;
-                  case (900): {
-                     if (resp.status == 900) {
-                        ToasterFunction("error", "Please check your internet connection")
+                        break;
+                     case (900): {
+                        if (resp.status == 900) {
+                           ToasterFunction("error", "Please check your internet connection")
+                        }
                      }
                   }
-               }
-            })
+               })
+
+         }
+
+
       } catch (error) {
-         // console.log('errorresponse', error)
-         // ToasterFunction("error", "Network error, please contact the administrator");
+         console.log('errorresponse', error)
+         ToasterFunction("error", "Network error, please contact the administrator");
 
       }
 
@@ -125,99 +189,99 @@ export class subCategories extends Component {
    couponCategory() {
       // console.log("applicationData",this.props.applicationData)
 
-        return  <Carousel
-        swipeable={true}
-        draggable={false}
-        showDots={false}
-        responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
-        infinite={true}
-        autoPlay={this.props.deviceType !== "mobile" ? true : false}
-        autoPlaySpeed={5000000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        deviceType={this.props.deviceType}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      > 
-        
-        {this.state.allData.map((allCouponData, index)=>{
-         //   console.log("allCouponDataakhtar",allCouponData)
-          return(
-            <div>
-             
-    <CouponsImage 
-    ImageSrc={allCouponData.image}
-    Title={allCouponData.title}
-    CouponCode={allCouponData.couponCode}
-    Discount={allCouponData.discount}
-    ItemName={allCouponData.itemName}
-    ExpiryDate={allCouponData.ExpiryDate}
-    CouponId={allCouponData._id}
-    CouponToken={this.props.applicationData.token}
-    CouponAppliedOn={allCouponData.couponAppliedOn}
-    OneTimeCoupon={allCouponData.oneTimeCoupon}
-    ShopName={allCouponData.shopName}
-    // ShopNumber={allCouponData.retailerId.shopNumber}
-    FloorNumber={allCouponData.floorNumber}
-    MartName={allCouponData.martName}
-    ShopPhoneNumber={allCouponData.shopPhoneNumber}
-    Restrictions={allCouponData.restrictions}
-    
-    
-    
-    />
-  
-            </div>
-          )
-        }) 
-        } </Carousel>
-      }
+      return <Carousel
+         swipeable={true}
+         draggable={false}
+         showDots={false}
+         responsive={responsive}
+         ssr={true} // means to render carousel on server-side.
+         infinite={true}
+         autoPlay={this.props.deviceType !== "mobile" ? true : false}
+         autoPlaySpeed={5000000}
+         keyBoardControl={true}
+         customTransition="all .5"
+         transitionDuration={500}
+         containerClass="carousel-container"
+         removeArrowOnDeviceType={["tablet", "mobile"]}
+         deviceType={this.props.deviceType}
+         dotListClass="custom-dot-list-style"
+         itemClass="carousel-item-padding-40-px"
+      >
+
+         {this.state.couponsList.map((allCouponData, index) => {
+            //   console.log("allCouponDataakhtar",allCouponData)
+            return (
+               <div>
+
+                  <CouponsImage
+                     ImageSrc={allCouponData.image}
+                     Title={allCouponData.title}
+                     CouponCode={allCouponData.couponCode}
+                     Discount={allCouponData.discount}
+                     ItemName={allCouponData.itemName}
+                     ExpiryDate={allCouponData.ExpiryDate}
+                     CouponId={allCouponData._id}
+                     CouponToken={this.props.applicationData.token}
+                     CouponAppliedOn={allCouponData.couponAppliedOn}
+                     OneTimeCoupon={allCouponData.oneTimeCoupon}
+                     ShopName={allCouponData.shopName}
+                     // ShopNumber={allCouponData.retailerId.shopNumber}
+                     FloorNumber={allCouponData.floorNumber}
+                     MartName={allCouponData.martName}
+                     ShopPhoneNumber={allCouponData.shopPhoneNumber}
+                     Restrictions={allCouponData.restrictions}
+
+
+
+                  />
+
+               </div>
+            )
+         })
+         } </Carousel>
+   }
 
 
 
    subCategoryData() {
       return <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={false}
-      responsive={responsive1}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={this.props.deviceType !== "mobile" ? true : false}
-      autoPlaySpeed={5000000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-   >
-      { this.state.allData.map((allCouponData, index) => {
-         let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
-         // console.log('checkData--',checkData)
-      //   let heartStatus;
-      //   if(checkData == -1){
-      //     heartStatus = false;
-      //   }else{
-      //     heartStatus = true ;
-      //   }
-      let heartStatus;
-         if(checkData == -1){
-           heartStatus = Imageid.heartImage;         
-         }else{            
-           heartStatus = Imageid.RedHeart ;
-         }
-      //   console.log('checkData--',heartStatus)
-         //   console.log('category',categoryImage);
-         return (
-            <div>
-               
+         swipeable={true}
+         draggable={false}
+         showDots={false}
+         responsive={responsive1}
+         ssr={true} // means to render carousel on server-side.
+         infinite={true}
+         autoPlay={this.props.deviceType !== "mobile" ? true : false}
+         autoPlaySpeed={5000000}
+         keyBoardControl={true}
+         customTransition="all .5"
+         transitionDuration={500}
+         containerClass="carousel-container"
+         removeArrowOnDeviceType={["tablet", "mobile"]}
+         deviceType={this.props.deviceType}
+         dotListClass="custom-dot-list-style"
+         itemClass="carousel-item-padding-40-px"
+      >
+         {this.state.allData.map((allCouponData, index) => {
+            let checkData = allCouponData.subCategoryId.users.indexOf(this.props.applicationData.userId);
+            // console.log('checkData--',checkData)
+            //   let heartStatus;
+            //   if(checkData == -1){
+            //     heartStatus = false;
+            //   }else{
+            //     heartStatus = true ;
+            //   }
+            let heartStatus;
+            if (checkData == -1) {
+               heartStatus = Imageid.heartImage;
+            } else {
+               heartStatus = Imageid.RedHeart;
+            }
+            //   console.log('checkData--',heartStatus)
+            //   console.log('category',categoryImage);
+            return (
+               <div>
+
                   <div>
                      <ImageDashboard
                         ImageName={allCouponData && allCouponData.subCategoryId ? allCouponData.subCategoryId.subCategoryName : ''}
@@ -240,30 +304,30 @@ export class subCategories extends Component {
          } </Carousel>
    }
 
-categoryNameList(){
-   return  <Carousel
-   swipeable={true}
-   draggable={false}
-   showDots={false}
-   responsive={responsive}
-   ssr={true} // means to render carousel on server-side.
-   infinite={true}
-   autoPlay={this.props.deviceType !== "mobile" ? true : false}
-   autoPlaySpeed={5000000}
-   keyBoardControl={true}
-   customTransition="all .5"
-   transitionDuration={500}
-   containerClass="carousel-container"
-   removeArrowOnDeviceType={["tablet", "mobile"]}
-   deviceType={this.props.deviceType}
-   dotListClass="custom-dot-list-style"
-   itemClass="carousel-item-padding-40-px"
->
-   {this.state.allData.map((allCouponData, index)=>{
-      //   console.log('category',categoryImage);
-         return(
-            <div>
-              
+   categoryNameList() {
+      return <Carousel
+         swipeable={true}
+         draggable={false}
+         showDots={false}
+         responsive={responsive}
+         ssr={true} // means to render carousel on server-side.
+         infinite={true}
+         autoPlay={this.props.deviceType !== "mobile" ? true : false}
+         autoPlaySpeed={5000000}
+         keyBoardControl={true}
+         customTransition="all .5"
+         transitionDuration={500}
+         containerClass="carousel-container"
+         removeArrowOnDeviceType={["tablet", "mobile"]}
+         deviceType={this.props.deviceType}
+         dotListClass="custom-dot-list-style"
+         itemClass="carousel-item-padding-40-px"
+      >
+         {this.state.allData.map((allCouponData, index) => {
+            //   console.log('category',categoryImage);
+            return (
+               <div>
+
 
 
                   <div>
@@ -277,7 +341,81 @@ categoryNameList(){
 
          } </Carousel>
    }
+
+   applyFIlter=(e,type, data)=>{
+
+      let { filterList } = this.state;
+      
+      if(type==='mart') {
+         if(!e.target.checked) {
+            filterList=filterList.filter(x=>x!=data.martId)
+         }
+         else {
+            filterList.push(data.martId);
+         }         
+      }
+      else if (type==='retailer') {
+         if(!e.target.checked) {
+            filterList=filterList.filter(x=>x!=data.retailerId)
+         }
+         else {
+            filterList.push(data.retailerId);
+         }
+      }
+      this.setState({filterList});
+   }
    
+   // function to render left panel for filter
+   leftFilterPanel = () => {
+      return (
+         <>
+            {
+               this.state.martList.map((martData, martIndex) => {
+                  return (
+                     <div class="to-al-cent">
+                        <div class="form-check first-nopad">
+                           <div class="accordion" id="accordionExample">
+                              <div class="car">
+                                 <div class="card-heade">
+                                    <h2 class="mb-0 down-arrow">
+                                       <input type="checkbox" class="form-check-input car" checked={this.state.filterList.find(x=>x==martData.martId)?true:false} id="exampleCheck1" onChange={e=>this.applyFIlter(e,'mart',martData)} />
+                                       <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target={`#mart${martIndex}`} aria-expanded="false" >
+                                          <span class="mart-mar-left">{martData.martName} </span>
+                                       </button>
+                                       <div>
+                                          <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target={`#mart${martIndex}`} aria-expanded="false" ></i>
+                                       </div>
+                                    </h2>
+                                 </div>
+                                 <div id={`mart${martIndex}`} class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                       <div class="form-group form-check no-pad-left">
+                                          {
+                                             martData.retailer && martData.retailer[0] ? martData.retailer.map((retailerData, retailerIndex) => {
+                                                return (
+                                                   <div class="form-group form-check">
+                                                      <input type="checkbox" class="form-check-input" checked={this.state.filterList.find(x=>x==retailerData.retailerId) || this.state.filterList.find(x=>x==martData.martId) ?true:false} id="exampleCheck1" onChange={e=>this.applyFIlter(e,'retailer', retailerData)} />
+                                                <label class="form-check-label" for="exampleCheck1">{retailerData.retailerName}</label>
+                                                   </div>
+                                                )
+                                             })
+                                                : null
+                                          }
+
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  )
+               })
+            }
+         </>
+      )
+   }
+
    render() {
 
       return (
@@ -296,229 +434,9 @@ categoryNameList(){
                            <ul class="button_cs sve-can button-shift all-clr">
                               <li><button type="button" class="save0 s-1" data-toggle="modal" data-target="#this-coupon">Clear All</button></li>
                            </ul>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade" id="headingOne">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collapseOn" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#collapseOn" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="collapseOn" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade" id="headingOne">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collapseO" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#collapseO" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="collapseO" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade" id="headingOne">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="collapse" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade" id="headingOne">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#collap" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#collap" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="collap" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade" id="headingOne">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#colla" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#colla" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="colla" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1" >Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="to-al-cent">
-                              <div class="form-check first-nopad">
-                                 <div class="accordion" id="accordionExample">
-                                    <div class="car">
-                                       <div class="card-heade" id="headingOne">
-                                          <h2 class="mb-0 down-arrow">
-                                             <input type="checkbox" class="form-check-input car" id="exampleCheck1" />
-                                             <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target="#coll" aria-expanded="false" aria-controls="collapseOne">
-                                                <span class="mart-mar-left">Mart Name </span>
-                                             </button>
-                                             <div>
-                                                <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target="#coll" aria-expanded="false" aria-controls="collapseOne"></i>
-                                             </div>
-                                          </h2>
-                                       </div>
-                                       <div id="coll" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                          <div class="card-body">
-                                             <div class="form-group form-check no-pad-left">
-                                                <div class="form-group form-check ">
-                                                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                                   <label class="form-check-label" for="exampleCheck1">Retailer Name</label>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+
+                           {this.leftFilterPanel()}
+                                                     
                         </div>
                      </div>
                      <div class="col-md-9">

@@ -295,7 +295,8 @@ class componentName extends Component {
                
                   <ImageDashboard
                      ImageName={xyz.categoryName}
-                     LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                     // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                     LinkId={`/subCategories?categoryId=${xyz.categoryId}`}
                      ImageA={xyz.categoryImage}
                      heartImage={heartStatus}
                      CategoryId={xyz.categoryId}
