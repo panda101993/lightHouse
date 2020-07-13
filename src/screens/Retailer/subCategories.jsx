@@ -1,5 +1,4 @@
 // 'use strict'
-
 import React, { Component } from 'react'
 import Footer from '../../components/Footer'
 import Header2 from '../../components/Header2'
@@ -292,10 +291,8 @@ export class subCategories extends Component {
                         HeartData={heartStatus}
                         blankHeart={Imageid.heartImage}
                         redHeart={Imageid.RedHeart}
-
                      />
                   </div>
-
                </div>
             )
          })
