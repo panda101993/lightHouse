@@ -1,3 +1,5 @@
+// 'use strict'
+
 import React, { Component } from 'react'
 import Footer from '../../components/Footer'
 import Header2 from '../../components/Header2'
@@ -71,11 +73,11 @@ export class subCategories extends Component {
 
          allData: [],
 
-         couponsList:[],
+         couponsList: [],
 
          subCategory: [],
 
-         filterList:[],
+         filterList: [],
 
          martList: [
             {
@@ -135,7 +137,7 @@ export class subCategories extends Component {
             "categoryId": categoryId
          }
 
-         console.log('categoryId=> ', obj);
+         // console.log('categoryId=> ', obj);
 
          if (lat && long && categoryId) {
 
@@ -147,7 +149,7 @@ export class subCategories extends Component {
                      case (200):
                         {
                            if (resp.data.responseCode == 200) {
-                              this.setState({couponsList: resp.data.result});
+                              this.setState({ couponsList: resp.data.result });
                               // console.log("subCategory---",resp.data.DatasubCategoryId)
                            }
                            else if (resp.data.responseCode == 404) {
@@ -212,7 +214,6 @@ export class subCategories extends Component {
             //   console.log("allCouponDataakhtar",allCouponData)
             return (
                <div>
-
                   <CouponsImage
                      ImageSrc={allCouponData.image}
                      Title={allCouponData.title}
@@ -230,9 +231,6 @@ export class subCategories extends Component {
                      MartName={allCouponData.martName}
                      ShopPhoneNumber={allCouponData.shopPhoneNumber}
                      Restrictions={allCouponData.restrictions}
-
-
-
                   />
 
                </div>
@@ -342,29 +340,31 @@ export class subCategories extends Component {
          } </Carousel>
    }
 
-   applyFIlter=(e,type, data)=>{
+   applyFIlter = (e, type, data) => {
+
+      e.nativeEvent.stopImmediatePropagation();
 
       let { filterList } = this.state;
-      
-      if(type==='mart') {
-         if(!e.target.checked) {
-            filterList=filterList.filter(x=>x!=data.martId)
+
+      if (type === 'mart') {
+         if (!e.target.checked) {
+            filterList = filterList.filter(x => x != data.martId)
          }
          else {
             filterList.push(data.martId);
-         }         
+         }
       }
-      else if (type==='retailer') {
-         if(!e.target.checked) {
-            filterList=filterList.filter(x=>x!=data.retailerId)
+      else if (type === 'retailer') {
+         if (!e.target.checked) {
+            filterList = filterList.filter(x => x != data.retailerId)
          }
          else {
             filterList.push(data.retailerId);
          }
       }
-      this.setState({filterList});
+      this.setState({ filterList });
    }
-   
+
    // function to render left panel for filter
    leftFilterPanel = () => {
       return (
@@ -378,9 +378,9 @@ export class subCategories extends Component {
                               <div class="car">
                                  <div class="card-heade">
                                     <h2 class="mb-0 down-arrow">
-                                       <input type="checkbox" class="form-check-input car" checked={this.state.filterList.find(x=>x==martData.martId)?true:false} id="exampleCheck1" onChange={e=>this.applyFIlter(e,'mart',martData)} />
+                                       <input type="checkbox" class="form-check-input car" checked={this.state.filterList.find(x => x == martData.martId) ? true : false} id="exampleCheck1" onChange={e => this.applyFIlter(e, 'mart', martData)} />
                                        <button class="btn btn-link blak-colr" type="button" data-toggle="collapse" data-target={`#mart${martIndex}`} aria-expanded="false" >
-                                          <span class="mart-mar-left">{martData.martName} </span>
+                                          <span class="mart-mar-left">{martData.martName}</span>
                                        </button>
                                        <div>
                                           <i class="fa fa-caret-down" aria-hidden="true" data-toggle="collapse" data-target={`#mart${martIndex}`} aria-expanded="false" ></i>
@@ -394,8 +394,8 @@ export class subCategories extends Component {
                                              martData.retailer && martData.retailer[0] ? martData.retailer.map((retailerData, retailerIndex) => {
                                                 return (
                                                    <div class="form-group form-check">
-                                                      <input type="checkbox" class="form-check-input" checked={this.state.filterList.find(x=>x==retailerData.retailerId) || this.state.filterList.find(x=>x==martData.martId) ?true:false} id="exampleCheck1" onChange={e=>this.applyFIlter(e,'retailer', retailerData)} />
-                                                <label class="form-check-label" for="exampleCheck1">{retailerData.retailerName}</label>
+                                                      <input type="checkbox" class="form-check-input" checked={this.state.filterList.find(x => x == retailerData.retailerId) || this.state.filterList.find(x => x == martData.martId) ? true : false} id="exampleCheck1" onChange={e => this.applyFIlter(e, 'retailer', retailerData)} />
+                                                      <label class="form-check-label" for="exampleCheck1">{retailerData.retailerName}</label>
                                                    </div>
                                                 )
                                              })
@@ -436,7 +436,7 @@ export class subCategories extends Component {
                            </ul>
 
                            {this.leftFilterPanel()}
-                                                     
+
                         </div>
                      </div>
                      <div class="col-md-9">
