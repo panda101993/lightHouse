@@ -104,7 +104,7 @@ export default class Setting_retailer extends Component {
                         <div class="container-fluid">
                             <div class="row save-coupon">
                                 {/* <SidebarRetailer /> */}
-                                <div class="col-lg-3 col-sm-12 mb-3">
+                                <div class="col-lg-3 col-md-12 col-sm-12 mb-3">
                                     <div class="manage">
                                         <div class="nav flex-column nav-pills home_c3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                             <NavLink to={`${path}/`} className="nav-link _settings" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="false">Manage General Info</NavLink>
@@ -123,7 +123,7 @@ export default class Setting_retailer extends Component {
 
 
                                 {/* ---------- */}
-                                <div class="col-lg-9 col-sm-12">
+                                <div class="col-lg-9 col-md-12 col-sm-12">
                                     <div class="tab-content manage_genral" id="v-pills-tabContent">
                                         <Switch>
                                             <Route exact={true} path={`${path}/`}  component={ManageGeneralInfo} />
