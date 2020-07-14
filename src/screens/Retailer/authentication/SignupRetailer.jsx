@@ -60,14 +60,14 @@ export class SignupRetailer extends Component {
         //     "long": longitude
         // }
 
-        Apirequest({ "lat": 28.574, "long": 77.1991 }, "/user/getMartsByRetailer", "POST")
+        Apirequest({ "lat":  28.5670329, "long":  77.3254057 }, "/user/getMartsByRetailer", "POST")
             .then((resp) => {
                 console.log("getmartsbyret", resp.data.result)
                 switch (resp.status) {
                     case 200:
                         if (resp.data.responseCode == 200) {
-                            this.setState({ datafound: resp.data.result[0] })
-                            console.log(this.state.datafound.martName)
+                            this.setState({ datafound: resp.data.result[0] },()=>console.log("MARTS",this.state))
+                            // console.log("MARTS",this.state.datafound)s
                         }
                         else if (resp.data.responseCode == 404) {
                             ToasterFunction("data err", "Mart not found")

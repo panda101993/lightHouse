@@ -6,7 +6,17 @@ export const getRetailerCategory=(token)=>{
      return apiRequest({},"/retailer/getCategoriesByRetailer","GET",token)
     .then((res)=>{
         console.log("response for  category Lidt",res)
-        return res.data.results[0].productServiceDetails
+        if(res.status===200){
+            console.log("response for  category list 2",res)
+            if(res.data.responseCode){
+                if(res.data.result.length===0){
+                    return []
+                }
+                else{
+                    return res.data.results[0].productServiceDetails
+                }
+            }
+        }
 
     }).catch(err=>console.log("aaaaaa",err))
 }
@@ -14,7 +24,36 @@ export const getRetailerCategory=(token)=>{
 export const getRetailerSubCategory=(token,formdata)=>{
     return apiRequest(formdata,"/retailer/getSubCategoriesByRetailer","POST",token)
     .then((res)=>{
-        console.log("response for  category list 2",res)
+        if(res.status===200){
+            console.log("response for  category list 2",res)
+            if(res.data.responseCode){
+                if(res.data.result1.length===0){
+                    return []
+                }
+                else{
+                    return res.data.result1
+                }
+            }
+        }
+        // return res.data.result1[0].productServiceDetails
+    })
+}
+export const getItemTypeByRetailer=(token,formdata)=>{
+    return apiRequest(formdata,"/retailer/getItemTypeByRetailer","POST",token)
+    .then((res)=>{
+        console.log("response for  category list 3",res)
+    })
+}
+export const getBrandByRetailer=(token,formdata)=>{
+    return apiRequest(formdata,"/retailer/getBrandByRetailer","POST",token)
+    .then((res)=>{
+        console.log("response for  category list 4",res)
+    })
+}
+export const getItemNameByRetailer=(token,formdata)=>{
+    return apiRequest(formdata,"/retailer/getItemNameByRetailer","POST",token)
+    .then((res)=>{
+        console.log("response for  category list 5",res)
     })
 }
 const Five = () => {
@@ -39,5 +78,15 @@ export const sendSVG=()=>{
     return apiRequest(data,"/admin/addTemplate","POST","")
     .then((res)=>{
         console.log("response for  category Template",res)
+    })
+}
+
+export const getSVG=()=>{
+    let data={"template":Five()}
+    // http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1/admin/addTemplate
+    return apiRequest({},"/admin/listTemplate","GET","")
+    .then((res)=>{
+        return res.data.result
+        console.log("response for  LIST Template",res)
     })
 }

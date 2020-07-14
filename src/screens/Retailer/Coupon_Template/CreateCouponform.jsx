@@ -35,7 +35,8 @@ export class CreateCouponform extends Component {
          OTC: "OTC_TRUE",
          INSIDE_MART: "INSIDE_MART_TARGET_ALL",
          OUTSIDE_MART: "OUTSIDE_MART_TARGET_ALL",
-         categoryList: []
+         categoryList: [],
+         subCategoryList:[]
       }
    }
    toggleState = (stateName) => {
@@ -74,9 +75,17 @@ export class CreateCouponform extends Component {
                   "retailerId":this.props.userId
             }
             let  data= await getRetailerSubCategory(this.props.token,formData)
-            console.log("??????",data)
-
+            this.setState({subCategoryList:data},()=>console.log("this.state",this.state))
+            console.log("??????==",data)
          }
+         // case ("subCategory"): {
+         //    let formData={
+         //          "subCategoryId":e,
+         //          "retailerId":this.props.userId
+         //    }
+         //    let  data= await getRetailerSubCategory(this.props.token,formData)
+         //    console.log("??????",data)
+         // }
       }
    }
    valueHandler = (type, e) => {
@@ -130,9 +139,9 @@ export class CreateCouponform extends Component {
       }
    }
    componentDidMount = async () => {
-      // let categoryList = await getRetailerCategory(this.props.token)
-      // this.setState({ categoryList: categoryList })
-      sendSVG()
+      let categoryList = await getRetailerCategory(this.props.token)
+      this.setState({ categoryList: categoryList })
+      // sendSVG()
    }
 
    render() {
@@ -224,14 +233,14 @@ export class CreateCouponform extends Component {
                               <p>
                                  <select class="form-control" onChange={e => this.valueHandler("category", e)}>
                                     <option >Category Name</option>
-                                    {/* {!this.state.categoryState ?
+                                    {!this.state.categoryState ?
                                        <>
                                           {this.state.categoryList.map(item =>
                                              <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
                                           )}
                                        </>
                                        : <></>
-                                    } */}
+                                    }
                                  </select>
                               </p>
                            </div>
@@ -252,10 +261,10 @@ export class CreateCouponform extends Component {
                                     <option >Sub-Category Name</option>
                                     {!this.state.subCategoryState ?
                                        <>
-                                          <option value={"Sub-Category 1"} disabled={this.state.subCategoryState}>Sub-Category 1</option>
-                                          <option value={"Sub-Category 2"} disabled={this.state.subCategoryState}>Sub-Category 2</option>
-                                          <option value={"Sub-Category 3"} disabled={this.state.subCategoryState}>Sub-Category 3</option>
-                                          <option value={"Sub-Category 4"} disabled={this.state.subCategoryState}>Sub-Category 4</option>
+                                          {this.state.subCategoryList.map(item =>
+                                          console.log("kkkkkkkk",item)
+                                             // <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
+                                          )}
                                        </>
                                        : <></>
                                     }

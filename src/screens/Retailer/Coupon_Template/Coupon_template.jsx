@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { retailerProfileAction } from "../../../redux/action/ProfileDetailsAction";
 import { getTemplate } from '../../../utils/SVG';
+import  {getSVG} from "../../../utils/API_Utils/apiUtils"
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -42,32 +43,37 @@ class Coupon_template extends Component {
     }
   }
 
-  componentDidMount() {
-    const { token } = this.props.applicationData
-    this.props.action.retailerProfileAction(token)
-    let obj = {}
-    Apirequest(obj, "/admin/couponTemplateList", "POST")
-      .then((resp) => {
-        switch (resp.status) {
-          case (200): {
-            if (resp.data.responseCode == 200) {
-              this.setState({ couponTemplateList: resp.data.result })
-            }
-            else if (resp.data.responseCode == 402) {
-              alert("Invalid credentials")
-            }
-          }
-            break
-          default: {
-            // alert(resp.data.error)
-          }
-        }
-      }
-      )
-      .catch(err => {
-        console.log("respresp---", err)
-      }
-      )
+  async componentDidMount() {
+    let data=await getSVG()
+
+    console.log("dool=>",data)
+    this.setState({couponTemplateList:data})
+    // this.setState({templ:data},()=>console.log("recieved", this.state.templ))
+    // const { token } = this.props.applicationData
+    // this.props.action.retailerProfileAction(token)
+    // let obj = {}
+    // Apirequest(obj, "/admin/couponTemplateList", "POST")
+    //   .then((resp) => {
+    //     switch (resp.status) {
+    //       case (200): {
+    //         if (resp.data.responseCode == 200) {
+    //           this.setState({ couponTemplateList: resp.data.result })
+    //         }
+    //         else if (resp.data.responseCode == 402) {
+    //           alert("Invalid credentials")
+    //         }
+    //       }
+    //         break
+    //       default: {
+    //         // alert(resp.data.error)
+    //       }
+    //     }
+    //   }
+    //   )
+    //   .catch(err => {
+    //     console.log("respresp---", err)
+    //   }
+    //   )
   }
   render() {
     // const { path } = this.props.match;
@@ -132,6 +138,9 @@ class Coupon_template extends Component {
                   return (
                     <Link to={`/CreateCouponform/${index}`} >
                       {getTemplate(index, { name: index })}
+                      {/* {
+                        console.log(">>>>>", item .template)
+                      } */}
                     </Link>
                   )
                 })
