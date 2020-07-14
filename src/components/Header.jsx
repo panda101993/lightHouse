@@ -246,7 +246,8 @@ const Header = (props) => {
                                             <DropdownMenu className="dropdown-menu log-menu">
 
                                                 <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
-                                                <DropdownItem tag={Link} to="/SignupRetailer" >Signup</DropdownItem>
+                                                {/* <DropdownItem tag={Link} to="/SignupRetailer" >Signup</DropdownItem> */}
+                                                <DropdownItem tag={Link} to="/CreateWebpageInitialSignupProcess">Signup</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
 

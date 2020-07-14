@@ -130,7 +130,7 @@ import {
                   <label style={{fontSize:14}}> {ItemName}</label>
                   <br/>
                   <label style={{fontSize:14}}>Expiry Date:</label>
-                  <label style={{fontSize:14}}>{ExpiryDate}</label> 
+                  <label style={{fontSize:14}}>{ExpiryDate && new Date(ExpiryDate)? new Date(ExpiryDate).toLocaleString():'' }</label> 
                   
             </div>
 

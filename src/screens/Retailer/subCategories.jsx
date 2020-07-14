@@ -111,45 +111,89 @@ export class subCategories extends Component {
                   }
                ]
             }
-         ]
+         ],
 
+         apiRequest: {
+            "lat": '',
+            "long": '',
+            "categoryId": ''
+         }
       }
    }
 
-   getSubCategoryAndCouponByCategory = (categoryId, martId) => {
+   getMartAndRetailersByCategory = () => {
       try {
-         // apiRequest({ categoryId: categoryId, martId: martId }, '/user/getSubCategoryAndCouponByCategory', 'POST')
+         let urlEndPoint = '/user/getMartAndRetailerByCategory';
 
-         const cookies = new Cookies();
-         let lat = cookies.get('latitude')
-         let long = cookies.get('longitude')
-         let params = '';
-         let categoryId = '';
-         if (window.location.search) {
-            params = new URLSearchParams(window.location.search);
-            categoryId = params.get('categoryId');
-         }
-
-         let obj = {
-            "lat": lat,
-            "long": long,
-            "categoryId": categoryId
-         }
-
-         // console.log('categoryId=> ', obj);
-
-         if (lat && long && categoryId) {
-
-            let urlEndPoint = '/user/getDataByCategory'
-            apiRequest(obj, urlEndPoint, 'POST')
+         apiRequest(this.state.apiRequest, urlEndPoint, 'POST')
                .then((resp) => {
-                  console.log('responseCategorycoupon', resp);
+                  console.log('responseMart&Retailer==> ', resp);
                   switch (resp.status) {
                      case (200):
                         {
                            if (resp.data.responseCode == 200) {
                               this.setState({ couponsList: resp.data.result });
-                              // console.log("subCategory---",resp.data.DatasubCategoryId)
+                              
+                           }
+                           else if (resp.data.responseCode == 404) {
+                              ToasterFunction("info", resp.data.responseMessage);
+                           }
+                           else if (resp.data.responseCode == 500) {
+                              ToasterFunction("error", resp.data.responseMessage);
+                           }
+                        }
+                        break;
+                     case (900): {
+                        if (resp.status == 900) {
+                           ToasterFunction("error", "Please check your internet connection")
+                        }
+                     }
+                  }
+               })
+               .catch(err=>{
+                  console.log('errorMart&RetailerApi=> ', err)
+               })
+
+      }
+      catch (error) {
+         console.log('errorMart&RetailerApi_catch=> ', error)
+      }
+   }
+
+   getSubCategoryAndCouponByCategory = () => {
+      try {
+         // apiRequest({ categoryId: categoryId, martId: martId }, '/user/getSubCategoryAndCouponByCategory', 'POST')
+
+         // const cookies = new Cookies();
+         // let lat = cookies.get('latitude')
+         // let long = cookies.get('longitude')
+         // let params = '';
+         // let categoryId = '';
+         // if (window.location.search) {
+         //    params = new URLSearchParams(window.location.search);
+         //    categoryId = params.get('categoryId');
+         // }
+
+         // let obj = {
+         //    "lat": lat,
+         //    "long": long,
+         //    "categoryId": categoryId
+         // }
+
+         // console.log('categoryId=> ', obj);
+
+         // if (lat && long && categoryId) {
+
+            let urlEndPoint = '/user/getDataByCategory';
+            apiRequest(this.state.apiRequest, urlEndPoint, 'POST')
+               .then((resp) => {
+                  // console.log('responseCategorycoupon', resp);
+                  switch (resp.status) {
+                     case (200):
+                        {
+                           if (resp.data.responseCode == 200) {
+                              this.setState({ couponsList: resp.data.result });
+                              
                            }
                            else if (resp.data.responseCode == 404) {
                               ToasterFunction("info", resp.data.responseMessage);
@@ -167,7 +211,7 @@ export class subCategories extends Component {
                   }
                })
 
-         }
+         // }
 
 
       } catch (error) {
@@ -180,11 +224,35 @@ export class subCategories extends Component {
 
    async componentDidMount() {
       // console.log('category', window.location.pathname);
-      let splitUrl = window.location.pathname.split('/')
+      // let splitUrl = window.location.pathname.split('/')
       // console.log('category', splitUrl);
       // console.log('category', splitUrl[2]);
       // console.log('category', splitUrl[3]);
-      this.getSubCategoryAndCouponByCategory(splitUrl[2], splitUrl[3]);
+
+      const cookies = new Cookies();
+      let lat = cookies.get('latitude')
+      let long = cookies.get('longitude')
+      let params = '';
+      let categoryId = '';
+      if (window.location.search) {
+         params = new URLSearchParams(window.location.search);
+         categoryId = params.get('categoryId');
+      }
+
+      let apiRequest = {
+         "lat": lat,
+         "long": long,
+         "categoryId": categoryId
+      }
+      if (lat, long, categoryId) {
+         this.setState({ apiRequest }, () => {
+            this.getSubCategoryAndCouponByCategory();
+            this.getMartAndRetailersByCategory();
+         })
+      }
+      // else {
+      //    // do nothing
+      // }
    }
 
    couponCategory() {
@@ -337,6 +405,10 @@ export class subCategories extends Component {
          } </Carousel>
    }
 
+   clearAllFilter = () => {
+      this.setState({ filterList: [] })
+   }
+
    applyFIlter = (e, type, data) => {
 
       e.nativeEvent.stopImmediatePropagation();
@@ -429,7 +501,7 @@ export class subCategories extends Component {
                      <div class="col-md-3">
                         <div class="accor-bord">
                            <ul class="button_cs sve-can button-shift all-clr">
-                              <li><button type="button" class="save0 s-1" data-toggle="modal" data-target="#this-coupon">Clear All</button></li>
+                              <li><button type="button" class="save0 s-1" data-toggle="modal" data-target="#this-coupon" onClick={e => this.clearAllFilter()}>Clear All</button></li>
                            </ul>
 
                            {this.leftFilterPanel()}
