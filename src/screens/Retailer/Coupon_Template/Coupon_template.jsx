@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { retailerProfileAction } from "../../../redux/action/ProfileDetailsAction";
 import { getTemplate } from '../../../utils/SVG';
-import  {getSVG} from "../../../utils/API_Utils/apiUtils"
+import  {getSVG, sendSVG} from "../../../utils/API_Utils/apiUtils"
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -45,9 +45,9 @@ class Coupon_template extends Component {
 
   async componentDidMount() {
     let data=await getSVG()
-
-    console.log("dool=>",data)
-    this.setState({couponTemplateList:data})
+    // sendSVG()
+    // console.log("dool=>",data)
+    // this.setState({couponTemplateList:data})
     // this.setState({templ:data},()=>console.log("recieved", this.state.templ))
     // const { token } = this.props.applicationData
     // this.props.action.retailerProfileAction(token)

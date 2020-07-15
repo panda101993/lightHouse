@@ -235,9 +235,9 @@ export class CreateCouponform extends Component {
                                     <option >Category Name</option>
                                     {!this.state.categoryState ?
                                        <>
-                                          {this.state.categoryList.map(item =>
+                                          {/* {this.state.categoryList.map(item =>
                                              <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
-                                          )}
+                                          )} */}
                                        </>
                                        : <></>
                                     }
@@ -261,10 +261,10 @@ export class CreateCouponform extends Component {
                                     <option >Sub-Category Name</option>
                                     {!this.state.subCategoryState ?
                                        <>
-                                          {this.state.subCategoryList.map(item =>
+                                          {/* {this.state.subCategoryList.map(item =>
                                           console.log("kkkkkkkk",item)
                                              // <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
-                                          )}
+                                          )} */}
                                        </>
                                        : <></>
                                     }
@@ -507,8 +507,8 @@ export class CreateCouponform extends Component {
 
 const mapStateToProps = state => {
    return {
-      token: state.AuthReducer.userData.token,
-      userId: state.AuthReducer.userData.userId
+      token: null,//state.AuthReducer.userData.token,
+      userId: null //state.AuthReducer.userData.userId
    }
 
 }
