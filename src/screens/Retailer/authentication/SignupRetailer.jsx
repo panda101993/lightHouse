@@ -42,7 +42,8 @@ export class SignupRetailer extends Component {
             cfpasswordErrorStatus: null,
 
             termsAndPrivacy: false,
-            temp: this.props.location.pathname.split("/")
+            temp: this.props.location.pathname.split("/"),
+            marList: [],
         }
     }
 
@@ -60,13 +61,14 @@ export class SignupRetailer extends Component {
         //     "long": longitude
         // }
 
-        Apirequest({ "lat": 28.574, "long": 77.1991 }, "/user/getMartsByRetailer", "POST")
+        Apirequest({ "lat": 28.5670329, "long": 77.3254057 }, "/user/getMartsByRetailer", "POST")
             .then((resp) => {
                 console.log("getmartsbyret", resp.data.result)
                 switch (resp.status) {
                     case 200:
                         if (resp.data.responseCode == 200) {
                             this.setState({ datafound: resp.data.result[0] })
+                            this.setState({ marList: resp.data.result });
                             console.log(this.state.datafound.martName)
                         }
                         else if (resp.data.responseCode == 404) {
@@ -224,7 +226,15 @@ export class SignupRetailer extends Component {
                                             )}
                                         >
                                             <option selected>Mart name</option>
-                                            <option value={this.state.datafound._id}>{this.state.datafound.martName}</option>
+                                            {
+                                                this.state.marList && this.state.marList[0] ?
+                                                    this.state.marList.map((mart, martIndex) => {
+                                                        return (
+                                                            <option value={mart._id}>{mart.martName}</option>
+                                                        )
+                                                    }) : null
+                                            }
+                                            {/* <option value={this.state.datafound._id}>{this.state.datafound.martName}</option> */}
                                         </select>
                                     </div>
                                     <GlobalValidations
