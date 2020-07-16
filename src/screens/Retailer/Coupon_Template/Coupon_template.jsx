@@ -39,14 +39,14 @@ class Coupon_template extends Component {
     super(props)
 
     this.state = {
-      couponTemplateList: []
+      couponTemplateList: [1,2,3,4 ,5]
     }
   }
 
   async componentDidMount() {
     let data=await getSVG()
     // sendSVG()
-    // console.log("dool=>",data)
+    console.log("dool=>",data)
     // this.setState({couponTemplateList:data})
     // this.setState({templ:data},()=>console.log("recieved", this.state.templ))
     // const { token } = this.props.applicationData
@@ -138,9 +138,9 @@ class Coupon_template extends Component {
                   return (
                     <Link to={`/CreateCouponform/${index}`} >
                       {getTemplate(index, { name: index })}
-                      {/* {
+                      {
                         console.log(">>>>>", item .template)
-                      } */}
+                      }
                     </Link>
                   )
                 })

@@ -116,7 +116,7 @@ export const getSVG=()=>{
     // http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1/admin/addTemplate
     return apiRequest({},"/admin/listTemplate","GET","")
     .then((res)=>{
-        // return res.data.result
+        return res.data.result
         console.log("response for  LIST Template",res)
     })
 }

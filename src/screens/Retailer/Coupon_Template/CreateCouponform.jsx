@@ -140,7 +140,7 @@ export class CreateCouponform extends Component {
    }
    componentDidMount = async () => {
       let categoryList = await getRetailerCategory(this.props.token)
-      this.setState({ categoryList: categoryList })
+      this.setState({ categoryList: categoryList },()=>console.log("k>>>>",this.state.categoryList))
       // sendSVG()
    }
 
@@ -165,7 +165,43 @@ export class CreateCouponform extends Component {
                   <div class="container border-box">
                      <div class="name_c3">
                         <div class="offer-in-circle">
-                           {getTemplate(Number(this.props.match.params.id), this.state)}
+                           {/* {getTemplate(Number(this.props.match.params.id), this.state)} */}
+                           {
+                              // React.createElement("svg", {
+                              //    width: "100",
+                              //    height: "100"
+                              //  }, /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  }, /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  })), /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  }), /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  }))
+                           }
+                           
+                           <img src={"https://svgshare.com/i/Mvx.svg"} alt="A Rectangle Image with SVG" />;
                            <input onChange={this.handleFileSelect} style={{ display: "none" }} type="file" accept="image/*" />
                            <div class="plus-circle">
                               <i class="fa fa-plus-circle" aria-hidden="true"></i>
