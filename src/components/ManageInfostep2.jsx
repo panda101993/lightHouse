@@ -237,7 +237,7 @@ export class ManageInfostep2 extends Component {
          //      break
          case ("email"):
             var data = validateEmail(this.state.email)
-            console.log("email", data)
+            console.log("email====", data)
             this.setState({ emailErrorMsg: data.error, emailErrorStatus: data.status }, () => console.log("errore", this.state))
             break
          case ("pincode"):
@@ -522,7 +522,14 @@ finalSubmit=()=>{
                      <label>Email
                               <img src={require("../assets/images/about-icon.png")} />
                      </label>
-                     <span><input type="text" class="form-control email_c3" placeholder="" onChange={(e) => this.handleWeeklySignup(e, "email")} /></span>
+                     <span><input type="text" class="form-control email_c3" 
+                     placeholder="example@gmail.com" 
+                     onChange={(e) => this.handleWeeklySignup(e, "email")} /></span>
+
+                     <div style={{ color: 'red' }}>
+                        <label forhtml="emailErrorMsg">{this.state.emailErrorMsg}</label>
+                     </div>
+
                      <label class="home_c3">Home Address</label>
                      <ul class="current_c3">
                         <li><img src={require("../assets/images/location-512.png")} /></li>
@@ -533,17 +540,34 @@ finalSubmit=()=>{
                      <span><input type="text" class="form-control" placeholder="Pin Code"
                         onChange={(e) => this.handleWeeklySignup(e, "pincode")}
                      /></span>
+                      <div style={{ color: 'red' }}>
+                        <label forhtml="pincodeErrorMsg">{this.state.pincodeErrorMsg}</label>
+                     </div>
+
                      <label>State*</label>
                      <select class="form-control"
                         value={this.state.province}
-                        onChange={(e) => this.handleWeeklySignup(e, "province")}
-                     >
+                        onChange={(e) => this.handleWeeklySignup(e, "province")}>
+                        <option value="">Select State</option>
                         {this.ProvinceList}
                      </select>
+
                      <label>City*</label>
-                     <span><input type="text" class="form-control" placeholder="City"
-                        onChange={(e) => this.handleWeeklySignup(e, "city")}
-                     /></span>
+                     <select class="form-control"
+                     // id="exampleFormControlInput1"
+                     onChange={(e) => this.handleWeeklySignup(e, "city")}
+                     value={this.state.city}>{ProvinceJSON.states
+                     .filter(({ state }) => state == this.state.province)
+                     .map(({ districts }) => districts.map((DistrictList) => <option>{DistrictList}</option>))}
+                      <option value="">Select City</option>
+                      </select>
+
+                     {/* <span>
+                     <input type="text" class="form-control" 
+                     placeholder="City"
+                     onChange={(e) => this.handleWeeklySignup(e, "city")}/>
+                     </span> */}
+
                      <label>
                         Address*
                            </label>

@@ -184,7 +184,7 @@ const Header = (props) => {
             // console.log("Longitude is :", position.coords.longitude); 
             const cookies = new Cookies();
             cookies.set('latitude', position.coords.latitude, { path: '/' });
-            cookies.set('longitude', position.coords.longitude, { path: '/' });
+            cookies.set('longitude', position.coords.longitude, { path: '/' })
             setShowLocationTitle(false);
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
@@ -438,7 +438,6 @@ const Header = (props) => {
                                                 .filter(({ state }) => state == province)
                                                 .map(({ districts }) => districts.map((DistrictList) => <option>{DistrictList}</option>))}
                                             <option value="">Select City</option>
-                                            {/* { DistrictList } */}
                                         </select>
 
                                     </div>

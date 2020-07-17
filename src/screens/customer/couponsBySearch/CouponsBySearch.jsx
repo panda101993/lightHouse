@@ -47,7 +47,7 @@ export class CouponsBySearch extends Component {
 
 getSearchAllByLocation = (SearchId) => {
     try {
-        console.log("searcgjjjjj",SearchId)
+        console.log("search====>",SearchId)
         const cookies = new Cookies();
 
         const latitude = cookies.get('latitude')
@@ -169,7 +169,7 @@ getSearchAllByLocation = (SearchId) => {
       <section class="third">
          <div class="container-fluid">
            <div class="row">
-              <div class="col-md-3">
+              {/* <div class="col-md-3">
                  <div class="accor-bord apply-on">
 
                <ul class="button_cs sve-can button-shift all-clr apply-on">
@@ -198,7 +198,7 @@ getSearchAllByLocation = (SearchId) => {
            
 
          </div>
-              </div>
+              </div> */}
 
 
               <div class="col-md-9 mt-4">
@@ -229,7 +229,7 @@ getSearchAllByLocation = (SearchId) => {
 //  export default CouponsBySearch;
  const mapStateToProps = state => {
     console.log("state-------", state)
-    return {
+    return {  
        applicationData: state.AuthReducer.userData
          
     }

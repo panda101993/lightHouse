@@ -49,20 +49,20 @@ export class SignupRetailer extends Component {
 
     componentDidMount() {
         const cookies = new Cookies();
-        console.log(cookies.get('latitude'));
+
         const latitude = cookies.get('latitude')
 
-        console.log(cookies.get('longitude'));
         const longitude = cookies.get('longitude')
-        console.log(latitude, longitude)
+        console.log("latitude--", latitude)
+        console.log("longitude--", longitude)
         // var credentials = {
         //     "lat": latitude,
         //     "long": longitude
         // }
 
-        Apirequest({ "lat": 28.574, "long": 77.1991 }, "/user/getMartsByRetailer", "POST")
+        Apirequest({lat:latitude,long:longitude}, "/user/getMartsByRetailer", "POST")
             .then((resp) => {
-                console.log("getmartsbyret", resp.data.result)
+                console.log("getmartsbyret", resp)
                 switch (resp.status) {
                     case 200:
                         if (resp.data.responseCode == 200) {
@@ -276,7 +276,7 @@ export class SignupRetailer extends Component {
                                         divClass="form-group"
                                         label="Password"
                                         labelClass=""
-                                        inputType="text"
+                                        inputType="Password"
                                         inputId=""
                                         inputPlaceholder="Password"
                                         errorMessage=""
@@ -289,7 +289,7 @@ export class SignupRetailer extends Component {
                                         divClass="form-group"
                                         label="Confirm Password"
                                         labelClass=""
-                                        inputType="text"
+                                        inputType="Password"
                                         inputId=""
                                         inputPlaceholder="Confirm Password"
                                         errorMessage=""

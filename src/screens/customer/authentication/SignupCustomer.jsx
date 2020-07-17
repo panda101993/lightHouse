@@ -217,7 +217,7 @@ export class SignupCustomer extends Component {
                                         divClass="form-group"
                                         label="Password"
                                         labelClass=""
-                                        inputType="text"
+                                        inputType="password"
                                         inputId=""
                                         inputPlaceholder="Password"
                                         errorMessage={this.state.passwordErrorMsg}
@@ -233,7 +233,7 @@ export class SignupCustomer extends Component {
                                         divClass="form-group"
                                         label="Confirm Password"
                                         labelClass=""
-                                        inputType="text"
+                                        inputType="password"
                                         inputId=""
                                         inputPlaceholder="Confirm Password"
                                         errorMessage={this.state.cfPasswordErrorMsg}

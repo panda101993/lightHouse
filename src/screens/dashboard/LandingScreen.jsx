@@ -99,7 +99,7 @@ class componentName extends Component {
                break;
                case (900): {
                    if (resp.status == 900) {
-                       ToasterFunction("error", "Please check your internet connection")
+                       ToasterFunction("error", resp.data)
                    }
                }
            }
@@ -174,7 +174,7 @@ class componentName extends Component {
            heartStatus = Imageid.heartImage;         
          }else{            
            heartStatus = Imageid.RedHeart ;
-         };
+         }
          return(
             <div>
                
@@ -200,7 +200,8 @@ class componentName extends Component {
          </div>
          )}
       })
-   }</Carousel>
+   }
+   </Carousel>
       )
    }
 
@@ -239,8 +240,7 @@ class componentName extends Component {
                   dotListClass="custom-dot-list-style"
                   itemClass="carousel-item-padding-40-px"
                >
-      {
-       this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index)=>{
+      {this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index)=>{
          // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
          if(xyz.categoryUsers !== undefined){
          let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);

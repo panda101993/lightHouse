@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Header2 from '../../components/Header2'
 import Footer from '../../components/Footer'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -72,6 +71,7 @@ export class AllRetailers extends Component {
     this.state = {
 
       allCoupon: [],
+      isChecked: false
 
     }
   }
@@ -83,13 +83,7 @@ export class AllRetailers extends Component {
       // console.log('martt----', Id);
       //  apiRequest({martId:Id},'/user/ ','POST')
       this.props.action.myCouponData({ martId: Id })
-
-      //  .then((resp)=>{
-      //     console.log("responseCoupan",resp)
-      //   this.setState({
-      //     allCoupon: resp.data.couponData
-      //  });
-      //  })
+    
     } catch (error) {
       // console.log("responseError", error)
 
@@ -103,6 +97,11 @@ export class AllRetailers extends Component {
     // console.log('martt', splitUrl);
     // console.log('martt', splitUrl[2]);
     this.getAllCoupansOfMart(splitUrl[2]);
+    // console.log("allCoupon---",this.props.allCouponData)
+    setTimeout(()=>this.setState({
+      allCoupon:this.props.allCouponData
+    }),3000)
+    
   }
 
   martData() {
@@ -128,12 +127,12 @@ export class AllRetailers extends Component {
       itemClass="carousel-item-padding-40-px"
     >
       {
-        this.props.allCouponData.map((allCoupon, index) => {
+        this.props.allCouponData.map((xyz, index) => {
 
           return (
             <div>
               <div class="slicent activa">
-                {allCoupon.martName}
+                {xyz.martName}
               </div>
             </div>
           )
@@ -143,83 +142,56 @@ export class AllRetailers extends Component {
   }
 
 
-  filterData(id){
+  filterData(id,checked){
 
     console.log("idddd",id)
-    // window.location.href = `/couponsBySearch/${id}`
-  //   if (this.props.allCouponData !== undefined) {
+    console.log("idddd--",checked)
 
-      
-  //     return  <Carousel
-  //     swipeable={true}
-  //     draggable={false}
-  //     showDots={false}
-  //     responsive={responsive1}
-  //     ssr={true} // means to render carousel on server-side.
-  //     infinite={true}
-  //     autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  //     autoPlaySpeed={5000000}
-  //     keyBoardControl={true}
-  //     customTransition="all .5"
-  //     transitionDuration={500}
-  //     containerClass="carousel-container"
-  //     removeArrowOnDeviceType={["tablet", "mobile"]}
-  //     deviceType={this.props.deviceType}
-  //     dotListClass="custom-dot-list-style"
-  //     itemClass="carousel-item-padding-40-px"
-  //   >
-      
-  //     {this.props.allCouponData.filter(allCouponData => allCouponData.categoryId== id).map((allCoupon, index) => {
-  //       console.log("filtersss--", allCoupon)
-  //       if(!allCoupon.retailerId.address)return null;
-  //       if(!allCoupon.retailerId.city)return null;
-  //       if(!allCoupon.retailerId.pinCode)return null;
-  //       if(!allCoupon.retailerId.state)return null;
-  //       console.log("applicationDataakh--", allCoupon.retailerId.city)
-
-  //       return (
-  //         <div>
-  //           <h1>hiiiiiiiii</h1>
-           
-  //             <CouponsImage
-  //               ImageSrc={allCoupon.image}
-  //               Title={allCoupon.title}
-  //               CouponCode={allCoupon.couponCode}
-  //               Discount={allCoupon.discount}
-  //               ItemName={allCoupon.itemName}
-  //               ExpiryDate={allCoupon.ExpiryDate}
-  //               CouponId={allCoupon._id}
-  //               CouponToken={this.props.applicationData.token}
-  //               CouponAppliedOn={allCoupon.couponAppliedOn}
-  //               OneTimeCoupon={allCoupon.oneTimeCoupon}
-  //               ShopName={allCoupon.shopName}
-  //               ShopNumber={allCoupon.retailerId.shopNumber}
-  //               FloorNumber={allCoupon.floorNumber}
-  //               MartName={allCoupon.martName}
-  //               ShopPhoneNumber={allCoupon.shopPhoneNumber}
-  //               Restrictions={allCoupon.restrictions}
-  //               Address={allCoupon.retailerId.address}
-  //               City={allCoupon.retailerId.city}
-  //               PinCode={allCoupon.retailerId.pinCode}
-  //               State={allCoupon.retailerId.state}
-  //             />
-           
-  //         </div>
-  //       )
-  //     })
-  //   } 
-  //   </Carousel>
+    // console.log("idddd111--",!checked)
+this.setState({
+  isChecked:!checked
+})
+// console.log("idddd111--",!this.state.isChecked)
+   
+    //  if (this.state.allCoupon !== undefined) {    
+      {this.state.allCoupon.filter(allCoupon => allCoupon.categoryId == id || allCoupon.subCategoryId == id || allCoupon.itemType == id || allCoupon.brandName == id ).map((xyz, index) => {
+        console.log("filtersss--", xyz)
+        let filteredArray = [];
+        let previousState = this.props.allCouponData;
+        
+      if(checked==true){
+      filteredArray.push(xyz);
+      this.setState({
+      allCoupon:filteredArray
+      })
+    }
+    else if(checked==false) {
+      filteredArray.pop(xyz)
+      if(filteredArray.length  === 0){
+        this.setState({
+          allCoupon:previousState
+                })
+      }else{
+        this.setState({
+          allCoupon:filteredArray
+        })
+      }
+       
+    }
+        
+      })
+    } 
   // }
   }
 
   martName() {
     if (this.props.allCouponData !== undefined) {
 
-      return this.props.allCouponData.slice(0, 1).map((allCoupon, index) => {
+      return this.props.allCouponData.slice(0, 1).map((xyz, index) => {
         // console.log("xyzzzz=======", allCoupon.retailerId.users)
         return (
           <div>
-            <h2 class="mn">  <Link to={`/WebsiteMart/${allCoupon.martId}`}>{allCoupon.martName} </Link></h2>
+            <h2 class="mn">  <Link to={`/WebsiteMart/${xyz.martId}`}>{xyz.martName} </Link></h2>
           </div>
         )
       })
@@ -228,11 +200,11 @@ export class AllRetailers extends Component {
   categoryList() {
     if (this.props.allCouponData !== undefined) {
 
-      return this.props.allCouponData.map((allCoupon, index) => {
+      return this.props.allCouponData.map((xyz, index) => {
         return (
           <div>
-           <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />        
-            <label class="form-check-label" for="exampleCheck1">{allCoupon.categoryName}</label>
+           <input type="checkbox" class="form-check-input" isChecked={this.state.isChecked} id={xyz.categoryId} onClick={() => this.filterData(xyz.categoryId, this.state.isChecked)} />        
+            <label class="form-check-label" for="exampleCheck1">{xyz.categoryName}</label>
           </div>
         )
       })
@@ -242,11 +214,11 @@ export class AllRetailers extends Component {
   subCategoryList() {
     if (this.props.allCouponData !== undefined) {
 
-      return this.props.allCouponData.map((allCoupon, index) => {
+      return this.props.allCouponData.map((xyz, index) => {
         return (
           <div>
-          <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />
-        <label class="form-check-label" for="exampleCheck1">{allCoupon.subCategoryName}</label>
+          <input type="checkbox" class="form-check-input"  id={xyz.subCategoryId} onClick={() => this.filterData(xyz.subCategoryId, this.state.isChecked)} />
+        <label class="form-check-label" for="exampleCheck1">{xyz.subCategoryName}</label>
           </div>
         )
       })
@@ -256,11 +228,11 @@ export class AllRetailers extends Component {
   itemTypeList() {
     if (this.props.allCouponData !== undefined) {
 
-      return this.props.allCouponData.map((allCoupon, index) => {
+      return this.props.allCouponData.map((xyz, index) => {
         return (
           <div>
-          <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />
-        <label class="form-check-label" for="exampleCheck1">{allCoupon.itemType}</label>
+          <input type="checkbox" class="form-check-input" id={xyz.itemType} onClick={() => this.filterData(xyz.itemType, this.state.isChecked)} />
+        <label class="form-check-label" for="exampleCheck1">{xyz.itemType}</label>
           </div>
         )
       })
@@ -270,11 +242,11 @@ export class AllRetailers extends Component {
   brandNameList() {
     if (this.props.allCouponData !== undefined) {
 
-      return this.props.allCouponData.map((allCoupon, index) => {
+      return this.props.allCouponData.map((xyz, index) => {
         return (
           <div>
-          <input type="checkbox" class="form-check-input" id={allCoupon.categoryId} onClick={() => this.filterData(allCoupon.categoryId)} />
-        <label class="form-check-label" for="exampleCheck1">{allCoupon.brandName}</label>
+          <input type="checkbox" class="form-check-input" id={xyz.brandName} onClick={() => this.filterData(xyz.brandName, this.state.isChecked)} />
+        <label class="form-check-label" for="exampleCheck1">{xyz.brandName}</label>
           </div>
         )
       })
@@ -283,7 +255,7 @@ export class AllRetailers extends Component {
 
 
   retailerData() {
-    if (this.props.allCouponData !== undefined) {
+    if (this.state.allCoupon !== undefined) {
 
 
 
@@ -307,9 +279,9 @@ export class AllRetailers extends Component {
     >
       
       
-      {this.props.allCouponData.map((allCoupon, index) => {
-        // console.log("akhtar===", allCoupon.retailerId._id)
-        let checkData = allCoupon.retailerId.users.indexOf(this.props.applicationData.userId);
+      {this.state.allCoupon.map((xyz, index) => {
+        console.log("akh", xyz)
+        let checkData = xyz.retailerId.users.indexOf(this.props.applicationData.userId);
 
         // console.log('checkData--', checkData)
         // let heartStatus;
@@ -337,19 +309,19 @@ export class AllRetailers extends Component {
 
                 <ImageDashboard
 
-                  ImageName={allCoupon.shopName}
-                  LinkId={`/AllCouponsRetailers/${allCoupon.retailerId._id}`}
+                  ImageName={xyz.shopName}
+                  LinkId={`/AllCouponsRetailers/${xyz.retailerId._id}`}
                   // LinkId={`/AllRetailers/${martId}`}
-                  ImageA={allCoupon.image}
+                  ImageA={xyz.image}
                   heartImage={heartStatus}
-                  MartId={allCoupon.martId}
-                  CategoryName={allCoupon.categoryName}
-                  SubCategoryName={allCoupon.subCategoryName}
-                  ItemType={allCoupon.itemType}
-                  ItemName={allCoupon.itemName}
-                  BrandName={allCoupon.brandName}
-                  RetailerId={allCoupon.retailerId._id}
-                  Id={allCoupon.retailerId._id}
+                  MartId={xyz.martId}
+                  CategoryName={xyz.categoryName}
+                  SubCategoryName={xyz.subCategoryName}
+                  ItemType={xyz.itemType}
+                  ItemName={xyz.itemName}
+                  BrandName={xyz.brandName}
+                  RetailerId={xyz.retailerId._id}
+                  Id={xyz.retailerId._id}
                   Token={this.props.applicationData.token}
                   typeData={'retailer'}
                   HeartData={heartStatus}
@@ -371,7 +343,7 @@ export class AllRetailers extends Component {
   couponData() {
     // if(this.props.applicationData.length > 0)
 
-    if (this.props.allCouponData !== undefined) {
+    if (this.state.allCoupon !== undefined) {
 
       
       return  <Carousel
@@ -393,38 +365,38 @@ export class AllRetailers extends Component {
       itemClass="carousel-item-padding-40-px"
     >
       
-      {this.props.allCouponData.map((allCoupon, index) => {
+      {this.state.allCoupon.map((xyz, index) => {
         // console.log("applicationData--", allCoupon.retailerId.users)
-        if(!allCoupon.retailerId.address)return null;
-        if(!allCoupon.retailerId.city)return null;
-        if(!allCoupon.retailerId.pinCode)return null;
-        if(!allCoupon.retailerId.state)return null;
+        if(!xyz.retailerId.address)return null;
+        if(!xyz.retailerId.city)return null;
+        if(!xyz.retailerId.pinCode)return null;
+        if(!xyz.retailerId.state)return null;
         // console.log("applicationDataakh--", allCoupon.retailerId.city)
 
         return (
           <div>
            
               <CouponsImage
-                ImageSrc={allCoupon.image}
-                Title={allCoupon.title}
-                CouponCode={allCoupon.couponCode}
-                Discount={allCoupon.discount}
-                ItemName={allCoupon.itemName}
-                ExpiryDate={allCoupon.ExpiryDate}
-                CouponId={allCoupon._id}
+                ImageSrc={xyz.image}
+                Title={xyz.title}
+                CouponCode={xyz.couponCode}
+                Discount={xyz.discount}
+                ItemName={xyz.itemName}
+                ExpiryDate={xyz.ExpiryDate}
+                CouponId={xyz._id}
                 CouponToken={this.props.applicationData.token}
-                CouponAppliedOn={allCoupon.couponAppliedOn}
-                OneTimeCoupon={allCoupon.oneTimeCoupon}
-                ShopName={allCoupon.shopName}
-                ShopNumber={allCoupon.retailerId.shopNumber}
-                FloorNumber={allCoupon.floorNumber}
-                MartName={allCoupon.martName}
-                ShopPhoneNumber={allCoupon.shopPhoneNumber}
-                Restrictions={allCoupon.restrictions}
-                Address={allCoupon.retailerId.address}
-                City={allCoupon.retailerId.city}
-                PinCode={allCoupon.retailerId.pinCode}
-                State={allCoupon.retailerId.state}
+                CouponAppliedOn={xyz.couponAppliedOn}
+                OneTimeCoupon={xyz.oneTimeCoupon}
+                ShopName={xyz.shopName}
+                ShopNumber={xyz.retailerId.shopNumber}
+                FloorNumber={xyz.floorNumber}
+                MartName={xyz.martName}
+                ShopPhoneNumber={xyz.shopPhoneNumber}
+                Restrictions={xyz.restrictions}
+                Address={xyz.retailerId.address}
+                City={xyz.retailerId.city}
+                PinCode={xyz.retailerId.pinCode}
+                State={xyz.retailerId.state}
               />
            
           </div>

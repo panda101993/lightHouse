@@ -253,21 +253,7 @@ export class AllCouponsRetailers extends Component {
   
                   <div class="row mar-bottom">
                     {this.couponRetailer()}
-                        {/* <CouponsImage /> */}
-                      {/* <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage /> */}
                   </div>
-  
-                 
-  
-                  {/* <div class="row mar-bottom">
-                        <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage />
-                      <CouponsImage />
-                  </div> */}
-  
                 </div>
   
               </div>
