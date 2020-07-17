@@ -11,7 +11,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getTemplate } from '../../../utils/SVG'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getRetailerCategory, getRetailerSubCategory, sendSVG } from "../../../utils/API_Utils/apiUtils"
+import { getRetailerCategory, getRetailerSubCategory, sendSVG, getItemTypeByRetailer, getBrandByRetailer, getItemNameByRetailer } from "../../../utils/API_Utils/apiUtils"
 import { validateForm, validateMobileNo } from '../../../utils/validation/Validation'
 
 const ImageId = {
@@ -36,7 +36,11 @@ export class CreateCouponform extends Component {
          INSIDE_MART: "INSIDE_MART_TARGET_ALL",
          OUTSIDE_MART: "OUTSIDE_MART_TARGET_ALL",
          categoryList: [],
-         subCategoryList:[]
+         subCategoryList:[],
+         itemNameList:[],
+         itemTypeList:[],
+         brandList:[],
+         
       }
    }
    toggleState = (stateName) => {
@@ -68,6 +72,7 @@ export class CreateCouponform extends Component {
    }
    getNextDropdownData =async (e,type) => {
       console.log("type, e",e)
+      // eslint-disable-next-line default-case
       switch (type) {
          case ("category"): {
             let formData={
@@ -76,16 +81,39 @@ export class CreateCouponform extends Component {
             }
             let  data= await getRetailerSubCategory(this.props.token,formData)
             this.setState({subCategoryList:data},()=>console.log("this.state",this.state))
-            console.log("??????==",data)
+         };
+         // eslint-disable-next-line no-fallthrough
+         case ("subCategory"): {
+            let formData={
+                  "subCategoryId":e,
+                  "retailerId":this.props.userId
+            }
+            console.log("formData",formData)
+            let  data= await getItemTypeByRetailer(this.props.token,formData)
+            // itemNameList:[],
+            // itemTypeList:[],
+            // brandList:[],
+            this.setState({itemTypeList:data},()=>console.log("this.state",this.state))
+         };
+         // eslint-disable-next-line no-fallthrough
+         case ("itemType"): {
+            let formData={
+                  "subCategoryId":e,
+                  "retailerId":this.props.userId
+            }
+            let  data= await getBrandByRetailer(this.props.token,formData)
+            this.setState({itemTypeList:data},()=>console.log("this.state",this.state))
+            console.log("??????",data)
          }
-         // case ("subCategory"): {
-         //    let formData={
-         //          "subCategoryId":e,
-         //          "retailerId":this.props.userId
-         //    }
-         //    let  data= await getRetailerSubCategory(this.props.token,formData)
-         //    console.log("??????",data)
-         // }
+              // eslint-disable-next-line no-fallthrough
+              case ("brand"): {
+            let formData={
+                  "subCategoryId":e,
+                  "retailerId":this.props.userId
+            }
+            let  data= await getItemNameByRetailer(this.props.token,formData)
+            console.log("??????",data)
+         }
       }
    }
    valueHandler = (type, e) => {
@@ -140,7 +168,8 @@ export class CreateCouponform extends Component {
    }
    componentDidMount = async () => {
       let categoryList = await getRetailerCategory(this.props.token)
-      this.setState({ categoryList: categoryList },()=>console.log("k>>>>",this.state.categoryList))
+      console.log("k>>>>",categoryList)
+      this.setState({ categoryList: categoryList },()=>console.log("k>>>>",categoryList))
       // sendSVG()
    }
 
@@ -271,9 +300,9 @@ export class CreateCouponform extends Component {
                                     <option >Category Name</option>
                                     {!this.state.categoryState ?
                                        <>
-                                          {/* {this.state.categoryList.map(item =>
+                                          {this.state.categoryList.map(item =>
                                              <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
-                                          )} */}
+                                          )}
                                        </>
                                        : <></>
                                     }
@@ -297,10 +326,9 @@ export class CreateCouponform extends Component {
                                     <option >Sub-Category Name</option>
                                     {!this.state.subCategoryState ?
                                        <>
-                                          {/* {this.state.subCategoryList.map(item =>
-                                          console.log("kkkkkkkk",item)
-                                             // <option value={item.categoryId._id} disabled={this.state.categoryState}>{item.categoryId.categoryName}</option>
-                                          )} */}
+                                          {this.state.subCategoryList.map(item =>
+                                             <option value={item.productServiceDetails.subCategoryId} >{item.productServiceDetails.itemName}</option>
+                                          )}
                                        </>
                                        : <></>
                                     }
@@ -543,8 +571,8 @@ export class CreateCouponform extends Component {
 
 const mapStateToProps = state => {
    return {
-      token: null,//state.AuthReducer.userData.token,
-      userId: null //state.AuthReducer.userData.userId
+      token: state.AuthReducer.userData.token,
+      userId: state.AuthReducer.userData.userId
    }
 
 }

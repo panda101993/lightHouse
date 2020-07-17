@@ -1,60 +1,88 @@
 import React from "react"
 import apiRequest from "../../api/Apirequest";
 
-export const getRetailerCategory=(token)=>{
-    console.log()
-     return apiRequest({},"/retailer/getCategoriesByRetailer","GET",token)
-    .then((res)=>{
-        console.log("response for  category Lidt",res)
-        if(res.status===200){
-            console.log("response for  category list 2",res)
-            if(res.data.responseCode){
-                if(res.data.result.length===0){
-                    return []
-                }
-                else{
-                    return res.data.results[0].productServiceDetails
+export const getRetailerCategory = (token) => {
+    return apiRequest({}, "/retailer/getCategoriesByRetailer", "GET", token)
+        .then((res) => {
+            if (res.status === 200) {
+                if (res.data.responseCode) {
+                    if (res.data.results.length === 0) {
+                        return []
+                    }
+                    else {
+                        return res.data.results[0].productServiceDetails
+                    }
                 }
             }
-        }
 
-    }).catch(err=>console.log("aaaaaa",err))
+        }).catch(err => console.log("aaaaaa", err))
 }
 
-export const getRetailerSubCategory=(token,formdata)=>{
-    return apiRequest(formdata,"/retailer/getSubCategoriesByRetailer","POST",token)
-    .then((res)=>{
-        if(res.status===200){
-            console.log("response for  category list 2",res)
-            if(res.data.responseCode){
-                if(res.data.result1.length===0){
-                    return []
-                }
-                else{
-                    return res.data.result1
+export const getRetailerSubCategory = (token, formdata) => {
+    return apiRequest(formdata, "/retailer/getSubCategoriesByRetailer", "POST", token)
+        .then((res) => {
+            if (res.status === 200) {
+                if (res.data.responseCode) {
+                    if (res.data.result1.length === 0) {
+                        return []
+                    }
+                    else {
+                        console.log("response for  category list 2", res.data.result1)
+                        return res.data.result1
+                    }
                 }
             }
-        }
-        // return res.data.result1[0].productServiceDetails
-    })
+            // return res.data.result1[0].productServiceDetails
+        })
 }
-export const getItemTypeByRetailer=(token,formdata)=>{
-    return apiRequest(formdata,"/retailer/getItemTypeByRetailer","POST",token)
-    .then((res)=>{
-        console.log("response for  category list 3",res)
-    })
+export const getItemTypeByRetailer = (token, formdata) => {
+    return apiRequest(formdata, "/retailer/getItemTypeByRetailer", "POST", token)
+        .then((res) => {
+            console.log("response for  category list 3", res)
+            if (res.status === 200) {
+                if (res.data.responseCode) {
+                    if (res.data.result1.length === 0) {
+                        return []
+                    }
+                    else {
+                        return res.data.result1
+                    }
+                }
+            }
+        })
 }
-export const getBrandByRetailer=(token,formdata)=>{
-    return apiRequest(formdata,"/retailer/getBrandByRetailer","POST",token)
-    .then((res)=>{
-        console.log("response for  category list 4",res)
-    })
+export const getBrandByRetailer = (token, formdata) => {
+    return apiRequest(formdata, "/retailer/getBrandByRetailer", "POST", token)
+        .then((res) => {
+            console.log("response for  category list 4", res)
+            if (res.status === 200) {
+                if (res.data.responseCode) {
+                    if (res.data.result1.length === 0) {
+                        return []
+                    }
+                    else {
+                        return res.data.result1
+                    }
+                }
+            }
+        })
 }
-export const getItemNameByRetailer=(token,formdata)=>{
-    return apiRequest(formdata,"/retailer/getItemNameByRetailer","POST",token)
-    .then((res)=>{
-        console.log("response for  category list 5",res)
-    })
+export const getItemNameByRetailer = (token, formdata) => {
+    return apiRequest(formdata, "/retailer/getItemNameByRetailer", "POST", token)
+        .then((res) => {
+            console.log("response for  category list 5", res)
+            if (res.status === 200) {
+                if (res.data.responseCode) {
+                    if (res.data.result1.length === 0) {
+                        return []
+                    }
+                    else {
+                        console.log("response for  category list 2", res.data.result1)
+                        return res.data.result1
+                    }
+                }
+            }
+        })
 }
 const Five = () => {
     return (
@@ -100,23 +128,23 @@ const svg = {
     </svg>
 
 }
-export const sendSVG=()=>{
-    let data={"template":Five()}
+export const sendSVG = () => {
+    let data = { "template": Five() }
     // console.log("data",data)
     // http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1/admin/addTemplate
-    return apiRequest(data,"/admin/addTemplate","POST","")
-    .then((res)=>{
-        console.log("response for  category Template",res)
-    }).catch(e=>console.log("response for  category Template error",e))
+    return apiRequest(data, "/admin/addTemplate", "POST", "")
+        .then((res) => {
+            console.log("response for  category Template", res)
+        }).catch(e => console.log("response for  category Template error", e))
 }
 
-export const getSVG=()=>{
-    let data={"template":svg}
-    console.log("as",data)
+export const getSVG = () => {
+    let data = { "template": svg }
+    console.log("as", data)
     // http://ec2-35-176-66-190.eu-west-2.compute.amazonaws.com:1507/api/v1/admin/addTemplate
-    return apiRequest({},"/admin/listTemplate","GET","")
-    .then((res)=>{
-        return res.data.result
-        console.log("response for  LIST Template",res)
-    })
+    return apiRequest({}, "/admin/listTemplate", "GET", "")
+        .then((res) => {
+            return res.data.result
+            console.log("response for  LIST Template", res)
+        })
 }
