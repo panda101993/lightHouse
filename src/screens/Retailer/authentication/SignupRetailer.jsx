@@ -17,7 +17,7 @@ export class SignupRetailer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            datafound: "",
+            datafound: [],
             selectedvalue: "",
 
             shopName: "",
@@ -60,13 +60,13 @@ export class SignupRetailer extends Component {
         //     "long": longitude
         // }
 
-        Apirequest({lat:latitude,long:longitude}, "/user/getMartsByRetailer", "POST")
+        Apirequest({lat:"28.699008700000004",long:"77.2982686"}, "/user/getMartsByRetailer", "POST")
             .then((resp) => {
                 console.log("getmartsbyret", resp)
                 switch (resp.status) {
                     case 200:
                         if (resp.data.responseCode == 200) {
-                            this.setState({ datafound: resp.data.result[0] })
+                            this.setState({ datafound: resp.data.result })
                             console.log(this.state.datafound.martName)
                         }
                         else if (resp.data.responseCode == 404) {
@@ -200,6 +200,17 @@ export class SignupRetailer extends Component {
         })
     }
 
+    martLiist() {
+        // console.log("datafound---",this.state.datafound)
+            if (this.state.datafound !== undefined)
+              return this.state.datafound.map((xyz, index) => {
+                  console.log('abcd==',xyz.martName)
+                 return (    
+                     <option value={xyz._id}>{xyz.martName}</option>        
+                 )
+              })
+        }
+
 
 
 
@@ -223,8 +234,9 @@ export class SignupRetailer extends Component {
                                             onChange={(e) => this.setState({ selectedvalue: e.target.value }
                                             )}
                                         >
-                                            <option selected>Mart name</option>
-                                            <option value={this.state.datafound._id}>{this.state.datafound.martName}</option>
+                                            <option value="">Select Mart</option>
+                                            {/* <option value={this.state.datafound._id}>{this.state.datafound.martName}</option> */}
+                                            {this.martLiist()}
                                         </select>
                                     </div>
                                     <GlobalValidations

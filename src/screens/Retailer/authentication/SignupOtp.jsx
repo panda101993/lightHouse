@@ -57,7 +57,7 @@ export default class SignupOtpRetailer extends Component {
                //   alert('Submit Successfully'); 
                // window.location.href='Setting_retailer'
                try{
-                  apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4 }, '/retailer/verifyOTP', 'POST')
+                  apiRequest({ otp: this.state.otp + this.state.otp2+ this.state.otp3+ this.state.otp4,mobileNumber : this.state.temp[2]}, '/retailer/verifyOTP', 'POST')
                   .then((resp) => {
                       console.log("response", resp)
                       switch (resp.status) {
