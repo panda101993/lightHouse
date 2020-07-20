@@ -56,187 +56,258 @@ const Imageid = {
 class componentName extends Component {
    constructor(props) {
       super(props)
-   
+
       this.state = {
-         allData: []
-          
+         allData: [],
+         martsList: [],
+         allCategoriesList: [],
+         serviceCategoriesList: [],
+         productCategoriesList: []
+
       }
-    
+
    }
 
-   getmartsbyUserList = () =>{
+   getmartsbyUserList = () => {
       try {
          // console.log('token++++++',this.props.applicationData)
-         if(this.props.applicationData.token){
+         if (this.props.applicationData.token) {
             const cookies = new Cookies();
-         
+
             const latitude = cookies.get('latitude')
-    
-            
+
+
             const longitude = cookies.get('longitude')
-   
+
             // console.log('hhhh=>',this.props.applicationData)
-         //    apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
-         //    .then((resp)=>{
-         //    console.log('responseLandingscreen--', resp);
-         //    switch (resp.status) {
-         //       case (200):
-         //           {
-         //           if (resp.data.responseCode == 200) {
-         //               this.setState({
-         //                   allData: resp.data.result[0].details
-         //                });
-         //           }
-         //            else if (resp.data.responseCode == 404) {
-         //               ToasterFunction("info", resp.data.responseMessage);
-   
-         //           }
-         //           else if (resp.data.responseCode == 500) {
-         //               ToasterFunction("error", resp.data.responseMessage);
-   
-         //           }
-         //       }
-         //       break;
-         //       case (900): {
-         //           if (resp.status == 900) {
-         //               ToasterFunction("error", "Please check your internet connection")
-         //           }
-         //       }
-         //   }
-         // });
+            //    apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
+            //    .then((resp)=>{
+            //    console.log('responseLandingscreen--', resp);
+            //    switch (resp.status) {
+            //       case (200):
+            //           {
+            //           if (resp.data.responseCode == 200) {
+            //               this.setState({
+            //                   allData: resp.data.result[0].details
+            //                });
+            //           }
+            //            else if (resp.data.responseCode == 404) {
+            //               ToasterFunction("info", resp.data.responseMessage);
 
-         if((latitude!=null || latitude!=undefined) && (longitude!=null && latitude!=undefined)){
-            apiRequest({lat:latitude,long:longitude},'/user/getMartsByUser','POST',this.props.applicationData.token)
-            .then((resp) => {
-               console.log('response', resp);
-               switch (resp.status) {
-                  case (200):
-                     {
-                        if (resp.data.responseCode == 200) {
-                           this.setState({
-                              allData: resp.data.result[0].details
-                           });
-                        }
-                        else if (resp.data.responseCode == 404) {
-                           ToasterFunction("info", resp.data.responseMessage);
+            //           }
+            //           else if (resp.data.responseCode == 500) {
+            //               ToasterFunction("error", resp.data.responseMessage);
 
-                        }
-                        else if (resp.data.responseCode == 500) {
-                           ToasterFunction("error", resp.data.responseMessage);
+            //           }
+            //       }
+            //       break;
+            //       case (900): {
+            //           if (resp.status == 900) {
+            //               ToasterFunction("error", "Please check your internet connection")
+            //           }
+            //       }
+            //   }
+            // });
 
+            if ((latitude != null || latitude != undefined) && (longitude != null && latitude != undefined)) {
+               apiRequest({ lat: latitude, long: longitude }, '/user/getMartsByUser', 'POST', this.props.applicationData.token)
+                  .then((resp) => {
+                     console.log('response_martList=> ', resp);
+                     switch (resp.status) {
+                        case (200):
+                           {
+                              if (resp.data.responseCode == 200) {
+                                 this.setState({
+                                    allData: resp.data.result[0].details
+                                 });
+                                 this.setState({ martsList: resp.data.result }, () => { this.extractCategoriesfromMartList() });
+                              }
+                              else if (resp.data.responseCode == 404) {
+                                 ToasterFunction("info", resp.data.responseMessage);
+
+                              }
+                              else if (resp.data.responseCode == 500) {
+                                 ToasterFunction("error", resp.data.responseMessage);
+
+                              }
+                              break;
+                           }
+                        case (900): {
+                           if (resp.status == 900) {
+                              ToasterFunction("error", "Please check your internet connection")
+                           }
                         }
-                        break;
                      }
-                  case (900): {
-                     if (resp.status == 900) {
-                        ToasterFunction("error", "Please check your internet connection")
-                     }
-                  }
-               }
 
-            })
-            .catch(err=>{
-               console.log(err);
-            })
+                  })
+                  .catch(err => {
+                     console.log(err);
+                  })
+            }
+
          }
 
-         }
-        
-         
       } catch (error) {
          // console.log('response===', error);
          ToasterFunction("error", "Network error, please contact the administrator");
-         
+
       }
    }
 
-   getMyProfile = () =>{
-      try {
-          console.log('profiletoken-',this.props.applicationData.token);
-          this.props.action.endUserProfileAction({ token:this.props.applicationData.token })
-         
- 
-       } catch (error) {
-         //  console.log('erroresponse==>', error)
- 
-       }
+   extractCategoriesfromMartList = async () => {
+      let { martsList, allCategoriesList } = this.state;
 
-    }
+
+      // await martsList.map((mart) => {
+      //    allCategoriesList = [...allCategoriesList, ...mart.details];
+      // });
+
+      for (let i = 0; i < martsList.length; i++) {
+         let mart = martsList[i];
+         allCategoriesList = allCategoriesList.concat(mart.details);
+
+         if (i === (martsList.length - 1)) {
+            console.log("AllCategoriesList=> ", allCategoriesList);
+            this.setState({ allCategoriesList }, () => { this.extractDistinctCategories() })
+         }
+      }
+   }
+
+   extractDistinctCategories = () => {
+      let { allCategoriesList, serviceCategoriesList, productCategoriesList } = this.state;
+
+      for (let i = 0; i < allCategoriesList.length; i++) {
+         let category = allCategoriesList[i];
+
+         console.log("categoryId=> ", category._id)
+
+         if (category.productServiceType.toLowerCase().includes('service')) {
+
+            if (!serviceCategoriesList.includes(category._id)) {
+               serviceCategoriesList.push(category._id);
+            }
+         }
+         else {
+
+            if (!productCategoriesList.includes(category._id)) {
+               productCategoriesList.push(category._id);
+            }
+         }
+
+         if (i === allCategoriesList.length - 1) {
+            this.setState({ serviceCategoriesList, productCategoriesList }, () => {
+               console.log('CategoryList=> ', this.state.serviceCategoriesList, this.state.productCategoriesList);
+            });
+
+         }
+
+      }
+
+   }
+
+   getMyProfile = () => {
+      try {
+         console.log('profiletoken-', this.props.applicationData.token);
+         this.props.action.endUserProfileAction({ token: this.props.applicationData.token })
+
+
+      } catch (error) {
+         //  console.log('erroresponse==>', error)
+
+      }
+
+   }
 
    async componentDidMount() {
 
-   this.getmartsbyUserList();
-   this.getMyProfile();
-   
+      this.getmartsbyUserList();
+      this.getMyProfile();
+
    }
 
-   martData(){
+   martData() {
       // /if(this.state.allData.length > 0)
-      
+
       return (
-      <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={false}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={this.props.deviceType !== "mobile" ? true : false}
-      autoPlaySpeed={5000000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-   >
-      { this.state.allData.map((xyz, index)=>{
-         // console.log("abcffff",xyz.martUsers)
-         // if (!xyz.martUsers) return null;
-         if (xyz.martUsers !== undefined){
-         let checkData = xyz.martUsers.indexOf(this.props.applicationData.userId);
-         
-         // console.log('checkData--',checkData)
-         // let heartStatus;
-         // if(checkData == -1){
-         //   heartStatus = false;
-         // }else{
-         //   heartStatus = true ;
-         // }
-         let heartStatus;
-         if(checkData == -1){
-           heartStatus = Imageid.heartImage;         
-         }else{            
-           heartStatus = Imageid.RedHeart ;
-         }
-         return(
-            <div>
-               
-            <ImageDashboard          
-               ImageName={xyz.martName}
-               LinkId={`/AllRetailers/${xyz.martId}`}
-               // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
-               ImageA={xyz.martImage}
-               heartImage={heartStatus}
-               MartId={xyz.martId}
-               Id={xyz.martId}
-               Token={this.props.applicationData.token}
-               typeData = {'mart'}
-               UniqueId={xyz._id}
-               HeartData = {heartStatus}
-               blankHeart={Imageid.heartImage}
-               redHeart={Imageid.RedHeart}
-               reloadApi={this.getmartsbyUserList}
-               
-               
-            />
-             
-         </div>
-         )}
-      })
-   }</Carousel>
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {this.state.martsList.map((mart, index) => {
+               // console.log("abcffff",xyz.martUsers)
+               // if (!xyz.martUsers) return null;
+
+               console.log('currentMart=> ', mart);
+
+
+
+               let martName='', martId='', martImage='', heartStatus='', uniqueId;
+
+               if (mart && mart.details && mart.details[0]) {
+                  martName = mart.details[0].martName;
+                  martId = mart.details[0].martId;
+                  martImage = mart.details[0].martImage[0];
+               }
+               heartStatus = Imageid.heartImage;
+               uniqueId =mart._id;
+
+               // if ( xyz && xyz.martUsers && xyz.martUsers !== undefined) {
+               //    let checkData = xyz.martUsers.indexOf(this.props.applicationData.userId);
+
+               //    // console.log('checkData--',checkData)
+               //    // let heartStatus;
+               //    // if(checkData == -1){
+               //    //   heartStatus = false;
+               //    // }else{
+               //    //   heartStatus = true ;
+               //    // }
+               //    let heartStatus;
+               //    if (checkData == -1) {
+               //       heartStatus = Imageid.heartImage;
+               //    } else {
+               //       heartStatus = Imageid.RedHeart;
+               //    }
+
+                  return (
+                     <div>
+
+                        <ImageDashboard
+                           ImageName={martName}
+                           LinkId={`/AllRetailers/${martId}`}
+                           // LinkId={this.props.action.myCouponData({martId},()=>this.props.history.push("/AllRetailers"))}
+                           ImageA={martImage}
+                           heartImage={heartStatus}
+                           MartId={martId}
+                           Id={martId}
+                           Token={this.props.applicationData.token}
+                           typeData={'mart'}
+                           UniqueId={uniqueId}
+                           HeartData={heartStatus}
+                           blankHeart={Imageid.heartImage}
+                           redHeart={Imageid.RedHeart}
+                           reloadApi={this.getmartsbyUserList}
+
+                        />
+
+                     </div>
+                  )
+               // }
+            })
+            }</Carousel>
       )
    }
 
@@ -250,152 +321,153 @@ class componentName extends Component {
    //       <h5 class="product-herd">{productServiceType}</h5>
    //       </div>
    //       )
-         
+
    //    })
    // }
 
-   servicesByCategoryData(){
+   servicesByCategoryData() {
       // if(this.state.allData.length > 0)
-      return(
-          <Carousel
-                  swipeable={true}
-                  draggable={false}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={5000000}
-                  keyBoardControl={true}
-                  customTransition="all .5"
-                  transitionDuration={500}
-                  containerClass="carousel-container"
-                  removeArrowOnDeviceType={["tablet", "mobile"]}
-                  deviceType={this.props.deviceType}
-                  dotListClass="custom-dot-list-style"
-                  itemClass="carousel-item-padding-40-px"
-               >
-      {
-       this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index)=>{
-         // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
-         if(xyz.categoryUsers !== undefined){
-         let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
+      return (
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {
+               this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index) => {
+                  // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
+                  if (xyz.categoryUsers !== undefined) {
+                     let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
 
-         console.log('checkData--',checkData)
-         
+                     // console.log('checkData--', checkData)
 
-         let heartStatus;
-         if(checkData == -1){
-           heartStatus = Imageid.heartImage;         
-         }else{            
-           heartStatus = Imageid.RedHeart ;
-         }
-         return(
-            <div>
-               
-                  <ImageDashboard
-                     ImageName={xyz.categoryName}
-                     // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
-                     LinkId={`/subCategories?categoryId=${xyz.categoryId}`}
-                     ImageA={xyz.categoryImage}
-                     heartImage={heartStatus}
-                     CategoryId={xyz.categoryId}
-                     Id={xyz.categoryId}
-                     Token={this.props.applicationData.token}
-                     typeData = {'category'}
-                     UniqueId={xyz._id}
-                     HeartData = {heartStatus}
-                     // blankHeart={Imageid.heartImage}
-                     // redHeart={Imageid.RedHeart}
-                     ProductServiceType={xyz.productServiceType}
-                     reloadApi={this.getmartsbyUserList}
-                     
-                  />
-              
-            </div>
-         )}
-      })
-   }
-   </Carousel>
+                     let heartStatus;
+                     if (checkData == -1) {
+                        heartStatus = Imageid.heartImage;
+                     } else {
+                        heartStatus = Imageid.RedHeart;
+                     }
+                     return (
+                        <div>
+
+                           <ImageDashboard
+                              ImageName={xyz.categoryName}
+                              // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                              LinkId={`/subCategories?categoryId=${xyz.categoryId}`}
+                              ImageA={xyz.categoryImage}
+                              heartImage={heartStatus}
+                              CategoryId={xyz.categoryId}
+                              Id={xyz.categoryId}
+                              Token={this.props.applicationData.token}
+                              typeData={'category'}
+                              UniqueId={xyz._id}
+                              HeartData={heartStatus}
+                              // blankHeart={Imageid.heartImage}
+                              // redHeart={Imageid.RedHeart}
+                              ProductServiceType={xyz.productServiceType}
+                              reloadApi={this.getmartsbyUserList}
+
+                           />
+
+                        </div>
+                     )
+                  }
+               })
+            }
+         </Carousel>
       )
    }
 
-   productsByCategoryData(){
+   productsByCategoryData() {
       // if(this.state.allData.length > 0)
-      return(
-          <Carousel
-                  swipeable={true}
-                  draggable={false}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={5000000}
-                  keyBoardControl={true}
-                  customTransition="all .5"
-                  transitionDuration={500}
-                  containerClass="carousel-container"
-                  removeArrowOnDeviceType={["tablet", "mobile"]}
-                  deviceType={this.props.deviceType}
-                  dotListClass="custom-dot-list-style"
-                  itemClass="carousel-item-padding-40-px"
-               >
-      {
-       this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index)=>{
-         // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
-         if(xyz.categoryUsers !== undefined){
-         let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
+      return (
+         <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            autoPlaySpeed={5000000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+         >
+            {
+               this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index) => {
+                  // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
+                  if (xyz.categoryUsers !== undefined) {
+                     let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
 
-         // let heartStatus;
-         // if(checkData == -1){
-         //   heartStatus = false;
-         // }else{
-         //   heartStatus = true ;
-         // }
-         let heartStatus;
-         if(checkData == -1){
-           heartStatus = Imageid.heartImage;         
-         }else{            
-           heartStatus = Imageid.RedHeart ;
-         }
-         return(
-            <div>
-               
-                  <ImageDashboard
-                     ImageName={xyz.categoryName}
-                     LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
-                     ImageA={xyz.categoryImage}
-                     heartImage={heartStatus}
-                     CategoryId={xyz.categoryId}
-                     Id={xyz.categoryId}
-                     Token={this.props.applicationData.token}
-                     typeData = {'category'}
-                     UniqueId={xyz._id}
-                     HeartData = {heartStatus}
-                     blankHeart={Imageid.heartImage}
-                     redHeart={Imageid.RedHeart}
-                     ProductServiceType={xyz.productServiceType}
-                     reloadApi={this.getmartsbyUserList}
-                     
-                  />
-              
-            </div>
-         )}
-      })
-   }
-   </Carousel>
+                     // let heartStatus;
+                     // if(checkData == -1){
+                     //   heartStatus = false;
+                     // }else{
+                     //   heartStatus = true ;
+                     // }
+                     let heartStatus;
+                     if (checkData == -1) {
+                        heartStatus = Imageid.heartImage;
+                     } else {
+                        heartStatus = Imageid.RedHeart;
+                     }
+                     return (
+                        <div>
+
+                           <ImageDashboard
+                              ImageName={xyz.categoryName}
+                              LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                              ImageA={xyz.categoryImage}
+                              heartImage={heartStatus}
+                              CategoryId={xyz.categoryId}
+                              Id={xyz.categoryId}
+                              Token={this.props.applicationData.token}
+                              typeData={'category'}
+                              UniqueId={xyz._id}
+                              HeartData={heartStatus}
+                              blankHeart={Imageid.heartImage}
+                              redHeart={Imageid.RedHeart}
+                              ProductServiceType={xyz.productServiceType}
+                              reloadApi={this.getmartsbyUserList}
+
+                           />
+
+                        </div>
+                     )
+                  }
+               })
+            }
+         </Carousel>
       )
    }
-   
-   
-  
 
-   
+
+
+
+
    render() {
       return (
 
-         
+
 
          <>
             <body>
@@ -404,7 +476,7 @@ class componentName extends Component {
                <section class="second">
                   <LandingTopicName HeaderName="Marts" />
                   <div class="container-fluid">
-                  {this.martData()}
+                     {this.martData()}
                   </div>
                   <LandingTopicName HeaderName="Categories" />
 
@@ -415,7 +487,7 @@ class componentName extends Component {
                      </div>
                      {this.servicesByCategoryData()}
                      <div>
-                        <h5 style={{marginTop:40}} class="product-herd">PRODUCTS</h5>
+                        <h5 style={{ marginTop: 40 }} class="product-herd">PRODUCTS</h5>
                      </div>
                      {this.productsByCategoryData()}
                   </div>
@@ -432,15 +504,15 @@ class componentName extends Component {
 const mapStateToProps = state => {
    // console.log("stateabc", state)
    return {
-     applicationData: state.AuthReducer.userData,
-     endUserProfileData: state.EndUserProfileReducer.endUserProfileData
+      applicationData: state.AuthReducer.userData,
+      endUserProfileData: state.EndUserProfileReducer.endUserProfileData
    }
- }
- 
- const mapDispatchToProps = dispatch => {
+}
+
+const mapDispatchToProps = dispatch => {
    return {
-     action: bindActionCreators({ endUserProfileAction }, dispatch)
+      action: bindActionCreators({ endUserProfileAction }, dispatch)
    }
- }
- 
- export default connect(mapStateToProps, mapDispatchToProps)(componentName);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(componentName);

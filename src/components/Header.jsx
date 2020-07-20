@@ -58,6 +58,7 @@ const Header = (props) => {
 
     let handleCity = (event) => {
         setCity(event.target.value);
+        // reverseGeoCode(event.target.value);
         setCityError(validateCity(event.target.value).error);
         setCityStatus(validateCity(event.target.value).status);
     }
@@ -80,6 +81,46 @@ const Header = (props) => {
         >{item.state}</option>
 
     });
+
+
+    const reverseGeoCode = () => {
+
+        return new Promise((resolve, reject) => {
+
+            if (window.google) {
+                let geocoder = new window.google.maps.Geocoder();
+
+                geocoder.geocode({ address: pinCode }, function (results, status) {
+
+                    console.log("Results=> ", results, " status=> ", status);
+
+                    if (status === "OK") {
+
+                        let lat = results[0].geometry.location.lat();
+                        let lng = results[0].geometry.location.lng();
+
+                        const cookies = new Cookies();
+                        cookies.set('latitude', lat, { path: '/' });
+                        cookies.set('longitude', lng, { path: '/' });
+
+                        // console.log("latLong=> ", results[0].geometry.location, lat, lng);
+
+                        setLatitude(lat);
+                        setLongitude(lng);
+                        resolve();
+
+                    } else {
+                        reject();
+                        //   alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
+            else {
+                reject();
+            }
+        })
+
+    }
 
     // let getAddressData = () => {
 
@@ -145,19 +186,28 @@ const Header = (props) => {
 
     }
 
-    function validatemain() {
+    async function validatemain() {
 
         if (pinCodeStatus) {
-            if (provinceStatus) {
-                if (cityStatus) {
-                    if (addressStatus) {
-                        getPopupAddress();
-                        // alert(`submit sucsessfully`)
-                        setModal1(!modalStatus1)
-                    } else { setAddressError("*Please Enter Address") }
-                } else { setCityError("*Please Select City") }
-            } else { setProvinceError("*Please Select State") }
-        } else { setPinCodeError("*Please Enter Pin code") }
+
+            reverseGeoCode().then(resp => {
+                setShowLocationTitle(false);
+                if (provinceStatus) {
+                    if (cityStatus) {
+                        if (addressStatus) {
+                            getPopupAddress();
+                            // alert(`submit sucsessfully`)
+                            setModal1(!modalStatus1)
+                        } else { setAddressError("*Please Enter Address.") }
+                    } else { setCityError("*Please Select City.") }
+                } else { setProvinceError("*Please Select State.") }
+            })
+                .catch(err => {
+                    setPinCodeError("*Unable to find your location. Please enter another pin code.")
+                    setPinCodeStatus(false);
+                })
+
+        } else { setPinCodeError("*Please enter pin code.") }
     }
 
     const handleModal = () => {
@@ -187,8 +237,6 @@ const Header = (props) => {
             }
         );
 
-
-
     }, []);
 
 
@@ -203,7 +251,7 @@ const Header = (props) => {
             setLongitude(position.coords.longitude);
         },
             function (error) {
-                console.log("location_error=>",error);
+                console.log("location_error=>", error);
                 ToasterFunction('info', 'You have denied location access to this website. Please manually allow the location access from the browser.');
                 // setModal(true);
             }
@@ -216,8 +264,6 @@ const Header = (props) => {
     let navigateButton = () => {
         window.location.href = `/couponsBySearch/${search}`
     }
-
-
 
 
     return (
@@ -239,13 +285,13 @@ const Header = (props) => {
                             <div class="left-top">
                                 <ul class="leftsideloctn">
                                     <li class="nav-item dropdown">
-                                        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                                            <DropdownToggle className="nav-item dropdown" caret>
+                                        <Dropdown isOpen={dropdownOpen} id="retailer-dropdown" toggle={toggle}>
+                                            <DropdownToggle id="retailer-dropdown" className="nav-item dropdown" caret>
                                                 Retailer
                                          </DropdownToggle>
                                             <DropdownMenu className="dropdown-menu log-menu">
 
-                                                <DropdownItem tag={Link} to="/LoginRetailer">Login</DropdownItem>
+                                                <DropdownItem tag={Link} id="login-retailer" to="/LoginRetailer">Login</DropdownItem>
                                                 {/* <DropdownItem tag={Link} to="/SignupRetailer" >Signup</DropdownItem> */}
                                                 <DropdownItem tag={Link} to="/CreateWebpageInitialSignupProcess">Signup</DropdownItem>
                                             </DropdownMenu>
@@ -453,7 +499,7 @@ const Header = (props) => {
                                     </div>
 
                                     <div class="dasmodal-save">
-                                        <button type="button" class="btn btn-primary" onClick={() => validatemain()}>Save</button>
+                                        <button type="button" class="btn btn-primary" onClick={(e) => validatemain(e)}>Save</button>
                                     </div>
                                 </form>
                             </div>
