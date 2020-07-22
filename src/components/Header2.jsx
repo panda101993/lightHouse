@@ -22,13 +22,13 @@ function Header2(props) {
 
     useEffect(() => {
         const cookies = new Cookies();
-        const latitude = cookies.get('latitude')
-        const longitude = cookies.get('longitude')
+        let lat = cookies.get('latitude')
+        let long = cookies.get('longitude')
 
         // console.log("long",longitude)
         // console.log("latt",latitude)
-        setLatitude(latitude);
-        setLongitude(longitude);
+        setLatitude(lat);
+        setLongitude(long);
 
       });
 // this.props.action.logoutAction()=>this.props.history.push("/"))
@@ -118,9 +118,9 @@ function Header2(props) {
                 </div>
                 {modalStatusView ? <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html">
+                        <Link class="navbar-brand" to="/">
                             <img class="logo" src={require("../assets/images/Logo.png")} />
-                        </a>
+                        </Link>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="true" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)} >
@@ -179,9 +179,9 @@ function Header2(props) {
                     </nav>
                 </div> : <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)} >

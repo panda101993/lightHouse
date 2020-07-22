@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    Redirect,
-    Link,
-    Switch,
+    // Redirect,
+    // Link,
+    // Switch,
 } from 'react-router-dom'
 //Customer screen
 import LoginCustomer from '../screens/customer/authentication/LoginCustomer';
@@ -13,9 +13,9 @@ import OtpScreenUser from '../screens/customer/authentication/OtpScreenUser';
 import ForgotPassword from '../screens/customer/authentication/Forgotpassword';
 import ForgotPasswordOtp from '../screens/customer/authentication/ForgotpasswordOtp';
 import ResetPassword from '../screens/customer/authentication/Resetpassword';
-import SignupOtp from '../screens/customer/authentication/SignupOtp';
+// import SignupOtp from '../screens/customer/authentication/SignupOtp';
 import OTPScreen from '../screens/customer/authentication/Otp';
-import Mywishlist from '../screens/customer/settings/Mywishlist';
+// import Mywishlist from '../screens/customer/settings/Mywishlist';
 import CouponsBySearch from '../screens/customer/couponsBySearch/CouponsBySearch';
 //import ForgotpasswordRetailer from '../screens/Retailer/authentication/ForgotpasswordOtpRetailer'; 
 import ForgotpasswordRetailer from "../screens/Retailer/authentication/ForgotpasswordRetailer" ;
@@ -37,7 +37,7 @@ import NotificationScreens from '../screens/notificationScreens/NotificationScre
 import NotificationScreensRetailer from '../screens/notificationScreensRetailer/NotificationScreensRetailer';
 
 
-import { createBrowserHistory } from 'history';
+// import { createBrowserHistory } from 'history';
 
 //settings routes
 // import Settings from '../screens/settings/Settings';
@@ -73,7 +73,6 @@ export default class Navigation extends Component {
         return (
             <Router>
                 <div> 
-                
                     {/* <Route exact path="/" component= {SignupCustomer} /> */} 
                     <Route exact path="/" component= {LandingScreenGuestUser} />
                     <Route exact path="/LandingScreenGuestUser" component= {LandingScreenGuestUser} />
@@ -84,7 +83,6 @@ export default class Navigation extends Component {
                     <Route path="/LoginCustomer" component= {LoginCustomer} />
                     <Route path="/OtpScreenUser" component= {OtpScreenUser} />
                     <Route path="/Otp" component= {OTPScreen} />
-
                     <Route path="/SignupRetailer" component= {SignupRetailer} />
                     <Route path="/LoginRetailer" component= {LoginRetailer} />
                     <Route path='/SignupOtp' component= {SignupOtpRetailer} />

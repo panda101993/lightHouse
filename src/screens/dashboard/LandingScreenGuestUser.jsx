@@ -2,21 +2,21 @@ import React, { Component } from 'react'
 import Footer from '../../components/Footer'
 import LandingTopicName from '../../components/LandingTopicName'
 import ImageDashboard from '../../components/ImageDashboard'
-import CouponsImage from '../../components/CouponsImage'
-import HeaderLandingScreen from '../../components/HeaderLandingScreen'
-import WishlistImageComponent from '../../components/WishlistImageComponent'
-import ViewCouponRetailer from '../../components/ViewCouponRetailer'
-import CouponImageSetting from '../../components/CouponImageSetting'
-import DashboardImageScroll from './DashboardImageScroll'
-import DashboardProductImage from '../../components/DashboardProductImage'
-import CouponsScrollPupup from '../../components/CouponsScrollPupup'
-import CatogriesScroll from '../../components/CatogriesScroll'
+// import CouponsImage from '../../components/CouponsImage'
+// import HeaderLandingScreen from '../../components/HeaderLandingScreen'
+// import WishlistImageComponent from '../../components/WishlistImageComponent'
+// import ViewCouponRetailer from '../../components/ViewCouponRetailer'
+// import CouponImageSetting from '../../components/CouponImageSetting'
+// import DashboardImageScroll from './DashboardImageScroll'
+// import DashboardProductImage from '../../components/DashboardProductImage'
+// import CouponsScrollPupup from '../../components/CouponsScrollPupup'
+// import CatogriesScroll from '../../components/CatogriesScroll'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Header from '../../components/Header'
 import apiRequest from '../../api/Apirequest';
-import { loginAction } from "../../redux/action/AuthAction";
-import { connect } from "react-redux";
+// import { loginAction } from "../../redux/action/AuthAction";
+// import { connect } from "react-redux";
 import Cookies from 'universal-cookie';
 import ToasterFunction from '../../components/ToasterFunc';
 import { endUserProfileAction } from '../../redux/action/EndUserProfileAction';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Link } from 'react-router-dom';
+// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ToasterFunction from '../components/ToasterFunc';
 import ApiRequest from '../api/Apirequest';
 import { connect } from "react-redux";
@@ -295,6 +295,7 @@ class CreateWebpage extends Component {
                                     ToasterFunction("error", "Internal Server Error");
                                 }
                             }
+                            break;
                         case (900): {
                             if (resp.status == 900) {
                                 ToasterFunction("error", "Please check your internet connection")

@@ -1,21 +1,21 @@
 
 import React, { Component } from 'react'
 import Footer from '../../../components/Footer'
-import Header from '../../../components/Header'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css';
-import ImageDashboard from '../../../components/ImageDashboard'
-import { Switch, Route, Link } from "react-router-dom";
+// import ImageDashboard from '../../../components/ImageDashboard'
+import {Link } from "react-router-dom";
 import Header2 from '../../../components/Header2'
-import CreateCoupon from '../../../components/CreateCoupon'
-import CoupontempleteImage from '../../../components/CoupontempleteImage'
-import Header3 from '../../../components/Header3';
+// import CreateCoupon from '../../../components/CreateCoupon'
+// import CoupontempleteImage from '../../../components/CoupontempleteImage'
+// import Header3 from '../../../components/Header3';
 import Apirequest from "../../../api/Apirequest";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { retailerProfileAction } from "../../../redux/action/ProfileDetailsAction";
 import { getTemplate } from '../../../utils/SVG';
+import  {getSVG, sendSVG} from "../../../utils/API_Utils/apiUtils"
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -39,39 +39,44 @@ class Coupon_template extends Component {
     super(props)
 
     this.state = {
-      couponTemplateList: []
+      couponTemplateList: [1,2,3,4 ,5]
     }
   }
 
-  componentDidMount() {
-    const { token, userId } = this.props.applicationData
-    this.props.action.retailerProfileAction(token)
-    let obj = {}
-    Apirequest(obj, "/admin/couponTemplateList", "POST")
-      .then((resp) => {
-        switch (resp.status) {
-          case (200): {
-            if (resp.data.responseCode == 200) {
-              this.setState({ couponTemplateList: resp.data.result })
-            }
-            else if (resp.data.responseCode == 402) {
-              alert("Invalid credentials")
-            }
-          }
-            break
-          default: {
-            alert(resp.data.error)
-          }
-        }
-      }
-      )
-      .catch(err => {
-        console.log("respresp---", err)
-      }
-      )
+  async componentDidMount() {
+    let data=await getSVG()
+    // sendSVG()
+    console.log("dool=>",data)
+    // this.setState({couponTemplateList:data})
+    // this.setState({templ:data},()=>console.log("recieved", this.state.templ))
+    // const { token } = this.props.applicationData
+    // this.props.action.retailerProfileAction(token)
+    // let obj = {}
+    // Apirequest(obj, "/admin/couponTemplateList", "POST")
+    //   .then((resp) => {
+    //     switch (resp.status) {
+    //       case (200): {
+    //         if (resp.data.responseCode == 200) {
+    //           this.setState({ couponTemplateList: resp.data.result })
+    //         }
+    //         else if (resp.data.responseCode == 402) {
+    //           alert("Invalid credentials")
+    //         }
+    //       }
+    //         break
+    //       default: {
+    //         // alert(resp.data.error)
+    //       }
+    //     }
+    //   }
+    //   )
+    //   .catch(err => {
+    //     console.log("respresp---", err)
+    //   }
+    //   )
   }
   render() {
-    const { path } = this.props.match;
+    // const { path } = this.props.match;
     return (
       <div>
         <body>
@@ -133,6 +138,9 @@ class Coupon_template extends Component {
                   return (
                     <Link to={`/CreateCouponform/${index}`} >
                       {getTemplate(index, { name: index })}
+                      {
+                        console.log(">>>>>", item .template)
+                      }
                     </Link>
                   )
                 })

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalBody } from 'reactstrap';
 import Apirequest from "../api/Apirequest"
 // import {loginAction} from "../redux/action/ActionTypes";
 import { connect } from "react-redux";
@@ -61,12 +60,12 @@ handleValidation(key) {
        //     break
 
        case ("newpass"):
-           var data = validatePassword(this.state.newpass)
+           let data = validatePassword(this.state.newpass)
            console.log("this is data of pass", data)
            this.setState({ newpassErrormsg: data.error, newpassStatus: data.status }, () => console.log("errore", this.state))
-           break
+           break;
        case ("cnfpass"):
-           var data = validateCFPassword(this.state.cnfpass,this.state.newpass)
+           let data = validateCFPassword(this.state.cnfpass,this.state.newpass)
            this.setState({ cnfpassErrormsg: data.error, cnfpassStatus: data.status }, () => console.log("errore", this.state))
            
            break

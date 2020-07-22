@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Link } from 'react-router-dom';
+// import { Button, Modal, ModalHeader, ModalB/ody, ModalFooter } from 'reactstrap';
 
 export default class CoupanViewHistoryRetailer extends Component {
     constructor(props) {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import WishlistImageComponent from './WishlistImageComponent';
-import DashboardImageScroll from '../screens/dashboard/DashboardImageScroll';
-import CatogriesScroll from './CatogriesScroll';
+// import { Link } from 'react-router-dom';
+import { Modal, ModalBody } from 'reactstrap';
+// import WishlistImageComponent from './WishlistImageComponent';
+// import DashboardImageScroll from '../screens/dashboard/DashboardImageScroll';
+// import CatogriesScroll from './CatogriesScroll';
 import ImageDashboard from "./ImageDashboard";
 import apiRequest from '../api/Apirequest';
 import { loginAction } from "../redux/action/AuthAction";

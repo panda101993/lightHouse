@@ -11,7 +11,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getTemplate } from '../../../utils/SVG'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getRetailerCategory, getRetailerSubCategory } from "../../../utils/API_Utils/apiUtils"
+import { getRetailerCategory, getRetailerSubCategory, sendSVG, getItemTypeByRetailer, getBrandByRetailer, getItemNameByRetailer } from "../../../utils/API_Utils/apiUtils"
 import { validateForm, validateMobileNo } from '../../../utils/validation/Validation'
 
 const ImageId = {
@@ -35,7 +35,12 @@ export class CreateCouponform extends Component {
          OTC: "OTC_TRUE",
          INSIDE_MART: "INSIDE_MART_TARGET_ALL",
          OUTSIDE_MART: "OUTSIDE_MART_TARGET_ALL",
-         categoryList: []
+         categoryList: [],
+         subCategoryList:[],
+         itemNameList:[],
+         itemTypeList:[],
+         brandList:[],
+         
       }
    }
    toggleState = (stateName) => {
@@ -67,6 +72,7 @@ export class CreateCouponform extends Component {
    }
    getNextDropdownData =async (e,type) => {
       console.log("type, e",e)
+      // eslint-disable-next-line default-case
       switch (type) {
          case ("category"): {
             let formData={
@@ -74,8 +80,39 @@ export class CreateCouponform extends Component {
                   "retailerId":this.props.userId
             }
             let  data= await getRetailerSubCategory(this.props.token,formData)
+            this.setState({subCategoryList:data},()=>console.log("this.state",this.state))
+         };
+         // eslint-disable-next-line no-fallthrough
+         case ("subCategory"): {
+            let formData={
+                  "subCategoryId":e,
+                  "retailerId":this.props.userId
+            }
+            console.log("formData",formData)
+            let  data= await getItemTypeByRetailer(this.props.token,formData)
+            // itemNameList:[],
+            // itemTypeList:[],
+            // brandList:[],
+            this.setState({itemTypeList:data},()=>console.log("this.state",this.state))
+         };
+         // eslint-disable-next-line no-fallthrough
+         case ("itemType"): {
+            let formData={
+                  "subCategoryId":e,
+                  "retailerId":this.props.userId
+            }
+            let  data= await getBrandByRetailer(this.props.token,formData)
+            this.setState({itemTypeList:data},()=>console.log("this.state",this.state))
             console.log("??????",data)
-
+         }
+              // eslint-disable-next-line no-fallthrough
+              case ("brand"): {
+            let formData={
+                  "subCategoryId":e,
+                  "retailerId":this.props.userId
+            }
+            let  data= await getItemNameByRetailer(this.props.token,formData)
+            console.log("??????",data)
          }
       }
    }
@@ -131,7 +168,9 @@ export class CreateCouponform extends Component {
    }
    componentDidMount = async () => {
       let categoryList = await getRetailerCategory(this.props.token)
-      this.setState({ categoryList: categoryList })
+      console.log("k>>>>",categoryList)
+      this.setState({ categoryList: categoryList },()=>console.log("k>>>>",categoryList))
+      // sendSVG()
    }
 
    render() {
@@ -155,7 +194,43 @@ export class CreateCouponform extends Component {
                   <div class="container border-box">
                      <div class="name_c3">
                         <div class="offer-in-circle">
-                           {getTemplate(Number(this.props.match.params.id), this.state)}
+                           {/* {getTemplate(Number(this.props.match.params.id), this.state)} */}
+                           {
+                              // React.createElement("svg", {
+                              //    width: "100",
+                              //    height: "100"
+                              //  }, /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  }, /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  })), /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  }), /*#__PURE__*/React.createElement("circle", {
+                              //    cx: "50",
+                              //    cy: "50",
+                              //    r: "40",
+                              //    stroke: "green",
+                              //    "stroke-width": "4",
+                              //    fill: "yellow"
+                              //  }))
+                           }
+                           
+                           <img src={"https://svgshare.com/i/Mvx.svg"} alt="A Rectangle Image with SVG" />;
                            <input onChange={this.handleFileSelect} style={{ display: "none" }} type="file" accept="image/*" />
                            <div class="plus-circle">
                               <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -251,10 +326,9 @@ export class CreateCouponform extends Component {
                                     <option >Sub-Category Name</option>
                                     {!this.state.subCategoryState ?
                                        <>
-                                          <option value={"Sub-Category 1"} disabled={this.state.subCategoryState}>Sub-Category 1</option>
-                                          <option value={"Sub-Category 2"} disabled={this.state.subCategoryState}>Sub-Category 2</option>
-                                          <option value={"Sub-Category 3"} disabled={this.state.subCategoryState}>Sub-Category 3</option>
-                                          <option value={"Sub-Category 4"} disabled={this.state.subCategoryState}>Sub-Category 4</option>
+                                          {this.state.subCategoryList.map(item =>
+                                             <option value={item.productServiceDetails.subCategoryId} >{item.productServiceDetails.itemName}</option>
+                                          )}
                                        </>
                                        : <></>
                                     }

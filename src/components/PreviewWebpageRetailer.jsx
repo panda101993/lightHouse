@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 export default class PreviewWebpageRetailer extends Component {
@@ -9,7 +9,7 @@ export default class PreviewWebpageRetailer extends Component {
    this.state = {
       
    };
- };
+ }
 
     render() {
         return (

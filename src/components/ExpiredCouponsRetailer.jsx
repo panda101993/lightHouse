@@ -1,9 +1,9 @@
 
 
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { GlobalCoupanImageBox } from "../components/GlobalCoupanImageBox";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Link } from 'react-router-dom';
+// import { GlobalCoupanImageBox } from "../components/GlobalCoupanImageBox";
+import { Modal, ModalBody } from 'reactstrap';
 import { connect } from "react-redux";
 import Apirequest from '../api/Apirequest';
 import ToasterFunction from '../../src/components/ToasterFunc';
@@ -91,7 +91,7 @@ class ExpiredCoupansRetailer extends Component {
             }
             })
          
-            .catch(e => { console.log(e) }) 
+            .catch(err => { console.log(err) }) 
      }
 
     render() {

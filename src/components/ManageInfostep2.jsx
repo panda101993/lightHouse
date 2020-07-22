@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { validateOtp, validateMobileNo, validateEmail, validatePinCode } from '../utils/validation/Validation';
+import { Modal, ModalBody } from 'reactstrap';
+import { validateOtp, validateEmail, validatePinCode } from '../utils/validation/Validation';
 import { connect } from "react-redux";
 import ProvinceJSON from "../utils/JSON/province.json";
 import Apirequest from "../api/Apirequest"
@@ -239,9 +239,9 @@ export class ManageInfostep2 extends Component {
             var data = validateEmail(this.state.email)
             console.log("email====", data)
             this.setState({ emailErrorMsg: data.error, emailErrorStatus: data.status }, () => console.log("errore", this.state))
-            break
+            break;
          case ("pincode"):
-            var data = validatePinCode(this.state.pincode)
+             data = validatePinCode(this.state.pincode)
             console.log("this is data of pass", data)
             this.setState({ pincodeErrorMsg: data.error, pincodeErrorStatus: data.status }, () => console.log("errore", this.state))
             break
@@ -502,7 +502,7 @@ finalSubmit=()=>{
                      </span>
                      <div class="address">
                         <ul class="button_cs">
-                           <a href="index.html"><li class="cancel_c300"><button type="button" class="save">Skip</button></li></a>
+                        <Link class="navbar-brand" to="/"><li class="cancel_c300"><button type="button" class="save">Skip</button></li></Link>
                            <li> 
                               {/* <Link to="/LandingScreen"> */}
                                  <button type="button" class="save0" onClick={()=>this.finalSubmit()}>Submit</button>

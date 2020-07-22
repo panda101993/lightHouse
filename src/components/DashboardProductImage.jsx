@@ -1,9 +1,9 @@
 import React , { useState }from 'react' 
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
+import {  Modal, ModalBody } from 'reactstrap'; 
 
 export default function DashboardProductImage ( props )  {  
-    const [count ,setCount] = useState(false)
+   //  const [count ,setCount] = useState(false)
     const [modalStatus,setModal] =useState(false)
      const { ImageName } = props 
     console.log( "hello image ",props) 

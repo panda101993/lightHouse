@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { validateOtp, validateMobileNo, validateEmail, validatePassword, validateCFPassword } from '../utils/validation/Validation';
+import {  Modal,  ModalBody } from 'reactstrap';
+import { validateOtp, validateMobileNo } from '../utils/validation/Validation';
 import ApiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import { connect } from "react-redux";
@@ -172,6 +172,7 @@ class ManageInfoRetailer extends Component {
                                 else if (resp.data.responseCode == 500) {
                                     ToasterFunction("error", "Internal Server Error");
                                 }
+                                break;
                             }
                         case (900): {
                             if (resp.status == 900) {
@@ -209,6 +210,7 @@ class ManageInfoRetailer extends Component {
                                 else if (resp.data.responseCode == 500) {
                                     ToasterFunction("error", "Internal Server Error");
                                 }
+                                break;
                             }
                         case (900): {
                             if (resp.status == 900) {
@@ -245,6 +247,7 @@ class ManageInfoRetailer extends Component {
                                         else if (resp.data.responseCode == 500) {
                                             ToasterFunction("error", "Internal Server Error");
                                         }
+                                        break;
                                     }
                                 case (900): {
                                     if (resp.status == 900) {

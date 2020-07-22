@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalBody, } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { validatePinCode, validateProvince, validateCity, validateAddress } from '../utils/validation/Validation';
@@ -7,7 +7,7 @@ import ProvinceJSON from '../utils/JSON/province.json';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import Cookies from 'universal-cookie';
-import Geocode from "react-geocode";
+// import Geocode from "react-geocode";
 
 const Header = (props) => {
     const [pinCode, setPinCode] = useState("");
@@ -35,14 +35,14 @@ const Header = (props) => {
     const [modalStatusView, setModalView] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen1, setDropdownOpen1] = useState(false);
-    const [dropdownOpen2, setDropdownOpen2] = useState(false);
+    // const [dropdownOpen2, setDropdownOpen2] = useState(false);
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [showLocationTitle, setShowLocationTitle] = useState(true)
 
     const toggle = () => setDropdownOpen(prevState => !prevState);
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
-    const toggle2 = () => setDropdownOpen2(prevState => !prevState);
+    // const toggle2 = () => setDropdownOpen2(prevState => !prevState);
 
     let handlePinCode = (event) => {
         setPinCode(event.target.value)
@@ -81,35 +81,35 @@ const Header = (props) => {
 
     });
 
-    let getAddressData = () => {
+    // let getAddressData = () => {
 
-        // Get address from latidude & longitude.
-        Geocode.setApiKey("AIzaSyC5xm2_oboD4KY1Si7XtasWL0IzjDOshPM");
+    //     // Get address from latidude & longitude.
+    //     Geocode.setApiKey("AIzaSyC5xm2_oboD4KY1Si7XtasWL0IzjDOshPM");
 
-        Geocode.fromLatLng("48.8583701", "2.2922926").then(
-            response => {
-                const address = response.results[0].formatted_address;
-                console.log("getaddressdata", address);
-            },
-            error => {
-                console.error(error);
-            }
-        );
-    }
+    //     Geocode.fromLatLng("48.8583701", "2.2922926").then(
+    //         response => {
+    //             const address = response.results[0].formatted_address;
+    //             console.log("getaddressdata", address);
+    //         },
+    //         error => {
+    //             console.error(error);
+    //         }
+    //     );
+    // }
 
-    let getCoordinateFromAddress = () => {
+    // let getCoordinateFromAddress = () => {
 
-        // Get latidude & longitude from address.
-        Geocode.fromAddress("Eiffel Tower").then(
-            response => {
-                const { lat, lng } = response.results[0].geometry.location;
-                console.log("akkkkkkk", lat, lng);
-            },
-            error => {
-                console.error(error);
-            }
-        );
-    }
+    //     // Get latidude & longitude from address.
+    //     Geocode.fromAddress("Eiffel Tower").then(
+    //         response => {
+    //             const { lat, lng } = response.results[0].geometry.location;
+    //             console.log("akkkkkkk", lat, lng);
+    //         },
+    //         error => {
+    //             console.error(error);
+    //         }
+    //     );
+    // }
 
 
     let getPopupAddress = () => {
@@ -209,16 +209,21 @@ const Header = (props) => {
             setShowLocationTitle(false);
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
-        }
+        },
+            function (error) {
+                console.log("location_error=>",error);
+                ToasterFunction('info', 'You have denied location access to this website. Please manually allow the location access from the browser.');
+                // setModal(true);
+            }
 
         );
         setModal1(false);
     }
 
-    
-    let navigateButton = () =>{
-            window.location.href = `/couponsBySearch/${search}`
-        }
+
+    let navigateButton = () => {
+        window.location.href = `/couponsBySearch/${search}`
+    }
 
 
 
@@ -236,10 +241,6 @@ const Header = (props) => {
                                     </li>
                                     <li>
                                         <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
-
-
-
-
                                     </li>
                                 </ul>
                             </div>
@@ -279,9 +280,9 @@ const Header = (props) => {
                 {modalStatusView ?
                     <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)}>
                                 <span class="navbar-toggler-icon"></span>
@@ -323,9 +324,9 @@ const Header = (props) => {
                         </nav>
                     </div> : <div class="container-fluid">
                         <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <Link class="navbar-brand" to="/">
                                 <img class="logo" src={require("../assets/images/Logo.png")} />
-                            </a>
+                            </Link>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={() => setModalView(!modalStatusView)}>
                                 <span class="navbar-toggler-icon"></span>
@@ -342,11 +343,11 @@ const Header = (props) => {
                                                 placeholder="Search by Mart, Retailer, Category, Sub category, Item type, Brand" />
                                             {/* placeholder="Search by Title, Product/Service name etc" /> */}
                                             <div class="input-group-append">
-                                              
-                                               <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
-                                                 <i class="fa fa-search"></i>
+
+                                                <button disabled={!search} class="btn btn-seach" type="button" onClick={() => navigateButton()}>
+                                                    <i class="fa fa-search"></i>
                                                 </button>
-                                                
+
                                             </div>
                                         </div>
                                     </li>

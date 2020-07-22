@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react'
 import Header2 from '../../components/Header2';
 import Footer from '../../components/Footer';
@@ -10,7 +8,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux";
 import Apirequest from '../../api/Apirequest';
 import ToasterFunction from '../../components/ToasterFunc';
-// import { readlink } from 'fs/promises';
 
 
 class NotificationScreensRetailer extends Component {
