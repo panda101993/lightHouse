@@ -312,16 +312,12 @@ class componentName extends Component {
          >
             {
                // this.state.allData.filter(allData => allData.productServiceType == "SERVICE").map((xyz, index) => {
-               this.state.serviceCategoriesList.map((category) => {
-
-                  console.log("categoryId=> ", category)
+               this.state.serviceCategoriesList.map((category) => {                  
 
                   let categoryDetails = this.state.allCategoriesList.find(x => x.categoryId === category);
 
                   let imageName = '', categoryId = '', categoryImage = '', uniqueId = '', heartStatus = '';
-
-                  console.log("CategoryDetailes=> ", categoryDetails);
-
+               
                   if (categoryDetails) {
                      imageName = categoryDetails.categoryName;
                      categoryId = categoryDetails.categoryId;
@@ -349,30 +345,30 @@ class componentName extends Component {
                   //    } else {
                   //       heartStatus = Imageid.RedHeart;
                   //    }
-                     return (
-                        <div>
+                  return (
+                     <div>
 
-                           <ImageDashboard
-                              ImageName={imageName}
-                              // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
-                              LinkId={`/subCategories?categoryId=${categoryId}`}
-                              ImageA={categoryImage}
-                              heartImage={heartStatus}
-                              CategoryId={categoryId}
-                              Id={categoryId}
-                              Token={this.props.applicationData.token}
-                              typeData={'category'}
-                              UniqueId={category}
-                              HeartData={heartStatus}
-                              // blankHeart={Imageid.heartImage}
-                              // redHeart={Imageid.RedHeart}
-                              ProductServiceType={"SERVICE"}
-                              reloadApi={this.getmartsbyUserList}
+                        <ImageDashboard
+                           ImageName={imageName}
+                           // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                           LinkId={`/subCategories?categoryId=${categoryId}`}
+                           ImageA={categoryImage}
+                           heartImage={heartStatus}
+                           CategoryId={categoryId}
+                           Id={categoryId}
+                           Token={this.props.applicationData.token}
+                           typeData={'category'}
+                           UniqueId={category}
+                           HeartData={heartStatus}
+                           // blankHeart={Imageid.heartImage}
+                           // redHeart={Imageid.RedHeart}
+                           ProductServiceType={"SERVICE"}
+                           reloadApi={this.getmartsbyUserList}
 
-                           />
+                        />
 
-                        </div>
-                     )
+                     </div>
+                  )
                   // }
                })
             }
@@ -402,47 +398,62 @@ class componentName extends Component {
             itemClass="carousel-item-padding-40-px"
          >
             {
-               this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index) => {
+               // this.state.allData.filter(allData => allData.productServiceType == "PRODUCT").map((xyz, index) => {
+               this.state.productCategoriesList.map((category) => {
                   // const {martId,categoryId, categoryImage,categoryName,_id} = xyz
-                  if (xyz.categoryUsers !== undefined) {
-                     let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
+                  // if (xyz.categoryUsers !== undefined) {
+                  //    let checkData = xyz.categoryUsers.indexOf(this.props.applicationData.userId);
 
-                     // let heartStatus;
-                     // if(checkData == -1){
-                     //   heartStatus = false;
-                     // }else{
-                     //   heartStatus = true ;
-                     // }
-                     let heartStatus;
-                     if (checkData == -1) {
-                        heartStatus = Imageid.heartImage;
-                     } else {
-                        heartStatus = Imageid.RedHeart;
-                     }
-                     return (
-                        <div>
+                  //    // let heartStatus;
+                  //    // if(checkData == -1){
+                  //    //   heartStatus = false;
+                  //    // }else{
+                  //    //   heartStatus = true ;
+                  //    // }
+                  //    let heartStatus;
+                  //    if (checkData == -1) {
+                  //       heartStatus = Imageid.heartImage;
+                  //    } else {
+                  //       heartStatus = Imageid.RedHeart;
+                  //    }
 
-                           <ImageDashboard
-                              ImageName={xyz.categoryName}
-                              LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
-                              ImageA={xyz.categoryImage}
-                              heartImage={heartStatus}
-                              CategoryId={xyz.categoryId}
-                              Id={xyz.categoryId}
-                              Token={this.props.applicationData.token}
-                              typeData={'category'}
-                              UniqueId={xyz._id}
-                              HeartData={heartStatus}
-                              blankHeart={Imageid.heartImage}
-                              redHeart={Imageid.RedHeart}
-                              ProductServiceType={xyz.productServiceType}
-                              reloadApi={this.getmartsbyUserList}
+                  let categoryDetails = this.state.allCategoriesList.find(x => x.categoryId === category);
 
-                           />
+                  let imageName = '', categoryId = '', categoryImage = '', uniqueId = '', heartStatus = '';                  
 
-                        </div>
-                     )
+                  if (categoryDetails) {
+                     imageName = categoryDetails.categoryName;
+                     categoryId = categoryDetails.categoryId;
+                     categoryImage = categoryDetails.categoryImage;
+                     uniqueId = category;
                   }
+
+                  heartStatus = Imageid.heartImage;
+
+                  return (
+                     <div>
+
+                        <ImageDashboard
+                           ImageName={imageName}
+                           // LinkId={`/subCategories/${xyz.categoryId}/${xyz.martId}`}
+                           LinkId={`/subCategories?categoryId=${categoryId}`}
+                           ImageA={categoryImage}
+                           heartImage={heartStatus}
+                           CategoryId={categoryId}
+                           Id={categoryId}
+                           Token={this.props.applicationData.token}
+                           typeData={'category'}
+                           UniqueId={category}
+                           HeartData={heartStatus}
+                           // blankHeart={Imageid.heartImage}
+                           // redHeart={Imageid.RedHeart}
+                           ProductServiceType={"SERVICE"}
+                           reloadApi={this.getmartsbyUserList}
+
+                        />
+
+                     </div>
+                  )               
                })
             }
          </Carousel>
