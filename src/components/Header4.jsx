@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Cookies from 'universal-cookie';
 import { endUserProfileAction } from '../redux/action/EndUserProfileAction';
@@ -69,6 +69,19 @@ const Header4 = (props) => {
         setLongitude(longitude);
 
       });
+
+ let logout = async () => {
+    // await localStorage.clear();
+    // alert("helllli")
+    // window.location.replace("LoginCustomer");
+    // window.location.href = "/LoginCustomer";
+    // await this.props.history.push("/LoginCustomer")
+    // await this.history.push("/")
+    // await history.push('/LoginCustomer');
+    // <Redirect push to="/LoginCustomer"/>;
+    // <Redirect to="/LoginCustomer"/>;
+    // <Link to="/LoginCustomer"/>;
+  }
 
   
     return (
@@ -226,7 +239,9 @@ const Header4 = (props) => {
                         </div>
                         <div class="modal-body ok n-yes">
                             <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)}>No</button>
-                            <Link to="SignupCustomer"><button type="button" class="btn setloc-btn" type="submit" onClick={() => setModal(!modalStatus)}>Yes</button></Link>
+                            {/* <Link to="/"> */}
+                                <button type="button" class="btn setloc-btn" type="submit" onClick={() => logout()}>Yes</button>
+                                {/* </Link> */}
                         </div>
                     </form>
                 </ModalBody>

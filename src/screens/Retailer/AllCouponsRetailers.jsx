@@ -161,7 +161,7 @@ export class AllCouponsRetailers extends Component {
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
                   >
-                    { this.state.allData.map((allCouponData, index)=>{
+                    { this.state.allData.slice(0,1).map((allCouponData, index)=>{
                       return(
                     <div>
                       <div class="slicent activa">

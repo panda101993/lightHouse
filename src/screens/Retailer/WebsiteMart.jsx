@@ -93,7 +93,8 @@ export class WebsiteMart extends Component {
    }
 
    martImageSlider() {
-      if (this.state.allData.length > 0)
+      // if (this.state.allData.length > 0)
+      if (!this.state.allData) return null;
          return this.state.allData.slice(0,1).map((xyz, index) => {
             const { martId } = xyz
             // console.log('abcd==',martId.images[0])
@@ -137,7 +138,8 @@ export class WebsiteMart extends Component {
    }
 
    martBasicInfo() {
-      if (this.state.allData.length > 0)
+      // if (this.state.allData.length > 0)
+      if (!this.state.allData) return null;
          return this.state.allData.slice(0,1).map((xyz, index) => {
             const { shopName, shopNumber, floorNumber, email, martId, pinCode, otpTime, parkingAvailability, martName } = xyz
             console.log('abcd==>>', xyz)
@@ -179,7 +181,8 @@ export class WebsiteMart extends Component {
    }
 
    shopData() {
-      if (this.state.allData.length > 0)
+      // if (this.state.allData.length > 0)
+      if (!this.state.allData) return null;
          return this.state.allData.map((xyz, index) => {
             const { shopName, shopNumber, floorNumber, email, mobileNumber } = xyz
             // console.log('abcd==',martId.images[0])

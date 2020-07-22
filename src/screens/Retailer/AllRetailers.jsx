@@ -367,10 +367,10 @@ this.setState({
       
       {this.state.allCoupon.map((xyz, index) => {
         // console.log("applicationData--", allCoupon.retailerId.users)
-        if(!xyz.retailerId.address)return null;
-        if(!xyz.retailerId.city)return null;
-        if(!xyz.retailerId.pinCode)return null;
-        if(!xyz.retailerId.state)return null;
+        // if(!xyz.retailerId.address)return null;
+        // if(!xyz.retailerId.city)return null;
+        // if(!xyz.retailerId.pinCode)return null;
+        // if(!xyz.retailerId.state)return null;
         // console.log("applicationDataakh--", allCoupon.retailerId.city)
 
         return (

@@ -75,7 +75,8 @@ console.log("latitude---",latitude)
 console.log("longitude---",longitude)
          
 
-         if (this.props.applicationData.token) {
+         // if (this.props.applicationData.token) {
+            if (this.props.isLoggedIn==true) {
             // console.log('hhhh=>',this.props.applicationData)
             apiRequest({ lat: latitude, long: longitude }, '/user/getMartsByUser', 'POST', this.props.applicationData.token)
                .then((resp) => {
@@ -167,7 +168,8 @@ console.log("longitude---",longitude)
    }
 
    martData() {
-      if (this.props.applicationData.token) {
+      // if (this.props.applicationData.token) {
+         if (this.props.isLoggedIn==true) {
          return (
             <Carousel
                swipeable={true}
@@ -277,7 +279,8 @@ console.log("longitude---",longitude)
    }
 
    servicesByCategoryData() {
-      if (this.props.applicationData.token) {
+      // if (this.props.applicationData.token) {
+         if (this.props.isLoggedIn==true) {
          return (
             <Carousel
                swipeable={true}
@@ -380,7 +383,8 @@ console.log("longitude---",longitude)
 
 
    productsByCategoryData() {
-      if (this.props.applicationData.token) {
+      // if (this.props.applicationData.token) {
+         if (this.props.isLoggedIn==true) {
          return (
             <Carousel
                swipeable={true}
@@ -531,6 +535,7 @@ render() {
 const mapStateToProps = state => {
    console.log("stateabc", state)
    return {
+      isLoggedIn:state.AuthReducer.isLoggedIn,
       applicationData: state.AuthReducer.userData,
       endUserProfileData: state.EndUserProfileReducer.endUserProfileData
    }
