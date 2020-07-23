@@ -71,7 +71,7 @@ const Header4 = (props) => {
     // await this.props.history.push("/LoginCustomer")
     // await this.history.push("/")
     // await history.push('/LoginCustomer');
-    // <Redirect push to="/LoginCustomer"/>;
+    // <Redirect push to="/LoginCustomer"/>;git 
     // <Redirect to="/LoginCustomer"/>;
     // <Link to="/LoginCustomer"/>;
   }
