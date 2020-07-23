@@ -63,10 +63,10 @@ const Header4 = (props) => {
     });
 
 
- let logout = async () => {
-    // await localStorage.clear();
+ let logout = () => {
+    localStorage.clear();
     // alert("helllli")
-    // window.location.replace("LoginCustomer");
+    window.location.replace("/");
     // window.location.href = "/LoginCustomer";
     // await this.props.history.push("/LoginCustomer")
     // await this.history.push("/")
@@ -232,9 +232,9 @@ const Header4 = (props) => {
                         </div>
                         <div class="modal-body ok n-yes">
                             <button class="btn setloc-btn" type="submit" data-dismiss="modal" onClick={() => setModal(!modalStatus)}>No</button>
-                            {/* <Link to="/"> */}
+                            <Link to="/">
                                 <button type="button" class="btn setloc-btn" type="submit" onClick={() => logout()}>Yes</button>
-                                {/* </Link> */}
+                                </Link>
                         </div>
                     </form>
                 </ModalBody>

@@ -1,41 +1,37 @@
-import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data,LOGOUT_ACTION } from './ActionTypes';
+import { LOGIN_ACTION, SIGNUP_ACTION, MyCoupon_Data, LOGOUT_ACTION } from './ActionTypes';
 import Apirequest from "../../api/Apirequest";
 import ToasterFunction from "../../components/ToasterFunc"
 
 
-export const loginAction = (credential,navigationFunction) => dispatch => {
+export const loginAction = (credential, navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
     console.log('navigationFunction=>', navigationFunction);
 
     Apirequest(credential, "/user/login", "POST")
         .then((resp) => {
-            console.log('respresp===>',resp);
-            dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
-            
+            console.log('respresp===>', resp);
+            dispatch({ type: LOGIN_ACTION, payload: resp.data.result })
+
             // navigationFunction()
-            switch (resp.status) 
-            {
-                
-                
+            switch (resp.status) {
+
+
                 case (200): {
                     // console.log("responseCode",resp.data.responseCode)
-                    if(resp.data.responseCode==200)
-                    {
-                    dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
-                    navigationFunction()
+                    if (resp.data.responseCode == 200) {
+                        dispatch({ type: LOGIN_ACTION, payload: resp.data.result })
+                        navigationFunction()
                     }
-                    else if(resp.data.responseCode==402)
-                    {
+                    else if (resp.data.responseCode == 402) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("invalid","Invalid credentials")
+                        ToasterFunction("invalid", "Invalid credentials")
                     }
-                    else if(resp.data.responseCode==404)
-                    {
+                    else if (resp.data.responseCode == 404) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("error","Provided email/mobile number is not registered")
+                        ToasterFunction("error", resp.data.responseMessage);
                     }
-                    else if(resp.data.responseCode==500){
-                        ToasterFunction("error","Internal Server Error")
+                    else if (resp.data.responseCode == 500) {
+                        ToasterFunction("error", "Internal Server Error")
                     }
                 }
                     break
@@ -54,11 +50,11 @@ export const loginAction = (credential,navigationFunction) => dispatch => {
 
 
 export const logoutAction = () => dispatch => {
-    
+
     // console.log('navigationFunction=>', navigationFunction);
-    dispatch({ type: LOGOUT_ACTION})
-   
-   
+    dispatch({ type: LOGOUT_ACTION })
+
+
 }
 // export const logoutAction = (credential,navigationFunction) => dispatch => {
 //                     dispatch({ type: "Logout", payload:false })
@@ -71,27 +67,24 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
 
     Apirequest(credential, "/user/signUp", "POST")
         .then((resp) => {
-            console.log('respSSresp===>',resp);
+            console.log('respSSresp===>', resp);
             dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
 
             switch (resp.status) {
-                
+
                 case (200): {
                     // console.log("responseCode",resp.data.responseCode)
-                    if(resp.data.responseCode==200)
-                    {
+                    if (resp.data.responseCode == 200) {
                         dispatch({ type: SIGNUP_ACTION, payload: resp.data.result })
-                    navigationFunction()
+                        navigationFunction()
                     }
-                    else if(resp.data.responseCode==404)
-                    {
+                    else if (resp.data.responseCode == 404) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("exist","This Email/Mobile number already exists")
+                        ToasterFunction("exist", "This Email/Mobile number already exists")
                     }
-                    else if(resp.data.responseCode==500)
-                    {
+                    else if (resp.data.responseCode == 500) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("error","Internal Server Error")
+                        ToasterFunction("error", "Internal Server Error")
                     }
                 }
                     break
@@ -99,47 +92,42 @@ export const signupAction = (credential, navigationFunction) => dispatch => {
                     alert(resp.data.error)
                 }
             }
-            console.log("respppp-->",resp)
+            console.log("respppp-->", resp)
         }
         )
 
 }
 
-export const loginActionRetailer = (credential,navigationFunction) => dispatch => {
+export const loginActionRetailer = (credential, navigationFunction) => dispatch => {
     console.log('SHOW_BIG_MARKER=>', credential);
     // console.log('navigationFunction=>', navigationFunction);
 
     Apirequest(credential, "/retailer/login", "POST")
         .then((resp) => {
-            console.log('respresp===>',resp);
-            dispatch({ type: LOGIN_ACTION, payload:resp.data.result})
-            
+            console.log('respresp===>', resp);
+            dispatch({ type: LOGIN_ACTION, payload: resp.data.result })
+
             // navigationFunction()
-            switch (resp.status) 
-            {
-                
-                
+            switch (resp.status) {
+
+
                 case (200): {
                     // console.log("responseCode",resp.data.responseCode)
-                    if(resp.data.responseCode==200)
-                    {
-                    dispatch({ type: LOGIN_ACTION, payload:resp.data.result })
-                    navigationFunction()
+                    if (resp.data.responseCode == 200) {
+                        dispatch({ type: LOGIN_ACTION, payload: resp.data.result })
+                        navigationFunction()
                     }
-                    else if(resp.data.responseCode==402)
-                    {
+                    else if (resp.data.responseCode == 402) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("Err","Invalid credentials")
+                        ToasterFunction("Err", "Invalid credentials")
                     }
-                    else if(resp.data.responseCode==404)
-                    {
+                    else if (resp.data.responseCode == 404) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("Err","Provided email/mobile number is not registered")
+                        ToasterFunction("Err", "Provided email/mobile number is not registered")
                     }
-                    else if(resp.data.responseCode==500)
-                    {
+                    else if (resp.data.responseCode == 500) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("Err","Internal Server Error")
+                        ToasterFunction("Err", "Internal Server Error")
                     }
                 }
                     break
@@ -166,23 +154,20 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
             dispatch({ type: SIGNUP_ACTION, payload: credential })
 
             switch (resp.status) {
-                
+
                 case (200): {
                     // console.log("responseCode",resp.data.responseCode)
-                    if(resp.data.responseCode==200)
-                    {
+                    if (resp.data.responseCode == 200) {
                         dispatch({ type: SIGNUP_ACTION, payload: credential })
-                    navigationFunction()
+                        navigationFunction()
                     }
-                    else if(resp.data.responseCode==404)
-                    {
+                    else if (resp.data.responseCode == 404) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("exist","This Email/Mobile number already exists")
+                        ToasterFunction("exist", "This Email/Mobile number already exists")
                     }
-                    else if(resp.data.responseCode==500)
-                    {
+                    else if (resp.data.responseCode == 500) {
                         // console.log("Invalid credentials")
-                        ToasterFunction("Err","Internal Server Error")
+                        ToasterFunction("Err", "Internal Server Error")
                     }
                 }
                     break
@@ -190,7 +175,7 @@ export const signupActionRetailer = (credential, navigationFunction) => dispatch
                     alert(resp.data.error)
                 }
             }
-            console.log("respppp-->",resp)
+            console.log("respppp-->", resp)
         }
         )
         .catch(err => {
