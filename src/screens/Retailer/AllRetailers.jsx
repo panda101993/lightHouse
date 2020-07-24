@@ -280,7 +280,9 @@ this.setState({
       
       
       {this.state.allCoupon.map((xyz, index) => {
-        console.log("akh", xyz)
+        
+        // console.log("akh", xyz.retailerId.users.length)
+        if(xyz.retailerId && xyz.retailerId.users && xyz.retailerId.users.length > 0) {
         let checkData = xyz.retailerId.users.indexOf(this.props.applicationData.userId);
 
         // console.log('checkData--', checkData)
@@ -335,6 +337,7 @@ this.setState({
 
           </div>
         )
+      }
       })
     }</Carousel>
   }
@@ -388,15 +391,15 @@ this.setState({
                 CouponAppliedOn={xyz.couponAppliedOn}
                 OneTimeCoupon={xyz.oneTimeCoupon}
                 ShopName={xyz.shopName}
-                ShopNumber={xyz.retailerId.shopNumber}
+                ShopNumber={ xyz.retailerId && xyz.retailerId.shopNumber ? xyz.retailerId.shopNumber :""}
                 FloorNumber={xyz.floorNumber}
                 MartName={xyz.martName}
                 ShopPhoneNumber={xyz.shopPhoneNumber}
                 Restrictions={xyz.restrictions}
-                Address={xyz.retailerId.address}
-                City={xyz.retailerId.city}
-                PinCode={xyz.retailerId.pinCode}
-                State={xyz.retailerId.state}
+                Address={xyz.retailerId && xyz.retailerId.address ? xyz.retailerId.address : ""}
+                City={xyz.retailerId && xyz.retailerId.city ? xyz.retailerId.city : ""}
+                PinCode={xyz.retailerId && xyz.retailerId.pinCode ? xyz.retailerId.pinCode : ""}
+                State={xyz.retailerId && xyz.retailerId.state ? xyz.retailerId.state : ""}
               />
            
           </div>

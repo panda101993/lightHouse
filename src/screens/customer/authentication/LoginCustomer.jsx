@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../../../components/Header'
+import Header4 from '../../../components/Header4'
 import Footer from '../../../components/Footer'
 import { GlobalValidations } from '../../../components/GlobalValidations'
 import { GlobalButtonLinks } from '../../../components/GlobalButtonLinks'
@@ -108,7 +108,7 @@ export class LoginCustomer extends Component {
             <div>
           
                 <body>
-                    <Header />
+                    <Header4 />
                     <section>
                         <div class="container-fluid">
                             <div class="cover-laging">

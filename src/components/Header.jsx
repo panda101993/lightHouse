@@ -7,7 +7,7 @@ import ProvinceJSON from '../utils/JSON/province.json';
 import apiRequest from '../api/Apirequest';
 import ToasterFunction from '../components/ToasterFunc';
 import Cookies from 'universal-cookie';
-// import Geocode from "react-geocode";
+import Geocode from "react-geocode";
 
 const Header = (props) => {
     const [pinCode, setPinCode] = useState("");
@@ -83,7 +83,24 @@ const Header = (props) => {
     });
 
 
-    const reverseGeoCode = () => {
+    const reverseGeoCode = () => 
+    // {
+
+    //     Geocode.setApiKey("AIzaSyCm8rnRUZU0ecO8hpCF3KVANv9LmAXv0hc");
+    //     // Get latidude & longitude from address.
+    //     Geocode.fromAddress(String(pinCode)).then(
+    //         response => {
+    //             // const { lat, lng } = response.results[0].geometry.location;
+    //             const latlong = response
+    //             // console.log("akkkkkkk", lat, lng);
+    //             console.log("akkkkkkk", latlong);
+    //         },
+    //         error => {
+    //             console.error(error);
+    //         }
+    //     );
+    // }
+    {
 
         return new Promise((resolve, reject) => {
 
@@ -98,15 +115,18 @@ const Header = (props) => {
 
                         let lat = results[0].geometry.location.lat();
                         let lng = results[0].geometry.location.lng();
+                        let address = results[0].formatted_address;
 
                         const cookies = new Cookies();
                         cookies.set('latitude', lat, { path: '/' });
                         cookies.set('longitude', lng, { path: '/' });
+                        cookies.set('address', address, { path: '/' });
 
                         // console.log("latLong=> ", results[0].geometry.location, lat, lng);
 
                         setLatitude(lat);
                         setLongitude(lng);
+                        setAddress(address);
                         resolve();
 
                     } else {
@@ -122,35 +142,46 @@ const Header = (props) => {
 
     }
 
-    // let getAddressData = () => {
+    let getAddressData = (latitude,longitude) => {
+console.log("latttt",typeof(String(latitude)))
+console.log("latttt",longitude)
+        // Get address from latidude & longitude.
+        // Geocode.setApiKey("AIzaSyC5xm2_oboD4KY1Si7XtasWL0IzjDOshPM");
+        Geocode.setApiKey("AIzaSyCm8rnRUZU0ecO8hpCF3KVANv9LmAXv0hc");
+    
+        Geocode.fromLatLng(String(latitude), String(longitude)).then(
+            // Geocode.fromLatLng("26.1157", "83.5443").then(
+            response => {
+                const address = response.results[1].formatted_address;
+                // const address = response;
+                console.log("getaddressdata", address);
+                const cookies = new Cookies();
+            cookies.set('address', address, { path: '/' });
+            
+                setAddress(address);
+            },
+            error => {
+                console.error(error);
+            }
+        );
+    }
 
-    //     // Get address from latidude & longitude.
-    //     Geocode.setApiKey("AIzaSyC5xm2_oboD4KY1Si7XtasWL0IzjDOshPM");
+    let getCoordinateFromAddress = () => {
 
-    //     Geocode.fromLatLng("48.8583701", "2.2922926").then(
-    //         response => {
-    //             const address = response.results[0].formatted_address;
-    //             console.log("getaddressdata", address);
-    //         },
-    //         error => {
-    //             console.error(error);
-    //         }
-    //     );
-    // }
-
-    // let getCoordinateFromAddress = () => {
-
-    //     // Get latidude & longitude from address.
-    //     Geocode.fromAddress("Eiffel Tower").then(
-    //         response => {
-    //             const { lat, lng } = response.results[0].geometry.location;
-    //             console.log("akkkkkkk", lat, lng);
-    //         },
-    //         error => {
-    //             console.error(error);
-    //         }
-    //     );
-    // }
+        Geocode.setApiKey("AIzaSyCm8rnRUZU0ecO8hpCF3KVANv9LmAXv0hc");
+        // Get latidude & longitude from address.
+        Geocode.fromAddress("Shahdara").then(
+            response => {
+                // const { lat, lng } = response.results[0].geometry.location;
+                const latlong = response
+                // console.log("akkkkkkk", lat, lng);
+                console.log("akkkkkkk", latlong);
+            },
+            error => {
+                console.error(error);
+            }
+        );
+    }
 
 
     let getPopupAddress = () => {
@@ -227,10 +258,10 @@ const Header = (props) => {
 
 
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(function (position) {
+    useEffect( () => {
+           navigator.geolocation.getCurrentPosition(async function  (position) {
             // console.log("position",position);
-            // console.log("Latitude is :", position.coords.latitude);
+            console.log("Latitude is :", position.coords.latitude);
             // console.log("Longitude is :", position.coords.longitude); 
             const cookies = new Cookies();
             cookies.set('latitude', position.coords.latitude, { path: '/' });
@@ -239,18 +270,27 @@ const Header = (props) => {
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
 
+           await  getAddressData(position.coords.latitude,position.coords.longitude);
+
         },
             function (error) {
                 setModal(true);
             }
         );
+       
 
-    }, []);
+    }
+    
+    , []);
+    
 
 
 
     let getCurrentLocation = () => {
-        navigator.geolocation.getCurrentPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function (position) 
+        {
+            
+            // chrome://settings/content/siteDetails?site=http%3A%2F%2Flocalhost%3A3000
             // console.log("position",position);
             // console.log("Latitude is :", position.coords.latitude);
             //  console.log("Longitude is :", position.coords.longitude); 
@@ -260,6 +300,8 @@ const Header = (props) => {
         },
             function (error) {
                 console.log("location_error=>", error);
+                // window.location.href = "chrome://settings/content/siteDetails?site=http%3A%2F%2Flocalhost%3A3000"
+                // window.open('chrome://settings/content/location');
                 ToasterFunction('info', 'You have denied location access to this website. Please manually allow the location access from the browser.');
                 // setModal(true);
             }
@@ -286,7 +328,7 @@ const Header = (props) => {
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" onClick={() => setModal1(!modalStatus1)}>{showLocationTitle ? "Choose location" : address }<i class="" aria-hidden="true"></i></a>
                                     </li>
                                 </ul>
                             </div>

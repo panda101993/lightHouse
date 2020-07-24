@@ -19,16 +19,19 @@ function Header2(props) {
     const toggle1 = () => setDropdownOpen1(prevState => !prevState);
     const [latitude,setLatitude] = useState("");
     const [longitude,setLongitude] = useState("");
+    const [address,setAddress] = useState("");
 
     useEffect(() => {
         const cookies = new Cookies();
         let lat = cookies.get('latitude')
         let long = cookies.get('longitude')
+        let address = cookies.get('address')
 
         // console.log("long",longitude)
         // console.log("latt",latitude)
         setLatitude(lat);
         setLongitude(long);
+        setAddress(address);
 
       });
 // this.props.action.logoutAction()=>this.props.history.push("/"))
@@ -45,7 +48,7 @@ function Header2(props) {
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </li>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{latitude + " , " + longitude}<i class="" aria-hidden="true"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#fill-loctnform" >{address }<i class="" aria-hidden="true"></i></a>
                                         {/* <select class="custom-select" id="inputGroupSelect01" data-toggle="modal" data-target="#locationsetmodal">
                                             <option selected>Choose location</option>
                                             <option value="1">New Delhi</option>
